@@ -1,0 +1,423 @@
+/*** Index.html css ***/
+body{
+    background:url('../images/squairy_light.png');
+}
+
+#startGuide {
+    display:none;
+}
+
+#startGuide ul{
+    list-style:none;
+    padding:0px;
+    margin:0px auto;
+    width:100%;
+    text-align:center;
+}
+
+#startGuide ul li{
+    font-size: 24px;
+    position:relative;
+    padding:0px 45px;
+    color:#555;
+    margin-bottom:30px;
+}
+
+#startGuide ul li span{
+    font-size:35px;
+    font-weight:bold;
+    color:#79185b;
+    opacity:0.3;
+    display:inline-block;
+    margin-top:-25px;
+}
+
+#scriptPath{
+    text-align:center;
+    width:500px;
+    padding:10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#444;
+}
+
+.domain{
+    position:relative;
+    padding:5px;
+    background:white;
+    height:215px;
+    overflow:hidden;
+    border:1px dotted #ccc;
+    border-radius:5px;
+    -o-border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    text-align:center;
+    margin:10px auto;
+}
+
+.domain a span,.col a{
+    text-decoration: underline;
+    color:#79185b;
+    font-weight:bold;   
+    font-size:12px;
+    font-family:Verdana;
+}
+
+.domain a:hover span,.col a:hover{
+    color:#cb60b3;
+}
+
+.domain span{
+    font-size:11px;
+}
+
+.thumbnail .recordLimit{
+    font-size:10px;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    width:205px;
+    background:#9968ab;
+    color:white;
+    cursor:pointer;
+    padding-bottom:5px;
+    opacity:0.7;
+    transition: all 0.3s linear;
+    padding-top: 5px;
+}
+
+.domain .recordLimit:hover{
+    opacity:1;
+}
+
+.thumbnail img{
+    width: 200px;
+    height: 150px;
+}
+
+.thumbnail {
+    float: left;
+    overflow: hidden;
+    display: block;
+}
+
+.thumbnail a {
+    text-decoration: none;
+}
+
+.thumbnail .domainName {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2px;
+}
+
+.statistics {
+    float: right;
+    width: 578px;
+    height: 200px;
+    margin-left: 5px;
+    position: relative;
+}
+
+.statistics_tabs {
+    position: absolute;
+    bottom: -20px;
+    left: -10px;
+    width: 595px;
+    height: 22px;
+    background: #ccc;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+}
+
+.statistics_tabs div {
+    background: #f5f5f5;
+    float: left;
+    width:297px;
+    height: 12px;
+    padding: 3px 0px 5px 0px;
+    color: #888;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    box-shadow: inset 2px 0px 0px rgba(255, 255, 255, 1);
+}
+
+.statistics_tabs div:not(:last-child) {
+    margin-right: 1px;
+}
+
+.statistics_tabs div:active {
+    box-shadow: inset 0px 0px 3px 2px rgba(0,0,50, 0.2);
+}
+
+.statistics_tabs div:hover {
+    background: #fafafa;
+}
+
+.statistics_tabs div.selected {
+    background: #f0f0f0;
+    color: #737e85;
+    box-shadow: inset 0px 0px 3px 1px rgba(0,0,50, 0.2), inset 3px 0px 2px rgba(200,200,200, 0.8);
+    border-bottom: 1px solid white;
+}
+
+#domainWrap{
+    width:800px;
+    margin:20px auto;
+    background:url('../images/groovepaper.png');
+    padding:15px 50px;
+    border:1px #79185b solid;
+    border-radius:5px;
+   -o-border-radius:5px;
+   -moz-border-radius:5px;
+   -webkit-border-radius:5px;
+   overflow:hidden;
+   min-height:335px;
+}
+
+#domainWrap h1{
+    text-align:center;
+    color:#79185b;
+    text-shadow:1px 1px #e3dae8;
+}
+#top{
+    width:100%;
+    background:url('../images/groovepaper.png');
+    height:150px;
+    border-bottom:5px #79185b solid;
+    text-align:center;
+    padding-top:30px;
+}
+
+#top span{
+    display:block;
+    padding-left:280px;
+    font-size:10px;
+    font-weight:bold;
+    color:#79185b;
+    font-family:Verdana;
+    margin-top:-20px;
+}
+
+#top img{
+    width:429px;
+    height:113px;
+}
+
+#footer{
+    width:100%;
+    background:url('../images/groovepaper.png');
+    height:150px;
+    border-top:5px #79185b solid;
+    border-bottom:1px solid white;
+    box-shadow:0px 3px 9px rgba(0,0,0,0.4);
+    text-align:center;
+    padding-top:0px;
+    margin-top:50px;
+    opacity:0.7;
+    transition: all 0.2s linear;
+}
+
+#footer:hover{
+    opacity:1;
+}
+
+#footerCenter{
+    width:902px;
+    margin:0 auto;
+}
+
+.col{
+    width:279px;
+    padding-right:10px;
+    padding-left:10px;
+    position:relative;
+    overflow:hidden;
+    float:left;
+    min-height:130px;
+    padding-top:10px;
+}
+
+.col h3{
+    color:#79185b;
+    margin:0px;
+    box-shadow:0px 1px 1px rgba(0,0,0,0.2);
+    border:1px solid white;
+    padding:7px;
+}
+
+.col ul{
+    list-style:none;
+    padding:5px;
+    box-shadow:0px 0px 1px rgba(0,0,0,0.2);
+    border:1px solid white;
+}
+
+.col ul li{
+    padding:8px;
+    position:relative;
+    text-align:left;
+}
+
+.col ul li:before{
+    content:"";
+    background:#79185b;
+    box-shadow:1px 1px 0px white;
+    width:5px;
+    height:5px;
+    display:block;
+    float:left;
+    border-radius:30px;
+    margin-top:5px;
+    margin-right:5px;
+
+}
+.col ul li:not(:last-child){
+    border-bottom:1px dashed #bbb;
+}
+
+.col1,.col2{
+    border-right:1px dotted #79185b;   
+}
+
+.col ul li img{
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+
+
+
+/** Admin panel CSS **/
+#adminPanel {
+    width: 900px;
+    box-shadow: 0px 0px 7px rgba(0,0,0,0.7) inset;
+    background: rgba(255,255,255,0.8);
+    padding: 0px;
+    margin: 0px auto;
+    border-radius: 5px;
+    -o-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow:hidden;
+    -moz-transition: height 0.3s linear;
+    -o-transition: height 0.3s linear;
+    -webkit-transition: height 0.3s linear;
+    transition: height 0.3s linear;
+}
+
+#adminPanel #adminPanelWrap{
+    display:none;
+}
+
+    /** Admin bar **/
+    #adminBar{
+        color: white;
+        text-shadow: 1px 1px #2f011d;
+        width:878px;
+        padding:10px;
+        background:#740e58;
+        border:1px solid #550636;
+        position:relative;
+        cursor:pointer;
+    }
+
+        #adminBar #toggle{
+            color:white;
+            position:absolute;
+            top:7px;
+            right:9px;
+            font-size:15px;
+        }    
+
+    /** End Admin bar **/
+
+    /** Users list table*/
+    #adminPanel h1{
+        text-align:center;
+        font-size:14px;
+        color:#740e58;
+        text-decoration:underline;
+    }
+
+    #userList{
+        width:90%;
+        margin: 0 auto;
+        text-align:center;
+        color:#444;
+    }
+        #userList tr{
+            border:none;
+            padding:none;
+            margin:none;
+        }
+
+        #userList th{
+            color:#740e58;
+            border-bottom:1px dashed #740e58;    
+            font-size:14px;
+            padding-bottom:5px;
+        }
+
+        #userList .changePassword{
+            cursor:pointer;
+        }
+
+        #userList th:not(:first-child),  #userList td:not(:first-child){
+            border-left:1px dashed #740e58;
+        }
+
+        #userList td{
+            border-bottom:1px dashed #740e58;          
+            font-weight:bold;
+        }
+
+            #userList td ul{
+                list-style:none;
+                padding:0px;
+                margin:0px;
+            }
+
+            #userList td li{
+                vertical-align:middle;
+                padding:10px 0px;
+                position:relative;
+            }
+
+            #userList td ul li:not(:last-child){
+
+                border-bottom:1px dashed #740e58;
+            }
+
+        #userList + button{
+            margin:10px auto;
+            display:block;
+        }
+
+        #userList ul li img{
+            cursor:pointer;
+            position:absolute;
+            right:5px;
+            top:5px;
+        }
+
+#adminPanelWrap #scriptPath{
+    margin:0px 200px 20px 200px;
+    font-size:14px;
+    padding:5px;
+}
+
+#top #version {
+    color: black;
+    padding-left: 373px;
+    margin-top: -30px;
+    font-size: 8px;
+}
+/** End Admin panel CSS **/

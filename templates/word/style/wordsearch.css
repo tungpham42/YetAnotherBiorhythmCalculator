@@ -1,0 +1,160 @@
+.loading .html5-wordsearch,
+.loading div#game-options {
+    visibility: hidden;
+}
+
+.wordsearch {
+    position: relative;
+    background: #999;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+.loading .wordsearch,
+.loading.wordsearch {
+    background-image: url(../images/loader.gif);
+    background-repeat: no-repeat;
+    background-position: center 30%;
+}
+
+body.hide-form #save-score-form {
+    display: none;
+}
+
+.html5-wordsearch canvas,
+.html5-wordsearch ul,
+.html5-wordsearch div {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+.html5-wordsearch {
+    position: relative;
+    transition: opacity .5s linear;
+}
+
+.html5-wordsearch canvas {
+    border: 1px solid black;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.html5-wordsearch canvas.grid {
+    background: #fff;
+}
+
+.html5-wordsearch div.description {
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.html5-wordsearch .description span.word {
+    background: #050;
+    color: #fff;
+    padding: 2px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+
+
+.html5-wordsearch .list {
+    border: 1px solid black;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 260px;
+    overflow: auto;
+}
+
+.html5-wordsearch .list li {
+    position: relative;
+    padding: 4px 30px;
+    line-height: 21px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.html5-wordsearch .list li a {
+    outline: none;
+    color: #676f7f;
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #f1f0f0;
+    border-radius: 3px;
+    text-decoration: none;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+         -o-border-radius: 3px;
+        -ms-border-radius: 3px;
+            border-radius: 3px;
+    -webkit-text-shadow: 0 1px #fff;
+       -moz-text-shadow: 0 1px #fff;
+            text-shadow: 0 1px #fff;
+}
+
+.html5-wordsearch .list li.crossed a,
+body.disable-hints .html5-wordsearch .list li a {
+    visibility: hidden;
+}
+
+.html5-wordsearch .list li.crossed {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+
+.html5-wordsearch .list li.crossed.bad {
+    background-image: url(../images/bad-icon.png);
+}
+
+.html5-wordsearch .list li.crossed.good {
+    background-image: url(../images/check-icon.png);
+}
+
+#download-puzzle {
+    position: absolute;
+    right: 20px;
+    display: none;
+}
+ 
+#download-puzzle span {
+    text-decoration: underline;
+    font-weight: bold;
+    -webkit-text-shadow: 0 -1px 0 #aaa;
+       -moz-text-shadow: 0 -1px 0 #aaa;
+        -ms-text-shadow: 0 -1px 0 #aaa;
+            text-shadow: 0 -1px 0 #aaa;
+}
+/* icons */
+.crossed {
+    text-decoration: line-through;
+}
+
+/****************
+ * HELP MESSAGE *
+ ****************/
+div#modal-window.help li {
+    list-style: circle;
+    margin: 10px;
+}
+
+div#modal-window.help #puzzle-description.hide { display: none; }
+
+div#modal-window.help #puzzle-description {
+    background: #efefef;
+    color: #666666;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: justify;
+    padding: 4px;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}

@@ -1,0 +1,3 @@
+<center><iframe src="/templates/fish/index.html" scrolling="no" frameborder="0" width="960px" height="540px"> </iframe>
+<h2><a href="/2048/" target="_blank" class="rotate" title="2048"><span data-title="2048">2048</span></a>, <a href="/co/" target="_blank" class="rotate" title="Chơi cờ"><span data-title="Chơi cờ">Chơi cờ</span></a>, <a href="/duahop/" target="_blank" class="rotate" title="Đua hộp"><span data-title="Đua hộp">Đua hộp</span></a></h2>
+</center>

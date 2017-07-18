@@ -1,0 +1,1 @@
+<script type='text/javascript' src='//clickadu.com/apu.php?zoneid=706675'></script>

@@ -1,0 +1,34 @@
+# alphabet: abcdefghijklmnopqrstuvwxyz
+# size: 20
+# showSolveButton: 1
+# showDescriptions: 0
+# totalWords: 40
+# initialScore: 1000
+# every: 10
+# deduct: 2
+# puzzleDescription: 
+# name: Colors
+Yellow | 
+Blue | 
+Red | 
+Green | 
+White | 
+Orange | 
+Violet | 
+Gray | 
+Black | 
+Brown | 
+Fuchsia | 
+Navy Blue | 
+Purple | 
+Pink | 
+Sky Blue | 
+Light Green | 
+Dark Green | 
+Chestnut | 
+Silver | 
+Light Gray | 
+Dark Gray | 
+Turquoise | 
+Golden | 
+Maroon |

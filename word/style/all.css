@@ -1,0 +1,337 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+html, body, div, ul, ol,
+li, canvas, h1, h2, h3, h4, h5 {
+    margin: 0; padding: 0;
+}
+
+#soup {
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+/* Options bar */
+div#game-options {
+    background: #fff;
+    z-index: 500;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-bottom: 1px solid #000;
+    padding: 5px 0px;
+    width: 100%;
+    height: 32px;
+    -moz-box-shadow: 0 0 5px black;
+    -webkit-box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px black;
+    transition: opacity .5s linear;
+    text-align: center;
+}
+
+div#game-options ul {
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    margin: 0 auto;
+}
+
+div#game-options ul li { 
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    list-style: none;
+    line-height: 25px;
+    margin-left: -4px;
+}
+
+div#game-options ul li b {
+    margin-right: 10px;
+}
+
+div#game-options ul li div.words {
+    width: 110px;
+}
+div#game-options ul li div.words select {
+    width: 130px;
+}
+
+div#game-options ul #download-button {
+    display: none;
+    position: absolute;
+    right: 20px;
+}
+
+/* Clock */
+#html5-wordsearch-timer {
+    width: 90px;
+}
+
+#html5-wordsearch-score {
+    width: 130px;
+    display: block;
+    text-align: center;
+}
+
+#modal-window #save-score-form .button { float: none; clear: both; }
+
+#save-score-input {
+    border: 1px solid #eee;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 1px 1px 4px #000 inset;
+       -moz-box-shadow: 1px 1px 4px #000 inset;
+            box-shadow: 1px 1px 4px #000 inset;
+    outline: none;
+    padding: 5px
+       
+}
+
+html.lt-ie8 #soup { padding-top: 50px; }
+html.lt-ie9 #html5-wordsearch { margin-top: 50px; }
+html.lt-ie8 #font-size-down small { font-size: 12px; }
+html.lt-ie7 #download-puzzle span { display: none; }
+.loading .html5-wordsearch,
+.loading div#game-options {
+    visibility: hidden;
+}
+
+.wordsearch {
+    position: relative;
+    background: #999;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+.loading .wordsearch,
+.loading.wordsearch {
+    background-image: url(../images/loader.gif);
+    background-repeat: no-repeat;
+    background-position: center 30%;
+}
+
+body.hide-form #save-score-form {
+    display: none;
+}
+
+.html5-wordsearch canvas,
+.html5-wordsearch ul,
+.html5-wordsearch div {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+.html5-wordsearch {
+    position: relative;
+    transition: opacity .5s linear;
+}
+
+.html5-wordsearch canvas {
+    border: 1px solid black;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.html5-wordsearch canvas.grid {
+    background: #fff;
+}
+
+.html5-wordsearch div.description {
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.html5-wordsearch .description span.word {
+    background: #050;
+    color: #fff;
+    padding: 2px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+
+
+.html5-wordsearch .list {
+    border: 1px solid black;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 260px;
+    overflow: auto;
+}
+
+.html5-wordsearch .list li {
+    position: relative;
+    padding: 4px 30px;
+    line-height: 21px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.html5-wordsearch .list li a {
+    outline: none;
+    color: #676f7f;
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #f1f0f0;
+    border-radius: 3px;
+    text-decoration: none;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+         -o-border-radius: 3px;
+        -ms-border-radius: 3px;
+            border-radius: 3px;
+    -webkit-text-shadow: 0 1px #fff;
+       -moz-text-shadow: 0 1px #fff;
+            text-shadow: 0 1px #fff;
+}
+
+.html5-wordsearch .list li.crossed a,
+body.disable-hints .html5-wordsearch .list li a {
+    visibility: hidden;
+}
+
+.html5-wordsearch .list li.crossed {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+
+.html5-wordsearch .list li.crossed.bad {
+    background-image: url(../images/bad-icon.png);
+}
+
+.html5-wordsearch .list li.crossed.good {
+    background-image: url(../images/check-icon.png);
+}
+
+#download-puzzle {
+    position: absolute;
+    right: 20px;
+    display: none;
+}
+ 
+#download-puzzle span {
+    text-decoration: underline;
+    font-weight: bold;
+    -webkit-text-shadow: 0 -1px 0 #aaa;
+       -moz-text-shadow: 0 -1px 0 #aaa;
+        -ms-text-shadow: 0 -1px 0 #aaa;
+            text-shadow: 0 -1px 0 #aaa;
+}
+/* icons */
+.crossed {
+    text-decoration: line-through;
+}
+
+/****************
+ * HELP MESSAGE *
+ ****************/
+div#modal-window.help li {
+    list-style: circle;
+    margin: 10px;
+}
+
+div#modal-window.help #puzzle-description.hide { display: none; }
+
+div#modal-window.help #puzzle-description {
+    background: #efefef;
+    color: #666666;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: justify;
+    padding: 4px;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}
+/* Google-styled buttons
+* http://pixify.com/blog/use-google-plus-to-improve-your-ui/
+*/
+a.button, b.button {
+    color: #6e6e6e;
+    font: bold 12px Helvetica, Arial, sans-serif;
+    outline: none;
+    text-decoration: none;
+    padding: 7px 12px;
+    position: relative;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
+    background: #f3f3f3;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    border: solid 1px #dcdcdc;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    margin-right: 10px;
+}
+
+a.button:hover {
+    color: #333;
+    border-color: #999;
+    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+a.button:active {
+    color: #000;
+    border-color: #444;
+}
+
+a.left {
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+}
+
+a.middle {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-left: solid 1px #f3f3f3;
+    margin: 0;
+    border-left: solid 1px rgba(255, 255, 255, 0);
+}
+
+a.middle:hover, a.right:hover { border-left: solid 1px #999 }
+
+a.right {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-bottom-left-radius: 0;
+    border-left: solid 1px #f3f3f3;
+    border-left: solid 1px rgba(255, 255, 255, 0);
+}
+
+a.help {
+    background: url(../images/help.png) 10px 6px no-repeat #f3f3f3;
+    padding-left: 30px;
+}

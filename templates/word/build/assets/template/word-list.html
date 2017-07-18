@@ -1,0 +1,5 @@
+<% _.each(words, function(word) { %>
+<li id="html5-wordsearch-<%= uid %>-<%= word.replace(/ /g, "-").toLowerCase() %>"><%= word %>
+<a href="#"><%= locale['solve'] %></a>
+</li>
+<% }); %>

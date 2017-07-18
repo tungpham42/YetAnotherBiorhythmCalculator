@@ -1,0 +1,9 @@
+# alphabet: 0123456789
+# size: 20
+# hint: 1
+# showDescriptions: 1
+# totalWords: 5
+# initialScore: 5000
+# every: 10
+1964 | borns Martin Luther King
+1776 | Declaration of Independence on July 4

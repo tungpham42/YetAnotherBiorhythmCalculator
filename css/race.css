@@ -1,0 +1,10 @@
+#game {
+	z-index: 1;
+}
+.player {
+	border-width: 5px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	padding: 0;
+}

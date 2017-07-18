@@ -1,0 +1,57 @@
+# alphabet: abcdefghijklmnopqrstuvwxyzáéíóú
+# size: 15
+# hint: 1
+# showDescriptions: 0
+# totalWords: 15
+# initialScore: 1000
+# every: 10
+Alabama:Montgomery | 
+Alaska:Juneau | 
+Arizona:Phoenix | 
+Arkansas:Little Rock | 
+California:Sacramento | 
+Carolina del Norte:Raleigh | 
+Carolina del Sur:Columbia | 
+Colorado:Denver | 
+Connecticut:Hartford | 
+Dakota del Norte:Bismarck | 
+Dakota del Sur:Pierre | 
+Delaware:Dover | 
+Florida:Tallahassee | 
+Georgia:Atlanta | 
+Hawái:Honolulu | 
+Idaho:Boise | 
+Illinois:Springfield | 
+Indiana:Indianápolis | 
+Iowa:Des Moines | 
+Kansas:Topeka | 
+Kentucky:Frankfort | 
+Luisiana:Baton Rouge | 
+Maine:Augusta | 
+Maryland:Annapolis | 
+Massachusetts:Boston | 
+Míchigan:Lansing | 
+Minnesota:Saint Paul | 
+Misisipi:Jackson | 
+Misuri:Jefferson City | 
+Montana:Helena | 
+Nebraska:Lincoln | 
+Nevada:Carson City | 
+Nueva Jersey:Trenton | 
+Nueva York:Albany | 
+Nuevo Hampshire:Concord | 
+Nuevo México:Santa Fe | 
+Ohio:Columbus | 
+Oklahoma:Oklahoma City | 
+Oregón:Salem | 
+Pensilvania:Harrisburg | 
+Rhode Island:Providence | 
+Tennessee:Nashville | 
+Texas:Austin | 
+Utah:Salt Lake City | 
+Vermont:Montpelier | 
+Virginia:Richmond | 
+Virginia Occidental:Charleston | 
+Washington:Olympia | 
+Wisconsin:Madison | 
+Wyoming:Cheyenne |

@@ -1,0 +1,28 @@
+{
+	"name": "Biorhythm calculator",
+	"manifest_version": 2,
+	"description": "Biorhythm chart tells your physical, emotional, intellectual values",
+	"version": "1.0",
+	"app": {
+		"urls": [
+			"http://nhipsinhhoc.vn/"
+		],
+		"launch": {
+			"web_url": "http://nhipsinhhoc.vn/?lang=en"
+		}
+	},
+	"icons": {
+		"16": "/app-icons/icon-16.png",
+		"32": "/app-icons/icon-32.png",
+		"48": "/app-icons/icon-48.png",
+		"60": "/app-icons/icon-60.png",
+		"90": "/app-icons/icon-90.png",
+		"120": "/app-icons/icon-120.png",
+		"128": "/app-icons/icon-128.png",
+		"256": "/app-icons/icon-256.png"
+	},
+	"permissions": [
+		"unlimitedStorage",
+		"notifications"
+	]
+}

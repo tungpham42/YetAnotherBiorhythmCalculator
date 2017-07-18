@@ -1,0 +1,1 @@
+<iframe width="300px" height="400px" src="/chat.php"></iframe>

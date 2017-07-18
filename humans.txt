@@ -1,0 +1,12 @@
+/* TEAM */
+Web Developer: Phạm Tùng.
+Email: tung.42@gmail.com
+Twitter: tungpham42.
+Location: Saigon, Vietnam.
+/* THANKS */							
+Name: Trần Thị Lan Hải, Phạm Quang Trường
+/* SITE */
+Last update: 2014/03/13
+Standards: HTML5, CSS3,..
+Components: Normalize.css, jQuery, jQuery UI, Bootstrap, AddThis...
+Software: Notepad++, FileZilla,

@@ -1,0 +1,45 @@
+# alphabet: abcdefghijklmnopqrstuvwxyzáéíóú
+# size: 10
+# hint: 1
+# showDescriptions: 0
+# totalWords: 20
+# initialScore: 1
+# every: 10
+# deduct: 50
+# puzzleDescription: Esta+es+la+clase+constructor.+Permite+establecer+el+formato+de+p%C3%A1gina%2C+la+orientaci%C3%B3n+y+la+unidad+de+medida+usada+en+todos+los+m%C3%A9todos+%28excepto+para+tama%C3%B1os+de+fuentes%29.
+# name: American countries 1
+Ottawa:Canadá | 
+Washington DC:Estados Unidos | 
+Brasilia:Brasil | 
+Buenos Aires:Argentina | 
+Ciudad de Mexico:México | 
+Lima:Perú | 
+Bogotá:Colombia | 
+Sucre:Bolivia | 
+Caracas:Venezuela | 
+Santiago:Chile | 
+Asunción:Paraguay | 
+Quito:Ecuador | 
+Georgetown:Guyana | 
+Montevideo:Uruguay | 
+Paramaribo:Surinam | 
+Managua:Nicaragua | 
+Tegucigalpa:Honduras | 
+La Habana:Cuba | 
+Ciudad de Guatemala:Guatemala | 
+Panamá:Panamá | 
+San José:Costa Rica | 
+Santo Domingo:República Dominicana | 
+Puerto Príncipe:Haití | 
+Belmopán:Belice | 
+San Salvador:El Salvador | 
+Nassau:Bahamas | 
+Kingston:Jamaica | 
+Puerto España:Trinidad y Tobago | 
+Roseau:Dominica | 
+Castries:Santa Lucía | 
+Saint John's:Antigua y Barbuda | 
+Bridgetown:Barbados | 
+Kingstown:San Vicente y las Granadinas | 
+Saint George's:Granada | 
+Basseterre:San Cristóbal y Nieves |

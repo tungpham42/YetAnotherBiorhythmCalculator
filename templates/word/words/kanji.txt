@@ -1,0 +1,16 @@
+# alphabet: あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわゐをん
+# size: 20
+# hint: 1
+# showDescriptions: 0
+# totalWords: 15
+# initialScore: 1000
+# every: 10
+# deduct: 2
+# puzzleDescription: 
+# name: Kanji
+わたし:私 | 
+あなた:貴女 | 
+おまえ:お前 | 
+かのじょ:彼女 | 
+かれ:彼 | 
+きさま:貴様 |

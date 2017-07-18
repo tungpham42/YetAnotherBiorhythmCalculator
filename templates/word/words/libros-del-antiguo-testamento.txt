@@ -1,0 +1,46 @@
+# alphabet: abcdefghijklmnopqrstuvwxyz
+# size: 20
+# hint: 1
+# showDescriptions: 0
+# totalWords: 30
+# initialScore: 1000
+# every: 10
+# deduct: 2
+# puzzleDescription: 
+# name: Libros del antiguo testamento
+Génesis | 
+Éxodo | 
+Levítico | 
+Números | 
+Deuteronomio | 
+Josué | 
+Jueces | 
+Rut | 
+Samuel | 
+Reyes | 
+Crónicas | 
+Esdras | 
+Nehemías | 
+Esther | 
+Job | 
+Salmos | 
+Proverbios | 
+Eclesiastés | 
+Cantar de Salomón | 
+Isaías | 
+Jeremías | 
+Lamentaciones | 
+Ezequiel | 
+Daniel | 
+Oseas | 
+Joel | 
+Amós | 
+Abdías | 
+Jonás | 
+Miqueas | 
+Nahum | 
+Habacuc | 
+Sofonías | 
+Hageo | 
+Zacarías | 
+Malaquías |

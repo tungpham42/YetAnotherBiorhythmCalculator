@@ -1,0 +1,22 @@
+# alphabet: abcdefghijklmnopqrstuvwxyz
+# size: 20
+# hint: 1
+# showDescriptions: 1
+# totalWords: 20
+# initialScore: 1000
+# every: 10
+# deduct: 2
+# puzzleDescription: 
+# name: Apostoles
+Simón | 
+Santiago | 
+Andrés | 
+Juan | 
+Felipe | 
+Bartolomé | 
+Tomás | 
+Mateo | 
+Jacobo | 
+Judas Tadeo | 
+Judas Iscariote | 
+Matías |

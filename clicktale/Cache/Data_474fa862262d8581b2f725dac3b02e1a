@@ -1,0 +1,23 @@
+a:6:{s:9:"TopScript";s:161:"
+
+   <!-- ClickTale Top part -->
+   <script type="text/javascript">
+   var WRInitTime=(new Date()).getTime();
+   </script>
+   <!-- ClickTale end of Top part -->
+";s:12:"BottomScript";s:749:"
+
+<!-- ClickTale Bottom part -->
+<script type='text/javascript'>
+// The ClickTale Balkan Tracking Code may be programmatically customized using hooks:
+//
+// function ClickTalePreRecordingHook() { /*place your customized code here*/ }
+//
+// For details about ClickTale hooks, please consult the Wiki page http://wiki.clicktale.com/Article/Customizing_code_version_2
+ 
+var ClickTaleFetchFrom="%FetchFromUrl%";
+document.write(unescape("%3Cscript%20src='"+(document.location.protocol=='https:'? "https://cdnssl.clicktale.net/www02/ptc/7bd237e3-53e0-4f42-a051-06f5febdd4a1.js":"http://cdn.clicktale.net/www02/ptc/7bd237e3-53e0-4f42-a051-06f5febdd4a1.js") + "'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- ClickTale end of Bottom part -->
+
+";s:24:"TopDoNotReplaceCondition";s:27:"<!-- ClickTale Top part -->";s:27:"BottomDoNotReplaceCondition";s:30:"<!-- ClickTale Bottom part -->";s:14:"TopInsertAfter";N;s:18:"BottomInsertBefore";N;}

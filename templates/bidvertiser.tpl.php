@@ -1,0 +1,1 @@
+<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=382141&bid=1590061"></script>

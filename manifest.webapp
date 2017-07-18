@@ -1,0 +1,74 @@
+{
+	"version": "1.0",
+	"name": "Biorhythm",
+	"description": "Biorhythm calculator",
+	"launch_path": "/?lang=en",
+	"icons": {
+		"16": "/app-icons/icon-16.png",
+		"32": "/app-icons/icon-32.png",
+		"48": "/app-icons/icon-48.png",
+		"60": "/app-icons/icon-60.png",
+		"90": "/app-icons/icon-90.png",
+		"120": "/app-icons/icon-120.png",
+		"128": "/app-icons/icon-128.png",
+		"256": "/app-icons/icon-256.png",
+		"512": "/app-icons/icon-512.png"
+	},
+	"developer": {
+		"name": "Tung Pham",
+		"url": "http://tungpham42.info"
+	},
+	"locales": {
+		"vi": {
+			"name": "Nhịp sinh học",
+			"description": "Biểu đồ nhịp sinh học hiển thị dự đoán Sức khỏe, Tình cảm, Trí tuệ của bạn",
+			"launch_path": "/?lang=vi",
+			"developer": {
+				"name": "Phạm Tùng"
+			}
+		},
+		"en": {
+			"name": "Biorhythm",
+			"description": "Biorhythm chart tells your physical, emotional, intellectual values",
+			"launch_path": "/?lang=en",
+			"developer": {
+				"name": "Tung Pham"
+			}
+		},
+		"ru": {
+			"name": "Биоритм",
+			"description": "Биоритм диаграммы рассказывает ваш физические, эмоциональные, интеллектуальные ценности",
+			"launch_path": "/?lang=ru",
+			"developer": {
+				"name": "Tung Pham"
+			}
+		},
+		"es": {
+			"name": "Biorritmo",
+			"description": "Biorritmo carta le dice tu valores físicos, intelectuales y emocionales",
+			"launch_path": "/?lang=es",
+			"developer": {
+				"name": "Tung Pham"
+			}
+		},
+		"zh": {
+			"name": "生理节律",
+			"description": "生理节律图表告诉你的身体，情绪，智力值",
+			"launch_path": "/?lang=zh",
+			"developer": {
+				"name": "范松"
+			}
+		},
+		"ja": {
+			"name": "バイオリズム",
+			"description": "バイオリズムチャートは、物理的、感情的、知的なあなたの値を伝えます",
+			"launch_path": "/?lang=ja",
+			"developer": {
+				"name": "范松"
+			}
+		}
+	},
+	"chrome": { "navigation": true },
+	"appcache_path": "/manifest.appcache",
+	"default_locale": "en"
+}

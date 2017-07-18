@@ -1,0 +1,34 @@
+<!-- MODAL WINDOW -->
+<div class="hide" id="modal-window-overlay"></div>
+<div id="modal-window" class="hide">
+    <div id="modal-window-msg"></div>
+    <a href="#" id="modal-window-close" class="button"><%= _['Close'] %></a>
+</div>
+
+<script id="congratulation" type="text/template">
+    <h1><%= _['Congratulations!'] %></h1>
+    <h2><%= _['Your score is'] %></h2>
+    <h3>{score}</h3>
+    <form method="post" action="score.php" target="save-score" id="save-score-form">
+        <label>
+        Your Name: <input type="text" name="name" id="save-score-input"/>
+        </label>
+        <input type="submit" value="Save score" class="button"/>
+        <input type="hidden" name="time" value="{time}"/>
+        <input type="hidden" name="score" value="{score}"/>
+    </form>
+</script>
+
+<iframe id="save-score" name="save-score" style="display: none"></iframe>
+
+<!-- help -->
+<div class="modal-hidden" id="help">
+    <h1><%= _['How to play!'] %></h1>
+    <p id="puzzle-description" class="hide"></p>
+    <ul>
+    <li><%= _['Find and mark all the words inside the box before your points fall to zero.'] %></li>
+    <li><%= _['The words may be horizontally, vertically, diagonally and even backwards.'] %></li>
+    <li><%= _['If you give up searching for a word use the button next to the word.'] %></li>
+    </ul>
+    <h3><%= _['Good Luck'] %></h3>
+</div>

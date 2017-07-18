@@ -1,0 +1,4 @@
+<?php
+render_rss_feed('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81','<span class="translate" data-lang-ja="'.$span_interfaces['latest_posts']['ja'].'" data-lang-zh="'.$span_interfaces['latest_posts']['zh'].'" data-lang-es="'.$span_interfaces['latest_posts']['es'].'" data-lang-ru="'.$span_interfaces['latest_posts']['ru'].'" data-lang-en="'.$span_interfaces['latest_posts']['en'].'" data-lang-vi="'.$span_interfaces['latest_posts']['vi'].'">'.$span_interfaces['latest_posts'][$lang_code].'</span>','feed_blog');
+?>
+<a id="view_more" href="/blog/" target="_blank"><?php echo translate_span('view_more'); ?></a>

@@ -1,0 +1,17 @@
+<?php
+$rand_top_banner = rand(1,2);
+?>
+<div id="top_banner" class="leader_banner w728">
+<?php
+if ($rand_top_banner == 1):
+?>
+<ins class="adsbygoogle" data-ad-client="ca-pub-3585118770961536" data-ad-slot="4363279684"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<?php
+elseif ($rand_top_banner == 2):
+	render_ad('banner_728x90');
+endif;
+?>
+</div>

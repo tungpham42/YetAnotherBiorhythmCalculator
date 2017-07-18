@@ -1,0 +1,1 @@
+<div id="loading" class="ajax_<?php echo (has_dob() && is_birthday()) ? 'birthday': 'loader'; ?>"></div>

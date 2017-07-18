@@ -1,0 +1,1 @@
+<a class="top sponsor button" href="/sponsor/"><?php echo translate_button('sponsor'); ?> <?php echo translate_button('sponsor_reason'); ?></a>

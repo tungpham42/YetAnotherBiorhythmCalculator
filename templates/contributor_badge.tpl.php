@@ -1,0 +1,1 @@
+<div class="center w300"><a href="https://www.google.com/contributor/welcome/?utm_source=publisher&amp;utm_medium=banner&amp;utm_campaign=ca-pub-3585118770961536" target="_blank"><img src="https://storage.googleapis.com/houseads/Contributor_Ad_A2_300x250.png" alt="Contributor House Ads" /></a></div>
