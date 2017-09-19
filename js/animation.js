@@ -324,7 +324,7 @@ function updateBanner() {
 function animateScrollProverb() {
 	if ($('#proverb').length) {
 		$(document).ready(function(){
-			if (Modernizr.mq(mqGenie.adjustMediaQuery('all and (min-width: 420px) and (max-width: 551px)'))) {
+			if (Modernizr.mq(mqGenie.adjustMediaQuery('all and (min-width: 420px) and (max-width: 591px)'))) {
 				if ($(document).scrollTop() <= 33) {
 					$('#proverb').css('top',(-105-$('#avatar').outerHeight(true)-$('#profile_form').outerHeight(true))+'px');
 				} else if ($(document).scrollTop() > 33 && $(document).scrollTop() <= ($('#results').height()+$('#avatar').outerHeight(true)+$('#profile_form').outerHeight(true)-$('#main_chart').height()+$('#clock').outerHeight(true)+$('#help').outerHeight(true)+$('#sleep_time').outerHeight(true)+$('#link_ads').outerHeight(true)+$('#news').outerHeight(true)-$('#proverb').height()+143)) {

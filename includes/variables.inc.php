@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'On');	
+ini_set('max_execution_time', 0);
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/geoipcity.inc.php';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/timezone.php';
 $geoip = geoip_open(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoIPCity.dat',GEOIP_STANDARD);
@@ -30,15 +31,15 @@ $lang_cse_apis = array(
 	'zh' => 'lang_zh-CN',
 	'ja' => 'lang_ja'
 );
-$navs = array('member/home','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','fish','proverbs');
+$navs = array('member/home','member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact');
 $first_domain = 'nhipsinhhoc.vn';
 $second_domain = 'biorhythm.xyz';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/prep.inc.php';
 $brand = 'Nhip Sinh Hoc . VN';
 $p = isset($_GET['p']) ? prevent_xss($_GET['p']): 'home';
-$q = isset($_GET['q']) ? prevent_xss($_GET['q']): '';
-$dob = isset($_GET['dob']) ? prevent_xss($_GET['dob']): (isset($_COOKIE['NSH:remembered_dob']) ? $_COOKIE['NSH:remembered_dob']: '');
-$fullname = isset($_GET['fullname']) ? prevent_xss($_GET['fullname']): (isset($_COOKIE['NSH:remembered_fullname']) ? $_COOKIE['NSH:remembered_fullname']: '');
+$q = isset($_GET['q']) ? prevent_xss($_GET['q']): "";
+$dob = isset($_GET['dob']) ? prevent_xss($_GET['dob']): (isset($_COOKIE['NSH:remembered_dob']) ? $_COOKIE['NSH:remembered_dob']: "");
+$fullname = isset($_GET['fullname']) ? prevent_xss($_GET['fullname']): (isset($_COOKIE['NSH:remembered_fullname']) ? $_COOKIE['NSH:remembered_fullname']: "");
 $embed = isset($_GET['embed']) ? prevent_xss($_GET['embed']): 0;
 $lang_code = init_lang_code();
 $time_zone = 7;
@@ -47,16 +48,16 @@ $show_donate = false;
 $show_sponsor = false;
 $show_addthis = false;
 $show_sumome = true;
-$hotjar = true;
+$hotjar = false;
 $clicktale = false;
 $credential_id = 3; //change this to 4 in DEMO
 //$cdn_url = 'http://nhipsinhhoc.cdn.vccloud.vn';
-$cdn_url = '';
+$cdn_url = "";
 $number = calculate_life_path($dob);
 if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['is_secondary']) && isset($_GET['dt_change']) && isset($_GET['partner_dob']) && isset($_GET['lang_code'])) {
 	$chart = new Chart($_GET['dob'],$_GET['diff'],$_GET['is_secondary'],$_GET['dt_change'],$_GET['partner_dob'],$_GET['lang_code']);
 } else {
-	$date = (isset($_GET['date']) && $_GET['date'] != '') ? $_GET['date']: date('Y-m-d');
+	$date = (isset($_GET['date']) && $_GET['date'] != "") ? $_GET['date']: date('Y-m-d');
 	$chart = new Chart($dob,0,0,$date,$dob,$lang_code);
 }
 if (isset($_GET['ad'])) {
@@ -258,12 +259,12 @@ $button_interfaces = array(
 		'vi' => 'BMI',
 		'en' => 'Body mass index',
 		'ru' => 'Индекс массы тела',
-		'es' => 'Índice de masa corporal',
+		'es' => 'IMC',
 		'zh' => '身高體重指數',
 		'ja' => 'ボディマス指数'
 	),
 	'lunar' => array(
-		'vi' => 'Xem ngày',
+		'vi' => 'Bói',
 		'en' => 'Lunar calendar',
 		'ru' => 'Лунный календарь',
 		'es' => 'Calendario lunar',
@@ -768,6 +769,25 @@ $span_interfaces = array(
 		'zh' => '<h6>快捷键：</h6><ul><li>1 -> 越南语</li><li>2 -> 英语</li><li>3 -> 俄语语言</li><li>4 -> 西班牙语</li><li>5 -> 中文</li><li>6 -> 日文</li></ul>',
 		'ja' => '<h6>キーボードショートカット：</h6><ul><li>1 -> ベトナム語</li><li>2 -> 英語</li><li>3 -> ロシア語</li><li>4 -> スペイン語</li><li>5 -> チャン語</li><li>6 -> 日本語</li></ul>'
 	),
+	'bank_account' => array(
+		'vi' => '<h6>Tài khoản ngân hàng:</h6><ul><li>Ngân hàng: TECHCOMBANK</li><li>Số tài khoản: 19027906069012</li><li>Tên người thụ hưởng: PHAM TUNG</li><li>Chi nhánh: Phú Mỹ Hưng</li></ul>',
+		'en' => '<h6>Bank account:</h6><ul><li>Bank: TECHCOMBANK</li><li>Account number: 19027906069012</li><li>Beneficiary name: PHAM TUNG</li><li>Branch: Phu My Hung</li></ul>',
+		'ru' => '<h6>банковский счет
+:</h6><ul><li>Банка: TECHCOMBANK</li><li>Номер аккаунта
+: 19027906069012</li><li>Имя Получателя
+: PHAM TUNG</li><li>Филиал
+: Phu My Hung</li></ul>',
+		'es' => '<h6>Cuenta bancaria:</h6><ul><li>Banco: TECHCOMBANK</li><li>Número de cuenta: 19027906069012</li><li>Nombre del Beneficiario
+: PHAM TUNG</li><li>Branch: Phu My Hung</li></ul>',
+		'zh' => '<h6>银行账户
+：</h6><ul><li>银行： TECHCOMBANK</li><li>帐号
+： 19027906069012</li><li>受益人姓名： PHAM TUNG</li><li>科： Phu My Hung</li></ul>',
+		'ja' => '<h6>銀行口座
+：</h6><ul><li>バンク： TECHCOMBANK</li><li>口座番号
+： 19027906069012</li><li>受取人名
+： PHAM TUNG</li><li>ブランチ
+： Phu My Hung</li></ul>',
+	),
 	'for_reference_only' => array(
 		'vi' => 'Chỉ mang tính tham khảo',
 		'en' => 'For reference only',
@@ -860,7 +880,7 @@ $span_interfaces = array(
 		'vi' => 'Chỉ số khối cơ thể',
 		'en' => 'Body mass index',
 		'ru' => 'Индекс массы тела',
-		'es' => 'Índice de masa corporal',
+		'es' => 'IMC',
 		'zh' => '身高體重指數',
 		'ja' => 'ボディマス指数'
 	),
@@ -1394,7 +1414,7 @@ $help_interfaces = array(
 	),
 	'life_path_number_suffix' => array(
 		'vi' => '.html',
-		'en' => '',
+		'en' => "",
 		'ru' => '.htm',
 		'es' => '/',
 		'zh' => '/',

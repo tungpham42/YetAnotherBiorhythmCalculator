@@ -1,32 +1,32 @@
 <?php
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/variables.inc.php';
 
-function translate_raw($key,$data,$data_vi,$data_en,$data_ru,$data_es,$data_zh,$data_ja,$id=''): string {
-	$result = '<span '.(($id != '') ? 'id="'.((strpos($id,'class: ') !== false) ? strstr($id,' class: ',true) : $id).'" ': '').'class="translate'.((strpos($id,'class: ') !== false) ? substr($id,strpos($id,'class:')+6): '').'" data-lang-ja="'.$data_ja.'" data-lang-zh="'.$data_zh.'" data-lang-es="'.$data_es.'" data-lang-ru="'.$data_ru.'" data-lang-en="'.$data_en.'" data-lang-vi="'.$data_vi.'">'.$data.'</span>';
+function translate_raw($key,$data,$data_vi,$data_en,$data_ru,$data_es,$data_zh,$data_ja,$id=""): string {
+	$result = '<span '.(($id != "") ? 'id="'.((strpos($id,'class: ') !== false) ? strstr($id,' class: ',true) : $id).'" ': "").'class="translate'.((strpos($id,'class: ') !== false) ? substr($id,strpos($id,'class:')+6): "").'" data-lang-ja="'.$data_ja.'" data-lang-zh="'.$data_zh.'" data-lang-es="'.$data_es.'" data-lang-ru="'.$data_ru.'" data-lang-en="'.$data_en.'" data-lang-vi="'.$data_vi.'">'.$data.'</span>';
 	return $result;
 }
-function translate($type,$key,$id=''): string {
+function translate($type,$key,$id=""): string {
 	global $lang_code, $button_interfaces, $span_interfaces, $menu_interfaces, $error_interfaces, $help_interfaces, $information_interfaces;
-	$result = ($id != '') ? translate_raw($key,${$type.'_interfaces'}[$key][$lang_code],${$type.'_interfaces'}[$key]['vi'],${$type.'_interfaces'}[$key]['en'],${$type.'_interfaces'}[$key]['ru'],${$type.'_interfaces'}[$key]['es'],${$type.'_interfaces'}[$key]['zh'],${$type.'_interfaces'}[$key]['ja'],$id) : translate_raw($key,${$type.'_interfaces'}[$key][$lang_code],${$type.'_interfaces'}[$key]['vi'],${$type.'_interfaces'}[$key]['en'],${$type.'_interfaces'}[$key]['ru'],${$type.'_interfaces'}[$key]['es'],${$type.'_interfaces'}[$key]['zh'],${$type.'_interfaces'}[$key]['ja']);
+	$result = ($id != "") ? translate_raw($key,${$type.'_interfaces'}[$key][$lang_code],${$type.'_interfaces'}[$key]['vi'],${$type.'_interfaces'}[$key]['en'],${$type.'_interfaces'}[$key]['ru'],${$type.'_interfaces'}[$key]['es'],${$type.'_interfaces'}[$key]['zh'],${$type.'_interfaces'}[$key]['ja'],$id) : translate_raw($key,${$type.'_interfaces'}[$key][$lang_code],${$type.'_interfaces'}[$key]['vi'],${$type.'_interfaces'}[$key]['en'],${$type.'_interfaces'}[$key]['ru'],${$type.'_interfaces'}[$key]['es'],${$type.'_interfaces'}[$key]['zh'],${$type.'_interfaces'}[$key]['ja']);
 	return $result;
 }
-function translate_button($key,$id=''): string {
-	return ($id != '') ? translate('button',$key,$id) : translate('button',$key);
+function translate_button($key,$id=""): string {
+	return ($id != "") ? translate('button',$key,$id) : translate('button',$key);
 }
-function translate_span($key,$id=''): string {
-	return ($id != '') ? translate('span',$key,$id) : translate('span',$key);
+function translate_span($key,$id=""): string {
+	return ($id != "") ? translate('span',$key,$id) : translate('span',$key);
 }
-function translate_menu($key,$id=''): string {
-	return ($id != '') ? translate('menu',$key,$id) : translate('menu',$key);
+function translate_menu($key,$id=""): string {
+	return ($id != "") ? translate('menu',$key,$id) : translate('menu',$key);
 }
-function translate_error($key,$id=''): string {
-	return ($id != '') ? translate('error',$key,$id) : translate('error',$key);
+function translate_error($key,$id=""): string {
+	return ($id != "") ? translate('error',$key,$id) : translate('error',$key);
 }
-function translate_help($key,$id=''): string {
-	return ($id != '') ? translate('help',$key,$id) : translate('help',$key);
+function translate_help($key,$id=""): string {
+	return ($id != "") ? translate('help',$key,$id) : translate('help',$key);
 }
-function translate_information($key,$id=''): string {
-	return ($id != '') ? translate('information',$key,$id) : translate('information',$key);
+function translate_information($key,$id=""): string {
+	return ($id != "") ? translate('information',$key,$id) : translate('information',$key);
 }
 function error($msg) { //Show popup meesage
     echo '
@@ -47,7 +47,7 @@ function error($msg) { //Show popup meesage
 }
 function has_dob(): bool {
 	global $dob;
-	if ($dob != '') {
+	if ($dob != "") {
 		return true;
 	} else {
 		return false;
@@ -76,10 +76,10 @@ function list_user_same_birthday_links($name): string {
 	global $dob;
 	global $lang_code;
 	global $span_interfaces;
-	$output = '';
+	$output = "";
 	$users = array_filter(load_all_array('nsh_users'), array(new filter(true), 'filter_has_same_birthday'));
 	usort($users,'sort_name_ascend');
-	if (!empty($users) && $dob != '') {
+	if (!empty($users) && $dob != "") {
 		$output .= '<div class="dates-box">';
 		$output .= '<h2 class="dates-header">'.translate_span('list_user_same_birthday_links').'</h2>';
 		$output .= '<ul class="dates" id="'.$name.'">';
@@ -96,7 +96,7 @@ function list_user_same_birthday_links($name): string {
 function get_json_same_birthday($dob): string {
 	$users = array_filter(load_all_array('nsh_users'), array(new filter(true), 'filter_has_same_birthday'));
 	usort($users,'sort_name_ascend');
-	if (!empty($users) && $dob != '') {
+	if (!empty($users) && $dob != "") {
 		return json_encode($users);
 	} else {
 		return json_encode(null);
@@ -105,7 +105,7 @@ function get_json_same_birthday($dob): string {
 function list_user_birthday_links($name): string {
 	global $lang_code;
 	global $span_interfaces;
-	$output = '';
+	$output = "";
 	$users = array_filter(load_all_array('nsh_users'), array(new filter(true), 'filter_has_birthday'));
 	usort($users,'sort_name_ascend');
 	if (!empty($users)) {
@@ -125,7 +125,7 @@ function list_user_birthday_links($name): string {
 function list_user_links($name): string {
 	global $lang_code;
 	global $span_interfaces;
-	$output = '';
+	$output = "";
 	$output .= '<a id="birthdates_toggle" class="button">'.translate_span('list_user_links').'</a>';
 	$output .= '<div class="clear"></div>';
 	$output .= '<input id="user_birthdates_search" type="text" name="user_birthdates_search" class="m-wrap" size="60" maxlength="128" />';
@@ -171,9 +171,9 @@ function list_user_links($name): string {
 				</script>';
 	return $output;
 }
-function list_ajax_user_links($name,$keyword=''): string {
-	$output = '';
-	$users = ($keyword != '') ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
+function list_ajax_user_links($name,$keyword=""): string {
+	$output = "";
+	$users = ($keyword != "") ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
 	usort($users,'sort_name_ascend');
 	$output .= '<div class="dates-box">';
 	//$output .= '<div class="dates-nav" id="'.$name.'-nav"></div>';
@@ -210,18 +210,18 @@ function list_ajax_user_links($name,$keyword=''): string {
 	$output .= '</div>';
 	return $output;
 }
-function list_users($page=1,$keyword=''): string { //Return users list, for admin use
-	$output = '';
+function list_users($page=1,$keyword=""): string { //Return users list, for admin use
+	$output = "";
 	$count = 10;
-	$users = ($keyword != '') ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
+	$users = ($keyword != "") ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
 	usort($users,'sort_name_ascend');
 	$users_count = count($users);
 	$pagination = new Pagination($users,$page,$count,20);
 	$pagination->setShowFirstAndLast(true);
-	$pagination->setMainSeperator('');
+	$pagination->setMainSeperator("");
 	$users = $pagination->getResults();
 	$output .= '<a class="button right" href="/user/create/">Create user</a>';
-	$output .= '<span class="count">'.$users_count.' user'.(($users_count > 1) ? 's': '').'.</span>';
+	$output .= '<span class="count">'.$users_count.' user'.(($users_count > 1) ? 's': "").'.</span>';
 	$output .= '<div class="paging">'.$pagination->getLinks().'</div>';
 	$output .= '<table class="admin">';
 	$output .= '<tr><th>ID</th><th>User ID</th><th>Username</th><th>DOB</th><th colspan="2">Operations</th></tr>';
@@ -247,9 +247,9 @@ function list_users($page=1,$keyword=''): string { //Return users list, for admi
 				</script>';
 	return $output;
 }
-function list_same_birthday($keyword=''): string { //Return users list, for admin use
-	$output = '';
-	$users = ($keyword != '') ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
+function list_same_birthday($keyword=""): string { //Return users list, for admin use
+	$output = "";
+	$users = ($keyword != "") ? array_filter(load_all_array('nsh_users'), array(new filter($keyword), 'filter_keyword')): load_all_array('nsh_users');
 	usort($users,'sort_name_ascend');
 	$count = count($users);
 	$output .= '<table id="same_birthday_suggestion">';
@@ -290,13 +290,13 @@ function delete_user($uid) { //Delete user with user ID
 }
 /* Rhythm Functions */
 function list_rhythms(): string { //Return list of rhythms, for admin use
-	$output = '';
+	$output = "";
 	$rhythms = load_all_array('nsh_rhythms');
 	$output .= '<a class="button" href="/rhythm/create/">Create rhythm</a>';
 	$output .= '<table class="admin">';
 	$output .= '<tr><th>Rhythm ID</th><th>Rhythm name</th><th colspan="3">Operations</th></tr>';
 	$count = count($rhythms);
-	$output .= '<tr><td class="count" colspan="6">'.$count.' item'.(($count > 1) ? 's': '').' to display.</td></tr>';
+	$output .= '<tr><td class="count" colspan="6">'.$count.' item'.(($count > 1) ? 's': "").' to display.</td></tr>';
 	for ($i = 0; $i < $count; ++$i) {
 		$class = 'class="'.table_row_class($i).'"';
 		$output .= '<tr '.$class.'>';
@@ -383,6 +383,12 @@ function average_bio_count($dob,$date,$rhythms): string {
 function percent_average_bio_count($dob,$date,$rhythms): string {
 	return average_bio_count($dob,$date,$rhythms).' %';
 }
+function day_of_rhythm($dob,$date,$scale): string {
+	$x = differ_date($dob,$date);
+	$ceil = ceil($x / $scale);
+	$y = $ceil;
+	return ' ('.$y.'/'.$scale.')';
+}
 // https://github.com/rmanasyan/compatzz/blob/master/js/main.js
 function compatible_count($this_dob,$that_dob,$scale): string {
 	$x = abs(differ_date($this_dob,$that_dob));
@@ -414,7 +420,7 @@ function get_daily_horoscope($dob): string {
 	$sign = get_zodiac_sign($dob);
 	$rss = new RSSReader('http://findyourfate.com/rss/dailyhoroscope-feed.asp?sign='.$sign);
 	$nn = $rss->getNumberOfNews();
-	$output = '';
+	$output = "";
 	$output .= '<table width="40%"  border="0" cellspacing="0" cellpadding="5" class="box">';
 	$output .= '<tr><td>'.$rss->getImage().'</td></tr>';
 	$output .= '<tr><td>'.$rss->getChannelTitle('rsstitle').'</td></tr>';
@@ -549,7 +555,7 @@ function get_zodiac_chars($id) {
 	return get_zodiac_csv_char('ngoaihinh_'.$id).', '.get_zodiac_csv_char('tinhcach_'.$id).', '.get_zodiac_csv_char('tinhcam_'.$id);
 }
 function get_zodiac_character($birthdate): string {
-	$char = '';
+	$char = "";
 	list($year, $month, $day) = array_pad(explode('-', $birthdate, 3), 3, null);
 	if (($month == 3 && $day > 20) || ($month == 4 && $day < 20)) { // Bạch Dương
 		$char = get_zodiac_chars('01');
@@ -591,7 +597,7 @@ function countdown_birthday($dob, $date = 'today'): int {
 }
 /* RACING Functions */
 function player_input($count): string {
-	$output = '';
+	$output = "";
 	for ($i = 0; $i < $count; ++$i) {
 		$output .= '<div class="m-input-prepend"><span class="add-on">Tên/mã hộp thứ '.($i+1).':</span><input data-position="'.($i+1).'" type="text" name="player'.($i+1).'" size="42" maxlength="128" class="player-name m-wrap required" value="'.($i+1).'"></div>';
 	}
@@ -602,14 +608,14 @@ function render_game() {
 	$time = (isset($_POST['time'])) ? $_POST['time']: 0;
 	$player_names = array();
 	$player_colors = array();
-	$game_id = '';
+	$game_id = "";
 	for ($i = 0; $i < $count; ++$i) {
-		$player_names[$i] = (isset($_POST['player'.($i + 1)])) ? $_POST['player'.($i + 1)]: '';
+		$player_names[$i] = (isset($_POST['player'.($i + 1)])) ? $_POST['player'.($i + 1)]: "";
 	}
 	for ($i = 0; $i < $count; ++$i) {
 		$player_colors[$i] = get_random_color_hex();
 		$game_id .= $player_colors[$i];
-		$game_id .= ($i < $count - 1) ? '-': '';
+		$game_id .= ($i < $count - 1) ? '-': "";
 	}
 	for ($i = 0; $i < $count; ++$i) {
 		echo ($i != 0) ? '<div class="race_lane">': '<div class="race_lane first">';
@@ -646,7 +652,7 @@ function render_game() {
 	$("#restart").click(function() {
 		$("#game").load("/triggers/game.php",{count: '.$count.',time: '.$time.',';
 	for ($i = 0; $i < count($player_names); ++$i) {
-		echo 'player'.($i+1).': "'.$player_names[$i].'"'.(($i != (count($player_names) - 1)) ? ',': '');
+		echo 'player'.($i+1).': "'.$player_names[$i].'"'.(($i != (count($player_names) - 1)) ? ',': "");
 	}
 	echo '
 		});
@@ -772,24 +778,24 @@ function home_title(): string {
 	global $lang_code;
 	global $fullname;
 	switch ($lang_code) {
-		case 'vi': return 'Nhịp sinh học'.(($fullname != '') ? ' của '.$fullname: ''); break;
-		case 'en': return 'Biorhythm'.(($fullname != '') ? ' of '.$fullname: ''); break;
-		case 'ru': return 'Биоритм'.(($fullname != '') ? ' из '.$fullname: ''); break;
-		case 'es': return 'Biorritmo'.(($fullname != '') ? ' de '.$fullname: ''); break;
-		case 'zh': return '生理节律'.(($fullname != '') ? '的'.$fullname: ''); break;
-		case 'ja': return 'バイオリズム'.(($fullname != '') ? 'の'.$fullname: ''); break;
+		case 'vi': return 'Nhịp sinh học'.(($fullname != "") ? ' của '.$fullname: ""); break;
+		case 'en': return 'Biorhythm'.(($fullname != "") ? ' of '.$fullname: ""); break;
+		case 'ru': return 'Биоритм'.(($fullname != "") ? ' из '.$fullname: ""); break;
+		case 'es': return 'Biorritmo'.(($fullname != "") ? ' de '.$fullname: ""); break;
+		case 'zh': return '生理节律'.(($fullname != "") ? '的'.$fullname: ""); break;
+		case 'ja': return 'バイオリズム'.(($fullname != "") ? 'の'.$fullname: ""); break;
 	}
 }
 function birthday_title(): string {
 	global $lang_code;
 	global $fullname;
 	switch ($lang_code) {
-		case 'vi': return 'Chúc mừng sinh nhật'.(($fullname != '') ? ' '.$fullname: ''); break;
-		case 'en': return 'Happy birthday'.(($fullname != '') ? ' '.$fullname: ' to you'); break;
-		case 'ru': return 'Днем Рождения'.(($fullname != '') ? ' '.$fullname: ''); break;
-		case 'es': return 'Feliz cumpleaños'.(($fullname != '') ? ' '.$fullname: ''); break;
-		case 'zh': return '生日快乐'.(($fullname != '') ? $fullname: ''); break;
-		case 'ja': return 'お誕生日おめでとうございます'.(($fullname != '') ? $fullname: ''); break;
+		case 'vi': return 'Chúc mừng sinh nhật'.(($fullname != "") ? ' '.$fullname: ""); break;
+		case 'en': return 'Happy birthday'.(($fullname != "") ? ' '.$fullname: ' to you'); break;
+		case 'ru': return 'Днем Рождения'.(($fullname != "") ? ' '.$fullname: ""); break;
+		case 'es': return 'Feliz cumpleaños'.(($fullname != "") ? ' '.$fullname: ""); break;
+		case 'zh': return '生日快乐'.(($fullname != "") ? $fullname: ""); break;
+		case 'ja': return 'お誕生日おめでとうございます'.(($fullname != "") ? $fullname: ""); break;
 	}
 }
 function get_wish($lang): string {
@@ -853,7 +859,7 @@ function youtube_id(): string {
 }
 function change_url_lang($url, $lang): string {
 	global $lang_codes;
-	$changed_url = '';
+	$changed_url = "";
 	if (in_array($lang, $lang_codes)) {
 		if (strpos($url,'lang=') !== false) {
 			$lang_pos = strpos($url,'lang=')+5;
@@ -871,11 +877,11 @@ function default_url($url): string {
 	$lang_pos = strpos($url,'lang=');
 	$lang_str = substr($url,$lang_pos,7);
 	if (strpos($url,'?'.$lang_str.'&') !== false) {
-		$default_url = str_replace($lang_str.'&', '', $url);
+		$default_url = str_replace($lang_str.'&', "", $url);
 	} else if (strpos($url,'?lang=') !== false) {
-		$default_url = str_replace('?'.$lang_str, '', $url);
+		$default_url = str_replace('?'.$lang_str, "", $url);
 	} else if (strpos($url,'&lang=') !== false) {
-		$default_url = str_replace('&'.$lang_str, '', $url);
+		$default_url = str_replace('&'.$lang_str, "", $url);
 	} else {
 		$default_url = $url;
 	}
@@ -926,12 +932,11 @@ function is_mobile(): bool {
 	}
 }
 function class_mobile(): string {
-	return is_mobile() ? 'class="mobile"': '';
+	return is_mobile() ? 'class="mobile"': "";
 }
 function style_mobile(): string {
-	return is_mobile() ? 'style="width: 100%; background: none; margin: 0px auto;"': '';
+	return is_mobile() ? 'style="width: 100%; background: none; margin: 0px auto;"': "";
 }
-
 /**
  * Grab Images from Wikipedia via thier API
  *
@@ -972,7 +977,7 @@ function get_wiki_results($json): array {
 	return $results;
 }
 function get_wiki_image($keyword,$limit): string {
-	$output = '';
+	$output = "";
 	$term = str_replace(' ', '_', $keyword);
     $url = 'http://en.wikipedia.org/w/api.php?action=query&titles='.$term.'&prop=images&format=json&imlimit='.$limit;
  
@@ -1011,14 +1016,14 @@ function render_ad($name) {
 			echo '<iframe src="//rcm-na.amazon-adsystem.com/e/cm?t=tungpham42-20&amp;o=1&amp;p=48&amp;l=ur1&amp;category='.$ads->data[$index]['cat'].'&amp;f=ifr&amp;linkID='.$ads->data[$index]['link_id'].'"></iframe>';
 			break;
 		default:
-			echo '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': '');
+			echo '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': "");
 	}
 }
 function get_ad($name): string {
 	$ads = new parseCSV(realpath($_SERVER['DOCUMENT_ROOT']).'/ads/'.$name.'.csv');
 	$count = count($ads->data);
 	$index = rand(0, $count-1);
-	$ad = '';
+	$ad = "";
 	switch ($name) {
 		case 'itunes_160x600':
 			$ad = '<iframe src="//banners.itunes.apple.com/banner.html?partnerId=&amp;aId=10lpuQ&amp;bt=genre&amp;t=genre_matrix_'.$ads->data[$index]['style'].'&amp;ft='.$ads->data[$index]['feed_type'].'&amp;st='.$ads->data[$index]['media_type'].'&amp;c='.$ads->data[$index]['country_code'].'&amp;l=en-US&amp;s='.$ads->data[$index]['s'].'&amp;p='.$ads->data[$index]['p'].'&amp;w=160&amp;h=600"></iframe>';
@@ -1039,7 +1044,7 @@ function get_ad($name): string {
 			$ad = '<iframe src="//rcm-na.amazon-adsystem.com/e/cm?t=tungpham42-20&amp;o=1&amp;p=48&amp;l=ur1&amp;category='.$ads->data[$index]['cat'].'&amp;f=ifr&amp;linkID='.$ads->data[$index]['link_id'].'"></iframe>';
 			break;
 		default:
-			$ad = '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img style="width: 360px" alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': '');
+			$ad = '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img style="width: 360px" alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': "");
 	}
 	return $ad;
 }
@@ -1060,7 +1065,7 @@ function render_proverb_json($lang) {
 	echo json_encode($proverb);
 }
 function list_proverbs($page=1,$lang): string { //Return users list, for admin use
-	$output = '';
+	$output = "";
 	$count = 30;
 	$proverbs_csv = new parseCSV();
 	$proverbs_csv->delimiter = '|';
@@ -1069,7 +1074,7 @@ function list_proverbs($page=1,$lang): string { //Return users list, for admin u
 	$proverbs_count = count($proverbs);
 	$pagination = new Pagination($proverbs,$page,$count,20);
 	$pagination->setShowFirstAndLast(true);
-	$pagination->setMainSeperator('');
+	$pagination->setMainSeperator("");
 	$proverbs = $pagination->getResults();
 	$output .= '<div class="paging">'.$pagination->getLinks().'</div>';
 	$output .= '<table id="proverbs">';
@@ -1077,9 +1082,9 @@ function list_proverbs($page=1,$lang): string { //Return users list, for admin u
 		if (isset($proverbs[$i])) {
 			$class = 'class="'.table_row_class($i).'"';
 			$output .= '<tr '.$class.'>';
-			$output .= '<td>'.(($page-1)*$count+($i+1)).'</td>';
-			$output .= '<td>'.$proverbs[$i]['content'].'</td>';
-			$output .= '<td>'.$proverbs[$i]['author'].'</td>';
+			$output .= '<td class="id">'.(($page-1)*$count+($i+1)).'</td>';
+			$output .= '<td class="content">'.$proverbs[$i]['content'].'</td>';
+			$output .= '<td class="author">'.$proverbs[$i]['author'].'</td>';
 			$output .= '</tr>';
 		}
 	}
@@ -1308,8 +1313,8 @@ function get_lunar_date($date = 'today', $formatted = false) {
 function get_lunar_values($lunar_index, $lang = 'vi'): array {
 	$stem_index = $lunar_index[0];
 	$branch_index = $lunar_index[1];
-	$stem = '';
-	$branch = '';
+	$stem = "";
+	$branch = "";
 	switch($lang) {
 		case 'vi':
 			switch($stem_index) {
@@ -1483,7 +1488,7 @@ function get_lunar_values($lunar_index, $lang = 'vi'): array {
 	return array($stem, $branch);
 }
 function get_leap_value($lang = 'vi'): string {
-	$leap_value = '';
+	$leap_value = "";
 	switch($lang) {
 		case 'vi': $leap_value = 'nhuận'; break;
 		case 'en': $leap_value = 'leap'; break;
@@ -1502,7 +1507,7 @@ function get_lunar_year($date = 'today', $lang = 'vi'): string {
 	$lunar_values = get_lunar_values(array($stem_index, $branch_index), $lang);
 	$stem = $lunar_values[0];
 	$branch = $lunar_values[1];
-	return (($stem != '' && $branch != '') ? $stem.' '.$branch.' - ': '').$lunar_year;
+	return (($stem != "" && $branch != "") ? $stem.' '.$branch.' - ': "").$lunar_year;
 }
 function get_lunar_month($date = 'today', $lang = 'vi'): string {
 	$lunar_date = get_lunar_date($date);
@@ -1514,7 +1519,7 @@ function get_lunar_month($date = 'today', $lang = 'vi'): string {
 	$lunar_values = get_lunar_values(array($stem_index, $branch_index), $lang);
 	$stem = $lunar_values[0];
 	$branch = $lunar_values[1];
-	return (($stem != '' && $branch != '') ? $stem.' '.$branch.' - ': '').$lunar_month.(($lunar_leap == 1) ? ' '.get_leap_value($lang): '');
+	return (($stem != "" && $branch != "") ? $stem.' '.$branch.' - ': "").$lunar_month.(($lunar_leap == 1) ? ' '.get_leap_value($lang): "");
 }
 function get_lunar_day($date = 'today', $lang = 'vi'): string {
 	$lunar_date = get_lunar_date($date);
@@ -1528,7 +1533,7 @@ function get_lunar_day($date = 'today', $lang = 'vi'): string {
 	$lunar_values = get_lunar_values(array($stem_index, $branch_index), $lang);
 	$stem = $lunar_values[0];
 	$branch = $lunar_values[1];
-	return (($stem != '' && $branch != '') ? $stem.' '.$branch.' - ': '').$lunar_day;
+	return (($stem != "" && $branch != "") ? $stem.' '.$branch.' - ': "").$lunar_day;
 }
 function get_lunar_years_old($dob, $date = 'today'): int {
 	$lunar_date = get_lunar_date($date);
@@ -1574,7 +1579,7 @@ function rss_feed_email($rss_url,$feed_header,$feed_id): string {
 function load_rss_feed($rss_url) {
 	$rss = new Rss;
 	$feed = $rss->getFeed($rss_url, Rss::XML);
-	$result = '';
+	$result = "";
 	foreach($feed as $item) {
 		$result .= '<div class="feed_item">';
 		$result .= '<a target="_blank" class="item_title rotate" href="'.$item['link'].'"><span data-title="'.$item['title'].'">'.$item['title'].'</span></a>';
@@ -1584,20 +1589,20 @@ function load_rss_feed($rss_url) {
 	}
 	echo $result;
 }
-function load_news_feed($keyword='') {
+function load_news_feed($keyword="") {
 	global $faroo_key;
-	$keyword = ($keyword != '') ? '%22'.urlencode($keyword).'%22' : '';
-	$url = 'http://www.faroo.com/api?q='.$keyword.'&start=1&length=20&src='.(($keyword == '') ? 'news': 'web').'&i=false&f=json&key='.$faroo_key;
+	$keyword = ($keyword != "") ? '%22'.urlencode($keyword).'%22' : "";
+	$url = 'http://www.faroo.com/api?q='.$keyword.'&start=1&length=20&src='.(($keyword == "") ? 'news': 'web').'&i=false&f=json&key='.$faroo_key;
 	$body = file_get_contents($url);
 	$json = json_decode($body);
-	$result = '';
+	$result = "";
 	if (isset($json->results)) {
 		$count = count($json->results);
 		for ($i=0; $i < $count; ++$i) {
 			$result .= '<li>';
 			$result .= '<a target="_blank" class="news_item" href="'.$json->results[$i]->url.'"><span class="news_title">'.$json->results[$i]->title.'</span><span class="news_domain">'.$json->results[$i]->domain.'</span><span class="news_date">'.date('Y-m-d h:i:s A',$json->results[$i]->date/1000).'</span></a>';
 			$result .= '<i class="icon-info-sign news_toggle"></i>';
-			$result .= '<div class="news_thumb">'.((isset($json->results[$i]->iurl) && $json->results[$i]->iurl != '') ? '<img class="news_thumb_img" src="'.$json->results[$i]->iurl.'" />' : '').'<span class="news_author">'.$json->results[$i]->author.'</span><span class="news_text">'.$json->results[$i]->kwic.'</span></div>';
+			$result .= '<div class="news_thumb">'.((isset($json->results[$i]->iurl) && $json->results[$i]->iurl != "") ? '<img class="news_thumb_img" src="'.$json->results[$i]->iurl.'" />' : "").'<span class="news_author">'.$json->results[$i]->author.'</span><span class="news_text">'.$json->results[$i]->kwic.'</span></div>';
 			$result .= '</li>';
 		}
 	} else if (!isset($json->results)) {
@@ -1728,7 +1733,7 @@ function invalid_member($email,$password): bool {
 }
 function load_member_from_email($email): array {
 	$array = array();
-	if ($email != '') {
+	if ($email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 		$db_path = $path.'/member.db';
 		$db_sql = 'SELECT * FROM "member"';
@@ -1750,8 +1755,8 @@ function load_member_from_email($email): array {
 		return null;
 	}
 }
-function list_members($page=1,$keyword=''): string { //Return members list, for admin use
-	$output = '';
+function list_members($page=1,$keyword=""): string { //Return members list, for admin use
+	$output = "";
 	$count = 10;
 	$emails = array();
 	$members = array();
@@ -1762,8 +1767,8 @@ function list_members($page=1,$keyword=''): string { //Return members list, for 
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, '', $directory) != 'login' && str_replace($path, '', $directory) != 'register' && is_dir($path.str_replace($path, '', $directory))) {
-				$emails[] = str_replace($path, '', $directory);
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$emails[] = str_replace($path, "", $directory);
 			}
 		}
 	}
@@ -1772,18 +1777,18 @@ function list_members($page=1,$keyword=''): string { //Return members list, for 
 	for ($m = 0; $m < $emails_count; ++$m) {
 		$members[$m] = load_member_from_email($emails[$m]);
 	}
-	$members = ($keyword != '') ? array_filter($members, array(new filter($keyword), 'filter_keyword_member')): $members;
+	$members = ($keyword != "") ? array_filter($members, array(new filter($keyword), 'filter_keyword_member')): $members;
 	usort($members,'sort_date_member_ascend');
 	$members_count = count($members);
 	$pagination = new Pagination($members,$page,$count,20);
 	$pagination->setShowFirstAndLast(true);
-	$pagination->setMainSeperator('');
+	$pagination->setMainSeperator("");
 	$members = $pagination->getResults();
 	$output .= '<div class="paging">'.$pagination->getLinks().'</div>';
 	$output .= '<table class="admin">';
 	$output .= '<thead>';
 	$output .= '<tr><th>Order</th><th>Email</th><th>Fullname</th><th>DOB</th><th>Language</th><th>Created at</th><th>Edited at</th><th colspan="2">Operations</th></tr>';
-	$output .= '<tr><td class="count" colspan="9">'.$members_count.' item'.(($members_count > 1) ? 's': '').' to display.</td></tr>';
+	$output .= '<tr><td class="count" colspan="9">'.$members_count.' item'.(($members_count > 1) ? 's': "").' to display.</td></tr>';
 	$output .= '</thead>';
 	$output .= '<tbody id="table_body">';
 	for ($i = 0; $i < $count; ++$i) {
@@ -1821,8 +1826,8 @@ function bulk_sql_members($db_sql) {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, '', $directory) != 'login' && str_replace($path, '', $directory) != 'register' && is_dir($path.str_replace($path, '', $directory))) {
-				$emails[] = str_replace($path, '', $directory);
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$emails[] = str_replace($path, "", $directory);
 			}
 		}
 	}
@@ -1900,7 +1905,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
-	$content = '';
+	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.'</h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['create_user_thank'][$lang_code].'</p>';
@@ -1939,7 +1944,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
-	$content = '';
+	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.'</h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['edit_user_notify'][$lang_code].'</p>';
@@ -1977,7 +1982,7 @@ function email_contact($email,$fullname,$body) {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
 	$my_email = 'tung.42@gmail.com';
 	$heading = site_name();
-	$content = '';
+	$content = "";
 	$content .= '<h1>Email phản hồi từ Form Contact</h1>';
 	$content .= '<p>Email người gửi: '.$email.'</p>';
 	$content .= '<p>Họ tên người gửi: '.$fullname.'</p>';
@@ -2007,8 +2012,8 @@ function email_daily_suggestion() {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, '', $directory) != 'login' && str_replace($path, '', $directory) != 'register' && is_dir($path.str_replace($path, '', $directory))) {
-				$all_emails[] = str_replace($path, '', $directory);
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$all_emails[] = str_replace($path, "", $directory);
 			}
 		}
 	}
@@ -2024,7 +2029,7 @@ function email_daily_suggestion() {
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	for ($i = 0; $i < $count; ++$i) {
 		$member_chart = new Chart($members[$i]['dob'],0,0,date('Y-m-d'),$members[$i]['dob'],$members[$i]['lang']);
-		$heading = '';
+		$heading = "";
 		switch ($members[$i]['lang']) {
 			case 'vi': $heading = 'Biểu đồ nhịp sinh học | Bieu do nhip sinh hoc'; break;
 			case 'en': $heading = 'Biorhythm chart'; break;
@@ -2034,8 +2039,8 @@ function email_daily_suggestion() {
 			case 'ja': $heading = 'バイオリズムチャート'; break;
 		}
 		$proverb = generate_proverb($members[$i]['lang']);
-		$content = '';
-		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : '';
+		$content = "";
+		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
 		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].'</h1>';
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
@@ -2085,8 +2090,8 @@ function test_email_daily_suggestion() {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, '', $directory) != 'login' && str_replace($path, '', $directory) != 'register' && is_dir($path.str_replace($path, '', $directory))) {
-				$all_emails[] = str_replace($path, '', $directory);
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$all_emails[] = str_replace($path, "", $directory);
 			}
 		}
 	}

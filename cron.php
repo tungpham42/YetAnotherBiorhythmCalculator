@@ -1503,7 +1503,7 @@ $help_interfaces = array(
 	),
 	'life_path_number_suffix' => array(
 		'vi' => '.html',
-		'en' => '',
+		'en' => "",
 		'ru' => '.htm',
 		'es' => '/',
 		'zh' => '/',
@@ -1728,7 +1728,7 @@ function sort_date_member_ascend($a,$b){ //Call back function to sort date ascen
 }
 function load_member_from_email($email): array {
 	$array = array();
-	if ($email != '') {
+	if ($email != "") {
 		$path = '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/member/'.strtolower($email);
 		$db_path = $path.'/member.db';
 		$db_sql = 'SELECT * FROM "member"';
@@ -1803,7 +1803,7 @@ function get_ad($name): string {
 	$ads = new parseCSV('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/ads/'.$name.'.csv');
 	$count = count($ads->data);
 	$index = rand(0, $count-1);
-	$ad = '';
+	$ad = "";
 	switch ($name) {
 		case 'itunes_160x600':
 			$ad = '<iframe src="//banners.itunes.apple.com/banner.html?partnerId=&amp;aId=10lpuQ&amp;bt=genre&amp;t=genre_matrix_'.$ads->data[$index]['style'].'&amp;ft='.$ads->data[$index]['feed_type'].'&amp;st='.$ads->data[$index]['media_type'].'&amp;c='.$ads->data[$index]['country_code'].'&amp;l=en-US&amp;s='.$ads->data[$index]['s'].'&amp;p='.$ads->data[$index]['p'].'&amp;w=160&amp;h=600"></iframe>';
@@ -1824,7 +1824,7 @@ function get_ad($name): string {
 			$ad = '<iframe src="//rcm-na.amazon-adsystem.com/e/cm?t=tungpham42-20&amp;o=1&amp;p=48&amp;l=ur1&amp;category='.$ads->data[$index]['cat'].'&amp;f=ifr&amp;linkID='.$ads->data[$index]['link_id'].'"></iframe>';
 			break;
 		default:
-			$ad = '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img style="width: 360px" alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': '');
+			$ad = '<a class="ads" target="_blank" href="'.$ads->data[$index]['link_href'].'"><img style="width: 360px" alt="'.$name.'" src="'.$ads->data[$index]['img_src'].'" /></a>'.((isset($ads->data[$index]['other_img_src'])) ? '<img class="other_img" style="border:0" src="'.$ads->data[$index]['other_img_src'].'" width="1" height="1" alt="" />': "");
 	}
 	return $ad;
 }
@@ -1900,8 +1900,8 @@ function email_daily_suggestion() {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, '', $directory) != 'login' && str_replace($path, '', $directory) != 'register' && is_dir($path.str_replace($path, '', $directory))) {
-				$all_emails[] = str_replace($path, '', $directory);
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$all_emails[] = str_replace($path, "", $directory);
 			}
 		}
 	}
@@ -1917,7 +1917,7 @@ function email_daily_suggestion() {
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	for ($i = 0; $i < $count; ++$i) {
 		$member_chart = new Chart($members[$i]['dob'],0,0,date('Y-m-d'),$members[$i]['dob'],$members[$i]['lang']);
-		$heading = '';
+		$heading = "";
 		switch ($members[$i]['lang']) {
 			case 'vi': $heading = 'Biểu đồ nhịp sinh học | Bieu do nhip sinh hoc'; break;
 			case 'en': $heading = 'Biorhythm chart'; break;
@@ -1927,8 +1927,8 @@ function email_daily_suggestion() {
 			case 'ja': $heading = 'バイオリズムチャート'; break;
 		}
 		$proverb = generate_proverb($members[$i]['lang']);
-		$content = '';
-		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : '';
+		$content = "";
+		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
 		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].'</h1>';
 		$content .= get_ad('banner_300x250');
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
@@ -1957,6 +1957,52 @@ function email_daily_suggestion() {
 		//sleep(2);
 	}
 }
+function test_email_daily_suggestion() {
+	global $lang_code, $email_interfaces, $span_interfaces;
+	//$my_email = 'nhipsinhhoc@mail-tester.com';
+	$my_email = 'tung.42@gmail.com';
+	$unsubscriber_emails = array();
+	$all_emails = array();
+	$emails = array();
+	$members = array();
+	$unsubscribers = new parseCSV();
+	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
+	$unsubscribers_count = count($unsubscribers->data);
+	for ($i = 0; $i < $unsubscribers_count; ++$i) {
+		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
+	}
+	sort($unsubscriber_emails);
+	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
+	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
+	if (!$directories->count()) {
+		echo 'No matches';
+	} else {
+		$n = 0;
+		foreach ($directories as $directory) {
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+				$all_emails[] = str_replace($path, "", $directory);
+			}
+		}
+	}
+	sort($all_emails);
+	$emails = array_diff($all_emails, $unsubscriber_emails);
+	$count = count($emails);
+	sort($emails);
+	for ($m = 0; $m < $count; ++$m) {
+		$members[$m] = load_member_from_email($emails[$m]);
+	}
+	usort($members,'sort_date_member_ascend');
+	echo '<pre>';
+	print_r($unsubscriber_emails);
+	print_r($all_emails);
+	print_r($emails);
+	print_r($members);
+	echo '</pre>';
+}
 email_daily_suggestion();
 echo 'success!';
+if (isset($_GET['test']) && $_GET['test'] == 'yes') {
+	test_email_daily_suggestion();
+	echo 'tested!';
+}
 ?>

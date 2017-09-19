@@ -1,7 +1,7 @@
 <?php
 /* Member Manipulation */
 function get_member_email() {
-	$email = '';
+	$email = "";
 	$url = $_SERVER['REQUEST_URI'];
 	$pattern = '/\/member\/(.*)\/.*/';
 	preg_match($pattern, $url, $matches);
@@ -134,7 +134,7 @@ function delete_path($path) {
 	return false;
 }
 function delete_member($email) {
-	if (isset($email) && $email != '') {
+	if (isset($email) && $email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 		delete_path($path);
 	}
@@ -142,7 +142,7 @@ function delete_member($email) {
 function load_member() {
 	$array = array();
 	$email = get_member_email();
-	if ($email != '') {
+	if ($email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 		$db_path = $path.'/member.db';
 		$db_sql = 'SELECT * FROM "member"';
@@ -266,16 +266,16 @@ function person_exists() {
 }
 function get_member_fullname() {
 	$member = load_member();
-	return person_exists() ? load_person($_GET['pid'])['fullname'] : ((!person_exists() && isset($member)) ? $member['fullname']: '');
+	return person_exists() ? load_person($_GET['pid'])['fullname'] : ((!person_exists() && isset($member)) ? $member['fullname']: "");
 }
 function get_member_dob() {
 	$member = load_member();
-	return person_exists() ? load_person($_GET['pid'])['dob'] : ((!person_exists() && isset($member)) ? $member['dob']: '');
+	return person_exists() ? load_person($_GET['pid'])['dob'] : ((!person_exists() && isset($member)) ? $member['dob']: "");
 }
 function list_person_links() {
 	global $lang_code;
 	global $span_interfaces;
-	$output = '';
+	$output = "";
 	$email = get_member_email();
 	$persons = load_persons();
 	usort($persons,'sort_fullname_ascend');
@@ -289,7 +289,7 @@ function list_person_links() {
 function list_persons() {
 	global $lang_code;
 	global $span_interfaces;
-	$output = '';
+	$output = "";
 	$email = get_member_email();
 	$persons = load_persons();
 	usort($persons,'sort_fullname_ascend');

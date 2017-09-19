@@ -364,6 +364,9 @@ ul#nav_buttons [class^="icon-"], ul#nav_buttons [class*=" icon-"] {
 body.birthday .button [class^="icon-"], body.birthday .button [class*=" icon-"] {
 	color: #E35604;
 }
+body.birthday .nav_button.button:hover [class^="icon-"], body.birthday .nav_button.button:hover [class*=" icon-"], body.birthday .nav_button.button:active [class^="icon-"], body.birthday .nav_button.button:active [class*=" icon-"], body.birthday .nav_button.button.clicked [class^="icon-"], body.birthday .nav_button.button.clicked [class*=" icon-"], body.birthday.member .nav_button.button.member [class^="icon-"], body.birthday.member .nav_button.button.member [class*=" icon-"] {
+	color: #FFD700;
+}
 .icon-red {
 	color: #FF0028;
 }
@@ -2755,11 +2758,11 @@ body {
 }
 ::selection {
 	color: #FFFFFF;
-	background: #007799;
+	background: #2299bb;
 }
 ::-moz-selection {
 	color: #FFFFFF;
-	background: #007799;
+	background: #2299bb;
 }
 body.birthday {
 	background-color: #fff6c4;
@@ -2890,11 +2893,11 @@ header, header h1, nav ul#nav_buttons a.nav_button.button {
 }
 /* Links */
 a {
-	color: #007799;
+	color: #2299bb;
 	text-decoration: none;
 }
 a:hover {
-	color: #4499aa;
+	color: #44aacc;
 	text-decoration: underline;
 }
 
@@ -2961,14 +2964,14 @@ input[type="submit"]:not(.m-btn), input[type="reset"], input[type="button"], inp
 }
 .button {float: left}
 .lang_toggle.button, .lang_toggle.button:hover, input[type="submit"]:not(.m-btn):hover, input[type="reset"]:hover, input[type="button"]:hover, input.button:hover, button:hover, a.button:hover {
-	background-color: #007799;
-	border-color: #007799;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #007799), color-stop(0.5, #118899), color-stop(0.5, #2288aa), color-stop(1, #4499aa));
-	background-image: -webkit-linear-gradient(center top, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -moz-linear-gradient(center top, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -o-linear-gradient(center top, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -ms-linear-gradient(center top, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: linear-gradient(to top, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
+	background-color: #2299bb;
+	border-color: #2299bb;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2299bb), color-stop(0.5, #118899), color-stop(0.5, #2288aa), color-stop(1, #44aacc));
+	background-image: -webkit-linear-gradient(center top, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -moz-linear-gradient(center top, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -o-linear-gradient(center top, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -ms-linear-gradient(center top, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: linear-gradient(to top, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
 	color: #FFF;
 }
 .nav_button.button.vip:hover {
@@ -2992,18 +2995,18 @@ input[type="submit"]:not(.m-btn), input[type="reset"], input[type="button"], inp
 .lang_toggle.button:hover, input[type="submit"]:not(.m-btn):hover, input[type="reset"]:hover, input[type="button"]:hover, input.button:hover, button:hover, a.button:hover, .m-btn:hover, .rhythm_toggle:hover, #logo:hover, #proverb_refresh:hover, #proverb_list:hover, #proverb.loading #proverb_refresh, #embed_toggle:hover, #lunar_desc:hover, label[for="is_secondary"]:hover, #results > section .add-on:hover, #results > section .helper:hover, #info > p:hover {
 	text-shadow: 0 0 10px #ffffff;
 }
-body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday a.button:hover, body.birthday .rhythm_toggle:hover, body.birthday #logo:hover, body.birthday #proverb_refresh:hover, body.birthday #proverb_list:hover, body.birthday #proverb.loading #proverb_refresh, body.birthday #embed_toggle:hover, body.birthday #lunar_desc:hover, body.birthday label[for="is_secondary"]:hover, body.birthday #results > section .add-on:hover, body.birthday #results > section .helper:hover, body.birthday #info > p:hover {
+body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday .rhythm_toggle:hover, body.birthday #logo:hover, body.birthday #proverb_refresh:hover, body.birthday #proverb_list:hover, body.birthday #proverb.loading #proverb_refresh, body.birthday #embed_toggle:hover, body.birthday #lunar_desc:hover, body.birthday label[for="is_secondary"]:hover, body.birthday #results > section .add-on:hover, body.birthday #results > section .helper:hover, body.birthday #info > p:hover {
 	text-shadow: 0 0 10px #E35604;
 }
 .lang_toggle.button:active, .nav_button.button:active, input[type="submit"]:not(.m-btn):active, input[type="reset"]:active, input[type="button"]:active, input.button:active, button:active, a.button:active, .lang_toggle.button.clicked, .nav_button.button.clicked, input[type="submit"]:not(.m-btn).clicked, input[type="reset"].clicked, input[type="button"].clicked, input.button.clicked, button.clicked, a.button.clicked, .lang_toggle.button.clicked:hover, .nav_button.button.clicked:hover, input[type="submit"]:not(.m-btn).clicked:hover, input[type="reset"].clicked:hover, input[type="button"].clicked:hover, input.button.clicked:hover, button.clicked:hover, a.button.clicked:hover, body.member .nav_button.button.member, body.bmi .nav_button.button.bmi, body.lunar .nav_button.button.lunar, body.game .nav_button.button.game, body.intro .nav_button.button.intro, body.contact .nav_button.button.contact, body.donation .nav_button.button.donation {
-	background-color: #007799;
-	border-color: #007799;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #007799), color-stop(0.5, #118899), color-stop(0.5, #2288aa), color-stop(1, #4499aa));
-	background-image: -webkit-linear-gradient(center bottom, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -moz-linear-gradient(center bottom, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -o-linear-gradient(center bottom, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: -ms-linear-gradient(center bottom, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
-	background-image: linear-gradient(to bottom, #007799 0%, #118899 50%, #2288aa 50%, #4499aa 100%);
+	background-color: #2299bb;
+	border-color: #2299bb;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #2299bb), color-stop(0.5, #118899), color-stop(0.5, #2288aa), color-stop(1, #44aacc));
+	background-image: -webkit-linear-gradient(center bottom, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -moz-linear-gradient(center bottom, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -o-linear-gradient(center bottom, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: -ms-linear-gradient(center bottom, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
+	background-image: linear-gradient(to bottom, #2299bb 0%, #118899 50%, #2288aa 50%, #44aacc 100%);
 	color: #FFF;
 }
 body.vip .nav_button.button.vip, .nav_button.button.vip:active, body.birthday .nav_button.button.vip:active {
@@ -3050,7 +3053,7 @@ label[for="is_secondary"]:hover, #embed_toggle:hover, #lunar_desc:hover {
 	position: relative;
 	top: 1px;
 }
-#embed_toggle:active > i, #embed_toggle.clicked > i, .m-btn:active > i, .m-btn.clicked > i, .nav_button.button:active > i, .nav_button.button.clicked > i {
+#embed_toggle:active > i, #embed_toggle.clicked > i, .m-btn:active > i, .m-btn.clicked > i, .nav_button.button:active > i, .nav_button.button.clicked > i, body.member .nav_button.button.member:active > i {
 	top: 2px;
 }
 input[type="submit"]:not(.m-btn):active, input[type="reset"]:active, input[type="button"]:active, input.button:active, input[type="submit"]:not(.m-btn).clicked, input[type="reset"].clicked, input[type="button"].clicked, input.button.clicked, input[type="submit"]:not(.m-btn).clicked:hover, input[type="reset"].clicked:hover, input[type="button"].clicked:hover, input.button.clicked:hover {
@@ -3177,18 +3180,18 @@ ul.toolbar > li > a {
 body.rhythm a.rhythm, body.user a.user, body.member a.member, #toolbar ul.toolbar > li > a:focus, #toolbar ul.toolbar > li > a:hover, #toolbar ul.toolbar > li > a:active, #toolbar ul.toolbar > li > a.active:focus {
 	background: #444;
 }
-header, #dob_form, #clock, #help, #news, #info, #stats, #link_ads, #sleep_time, #compatibility, #life_path_link, #lunar_desc, footer, .help, .nav_button.button, #proverb blockquote {
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4499aa',endColorstr='#007799',GradientType=0)";
-	background-image: -ms-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -moz-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -o-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4499aa), color-stop(1, #007799));
-	background-image: -webkit-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: linear-gradient(to bottom, #4499aa 0%, #007799 100%);
+body.today header, #dob_form, #clock, #help, #news, #info, #stats, #link_ads, #sleep_time, #compatibility, #life_path_link, #lunar_desc, body.today footer, .help, body.today .nav_button.button, body.not-today .nav_button.button:hover, body.not-today .nav_button.button:active, body.not-today .nav_button.button.clicked, #proverb blockquote {
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aacc',endColorstr='#2299bb',GradientType=0)";
+	background-image: -ms-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -moz-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -o-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aacc), color-stop(1, #2299bb));
+	background-image: -webkit-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: linear-gradient(to bottom, #44aacc 0%, #2299bb 100%);
 	color: #FFF;
 	border-color: #FFF;
 }
-.nav_button.button.vip, body.birthday .nav_button.button.vip {
+.nav_button.button.vip, body.birthday .nav_button.button.vip, header, footer, .nav_button.button, body.not-today header, body.not-today footer, body.not-today .nav_button.button, body.today .nav_button.button:hover, body.today .nav_button.button:active, body.today .nav_button.button.clicked, body.today.member #member_link.nav_button.button.member, body.today.lunar #lunar_link.nav_button.button.lunar {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aa66',endColorstr='#009933',GradientType=0)";
 	background-image: -ms-linear-gradient(top, #44aa66 0%, #009933 100%);
 	background-image: -moz-linear-gradient(top, #44aa66 0%, #009933 100%);
@@ -3681,7 +3684,7 @@ body.birthday #dt_change_label:active, body.birthday #partner_dob_label:active, 
 	background-image: linear-gradient(to bottom, #FFD700 0%, #FFF740 100%);
 	color: #E35604;
 }
-body.birthday .lang_toggle.button, body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday a.button:hover, body.birthday .button.donate, body.birthday .button.donate:hover, body.birthday .button.sponsor, body.birthday .button.sponsor:hover {
+body.birthday .lang_toggle.button, body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday .button.donate, body.birthday .button.donate:hover, body.birthday .button.sponsor, body.birthday .button.sponsor:hover {
 	background-color: #FFD700;
 	border-color: #FFD700;
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFD700), color-stop(0.5, #FFDF10), color-stop(0.5, #FFEF30), color-stop(1, #FFF740));
@@ -3692,7 +3695,7 @@ body.birthday .lang_toggle.button, body.birthday .lang_toggle.button:hover, body
 	background-image: linear-gradient(to top, #FFD700 0%, #FFDF10 50%, #FFEF30 50%, #FFF740 100%);
 	color: #E35604;
 }
-body.birthday .lang_toggle.button:active, body.birthday .nav_button.button:active, body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday a.button:active, body.birthday .lang_toggle.button.clicked, body.birthday .nav_button.button.clicked, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday a.button.clicked, body.birthday .lang_toggle.button.clicked:hover, body.birthday .nav_button.button.clicked:hover, body.birthday input[type="submit"]:not(.m-btn).clicked:hover, body.birthday input[type="reset"].clicked:hover, body.birthday input[type="button"].clicked:hover, body.birthday input.button.clicked:hover, body.birthday button.clicked:hover, body.birthday a.button.clicked:hover, body.birthday.member .nav_button.button.member, body.birthday.bmi .nav_button.button.bmi, body.birthday.lunar .nav_button.button.lunar, body.birthday.game .nav_button.button.game, body.birthday.intro .nav_button.button.intro, body.birthday.contact .nav_button.button.contact, body.birthday.donation .nav_button.button.donation, body.birthday .button.donate:active, body.birthday .button.sponsor:active {
+body.birthday .lang_toggle.button:active, body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday .lang_toggle.button.clicked, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday .lang_toggle.button.clicked:hover, body.birthday input[type="submit"]:not(.m-btn).clicked:hover, body.birthday input[type="reset"].clicked:hover, body.birthday input[type="button"].clicked:hover, body.birthday input.button.clicked:hover, body.birthday button.clicked:hover, body.birthday.bmi .nav_button.button.bmi, body.birthday.lunar .nav_button.button.lunar, body.birthday.game .nav_button.button.game, body.birthday.intro .nav_button.button.intro, body.birthday.contact .nav_button.button.contact, body.birthday.donation .nav_button.button.donation, body.birthday .button.donate:active, body.birthday .button.sponsor:active {
 	background-color: #FFD700;
 	border-color: #FFD700;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FFD700), color-stop(0.5, #FFDF10), color-stop(0.5, #FFEF30), color-stop(1, #FFF740));
@@ -3703,19 +3706,35 @@ body.birthday .lang_toggle.button:active, body.birthday .nav_button.button:activ
 	background-image: linear-gradient(to bottom, #FFD700 0%, #FFDF10 50%, #FFEF30 50%, #FFF740 100%);
 	color: #E35604;
 }
+body.birthday .nav_button.button.clicked, body.birthday .nav_button.button.clicked:hover, body.birthday .nav_button.button:hover, body.birthday .nav_button.button:active, body.birthday a.button:hover, body.birthday a.button:active, body.birthday a.button.clicked, body.birthday a.button.clicked:hover, body.birthday.member .nav_button.button.member, body.birthday.member .nav_button.button.member:hover, body.birthday.member .nav_button.button.member:active {
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E37644,endColorstr=#E35604,GradientType=0)";
+	background-image: -ms-linear-gradient(top, #E37644 0%, #E35604 100%);
+	background-image: -moz-linear-gradient(top, #E37644 0%, #E35604 100%);
+	background-image: -o-linear-gradient(top, #E37644 0%, #E35604 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #E37644), color-stop(1, #E35604));
+	background-image: -webkit-linear-gradient(top, #E37644 0%, #E35604 100%);
+	background-image: linear-gradient(to bottom, #E37644 0%, #E35604 100%);
+	color: #FFD700;
+	border-color: #FFD700;
+	-ms-box-shadow: 0 0 10px 3px rgba(168,84,42,.42) inset;
+	-o-box-shadow: 0 0 10px 3px rgba(168,84,42,.42) inset;
+	-moz-box-shadow: 0 0 10px 3px rgba(168,84,42,.42) inset;
+	-webkit-box-shadow: 0 0 10px 3px rgba(168,84,42,.42) inset;
+	box-shadow: 0 0 10px 3px rgba(168,84,42,.42) inset;
+}
 body.birthday #dob_form, body.birthday #clock, body.birthday #news, body.birthday #info, body.birthday #stats, body.birthday #link_ads, body.birthday #sleep_time, body.birthday #compatibility, body.birthday #controls, body.birthday #lunar, body.birthday #wiki, body.birthday #main_chart, body.birthday #explanation_chart, body.birthday .adsense, body.birthday #ui-datepicker-div, body.birthday #proverb blockquote {
 	-moz-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);
 	-webkit-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);
 	-khtml-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);
 	box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);
 }
-body.birthday #dob_form:hover, body.birthday #clock:hover, body.birthday #news:hover, body.birthday #info:hover, body.birthday #stats:hover, body.birthday #link_ads:hover, body.birthday #sleep_time:hover, body.birthday #compatibility:hover, body.birthday #controls:hover, body.birthday #lunar:hover, body.birthday #wiki:hover, body.birthday #main_chart:hover, body.birthday #explanation_chart:hover, body.birthday .adsense:hover, body.birthday #ui-datepicker-div:hover, body.birthday #proverb blockquote:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday a.button:hover, body.birthday a.button.clicked:hover, body.birthday .m-btn:hover, body.birthday input.m-wrap:hover, body.birthday .m-btn.highlight, body.birthday input.m-wrap.highlight, body.birthday .ln-letters > a:hover {
+body.birthday #dob_form:hover, body.birthday #clock:hover, body.birthday #news:hover, body.birthday #info:hover, body.birthday #stats:hover, body.birthday #link_ads:hover, body.birthday #sleep_time:hover, body.birthday #compatibility:hover, body.birthday #controls:hover, body.birthday #lunar:hover, body.birthday #wiki:hover, body.birthday #main_chart:hover, body.birthday #explanation_chart:hover, body.birthday .adsense:hover, body.birthday #ui-datepicker-div:hover, body.birthday #proverb blockquote:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday .m-btn:hover, body.birthday input.m-wrap:hover, body.birthday .m-btn.highlight, body.birthday input.m-wrap.highlight, body.birthday .ln-letters > a:hover {
 	-moz-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 	-webkit-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 	-khtml-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 	box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 }
-body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday a.button:active, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday a.button.clicked, body.birthday input[type="submit"]:not(.m-btn).clicked:hover, body.birthday input[type="reset"].clicked:hover, body.birthday input[type="button"].clicked:hover, body.birthday input.button.clicked:hover, body.birthday button.clicked:hover, body.birthday a.button.clicked:hover, body.birthday .ln-letters > a:active, body.birthday .ln-letters > a.ln-selected {
+body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday a.button:active, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday input[type="submit"]:not(.m-btn).clicked:hover, body.birthday input[type="reset"].clicked:hover, body.birthday input[type="button"].clicked:hover, body.birthday input.button.clicked:hover, body.birthday button.clicked:hover, body.birthday .ln-letters > a:active, body.birthday .ln-letters > a.ln-selected {
 	-moz-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
 	-webkit-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
 	-khtml-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
@@ -3733,7 +3752,7 @@ body.birthday #logo, body.birthday .nav_button.button {
 	-khtml-box-shadow: 0 3px 6px 1px rgba(255,215,0,.33);
 	box-shadow: 0 3px 6px 1px rgba(255,215,0,.33);
 }
-body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday a.button:hover {
+body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover {
 	-moz-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 	-webkit-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
 	-khtml-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77), 0 0 0 0 rgba(227,86,4,.77) inset;
@@ -3745,7 +3764,7 @@ body.birthday #logo:hover, body.loading.birthday #logo, body.birthday .nav_butto
 	-khtml-box-shadow: 0 3px 6px 1px rgba(255,215,0,.77), 0 0 0 0 rgba(255,215,0,.77) inset;
 	box-shadow: 0 3px 6px 1px rgba(255,215,0,.77), 0 0 0 0 rgba(255,215,0,.77) inset;
 }
-body.birthday #logo:active, body.birthday .nav_button.button:active, body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday a.button:active, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday a.button.clicked, body.birthday.member .nav_button.button.member, body.birthday.bmi .nav_button.button.bmi, body.birthday.lunar .nav_button.button.lunar, body.birthday.game .nav_button.button.game, body.birthday.intro .nav_button.button.intro, body.birthday.contact .nav_button.button.contact, body.birthday.donation .nav_button.button.donation {
+body.birthday #logo:active, body.birthday .nav_button.button:active, body.birthday input[type="submit"]:not(.m-btn):active, body.birthday input[type="reset"]:active, body.birthday input[type="button"]:active, body.birthday input.button:active, body.birthday button:active, body.birthday a.button:active, body.birthday input[type="submit"]:not(.m-btn).clicked, body.birthday input[type="reset"].clicked, body.birthday input[type="button"].clicked, body.birthday input.button.clicked, body.birthday button.clicked, body.birthday.bmi .nav_button.button.bmi, body.birthday.lunar .nav_button.button.lunar, body.birthday.game .nav_button.button.game, body.birthday.intro .nav_button.button.intro, body.birthday.contact .nav_button.button.contact, body.birthday.donation .nav_button.button.donation {
 	-moz-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
 	-webkit-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
 	-khtml-box-shadow: 0 0 0 0 rgba(227,86,4,.77), 0 2px 4px 0 rgba(227,86,4,.77) inset;
@@ -3872,12 +3891,12 @@ body.birthday .ui-dialog-titlebar-close.ui-state-hover{background:url(ui-birthda
 	text-align: left;
 	border-left: 25px solid;
 	border-right: 15px solid;
-	border-color: #007799;
-	-webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4499aa), to(#007799)) 1 100%;
-	-webkit-border-image: -webkit-linear-gradient(#4499aa, #007799) 1 100%;
-	-moz-border-image: -moz-linear-gradient(#4499aa, #007799) 1 100%;
-	-o-border-image: -o-linear-gradient(#4499aa, #007799) 1 100%;
-	border-image: linear-gradient(to bottom, #4499aa, #007799) 1 100%;
+	border-color: #2299bb;
+	-webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#44aacc), to(#2299bb)) 1 100%;
+	-webkit-border-image: -webkit-linear-gradient(#44aacc, #2299bb) 1 100%;
+	-moz-border-image: -moz-linear-gradient(#44aacc, #2299bb) 1 100%;
+	-o-border-image: -o-linear-gradient(#44aacc, #2299bb) 1 100%;
+	border-image: linear-gradient(to bottom, #44aacc, #2299bb) 1 100%;
 }
 #proverb blockquote::before, blockquote::after {
 	font-size: 30px;
@@ -3903,7 +3922,7 @@ body.birthday #proverb blockquote::before, body.birthday blockquote::after {
 	background: #e9eaed;
 	cursor: pointer;
 	padding: 0 3px;
-	color: #007799;
+	color: #2299bb;
 }
 body.birthday #proverb blockquote a {
 	background: transparent;
@@ -3935,7 +3954,7 @@ body.birthday #proverb blockquote a {
 	-o-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
 	transform: rotate(45deg);
-	background-color: #007799;
+	background-color: #2299bb;
 	-moz-box-shadow: 3px 3px 3px 0 rgba(0,0,0,.33);
 	-webkit-box-shadow: 3px 3px 3px 0 rgba(0,0,0,.33);
 	-khtml-box-shadow: 3px 3px 3px 0 rgba(0,0,0,.33);
@@ -4134,14 +4153,14 @@ a.m-btn {
 	color: #ffffff;
 }
 #dob_form_status.disabled_dob ~ #dob_wrapper #help_dob {
-	background-color: #007799;
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4499aa',endColorstr='#007799',GradientType=0)";
-	background-image: -ms-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -moz-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -o-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4499aa), color-stop(1, #007799));
-	background-image: -webkit-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: linear-gradient(to bottom, #4499aa 0%, #007799 100%);
+	background-color: #2299bb;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aacc',endColorstr='#2299bb',GradientType=0)";
+	background-image: -ms-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -moz-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -o-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aacc), color-stop(1, #2299bb));
+	background-image: -webkit-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: linear-gradient(to bottom, #44aacc 0%, #2299bb 100%);
 	color: #ffffff;
 }
 body.birthday #dob_form_status.disabled_dob ~ #dob_wrapper #help_dob {
@@ -4187,11 +4206,11 @@ body.birthday #dob_form_status.disabled_dob ~ #dob_wrapper #help_dob {
 	-webkit-border-radius: 16px;
 	-moz-border-radius: 16px;
 	-o-border-radius: 16px;
-	background-image: -webkit-radial-gradient(#4d90fe,#007799);
-	background-image: -o-radial-gradient(#4d90fe,#007799);
-	background-image: -moz-radial-gradient(#4d90fe,#007799);
-	background-image: radial-gradient(#4d90fe,#007799);
-	background-color: #007799;
+	background-image: -webkit-radial-gradient(#4d90fe,#2299bb);
+	background-image: -o-radial-gradient(#4d90fe,#2299bb);
+	background-image: -moz-radial-gradient(#4d90fe,#2299bb);
+	background-image: radial-gradient(#4d90fe,#2299bb);
+	background-color: #2299bb;
 	transition: margin 120ms linear;
 	-webkit-transition: margin 120ms linear;
 	-moz-transition: margin 120ms linear;
@@ -4248,11 +4267,11 @@ body.birthday #dob_form_status.disabled_dob ~ #dob_wrapper #help_dob {
 }
 /* Blue */
 #dob_form_status.has_fullname.empty_fullname.correct_dob ~ #help_dob_form {
-	background-image: -webkit-radial-gradient(#4d90fe,#007799);
-	background-image: -o-radial-gradient(#4d90fe,#007799);
-	background-image: -moz-radial-gradient(#4d90fe,#007799);
-	background-image: radial-gradient(#4d90fe,#007799);
-	background-color: #007799;
+	background-image: -webkit-radial-gradient(#4d90fe,#2299bb);
+	background-image: -o-radial-gradient(#4d90fe,#2299bb);
+	background-image: -moz-radial-gradient(#4d90fe,#2299bb);
+	background-image: radial-gradient(#4d90fe,#2299bb);
+	background-color: #2299bb;
 }
 /* Red */
 #dob_form_status.wrong_dob ~ #help_dob_form, #dob_form_status.alert_dob ~ #help_dob_form {
@@ -4874,6 +4893,7 @@ body.birthday #info [class^="icon-"] {
 #sleep_time > select {
 	width: 128px;
 	margin: auto;
+	height: auto;
 }
 #sleep_time #hour_text, #sleep_time #minute_text {
 	display: none;
@@ -4887,8 +4907,8 @@ body.birthday #info [class^="icon-"] {
 	float: left;
 	font-size: 18px;
 	font-weight: bold;
-	margin: 6px;
-	padding: 6px 12px;
+	margin: 4px;
+	padding: 4px 11px;
 	background-color: rgba(240,240,240,0.84);
 	color: #555555;
 	border: 4px solid rgba(120,120,120,0.42);
@@ -4902,13 +4922,13 @@ body.birthday #info [class^="icon-"] {
 	margin: auto;
 }
 body.today #sleep_now {
-	background-color: #0d709e;
-	background-image: -moz-linear-gradient(top, #0d709e, #07779d);
-	background-image: -ms-linear-gradient(top, #0d709e, #07779d);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0d709e), to(#07779d));
-	background-image: -webkit-linear-gradient(top, #0d709e, #07779d);
-	background-image: -o-linear-gradient(top, #0d709e, #07779d);
-	background-image: linear-gradient(to top, #0d709e, #07779d);
+	background-color: #44aacc;
+	background-image: -moz-linear-gradient(top, #44aacc, #2299bb);
+	background-image: -ms-linear-gradient(top, #44aacc, #2299bb);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#44aacc), to(#2299bb));
+	background-image: -webkit-linear-gradient(top, #44aacc, #2299bb);
+	background-image: -o-linear-gradient(top, #44aacc, #2299bb);
+	background-image: linear-gradient(to top, #44aacc, #2299bb);
 }
 #link_ads {
 	position: relative;
@@ -5037,7 +5057,7 @@ body.birthday #link_ads, body.birthday .link_ads_explanation {
 	width: 270px;
 	padding: 5px;
 	margin: 9px 0;
-	background: #007799;
+	background: #2299bb;
 	color: #FFF;
 	line-height: 1.3em;
 }
@@ -5151,25 +5171,25 @@ li.rhythm > i {
 li.rhythm * {font-size: 15px}
 li.rhythm span {font-weight: bold}
 #controls, #lunar, .add-on, #dt_change_label, #partner_dob_label, label[for="is_secondary"], #embed_toggle, #lunar_desc {
-	background-color: #007799 !important;
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4499aa,endColorstr=#007799,GradientType=0)";
-	background-image: -ms-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -moz-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -o-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4499aa), color-stop(1, #007799));
-	background-image: -webkit-linear-gradient(top, #4499aa 0%, #007799 100%);
-	background-image: linear-gradient(to bottom, #4499aa 0%, #007799 100%);
+	background-color: #2299bb !important;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#44aacc,endColorstr=#2299bb,GradientType=0)";
+	background-image: -ms-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -moz-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -o-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aacc), color-stop(1, #2299bb));
+	background-image: -webkit-linear-gradient(top, #44aacc 0%, #2299bb 100%);
+	background-image: linear-gradient(to bottom, #44aacc 0%, #2299bb 100%);
 	color: #FFF;
 }
 #dt_change_label:active, #partner_dob_label:active, label[for="is_secondary"]:active, #embed_toggle:active, #lunar_desc:active, #dt_change_label.clicked, #partner_dob_label.clicked, label[for="is_secondary"].clicked, #embed_toggle.clicked, #lunar_desc.clicked {
-	background-color: #007799 !important;
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#007799,endColorstr=#4499aa,GradientType=0)";
-	background-image: -ms-linear-gradient(top, #007799 0%, #4499aa 100%);
-	background-image: -moz-linear-gradient(top, #007799 0%, #4499aa 100%);
-	background-image: -o-linear-gradient(top, #007799 0%, #4499aa 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #007799), color-stop(1, #4499aa));
-	background-image: -webkit-linear-gradient(top, #007799 0%, #4499aa 100%);
-	background-image: linear-gradient(to bottom, #007799 0%, #4499aa 100%);
+	background-color: #2299bb !important;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#2299bb,endColorstr=#44aacc,GradientType=0)";
+	background-image: -ms-linear-gradient(top, #2299bb 0%, #44aacc 100%);
+	background-image: -moz-linear-gradient(top, #2299bb 0%, #44aacc 100%);
+	background-image: -o-linear-gradient(top, #2299bb 0%, #44aacc 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2299bb), color-stop(1, #44aacc));
+	background-image: -webkit-linear-gradient(top, #2299bb 0%, #44aacc 100%);
+	background-image: linear-gradient(to bottom, #2299bb 0%, #44aacc 100%);
 	color: #FFF;
 }
 #wiki {
@@ -5177,11 +5197,11 @@ li.rhythm span {font-weight: bold}
 	line-height: 2.0em;
 	padding: 10px;
 	margin: 10px;
-	background: #007799;
+	background: #2299bb;
 	color: #FFF;
 }
 p.highlight, h3.highlight {
-	background: #007799 !important;
+	background: #2299bb !important;
 	color: #fff !important;
 }
 #explanation_nav > a.m-btn {
@@ -5253,6 +5273,12 @@ table td, table th {
 	padding: 8px 10px;
 	border: 0;
 	color: black;
+}
+table#proverbs td, table#proverbs th {
+	font-size: 18px;
+}
+table#proverbs td.author {
+	width: 180px;
 }
 body.admin table.admin th {
 	text-transform: uppercase;
@@ -5854,10 +5880,10 @@ p.explain:hover > span.explain_more {
 }
 #explanation .rotate span::after, #explanation .rotate:hover span, .item_title.rotate span::after, .item_title.rotate:hover span {
 	color: #FFFFFF;
-	background: #007799;
+	background: #2299bb;
 }
 footer .rotate span::after, footer .rotate:hover span {
-	color: #007799;
+	color: #2299bb;
 	background: #FFFFFF;
 }
 body.birthday #explanation .rotate span::after, body.birthday #explanation .rotate:hover span, body.birthday .item_title.rotate span::after, body.birthday .item_title.rotate:hover span {
@@ -6344,7 +6370,7 @@ body.birthday .rss_feed a {
 	color: #fff;
 	font-weight: bold;
 	font-size: 30px;
-	background: #007799;
+	background: #2299bb;
 	padding: 6px 30px;
 	margin-top: -12px;
 	margin-left: calc(50% - 100px);
@@ -6376,11 +6402,11 @@ body.birthday .rss_feed > h2 {
 	-webkit-border-radius: 16px;
 	-moz-border-radius: 16px;
 	-o-border-radius: 16px;
-	background-image: -webkit-radial-gradient(#4d90fe,#007799);
-	background-image: -o-radial-gradient(#4d90fe,#007799);
-	background-image: -moz-radial-gradient(#4d90fe,#007799);
-	background-image: radial-gradient(#4d90fe,#007799);
-	background-color: #007799;
+	background-image: -webkit-radial-gradient(#4d90fe,#2299bb);
+	background-image: -o-radial-gradient(#4d90fe,#2299bb);
+	background-image: -moz-radial-gradient(#4d90fe,#2299bb);
+	background-image: radial-gradient(#4d90fe,#2299bb);
+	background-color: #2299bb;
 	transition: none;
 	-webkit-transition: none;
 	-moz-transition: none;
@@ -6422,7 +6448,7 @@ body.birthday .rss_feed > h2 {
 .rss_feed > .feed > .feed_item {
 	background-color: transparent;
 	padding: 20px 0;
-	border-bottom: 1px dotted #007799;
+	border-bottom: 1px dotted #2299bb;
 }
 body.birthday .rss_feed > .feed > .feed_item {
 	border-bottom-color: #FFD700;
@@ -6822,6 +6848,7 @@ body.member.person:lang(ja) #dob_control_bar > .m-btn {
 	width: 270px;
 	margin: 2px 4px;
 	border: 5px solid rgba(200,200,200,0.2);
+	clear: left;
 }
 #register_modal {
 	display: none;
@@ -6844,13 +6871,13 @@ body.member.person:lang(ja) #dob_control_bar > .m-btn {
 body:lang(vi) #sms {
 	display: block;
 	color: #ffffff !important;
-	background-color: #007799;
+	background-color: #2299bb;
 	padding: 12px;
 	font-weight: bold;
 }
 body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, body:lang(ja) #sms {display: none;}
 /* Responsive */
-@media all and (max-width: 551px) {
+@media all and (max-width: 591px) {
 	#lang_bar {float: left;left: 12px;bottom: 4px;}
 	#lang_bar .lang_toggle.button {left: 0;}
 	.lang_toggle.button.first > span.lang {display: none;}
@@ -6894,7 +6921,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	#proverb blockquote {border-left-width: 22px;border-right-width: 11px;}
 	#proverb i#proverb_refresh {top: 5px;left: -18px;width: 14px;height: 14px;font-size: 14px;}
 	#proverb_list {top: 25px;left: -21px;width: 14px;height: 14px;font-size: 14px;}
-	li#nav_toggle {left: 284px !important;top: 94px !important;}
+	li#nav_toggle {left: 284px !important;top: 48px !important;}
 }
 @media all and (min-width: 750px) and (max-width: 959px) {
 	#proverb {right: 4px;width: calc(100% - 295px);width: -webkit-calc(100% - 295px);width: -moz-calc(100% - 295px);}
@@ -6926,7 +6953,8 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	body header#header {background-color: none !important;background-image: none !important;height: auto;-ms-box-shadow: none !important;-o-box-shadow: none !important;-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;}
 	header a#logo {top: 5px;left: 5px;width: 18px;height: 18px;padding: 9px;font-size: 18px;}
 	a#logo > i {width: 18px;height: 18px;font-size: 18px;}
-	header h1 {position: relative;top: 0;left: 0;font-size: 18px;padding: 12px 8px 12px 48px;text-align: left;margin: 0 0 9px;line-height: 24px;background-color: #007799;width: calc(100% - 56px);width: -webkit-calc(100% - 56px);width: -moz-calc(100% - 56px);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4499aa',endColorstr='#007799',GradientType=0)";background-image: -ms-linear-gradient(top, #4499aa 0%, #007799 100%);background-image: -moz-linear-gradient(top, #4499aa 0%, #007799 100%);background-image: -o-linear-gradient(top, #4499aa 0%, #007799 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4499aa), color-stop(1, #007799));background-image: -webkit-linear-gradient(top, #4499aa 0%, #007799 100%);background-image: linear-gradient(to bottom, #4499aa 0%, #007799 100%);color: #fff;-moz-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-webkit-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-khtml-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);}
+	header h1 {position: relative;top: 0;left: 0;font-size: 18px;padding: 12px 8px 12px 48px;text-align: left;margin: 0 0 9px;line-height: 24px;background-color: #2299bb;width: calc(100% - 56px);width: -webkit-calc(100% - 56px);width: -moz-calc(100% - 56px);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aacc',endColorstr='#2299bb',GradientType=0)";background-image: -ms-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -moz-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -o-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aacc), color-stop(1, #2299bb));background-image: -webkit-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: linear-gradient(to bottom, #44aacc 0%, #2299bb 100%);color: #fff;-moz-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-webkit-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-khtml-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);}
+	body.not-today header h1 {background-color: #009933;-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aa66',endColorstr='#009933',GradientType=0)";background-image: -ms-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -moz-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -o-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aa66), color-stop(1, #009933));background-image: -webkit-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: linear-gradient(to bottom, #44aa66 0%, #009933 100%);color: #fff;}
 	header h1:hover {-moz-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77);-webkit-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77);-khtml-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77);box-shadow: 0 3px 6px 1px rgba(0,0,0,.77);}
 	body.birthday header h1 {background-color: #E35604 !important;-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E37644,endColorstr=#E35604,GradientType=0)";background-image: -ms-linear-gradient(top, #E37644 0%, #E35604 100%);background-image: -moz-linear-gradient(top, #E37644 0%, #E35604 100%);background-image: -o-linear-gradient(top, #E37644 0%, #E35604 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #E37644), color-stop(1, #E35604));background-image: -webkit-linear-gradient(top, #E37644 0%, #E35604 100%);background-image: linear-gradient(to bottom, #E37644 0%, #E35604 100%);color: #FFD700;-moz-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);-webkit-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);-khtml-box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);box-shadow: 0 3px 6px 1px rgba(227,86,4,.33);}
 	body.birthday header h1:hover {-moz-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77);-webkit-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77);-khtml-box-shadow: 0 3px 6px 1px rgba(227,86,4,.77);box-shadow: 0 3px 6px 1px rgba(227,86,4,.77);}
@@ -6975,7 +7003,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	#dob_form_status.hovered.empty_dob ~ #help_dob_form, #dob_form_status.hovered.wrong_dob ~ #help_dob_form, #dob_form_status.hovered.alert_dob ~ #help_dob_form, #dob_form_status.hovered.no_fullname.correct_dob ~ #help_dob_form, #dob_form_status.hovered.has_fullname.filled_fullname.correct_dob ~ #help_dob_form {margin-left: 0;}
 	#clock, #help {margin-top: 10px;margin-bottom: 0;}
 	body.member #help_dob {left: 29px !important;}
-	body.member form#profile_form {margin-bottom: 2px;}
+	body.member form#profile_form {margin-bottom: 2px;clear: left;}
 	.ui-dialog, .ui-widget-overlay {display: none !important;}
 	/* Nav Toggle */
 	li#nav_toggle {
@@ -7078,7 +7106,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 
 .jbar {
 	font-family: inherit; /* inherit your fonts */
-	background: #007799;
+	background: #2299bb;
 	border-bottom: 3px solid #FFF;
 	position: fixed;
 	top: 0;
@@ -7135,7 +7163,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	z-index: 999;
 	display: block;
 	padding: 10px 10px 5px;
-	background: #007799;
+	background: #2299bb;
 	border: 3px solid #FFF;
 	border-top: none;
 	border-radius: 0 0 4px 4px;
@@ -8686,4 +8714,12 @@ div[aria-describedby="register_modal"] button.ui-dialog-titlebar-close {
 }
 .ui-dialog {
 	z-index: 100 !important;
+}
+/* Bank account */
+#bank_account {
+	font-size: 24px;
+	font-weight: bold;
+}
+#bank_account ul > li {
+	line-height: 36px;
 }

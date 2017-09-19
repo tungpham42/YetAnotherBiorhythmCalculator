@@ -25,8 +25,8 @@ if (isset($_POST['login'])) {
 }
 /* End Auth */
 /* Initiate Program */
-$keywords = '';
-if (isset($_GET['q']) && $_GET['q'] != '') {
+$keywords = "";
+if (isset($_GET['q']) && $_GET['q'] != "") {
 	$h1 = search_title();
 	$title = search_title();
 	$body_class = 'search';
@@ -166,7 +166,7 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 } else if ($p == 'member/home') {
 	$h1 = can_wish() ? birthday_title() : home_title();
 	$title = can_wish() ? birthday_title() : home_title();
-	$body_class = 'member home'.((isset($_GET['pid'])) ? ' person' : '');
+	$body_class = 'member home'.((isset($_GET['pid'])) ? ' person' : "");
 } else if ($p == 'contact') {
 	$h1 = $span_interfaces['contact'][$lang_code];
 	$title = $span_interfaces['contact'][$lang_code];
@@ -272,7 +272,7 @@ switch($p) {
 		$meta_description = 'Trò chơi bóng bàn 3D hấp dẫn.';
 		break;
 	default:
-		$meta_description = (can_wish() ? birthday_title() : $title).((has_dob()) ? ' - '.$chart->render_meta_description(): '').' - '.head_description();
+		$meta_description = (can_wish() ? birthday_title() : $title).((has_dob()) ? ' - '.$chart->render_meta_description(): "").' - '.head_description();
 }
 $head_title = (can_wish() ? birthday_title() : $title).' | '.$site_name;
 $head_description = can_wish() ? $birthday_wish: $meta_description;

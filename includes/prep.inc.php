@@ -221,14 +221,14 @@ function insert_record($array = array(), $table_name) { //Insert table record
 	$values = array_values($array);
 	$execute_array = array();
 	$count = count($array);
-	$query = '';
+	$query = "";
 	$query .= 'INSERT INTO "'.$table_name.'"(';
 	for ($k = 0; $k < $count; ++$k) {
-		$query .= $keys[$k].(($k < ($count - 1)) ? ',': '');
+		$query .= $keys[$k].(($k < ($count - 1)) ? ',': "");
 	}
 	$query .= ') VALUES(';
 	for ($i = 0; $i < $count; ++$i) {
-		$query .= '?'.(($i < ($count - 1)) ? ',': '');
+		$query .= '?'.(($i < ($count - 1)) ? ',': "");
 	}
 	$query .= ')';
 	for ($e = 0; $e < $count; ++$e) {
@@ -243,10 +243,10 @@ function update_record_with_operator($array = array(), $identifier, $value, $tab
 	$values = array_values($array);
 	$execute_array = array();
 	$count = count($array);
-	$query = '';
+	$query = "";
 	$query .= 'UPDATE "'.$table_name.'" SET ';
 	for ($i = 0; $i < $count; ++$i) {
-		$query .= $keys[$i].'=?'.(($i < ($count - 1)) ? ',': '');
+		$query .= $keys[$i].'=?'.(($i < ($count - 1)) ? ',': "");
 	}
 	$query .= ' WHERE '.$identifier.$operator.'?';
 	for ($e = 0; $e < $count; ++$e) {
@@ -270,7 +270,7 @@ function delete_record_with_two_identifier($identifier1, $value1, $identifier2, 
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));
 }
 function table_row_class($id): string { //Identify the table row class based on counter
-	$output = '';
+	$output = "";
 	if ((($id+1) % 2) == 1) {
 		$output .= ' odd';
 	} else {

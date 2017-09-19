@@ -253,7 +253,7 @@ class Chart {
 		$chart_data = '[{name:"'.$this->_average_text.'",data:[';
 		for ($d = 0; $d < $this->_dates_count; ++$d) {
 			$chart_data .= average_bio_count($this->_dob,$this->_dates[$d],$this->_rhythms);
-			$chart_data .= ($d != ($this->_dates_count-1)) ? ',': '';
+			$chart_data .= ($d != ($this->_dates_count-1)) ? ',': "";
 		}
 		$chart_data .= '],lineWidth: 2},';
 		for ($r = 0; $r < $this->_rhythms_count; ++$r) {
@@ -261,7 +261,7 @@ class Chart {
 			$chart_data .= '{name:"'.$this->_rhythms[$r]['rhythm_name'].'",data:[';
 			for ($d = 0; $d < $this->_dates_count; ++$d) {
 				$chart_data .= bio_count($this->_dob,$this->_dates[$d],$this->_rhythms[$r]['scale']);
-				$chart_data .= ($d != ($this->_dates_count-1)) ? ',': '';
+				$chart_data .= ($d != ($this->_dates_count-1)) ? ',': "";
 			}
 			$chart_data .= ']';
 			$chart_data .= ($r != ($this->_rhythms_count-1)) ? '},': '}';
@@ -275,10 +275,10 @@ class Chart {
 		$physical = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),23);
 		$emotional = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),28);
 		$intellectual = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),33);
-		$average_text = '';
-		$physical_text = '';
-		$emotional_text = '';
-		$intellectual_text = '';
+		$average_text = "";
+		$physical_text = "";
+		$emotional_text = "";
+		$intellectual_text = "";
 		if ($average >= 75 && $average <= 100) {
 			$average_text = $information_interfaces['average'][$this->_lang_code]['excellent'];
 		} else if ($average >= 50 && $average < 75) {
@@ -329,10 +329,10 @@ class Chart {
 		$physical = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),23);
 		$emotional = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),28);
 		$intellectual = (float)bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),33);
-		$average_text = '';
-		$physical_text = '';
-		$emotional_text = '';
-		$intellectual_text = '';
+		$average_text = "";
+		$physical_text = "";
+		$emotional_text = "";
+		$intellectual_text = "";
 		$plus = '<i class="icon-circle-plus"></i> ';
 		$minus = '<i class="icon-circle-minus"></i> ';
 		$mark = '<i class="icon-circle-exclamation-mark"></i> ';
@@ -379,10 +379,11 @@ class Chart {
 		} else if ($intellectual >= 0 && $intellectual < 20) {
 			$intellectual_text = $minus.$minus.$hand_right.$information_interfaces['intellectual'][$this->_lang_code]['bad'];
 		}
+		//return '<p>'.$average_text.'</p><p>'.$physical_text.day_of_rhythm($this->_dob,date('Y-m-d',time()+86400*$this->_diff),23).'</p><p>'.$emotional_text.day_of_rhythm($this->_dob,date('Y-m-d',time()+86400*$this->_diff),28).'</p><p>'.$intellectual_text.day_of_rhythm($this->_dob,date('Y-m-d',time()+86400*$this->_diff),33).'</p>';
 		return '<p>'.$average_text.'</p><p>'.$physical_text.'</p><p>'.$emotional_text.'</p><p>'.$intellectual_text.'</p>';
 	}
 	function get_birthday_countdown(): string {
-		$birthday_countdown = '';
+		$birthday_countdown = "";
 		switch ($this->_lang_code) {
 			case 'vi':
 				$birthday_countdown = 'Còn '.countdown_birthday($this->_dob, $this->_date).' ngày nữa là tới sinh nhật của bạn.';
@@ -410,7 +411,7 @@ class Chart {
 		$infor_values = '<ul>';
 		$infor_values .= '<li>'.$this->_average_text.$email_interfaces['colon'][$this->_lang_code].' '.percent_average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms).' - '.((average_bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$this->_rhythms) < average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms)) ? $email_interfaces['going_up'][$this->_lang_code]: $email_interfaces['going_down'][$this->_lang_code]).'</li>';
 		foreach ($this->_rhythms as $rhythm) {
-			$infor_values .= '<li>'.$this->get_rhythm_name($rhythm).$email_interfaces['colon'][$this->_lang_code].' '.percent_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']).((bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 0 || bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 100) ? '': ' - '.((bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$rhythm['scale']) < bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale'])) ? $email_interfaces['going_up'][$this->_lang_code]: $email_interfaces['going_down'][$this->_lang_code])).'</li>';
+			$infor_values .= '<li>'.$this->get_rhythm_name($rhythm).$email_interfaces['colon'][$this->_lang_code].' '.percent_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']).((bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 0 || bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 100) ? "": ' - '.((bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$rhythm['scale']) < bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale'])) ? $email_interfaces['going_up'][$this->_lang_code]: $email_interfaces['going_down'][$this->_lang_code])).'</li>';
 		}
 		$infor_values .= '</ul>';
 		return $infor_values;
@@ -426,7 +427,7 @@ class Chart {
 	// Render news
 	function output_news(): string {
 		global $help_interfaces;
-		$output = '';
+		$output = "";
 		$output .= '
 <section id="news" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
 	<h5>'.$this->_news_h5.'</h5>
@@ -445,7 +446,7 @@ class Chart {
 	// Render stats
 	function output_stats(): string {
 		global $help_interfaces, $dob, $fullname;
-		$output = '';
+		$output = "";
 		$output .= '
 <section id="stats" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
 	<h5>'.$this->_statistics_h5.' - '.$dob.'</h5>
@@ -455,7 +456,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="誕生日カウントダウン:" data-lang-zh="生日倒计时:" data-lang-es="Cuenta atrás cumpleaños:" data-lang-ru="День рождения отсчет:" data-lang-en="Birthday countdown:" data-lang-vi="Đếm ngược sinh nhật:"></span></strong> '.countdown_birthday($this->_dob, $this->_date).' <span class="translate" data-lang-ja="日" data-lang-zh="日" data-lang-es="'.pluralize(countdown_birthday($this->_dob, $this->_date),'día').'" data-lang-ru="дней" data-lang-en="'.pluralize(countdown_birthday($this->_dob, $this->_date),'day').'" data-lang-vi="ngày"></span></p>
 	<p><a id="life_path_link" target="_blank" href="'.$help_interfaces['life_path_number_prefix'][$this->_lang_code].calculate_life_path($this->_dob).$help_interfaces['life_path_number_suffix'][$this->_lang_code].'"><strong><span class="translate" data-lang-ja="ライフパス番号:" data-lang-zh="人生道路数量:" data-lang-es="Vida número de camino:" data-lang-ru="Число Жизненный путь:" data-lang-en="Life path number:" data-lang-vi="Con số cuộc đời:"></span></strong> '.calculate_life_path($this->_dob).'</a></p>
 	<p><strong><span class="translate" data-lang-ja="黄道帯の印:" data-lang-zh="星宮名稱:" data-lang-es="Signo del Zodíaco:" data-lang-ru="Знак зодиака:" data-lang-en="Zodiac sign:" data-lang-vi="Cung hoàng đạo:"></span></strong> <span class="translate" data-lang-ja="'.get_zodiac_from_dob($this->_dob,'ja').'" data-lang-zh="'.get_zodiac_from_dob($this->_dob,'zh').'" data-lang-es="'.get_zodiac_from_dob($this->_dob,'es').'" data-lang-ru="'.get_zodiac_from_dob($this->_dob,'ru').'" data-lang-en="'.get_zodiac_from_dob($this->_dob,'en').'" data-lang-vi="'.get_zodiac_from_dob($this->_dob,'vi').'"></span></p>
-	<textarea style="resize:vertical" id="embed_box" rows="2" cols="420" onClick="select()">http://'.$_SERVER['HTTP_HOST'].'/'.$this->_lang_code.'/?'.((isset($_GET['fullname']) && $_GET['fullname'] != '') ? 'fullname='.str_replace(' ', '+', $_GET['fullname']).'&dob='.$dob : ((function_exists('get_member_fullname') && get_member_fullname() != '') ? 'fullname='.str_replace(' ', '+', get_member_fullname()).'&dob='.$dob : (($fullname != '') ? 'fullname='.str_replace(' ', '+', $fullname).'&dob='.$dob : 'dob='.$this->_dob))).'&date='.date('Y-m-d',time()+86400*$this->_diff).'</textarea>
+	<textarea style="resize:vertical" id="embed_box" rows="2" cols="420" onClick="select()">http://'.$_SERVER['HTTP_HOST'].'/'.$this->_lang_code.'/?'.((isset($_GET['fullname']) && $_GET['fullname'] != "") ? 'fullname='.str_replace(' ', '+', $_GET['fullname']).'&dob='.$dob : ((function_exists('get_member_fullname') && get_member_fullname() != "") ? 'fullname='.str_replace(' ', '+', get_member_fullname()).'&dob='.$dob : (($fullname != "") ? 'fullname='.str_replace(' ', '+', $fullname).'&dob='.$dob : 'dob='.$this->_dob))).'&date='.date('Y-m-d',time()+86400*$this->_diff).'</textarea>
 	<div id="embed_box_share"></div>
 	<div id="embed_toggle" class="changeable"><i class="icon-share-alt icon-white"></i></div>
 </section>
@@ -464,7 +465,7 @@ class Chart {
 	}
 	// Render lunar calendar
 	function output_lunar(): string {
-		$output = '';
+		$output = "";
 		$output .= '
 <section id="lunar" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
 	<h5>'.$this->_lunar_h5.' - '.get_lunar_date($this->_dob,true).'</h5>
@@ -486,8 +487,8 @@ class Chart {
 	// Render compatibility
 	function output_compatibility(): string {
 		global $input_interfaces;
-		$h5 = '';
-		$output = '';
+		$h5 = "";
+		$output = "";
 		$output .= '
 <section id="compatibility" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
 	<h5>'.$this->_compatibility_h5.'</h5>
@@ -495,7 +496,7 @@ class Chart {
 	<ul>
 		<li class="rhythm changeable"><span class="translate" data-lang-ja="平均する:" data-lang-zh="平均:" data-lang-es="Promedio:" data-lang-ru="Средний:" data-lang-en="Average:" data-lang-vi="Trung bình:"></span><span class="value">'.percent_average_compatible_count($this->_dob,$this->_partner_dob,$this->_rhythms).'</span></li>';
 		foreach ($this->_rhythms as $rhythm){
-			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': '').'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_compatible_count($this->_dob,$this->_partner_dob,$rhythm['scale']).'</span></li>';
+			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': "").'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_compatible_count($this->_dob,$this->_partner_dob,$rhythm['scale']).'</span></li>';
 		}
 		$output .= '
 	</ul>
@@ -510,7 +511,7 @@ class Chart {
 	// Render info
 	function output_info(): string {
 		global $help_interfaces;
-		$output = '';
+		$output = "";
 		$output .= '
 <section id="info" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
 	<h5>'.$this->_info_h5.'</h5>
@@ -525,16 +526,16 @@ class Chart {
 		global $button_interfaces;
 		global $input_interfaces;
 		global $span_interfaces;
-		$h5 = '';
-		$output = '';
+		$h5 = "";
+		$output = "";
 		$output .= '
 <section id="controls" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
-	<h5>'.$this->_controls_h5.((date('m-d',time()+86400*$this->_diff) == date('m-d',strtotime($this->_dob))) ? ' <i class="icon-birthday-cake"></i>': '').'</h5>
+	<h5>'.$this->_controls_h5.((date('m-d',time()+86400*$this->_diff) == date('m-d',strtotime($this->_dob))) ? ' <i class="icon-birthday-cake"></i>': "").'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<ul>
 		<li class="rhythm changeable"><span class="translate" data-lang-ja="平均する:" data-lang-zh="平均:" data-lang-es="Promedio:" data-lang-ru="Средний:" data-lang-en="Average:" data-lang-vi="Trung bình:"></span><span class="value">'.percent_average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms).'</span><i class="icon-white icon-'.((average_bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$this->_rhythms) < average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms)) ? 'up': 'down').'-arrow"></i><i class="rhythm_toggle" data-rhythm-id="0" class="icon-white"></i></li>';
 		foreach ($this->_rhythms as $rhythm){
-			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': '').'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']).'</span>'.((bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 0 || bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 100) ? '<i class="icon-white icon-minus"></i>': '<i class="icon-white icon-'.((bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$rhythm['scale']) < bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale'])) ? 'up': 'down').'-arrow"></i>').'<i class="rhythm_toggle" data-rhythm-id="'.($rhythm['rid']).'" class="icon-white"></i></li>';
+			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': "").'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']).'</span>'.((bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 0 || bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 100) ? '<i class="icon-white icon-minus"></i>': '<i class="icon-white icon-'.((bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$rhythm['scale']) < bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale'])) ? 'up': 'down').'-arrow"></i>').'<i class="rhythm_toggle" data-rhythm-id="'.($rhythm['rid']).'" class="icon-white"></i></li>';
 		}
 		$output .= '
 	</ul>
@@ -542,7 +543,7 @@ class Chart {
 	<label title="E / Y / O" class="m-checkbox m-wrap" for="is_secondary">
 		<i id="checkbox_icon" class="icon-'.(($this->_is_secondary == 1) ? 'check': 'unchecked').'"></i>
 		<span class="translate" data-lang-ja="表示セカンダリ・リズム" data-lang-zh="示第二性韵律" data-lang-es="Mostrar secundario ritmos" data-lang-ru="Показать вторичные ритмы" data-lang-en="Show secondary rhythms" data-lang-vi="Hiện nhịp sinh học phụ"></span>
-		<input class="m-wrap" type="checkbox" name="is_secondary" id="is_secondary" value="1" '.(($this->_is_secondary == 1) ? 'checked': '').' />
+		<input class="m-wrap" type="checkbox" name="is_secondary" id="is_secondary" value="1" '.(($this->_is_secondary == 1) ? 'checked': "").' />
 	</label>
 	<div class="m-input-prepend">
 		<span data-lang-ja="日付を表示す:" data-lang-zh="查看日期:" data-lang-es="Ver la fecha:" data-lang-ru="Посмотреть дата:" data-lang-en="View date:" data-lang-vi="Xem ngày:" class="add-on translate" id="dt_change_label"></span>
@@ -560,7 +561,7 @@ class Chart {
 	// Render explanation chart
 	function render_explanation_chart() {
 		global $menu_interfaces;
-		$output = '';
+		$output = "";
 		$output .= '
 <div id="explanation_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
 <script>
@@ -672,7 +673,7 @@ $("#lang_bar").off("click","**").on("click", "#vi_toggle", function(){
 	// Render embed chart
 	function render_embed_chart() {
 		global $menu_interfaces;
-		$output = '';
+		$output = "";
 		$output .= '
 <div id="embed_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
 <script>
@@ -729,20 +730,20 @@ renderChart("#embed_chart","'.$this->_title_text.$this->_dob.' | '.date('Y-m-d',
 	function output_main_chart(): string {
 		global $menu_interfaces;
 		global $help_interfaces;
-		$output = '';
+		$output = "";
 		$output .= '
 <div id="main_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
 <script>';
 		if ($this->_diff == 0) {
 			$output .= '
-$("body").addClass("today");';
+$("body").removeClass("not-today").addClass("today");';
 		} else {
 			$output .= '
-$("body").removeClass("today");';
+$("body").removeClass("today").addClass("not-today");';
 		}
 		if (date('m-d',time()+86400*$this->_diff) == date('m-d',strtotime($this->_dob))) {
 			$output .= '
-$("body").removeClass("today").removeClass("birthday").addClass("birthday");';
+$("body").removeClass("today").removeClass("not-today").removeClass("birthday").addClass("birthday");';
 		} else {
 			$output .= '
 $("body").removeClass("birthday");';
