@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
+ini_set('max_execution_time', 0);
 ini_set('session.save_handler','files');
 ini_set('session.save_path','/tmp');
 $db_type = 'sqlite';
@@ -1999,10 +2000,11 @@ function test_email_daily_suggestion() {
 	print_r($members);
 	echo '</pre>';
 }
-email_daily_suggestion();
-echo 'success!';
 if (isset($_GET['test']) && $_GET['test'] == 'yes') {
 	test_email_daily_suggestion();
 	echo 'tested!';
+} else if (!isset($_GET['test'])) {
+	email_daily_suggestion();
+	echo 'success!';
 }
 ?>

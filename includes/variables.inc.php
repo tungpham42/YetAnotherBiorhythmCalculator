@@ -1,6 +1,6 @@
 <?php
 error_reporting(-1);
-ini_set('display_errors', 'On');	
+ini_set('display_errors', 'On');
 ini_set('max_execution_time', 0);
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/geoipcity.inc.php';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/timezone.php';
