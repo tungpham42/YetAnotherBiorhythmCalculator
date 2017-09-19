@@ -1894,8 +1894,8 @@ function email_daily_suggestion() {
 	}
 	sort($unsubscriber_emails);
 	$path = '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;
@@ -1973,8 +1973,8 @@ function test_email_daily_suggestion() {
 	}
 	sort($unsubscriber_emails);
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;

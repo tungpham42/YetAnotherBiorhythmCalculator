@@ -1761,8 +1761,8 @@ function list_members($page=1,$keyword=""): string { //Return members list, for 
 	$emails = array();
 	$members = array();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;
@@ -1820,8 +1820,8 @@ function list_members($page=1,$keyword=""): string { //Return members list, for 
 function bulk_sql_members($db_sql) {
 	$emails = array();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;
@@ -2006,8 +2006,8 @@ function email_daily_suggestion() {
 	}
 	sort($unsubscriber_emails);
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;
@@ -2084,8 +2084,8 @@ function test_email_daily_suggestion() {
 	}
 	sort($unsubscriber_emails);
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
-	$directories = new GlobIterator($path.'*', FilesystemIterator::KEY_AS_PATHNAME);
-	if (!$directories->count()) {
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
 		echo 'No matches';
 	} else {
 		$n = 0;
