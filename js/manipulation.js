@@ -518,11 +518,11 @@ function manipulateRegisterModal() {
 			minWidth: 320,
 			show: {
 				effect: effect,
-				duration: 420
+				duration: 840
 			},
 			hide: {
 				effect: effect,
-				duration: 420
+				duration: 840
 			},
 			open: function(event, ui) {
 				$('.ui-widget-overlay').bind('click', function(){
@@ -532,7 +532,7 @@ function manipulateRegisterModal() {
 		});
 		setTimeout(function(){
 			$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
-		}, 6400);
+		}, 8400);
 		$('#register_form_submit').on('click', function(){
 			$('#register_form').submit();
 		});

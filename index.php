@@ -17,6 +17,9 @@ include template('fb_pixel');
 if ($hotjar):
 	include template('hotjar');
 endif;
+if ($smartlook):
+	include template('smartlook');
+endif;
 ?>
 </head>
 <body lang="<?php echo $lang_code; ?>" class="<?php echo $body_class.(has_one_lang() ? ' one_lang': ''); ?>">

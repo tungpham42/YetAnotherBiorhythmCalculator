@@ -1,5 +1,6 @@
 <?php
 //include template('link_ads_728x15');
+include template('adsense_article');
 ?>
 <div data-lang="<?php echo $lang_code; ?>" id="explanation">
 <?php

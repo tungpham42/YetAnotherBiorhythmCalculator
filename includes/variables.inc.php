@@ -50,6 +50,7 @@ $show_addthis = false;
 $show_sumome = true;
 $hotjar = false;
 $clicktale = false;
+$smartlook = true;
 $credential_id = 3; //change this to 4 in DEMO
 //$cdn_url = 'http://nhipsinhhoc.cdn.vccloud.vn';
 $cdn_url = "";
