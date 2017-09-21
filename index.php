@@ -80,7 +80,8 @@ if (!isset($_GET['p']) && $embed == 0 || in_array($p, $navs)):
 	if ($show_addthis):
 		include template('addthis');
 	endif;
-	if (!is_birthday() && $show_ad):
+	//if (!is_birthday() && $show_ad):
+	if (!is_birthday()):
 		include template('banner_160x600');
 	endif;
 endif;

@@ -531,9 +531,19 @@ function manipulateRegisterModal() {
 				});
 			}
 		});
-		setTimeout(function(){
-			$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
-		}, 16000);
+//		setTimeout(function(){
+//			$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
+//		}, 16000);
+		var lastScrollTop = 0;
+		$(window).on('scroll mousewheel wheel DOMMouseScroll resize', function(){
+			var thisScrollTop = $(this).scrollTop();
+			if (thisScrollTop > lastScrollTop) { // scroll down
+				if ($(document).scrollTop() >= 2/3*$(document).innerHeight()) {
+					$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
+				}
+			}
+			lastScrollTop = thisScrollTop;
+		});
 		$('#register_form_submit').on('click', function(){
 			$('#register_form').submit();
 		});
