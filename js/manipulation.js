@@ -507,8 +507,9 @@ function manipulateShare() {
 	});
 }
 function manipulateRegisterModal() {
-	var transitions = ['blind','bounce','clip','drop','explode','fade','fold','highlight','puff','pulsate','scale','shake','size','slide'];
-	var effect = transitions[randomFromTo(0, transitions.length - 1)];
+	//var transitions = ['blind','bounce','clip','drop','explode','fade','fold','highlight','puff','pulsate','scale','shake','size','slide'];
+	//var effect = transitions[randomFromTo(0, transitions.length - 1)];
+	var effect = 'fade';
 	if (!isset($.cookie('NSH:member')) && $('#register_modal').length && ($('body').hasClass('home') || $('body').hasClass('intro') || $('body').hasClass('bmi') || $('body').hasClass('lunar')) && !$('body').hasClass('member')) {
 		$('#register_modal').dialog({
 			autoOpen: false,
@@ -518,11 +519,11 @@ function manipulateRegisterModal() {
 			minWidth: 320,
 			show: {
 				effect: effect,
-				duration: 840
+				duration: 800
 			},
 			hide: {
 				effect: effect,
-				duration: 840
+				duration: 800
 			},
 			open: function(event, ui) {
 				$('.ui-widget-overlay').bind('click', function(){
@@ -532,7 +533,7 @@ function manipulateRegisterModal() {
 		});
 		setTimeout(function(){
 			$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
-		}, 8400);
+		}, 16000);
 		$('#register_form_submit').on('click', function(){
 			$('#register_form').submit();
 		});
