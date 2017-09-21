@@ -67,6 +67,3 @@ echo translate_span('minute','minute_text');
 		</span>
 	</div>
 </section>
-<?php
-include template('adsense_feed');
-?>

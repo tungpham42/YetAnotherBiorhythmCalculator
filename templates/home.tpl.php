@@ -5,6 +5,7 @@ if (!has_dob()) {
 	include template('help');
 }
 include template('time');
+include template('adsense_feed');
 include template('scripts_top');
 if (has_dob()) {
 	if (isset($_COOKIE['NSH:member'])) {
@@ -15,6 +16,7 @@ if (has_dob()) {
 	include template('explanation_chart');
 }
 include template('keyboard');
+include template('adsense_article');
 include template('explanation');
 include template('youtube');
 //include template('feed_blog');
