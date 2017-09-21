@@ -1901,7 +1901,8 @@ function email_daily_suggestion() {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+			//if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register') {
 				$all_emails[] = str_replace($path, "", $directory);
 			}
 		}
@@ -1980,7 +1981,8 @@ function test_email_daily_suggestion() {
 	} else {
 		$n = 0;
 		foreach ($directories as $directory) {
-			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+			//if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register') {
 				$all_emails[] = str_replace($path, "", $directory);
 			}
 		}
