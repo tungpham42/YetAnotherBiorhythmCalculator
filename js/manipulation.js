@@ -541,7 +541,7 @@ function manipulateRegisterModal() {
 		$(window).on('scroll mousewheel wheel DOMMouseScroll resize', function(){
 			var thisScrollTop = $(this).scrollTop();
 			if (thisScrollTop > lastScrollTop) { // scroll down
-				if ($(document).scrollTop() >= 1/4*$(document).innerHeight()) {
+				if ($(document).scrollTop() >= 1/6*$(document).innerHeight()) {
 					$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
 				}
 			}
