@@ -527,8 +527,11 @@ function manipulateRegisterModal() {
 			},
 			open: function(event, ui) {
 				$('.ui-widget-overlay').bind('click', function(){
-					$("#register_modal").dialog('close');
+					$('#register_modal').dialog('close');
 				});
+			},
+			close: function(event, ui) {
+				$('#register_modal').remove();
 			}
 		});
 //		setTimeout(function(){

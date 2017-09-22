@@ -16,8 +16,8 @@ if (has_dob()) {
 	include template('explanation_chart');
 }
 include template('keyboard');
-include template('adsense_article');
 include template('explanation');
+include template('adsense_article');
 include template('youtube');
 //include template('feed_blog');
 //include template('feed_forum');
