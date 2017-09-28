@@ -2,6 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 ini_set('max_execution_time', 0);
+set_time_limit(0);
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/geoipcity.inc.php';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/timezone.php';
 $geoip = geoip_open(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoIPCity.dat',GEOIP_STANDARD);
@@ -290,7 +291,7 @@ $button_interfaces = array(
 		'ja' => '調査'
 	),
 	'apps' => array(
-		'vi' => 'Ứng dụng',
+		'vi' => 'App',
 		'en' => 'Applications',
 		'ru' => 'Приложений',
 		'es' => 'Aplicaciones',
@@ -1407,7 +1408,7 @@ $help_interfaces = array(
 		'ja' => 'http://ja.wikipedia.org/wiki/%E3%83%90%E3%82%A4%E3%82%AA%E3%83%AA%E3%82%BA%E3%83%A0'
 	),
 	'life_path_number_prefix' => array(
-		'vi' => 'http://www.12cungsao.com/p/',
+		'vi' => 'http://nhipsinhhoc.vn/wiki/Con_s%E1%BB%91_cu%E1%BB%99c_%C4%91%E1%BB%9Di_',
 		'en' => 'http://www.astrology-numerology.com/num-lifepath.html#lp',
 		'ru' => 'http://www.astroland.ru/numerology/lw/lifeway',
 		'es' => 'http://www.horoscopius.es/numerologia/perfil-numerologico-para-el-numero-',
@@ -1415,7 +1416,7 @@ $help_interfaces = array(
 		'ja' => 'http://www.heavenlyblue.jp/num/'
 	),
 	'life_path_number_suffix' => array(
-		'vi' => '.html',
+		'vi' => '',
 		'en' => "",
 		'ru' => '.htm',
 		'es' => '/',

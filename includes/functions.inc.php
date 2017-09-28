@@ -85,7 +85,7 @@ function list_user_same_birthday_links($name): string {
 		$output .= '<ul class="dates" id="'.$name.'">';
 		$count = count($users);
 		for ($i = 0; $i < $count; ++$i) {
-			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a></li>';
+			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
 		}
 		$output .= '</ul>';
 		$output .= '<div class="clear"></div>';
@@ -114,7 +114,7 @@ function list_user_birthday_links($name): string {
 		$output .= '<ul class="dates" id="'.$name.'">';
 		$count = count($users);
 		for ($i = 0; $i < $count; ++$i) {
-			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a></li>';
+			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
 		}
 		$output .= '</ul>';
 		$output .= '<div class="clear"></div>';
@@ -180,7 +180,7 @@ function list_ajax_user_links($name,$keyword=""): string {
 	$output .= '<ul class="dates" id="'.$name.'">';
 	$count = count($users);
 	for ($i = 0; $i < $count; ++$i) {
-		$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a></li>';
+		$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
 	}
 	$output .= '</ul>';
 	$output .= '<div class="clear"></div>';
@@ -1058,7 +1058,7 @@ function generate_proverb($lang): array {
 }
 function render_proverb($lang) {
 	$proverb = generate_proverb($lang);
-	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a><div id="proverb_text" onClick="selectText(\'proverb_text\')">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author">'.$proverb['author'].'</p><!--<a id="all_proverbs" class="m-btn green" href="/proverbs/" target="_blank"><i class="icon-more-items"></i> '.translate_span('all_proverbs').'</a>-->';
+	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a><div id="proverb_text" onClick="selectText(\'proverb_text\')">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author"><a href="/wiki/'.$proverb['author'].'" target="_blank">'.$proverb['author'].'</a></p>';
 }
 function render_proverb_json($lang) {
 	$proverb = generate_proverb($lang);
@@ -1908,7 +1908,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
-	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.'</h1>';
+	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' => <a style="text-decoration: none; font-size: 42px; color: green;" href="http://nhipsinhhoc.vn/wiki/'.$fullname.'">WIKI</a></h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['create_user_thank'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['create_user_detail'][$lang_code].'</p>';
@@ -1927,7 +1927,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 		$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 	}
 	$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
-	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em>'.$proverb['author'].'</em>';
+	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="http://nhipsinhhoc.vn/wiki/'.$proverb['author'].'">'.$proverb['author'].'</a></em>';
 	$content .= '<p><em>'.$email_interfaces['definition'][$lang_code].'</em></p>';
 	$content .= '<p>'.$span_interfaces['for_reference_only'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$lang_code].'</p>';
@@ -1947,7 +1947,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
-	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.'</h1>';
+	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' => <a style="text-decoration: none; font-size: 42px; color: green;" href="http://nhipsinhhoc.vn/wiki/'.$fullname.'">WIKI</a></h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['edit_user_notify'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['edit_user_detail'][$lang_code].'</p>';
@@ -1966,7 +1966,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 		$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 	}
 	$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
-	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em>'.$proverb['author'].'</em>';
+	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="http://nhipsinhhoc.vn/wiki/'.$proverb['author'].'">'.$proverb['author'].'</a></em>';
 	$content .= '<p><em>'.$email_interfaces['definition'][$lang_code].'</em></p>';
 	$content .= '<p>'.$span_interfaces['for_reference_only'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$lang_code].'</p>';
@@ -1993,7 +1993,7 @@ function email_contact($email,$fullname,$body) {
 	send_mail($my_email,'Email phản hồi từ Form Contact',$message);
 }
 function email_daily_suggestion() {
-	global $lang_code, $email_interfaces, $span_interfaces;
+	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
 	$unsubscriber_emails = array();
@@ -2072,7 +2072,7 @@ function email_daily_suggestion() {
 	}
 }
 function test_email_daily_suggestion() {
-	global $lang_code, $email_interfaces, $span_interfaces;
+	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
 	$unsubscriber_emails = array();

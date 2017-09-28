@@ -113,78 +113,8 @@ function google_api_php_client_autoload($class_name) {
 }
 spl_autoload_register('libraries_autoload');
 spl_autoload_register('google_api_php_client_autoload');
-require_once '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/includes/ip/geoipcity.inc.php';
-require_once '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/includes/ip/timezone.php';
-$geoip = geoip_open('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/includes/ip/GeoIPCity.dat',GEOIP_STANDARD);
-$geoip_record = geoip_record_by_addr($geoip,$_SERVER['REMOTE_ADDR']);
 $lang_codes = array('vi','en','ru','es','zh','ja');
 $one_lang = 'vi';
-function is_public_server(): bool {
-	if (substr($_SERVER['REMOTE_ADDR'],0,7) == '108.162' || substr($_SERVER['REMOTE_ADDR'],0,7) == '173.245' || substr($_SERVER['REMOTE_ADDR'],0,6) == '66.220' || substr($_SERVER['REMOTE_ADDR'],0,7) == '173.252' || substr($_SERVER['REMOTE_ADDR'],0,5) == '31.13' || substr($_SERVER['REMOTE_ADDR'],0,10) == '64.233.172' || substr($_SERVER['REMOTE_ADDR'],0,5) == '69.63' || substr($_SERVER['REMOTE_ADDR'],0,6) == '69.171' || substr($_SERVER['REMOTE_ADDR'],0,6) == '66.102' || substr($_SERVER['REMOTE_ADDR'],0,9) == '66.249.83' || substr($_SERVER['REMOTE_ADDR'],0,6) == '66.249' || $_SERVER['REMOTE_ADDR'] == '23.92.24.198') {
-		return true;
-	} else {
-		return false;
-	}
-}
-function is_bot(): bool {
-	if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider/i', $_SERVER['HTTP_USER_AGENT'])) {
-		return true;
-	} else {
-		return false;
-	}
-}
-function init_lang_code(): string {
-	global $geoip_record;
-	global $lang_codes;
-	global $one_lang;
-	global $first_domain;
-	global $second_domain;
-	if ($_SERVER['SERVER_NAME'] == $first_domain) {
-		$lang_code = 'vi';
-		$country_code = isset($geoip_record) ? $geoip_record->country_code: 'VN';
-	} else if ($_SERVER['SERVER_NAME'] == $second_domain) {
-		$lang_code = 'en';
-		$country_code = isset($geoip_record) ? $geoip_record->country_code: 'US';
-	}
-	$country_codes = array(
-		'vi' => array('VN'),
-		'en' => array('UK', 'US', 'CA', 'NZ', 'AU'),
-		'ru' => array('RU', 'AM', 'AZ', 'BY', 'KZ', 'KG', 'MD', 'TJ', 'UZ', 'TM', 'UA'),
-		'es' => array('ES', 'CO', 'PE', 'VE', 'EC', 'GT', 'CU', 'BO', 'HN', 'PY', 'SV', 'CR', 'PA', 'GQ', 'MX', 'AR', 'CL', 'DO', 'NI', 'UY', 'PR'),
-		'zh' => array('CN', 'HK', 'MO', 'TW', 'SG'),
-		'ja' => array('JP')
-	);
-	if (isset($one_lang)) {
-		setcookie('NSH:lang', $one_lang, time()+(10*365*24*60*60), '/'.$one_lang.'/');
-		$lang_code = $one_lang;
-	}
-	if (!isset($_COOKIE['NSH:lang'])) {
-		if ($_SERVER['SERVER_NAME'] == $first_domain && (in_array($country_code, $country_codes['vi']) || is_public_server() || is_bot())) {
-			setcookie('NSH:lang', 'vi', time()+(10*365*24*60*60), '/');
-			$lang_code = 'vi';
-		} else if ($_SERVER['SERVER_NAME'] == $second_domain && (in_array($country_code, $country_codes['en']) || is_public_server() || is_bot())) {
-			setcookie('NSH:lang', 'en', time()+(10*365*24*60*60), '/');
-			$lang_code = 'en';
-		} else if (in_array($country_code, $country_codes['ru'])) {
-			setcookie('NSH:lang', 'ru', time()+(10*365*24*60*60), '/');
-			$lang_code = 'ru';
-		} else if (in_array($country_code, $country_codes['es'])) {
-			setcookie('NSH:lang', 'es', time()+(10*365*24*60*60), '/');
-			$lang_code = 'es';
-		} else if (in_array($country_code, $country_codes['zh'])) {
-			setcookie('NSH:lang', 'zh', time()+(10*365*24*60*60), '/');
-			$lang_code = 'zh';
-		} else if (in_array($country_code, $country_codes['ja'])) {
-			setcookie('NSH:lang', 'ja', time()+(10*365*24*60*60), '/');
-			$lang_code = 'ja';
-		}
-	} else if (isset($_COOKIE['NSH:lang'])) {
-		$lang_code = $_COOKIE['NSH:lang'];
-	}
-	$lang_code = (isset($one_lang)) ? $one_lang: ((isset($_GET['lang']) && in_array($_GET['lang'], $lang_codes)) ? prevent_xss($_GET['lang']): $lang_code);
-	return $lang_code;
-}
-$lang_code = init_lang_code();
 $input_interfaces = array(
 	'search' => array(
 		'vi' => 'Tìm kiếm',
@@ -1833,16 +1763,16 @@ function generate_message_id() {
 	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),"nhipsinhhoc.vn");
 }
 function send_mail($to,$subject,$message) {
-	global $lang_code, $span_interfaces, $email_credentials;
-	$unsubscriber_emails = array();
-	$unsubscribers = new parseCSV();
-	$unsubscribers->parse('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/member/unsubscribers_list.csv');
-	$unsubscribers_count = count($unsubscribers->data);
-	for ($i = 0; $i < $unsubscribers_count; ++$i) {
-		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
-	}
-	sort($unsubscriber_emails);
-	if (!in_array(strtolower($to), $unsubscriber_emails)) {
+	global $span_interfaces, $email_credentials;
+//	$unsubscriber_emails = array();
+//	$unsubscribers = new parseCSV();
+//	$unsubscribers->parse('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/member/unsubscribers_list.csv');
+//	$unsubscribers_count = count($unsubscribers->data);
+//	for ($i = 0; $i < $unsubscribers_count; ++$i) {
+//		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
+//	}
+//	sort($unsubscriber_emails);
+//	if (!in_array(strtolower($to), $unsubscriber_emails)) {
 		$fullname = load_member_from_email($to)['fullname'];
 		$boundary = uniqid('np');
 		$headers = "";
@@ -1870,7 +1800,7 @@ function send_mail($to,$subject,$message) {
 		$body .= $message['html'].PHP_EOL;
 		$body .= PHP_EOL.PHP_EOL."--".$boundary."--";
 		mail("\"".$fullname."\" <".strtolower($to).">", '=?utf-8?B?'.base64_encode('☺ '.$subject).'?=', $body, $headers);
-	}
+//	}
 }
 function email_message($heading,$content): array {
 	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="width=device-width"/></head><body style="padding: 0px; margin: 0px; width: 100%; min-width: 100%"> <table class="body" style="color: #222222;background-image: url(\'http://nhipsinhhoc.vn/css/images/coin.png\'); min-height: 420px;border: none; border-spacing: 0px; position: relative; height: 100%;width: 100%; top: 0px; left: 0px; margin: 0px;"> <tr style="padding: 0px; margin: 0px;text-align: center; width: 100%;"> <td style="padding: 0px; margin: 0px;text-align: center; width: 100%;" align="center" valign="top"> <center> <table style="height: 100px;padding: 0px;width: 100%;position: relative;background: #007799;" class="row header"> <tr> <td style="text-align: center;" align="center"> <center> <table style="margin: 0 auto;text-align: inherit;width: 95% !important;" class="container"> <tr> <td style="padding: 10px 20px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 95%;" class="twelve columns"> <tr> <td style="padding: 8px;" class="six sub-columns"> <a target="_blank" href="http://nhipsinhhoc.vn/"><img alt="logo" src="http://nhipsinhhoc.vn/app-icons/icon-60.png"> </a> </td><td class="six sub-columns last" style="text-align:left; vertical-align:middle;padding-right: 0px; color: white; width: 90%"> <span class="template-label"><a style="font-size: 24px;color: white; text-decoration: none;" target="_blank" href="http://nhipsinhhoc.vn/">'.$heading.'</a></span> </td><td class="expander"></td></tr></table> </td></tr></table> </center> </td></tr></table> <table class="container"> <tr> <td> <table class="row"> <tr> <td style="padding: 10px 10px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 80%;font-size:16px;margin: auto;" class="twelve columns"> <tr> <td> '.$content.' </td><td class="expander"></td></tr></table> </td></tr></table> </td></tr></table> </center> </td></tr></table></body></html>';
@@ -1880,7 +1810,7 @@ function email_message($heading,$content): array {
 	);
 }
 function email_daily_suggestion() {
-	global $lang_code, $email_interfaces, $span_interfaces;
+	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
 	$unsubscriber_emails = array();
@@ -1931,7 +1861,7 @@ function email_daily_suggestion() {
 		$proverb = generate_proverb($members[$i]['lang']);
 		$content = "";
 		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
-		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].'</h1>';
+		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' => <a style="text-decoration: none; font-size: 42px; color: green;" href="http://nhipsinhhoc.vn/wiki/'.$members[$i]['fullname'].'">WIKI</a></h1>';
 		$content .= get_ad('banner_300x250');
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
@@ -1947,7 +1877,7 @@ function email_daily_suggestion() {
 			$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 		}
 		$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$members[$i]['lang'].'">'.$span_interfaces['donate'][$members[$i]['lang']].'</a> '.$span_interfaces['donate_reason'][$members[$i]['lang']].'</h4>';
-		$content .= '<p><em>"'.$proverb['content'].'"</em></p><em>'.$proverb['author'].'</em>';
+		$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="http://nhipsinhhoc.vn/wiki/'.$proverb['author'].'">'.$proverb['author'].'</a></em>';
 		$content .= '<p><em>'.$email_interfaces['definition'][$members[$i]['lang']].'</em></p>';
 		$content .= '<p>'.$span_interfaces['for_reference_only'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$members[$i]['lang']].'</p>';
@@ -1960,7 +1890,7 @@ function email_daily_suggestion() {
 	}
 }
 function test_email_daily_suggestion() {
-	global $lang_code, $email_interfaces, $span_interfaces;
+	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
 	$unsubscriber_emails = array();
@@ -2005,7 +1935,7 @@ function test_email_daily_suggestion() {
 if (isset($_GET['test']) && $_GET['test'] == 'yes') {
 	test_email_daily_suggestion();
 	echo 'tested!';
-} else if (!isset($_GET['test'])) {
+} else {
 	email_daily_suggestion();
 	echo 'success!';
 }

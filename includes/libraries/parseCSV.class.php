@@ -1,6 +1,5 @@
 <?php
-	
-ini_set('max_execution_time', 0);
+set_time_limit(0);
 class parseCSV {
 	
 /*
@@ -174,7 +173,7 @@ class parseCSV {
 	 * @param   input   CSV file or string
 	 * @return  nothing
 	 */
-	function parseCSV ($input = null, $offset = null, $limit = null, $conditions = null) {
+	function __construct ($input = null, $offset = null, $limit = null, $conditions = null) {
 		if ( $offset !== null ) $this->offset = $offset;
 		if ( $limit !== null ) $this->limit = $limit;
 		if ( count($conditions) > 0 ) $this->conditions = $conditions;

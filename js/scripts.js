@@ -763,6 +763,7 @@ function loadProverb(langCode) {
 			}
 			$('#proverb').find('#proverb_text').text(data['content']);
 			$('#proverb').find('#proverb_author').text(data['author']);
+			$('#proverb').find('#proverb_author > a').attr('href','/wiki/'+data['author']);
 			$('#proverb').attr('data-ajax-triggered','yes');
 		});
 	}
