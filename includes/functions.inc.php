@@ -85,7 +85,7 @@ function list_user_same_birthday_links($name): string {
 		$output .= '<ul class="dates" id="'.$name.'">';
 		$count = count($users);
 		for ($i = 0; $i < $count; ++$i) {
-			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
+			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>';
 		}
 		$output .= '</ul>';
 		$output .= '<div class="clear"></div>';
@@ -114,7 +114,7 @@ function list_user_birthday_links($name): string {
 		$output .= '<ul class="dates" id="'.$name.'">';
 		$count = count($users);
 		for ($i = 0; $i < $count; ++$i) {
-			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
+			$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>';
 		}
 		$output .= '</ul>';
 		$output .= '<div class="clear"></div>';
@@ -180,7 +180,7 @@ function list_ajax_user_links($name,$keyword=""): string {
 	$output .= '<ul class="dates" id="'.$name.'">';
 	$count = count($users);
 	for ($i = 0; $i < $count; ++$i) {
-		$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="icon-book-open"></i></a></li>';
+		$output .= '<li><a title="'.$users[$i]['name'].'" class="m-btn" href="/?fullname='.str_replace(' ','+',$users[$i]['name']).'&amp;dob='.$users[$i]['dob'].'"><span>'.$users[$i]['name'].' - '.$users[$i]['dob'].'</span></a><a class="wiki_icon" href="/wiki/'.$users[$i]['name'].'" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>';
 	}
 	$output .= '</ul>';
 	$output .= '<div class="clear"></div>';
@@ -1084,7 +1084,7 @@ function list_proverbs($page=1,$lang): string { //Return users list, for admin u
 			$output .= '<tr '.$class.'>';
 			$output .= '<td class="id">'.(($page-1)*$count+($i+1)).'</td>';
 			$output .= '<td class="content">'.$proverbs[$i]['content'].'</td>';
-			$output .= '<td class="author">'.$proverbs[$i]['author'].'</td>';
+			$output .= '<td class="author"><a target="_blank" href="/wiki/'.$proverbs[$i]['author'].'">'.$proverbs[$i]['author'].'</a></td>';
 			$output .= '</tr>';
 		}
 	}

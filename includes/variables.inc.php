@@ -748,6 +748,14 @@ $span_interfaces = array(
 		'zh' => '年',
 		'ja' => '年'
 	),
+	'advertisements' => array(
+		'vi' => 'Quảng cáo',
+		'en' => 'Advertisements',
+		'ru' => 'Объявления',
+		'es' => 'Anuncios',
+		'zh' => '广告',
+		'ja' => '広告'
+	),
 	'keyboard_shortcuts' => array(
 		'vi' => 'Phím tắt',
 		'en' => 'Keyboard shortcuts',

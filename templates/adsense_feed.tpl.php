@@ -1,4 +1,5 @@
 <section id="adsense_feed">
+	<h5><?php echo translate_span('advertisements'); ?></h5>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<ins class="adsbygoogle" id="ad_feed"
 	style="display:block; width: auto; clear: left;"
