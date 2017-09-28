@@ -3980,6 +3980,9 @@ body.birthday #proverb span.arrow_down::after {
 	color: #333;
 	text-shadow: 2px 2px 4px rgba(0,0,0,.33);
 }
+#proverb p#proverb_author > a {
+	color: #666;
+}
 #proverb i#proverb_refresh, #proverb_list {
 	position: absolute;
 	width: 16px;
