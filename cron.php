@@ -1730,6 +1730,9 @@ function pluralize($count, $singular, $plural = false): string {
 	if (!$plural) $plural = $singular . 's';
 	return (($count == 0 || $count == 1) ? $singular : $plural);
 }
+function get_wiki_url_nsh($title): string {
+	return 'http://nhipsinhhoc.vn/wiki/'.str_replace(' ', '_', $title);
+}
 function get_ad($name): string {
 	$ads = new parseCSV('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/ads/'.$name.'.csv');
 	$count = count($ads->data);
@@ -1861,7 +1864,7 @@ function email_daily_suggestion() {
 		$proverb = generate_proverb($members[$i]['lang']);
 		$content = "";
 		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
-		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' => <a style="text-decoration: none; font-size: 42px; color: green;" href="http://nhipsinhhoc.vn/wiki/'.$members[$i]['fullname'].'">WIKI</a></h1>';
+		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' (<a style="text-decoration: none; font-size: 42px; color: green;" href="'.get_wiki_url_nsh($members[$i]['fullname']).'">WIKI</a>)</h1>';
 		$content .= get_ad('banner_300x250');
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
@@ -1877,7 +1880,7 @@ function email_daily_suggestion() {
 			$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 		}
 		$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$members[$i]['lang'].'">'.$span_interfaces['donate'][$members[$i]['lang']].'</a> '.$span_interfaces['donate_reason'][$members[$i]['lang']].'</h4>';
-		$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="http://nhipsinhhoc.vn/wiki/'.$proverb['author'].'">'.$proverb['author'].'</a></em>';
+		$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="'.get_wiki_url_nsh($proverb['author']).'">'.$proverb['author'].'</a></em>';
 		$content .= '<p><em>'.$email_interfaces['definition'][$members[$i]['lang']].'</em></p>';
 		$content .= '<p>'.$span_interfaces['for_reference_only'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$members[$i]['lang']].'</p>';

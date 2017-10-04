@@ -4,7 +4,8 @@
 		<li><a id="home_link" class="nav_button button home" href="/"><?php echo translate_button('home_page'); ?></a></li>
 		-->
 		<li><a id="member_link" class="nav_button button member keep" href="/member/login/"><i class="icon-<?php echo isset($_COOKIE['NSH:member']) ? 'user' : 'log-in'; ?>"></i></a></li>
-		<li><a id="wiki_link" class="nav_button button keep" href="/wiki/<?php echo ($fullname != "" ? $fullname : ($p == 'home' || $p == 'member/home') ? $dob : ""); ?>" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>
+		<li><a id="wiki_link" class="nav_button button keep" href="/wiki/" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>
+		<li><a id="blog_link" class="nav_button button keep" href="/blog/" target="_blank" title="Blog"><i class="icon-blog"></i></a></li>
 		<li><a id="forum_link" class="nav_button button keep" href="http://cungrao.net/" target="_blank" title="CùngRao.net"><i class="icon-shopping-cart"></i></a></li>
 		<li><a id="donation_link" class="nav_button button donation keep" href="/donate/"><?php echo translate_span('donate'); ?></a></li>
 		<li><a id="intro_link" class="nav_button button intro keep" href="/introduction/"><?php echo translate_button('intro'); ?></a></li>
