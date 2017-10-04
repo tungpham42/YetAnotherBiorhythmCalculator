@@ -762,7 +762,7 @@ function loadProverb(langCode) {
 					break;
 			}
 			$('#proverb').find('#proverb_text').text(data['content']);
-			$('#proverb').find('#proverb_author').html('<a href="/wiki/'+data['author']+'" target="_blank">'+data['author']+'</a>');
+			$('#proverb').find('#proverb_author').html('<a href="/wiki/'+data['author'].replace(' ', '_')+'" target="_blank">'+data['author']+'</a>');
 			$('#proverb').attr('data-ajax-triggered','yes');
 		});
 	}

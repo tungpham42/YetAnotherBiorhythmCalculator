@@ -510,7 +510,7 @@ function manipulateRegisterModal() {
 	//var transitions = ['blind','bounce','clip','drop','explode','fade','fold','highlight','puff','pulsate','scale','shake','size','slide'];
 	//var effect = transitions[randomFromTo(0, transitions.length - 1)];
 	var effect = 'fade';
-	if (!isset($.cookie('NSH:member')) && $('#register_modal').length && ($('body').hasClass('home') || $('body').hasClass('intro') || $('body').hasClass('bmi') || $('body').hasClass('lunar')) && !$('body').hasClass('member')) {
+	if (!isset($.cookie('NSH:member')) && $('#register_modal').length && ($('body').hasClass('home') || $('body').hasClass('intro') || $('body').hasClass('bmi') || $('body').hasClass('lunar') || $('body').hasClass('donation') || $('body').hasClass('game')) && !$('body').hasClass('member')) {
 		$('#register_modal').dialog({
 			autoOpen: false,
 			resizable: false,
