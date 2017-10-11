@@ -29,7 +29,7 @@
 			loop:"no",
 			shuffle:"no",
 			maxWidth:850,
-			volume:.4,
+			volume:.042,
 			toolTipsButtonsHideDelay:1.5,
 			toolTipsButtonFontColor:"#FFFFFF",
 			//controller settings

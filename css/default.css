@@ -8788,7 +8788,28 @@ div[aria-describedby="register_modal"] .ui-button span.ui-button-text {
 }
 #wiki_user > i {
 	font-size: 190px;
-	margin: 0 40px 20px;
+	margin: 20px 40px;
 	text-align: center;
 	color: #fff;
+}
+/* Comments */
+.comments_anchor {
+	width: 24px;
+	padding: 12px !important;
+}
+.comments_anchor > i {
+	font-size: 24px;
+}
+#facebook_anchor > i {
+	color: #3b5998;
+}
+#google_anchor > i {
+	color: #dd4b39;
+}
+#comments .ui-tabs-nav > .ui-state-default a {
+	border-color: white !important;
+	background: white !important;
+}
+#comments .ui-tabs-nav > .ui-state-active a {
+	border-color: #d4d4d4 !important;
 }

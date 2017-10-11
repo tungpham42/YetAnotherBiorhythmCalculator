@@ -275,7 +275,7 @@ $button_interfaces = array(
 		'ja' => '太陰暦'
 	),
 	'game' => array(
-		'vi' => 'Trò chơi',
+		'vi' => 'Game',
 		'en' => 'Game',
 		'ru' => 'Игра',
 		'es' => 'Juego',
@@ -781,23 +781,12 @@ $span_interfaces = array(
 		'ja' => '<h6>キーボードショートカット：</h6><ul><li>1 -> ベトナム語</li><li>2 -> 英語</li><li>3 -> ロシア語</li><li>4 -> スペイン語</li><li>5 -> チャン語</li><li>6 -> 日本語</li></ul>'
 	),
 	'bank_account' => array(
-		'vi' => '<h6>Tài khoản ngân hàng:</h6><ul><li>Ngân hàng: TECHCOMBANK</li><li>Số tài khoản: 19027906069012</li><li>Tên người thụ hưởng: PHAM TUNG</li><li>Chi nhánh: Phú Mỹ Hưng</li></ul>',
-		'en' => '<h6>Bank account:</h6><ul><li>Bank: TECHCOMBANK</li><li>Account number: 19027906069012</li><li>Beneficiary name: PHAM TUNG</li><li>Branch: Phu My Hung</li></ul>',
-		'ru' => '<h6>банковский счет
-:</h6><ul><li>Банка: TECHCOMBANK</li><li>Номер аккаунта
-: 19027906069012</li><li>Имя Получателя
-: PHAM TUNG</li><li>Филиал
-: Phu My Hung</li></ul>',
-		'es' => '<h6>Cuenta bancaria:</h6><ul><li>Banco: TECHCOMBANK</li><li>Número de cuenta: 19027906069012</li><li>Nombre del Beneficiario
-: PHAM TUNG</li><li>Branch: Phu My Hung</li></ul>',
-		'zh' => '<h6>银行账户
-：</h6><ul><li>银行： TECHCOMBANK</li><li>帐号
-： 19027906069012</li><li>受益人姓名： PHAM TUNG</li><li>科： Phu My Hung</li></ul>',
-		'ja' => '<h6>銀行口座
-：</h6><ul><li>バンク： TECHCOMBANK</li><li>口座番号
-： 19027906069012</li><li>受取人名
-： PHAM TUNG</li><li>ブランチ
-： Phu My Hung</li></ul>',
+		'vi' => '<h6>Tài khoản ngân hàng:</h6><ul><li>Ngân hàng: TECHCOMBANK</li><li>Số tài khoản: 19027906069012</li><li>Tên người thụ hưởng: PHAM TUNG</li><li>Chi nhánh: Phú Mỹ Hưng</li><li>SWIFT code: VTCBVNVX</li</ul>',
+		'en' => '<h6>Bank account:</h6><ul><li>Bank: TECHCOMBANK</li><li>Account number: 19027906069012</li><li>Beneficiary name: PHAM TUNG</li><li>Branch: Phu My Hung</li><li>SWIFT code: VTCBVNVX</li</ul>',
+		'ru' => '<h6>банковский счет:</h6><ul><li>Банка: TECHCOMBANK</li><li>Номер аккаунта: 19027906069012</li><li>Имя Получателя: PHAM TUNG</li><li>Филиал: Phu My Hung</li><li>SWIFT code: VTCBVNVX</li</ul>',
+		'es' => '<h6>Cuenta bancaria:</h6><ul><li>Banco: TECHCOMBANK</li><li>Número de cuenta: 19027906069012</li><li>Nombre del Beneficiario: PHAM TUNG</li><li>Branch: Phu My Hung</li><li>SWIFT code: VTCBVNVX</li</ul>',
+		'zh' => '<h6>银行账户：</h6><ul><li>银行： TECHCOMBANK</li><li>帐号： 19027906069012</li><li>受益人姓名： PHAM TUNG</li><li>科： Phu My Hung</li><li>SWIFT code: VTCBVNVX</li</ul>',
+		'ja' => '<h6>銀行口座：</h6><ul><li>バンク： TECHCOMBANK</li><li>口座番号： 19027906069012</li><li>受取人名： PHAM TUNG</li><li>ブランチ： Phu My Hung</li><li>SWIFT code: VTCBVNVX</li</ul>',
 	),
 	'for_reference_only' => array(
 		'vi' => 'Chỉ mang tính tham khảo',
