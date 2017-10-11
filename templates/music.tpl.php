@@ -143,7 +143,7 @@
 	});
 </script>
 <ul id="playlists" style="display:none;">
-	<li data-source="list=PLAE6EB41B485F610A" data-playlist-name="Relax Daily" data-thumbnail-path="/FWDMSP/thumbnails/youtube.jpg">
+	<li data-source="list=PLAE6EB41B485F610A" data-playlist-name="Relax Daily" data-thumbnail-path="/images/relax.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Relax Daily</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
 		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Relax Daily.</p>
