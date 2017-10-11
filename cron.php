@@ -1864,7 +1864,7 @@ function email_daily_suggestion() {
 		$proverb = generate_proverb($members[$i]['lang']);
 		$content = "";
 		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
-		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' (<a style="text-decoration: none; font-size: 42px; color: green;" href="'.get_wiki_url_nsh($members[$i]['fullname']).'">WIKI</a>)</h1>';
+		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($members[$i]['fullname']).'">WIKI</a>)</h1>';
 		$content .= get_ad('banner_300x250');
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';

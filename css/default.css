@@ -3981,6 +3981,8 @@ body.birthday #proverb span.arrow_down::after {
 }
 #proverb p#proverb_author > a {
 	color: #666;
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
 }
 #proverb i#proverb_refresh, #proverb_list {
 	position: absolute;
@@ -7019,7 +7021,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	.mobile_banner, .w300, .w300 > ins.adsbygoogle, .w300 > ins.adsbygoogle iframe, .w300 > ins.adsbygoogle ins, .w336, .w336 > ins.adsbygoogle, .w336 > ins.adsbygoogle iframe, .w336 > ins.adsbygoogle ins {display: block;}
 	.leader_banner, .w728, .w728 > ins.adsbygoogle, .w728 > ins.adsbygoogle iframe, .w728 > ins.adsbygoogle ins, .banner.left, .banner.right, .w120, .w120 > ins.adsbygoogle, .w120 > ins.adsbygoogle iframe, .w120 > ins.adsbygoogle ins, .w160, .w160 > ins.adsbygoogle, .w160 > ins.adsbygoogle iframe, .w160 > ins.adsbygoogle ins {display: none;}
 	.bottom.button.donate, .bottom.button.sponsor {margin-bottom: 52px;}
-	.to-top {right: 10px !important;bottom: 10px !important;}
+	.to-top {right: 10px !important;bottom: 150px !important;}
 	#help_dob {top: 0;}
 	#help_name {top: 34px;}
 	#name_toggle ~ #help_dob {left: 10px;}
@@ -8748,11 +8750,23 @@ div[aria-describedby="register_modal"] .ui-button span.ui-button-text {
 }
 /* Bank account */
 #bank_account {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
+	width: 412px;
+	height: 200px;
+	padding: 20px;
+	background-color: whiteSmoke;
 }
 #bank_account ul > li {
 	line-height: 36px;
+}
+#coffee {
+	background-image: url('/images/coffee.gif');
+	background-repeat: no-repeat;
+	background-color: whiteSmoke;
+	width: 452px;
+	height: 240px;
+	clear: both;
 }
 /* Wiki icon */
 .wiki_icon {

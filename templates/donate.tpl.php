@@ -1,3 +1,5 @@
+<div id="coffee"></div>
+<div id="bank_account" class="html clear"><?php echo translate_span('bank_account'); ?></div>
 <div class="left clear" id="sms">
 	<h3>
 		<p>Ủng hộ bằng cách gửi tin nhắn cú pháp:</p>
