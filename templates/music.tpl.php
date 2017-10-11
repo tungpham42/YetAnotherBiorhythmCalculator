@@ -25,11 +25,11 @@
 			rightClickContextMenu:"default",
 			showButtonsToolTips:"yes",
 			animate:"no",
-			autoPlay:"no",
+			autoPlay:"yes",
 			loop:"no",
 			shuffle:"no",
 			maxWidth:850,
-			volume:.8,
+			volume:.4,
 			toolTipsButtonsHideDelay:1.5,
 			toolTipsButtonFontColor:"#FFFFFF",
 			//controller settings
@@ -143,6 +143,11 @@
 	});
 </script>
 <ul id="playlists" style="display:none;">
+	<li data-source="list=PLAE6EB41B485F610A" data-playlist-name="Relax Daily" data-thumbnail-path="/FWDMSP/thumbnails/youtube.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">Relax Daily</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Relax Daily.</p>
+	</li>
 	<li data-source="list=PLUD30vV2T-cpV9vwNmrMrk49ZfQAjDp50" data-playlist-name="Paris By Night Collection" data-thumbnail-path="/images/Paris_By_Night.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Paris By Night Collection</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
