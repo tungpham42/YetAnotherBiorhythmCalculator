@@ -7051,8 +7051,31 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 		font-size: 20px;
 		padding: 5px;
 	}
-	li#nav_toggle > a#nav_toggle_button.clicked > i:before {
+	li#nav_toggle > a#nav_toggle_button > i:before {
+		-webkit-transition: opacity .4s ease-in-out;
+		-moz-transition: opacity .4s ease-in-out;
+		transition: opacity .4s ease-in-out;
+		opacity: 1;
+	}
+	li#nav_toggle > a#nav_toggle_button > i:after {
 		content: "\E208";
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		left: -999999px;
+		-webkit-transition: opacity .4s ease-in-out;
+		-moz-transition: opacity .4s ease-in-out;
+		transition: opacity .4s ease-in-out;
+	}
+	li#nav_toggle > a#nav_toggle_button.clicked > i:after {
+		content: "\E208";
+		position: absolute;
+		left: 5px;
+		visibility: visible;
+		opacity: 1;
+	}
+	li#nav_toggle > a#nav_toggle_button.clicked > i:before {
+		opacity: 0;
 	}
 }
 @media all and (min-width: 960px) {
