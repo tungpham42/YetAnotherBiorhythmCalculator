@@ -6903,16 +6903,16 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	#lang_bar .lang_toggle.button {left: 0;}
 	.lang_toggle.button.first > span.lang {display: none;}
 	#bmi_app, #contact_form {clear: both;}
-	li#nav_toggle {left: 274px !important;}
+	li#nav_toggle {left: 280px !important;}
 }
 @media all and (max-width: 666px) {
 	.lang_toggle.button.first > span.lang {display: none !important;}
-	li#nav_toggle {left: 274px !important;}
+	li#nav_toggle {left: 280px !important;}
 }
 @media all and (max-width: 419px) {
 	#proverb {display: none;}
 	.top.button.donate, .top.button.sponsor {display: none;}
-	li#nav_toggle {left: 274px !important;}
+	li#nav_toggle {left: 280px !important;}
 }
 @media all and (min-width: 420px) and (max-width: 551px) {
 	.top.button.donate, .top.button.sponsor {display: none;}
@@ -6943,7 +6943,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	#proverb blockquote {border-left-width: 22px;border-right-width: 11px;}
 	#proverb i#proverb_refresh {top: 5px;left: -18px;width: 14px;height: 14px;font-size: 14px;}
 	#proverb_list {top: 25px;left: -21px;width: 14px;height: 14px;font-size: 14px;}
-	li#nav_toggle {left: 284px !important;top: 48px !important;}
+	li#nav_toggle {left: 290px !important;top: 54px !important;}
 	#author_wiki > i {font-size: 12px;}
 }
 @media all and (min-width: 750px) and (max-width: 959px) {
@@ -7035,30 +7035,24 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	li#nav_toggle {
 		position: absolute;
 		display: block !important;
-		width: 40px;
-		height: 40px;
-		left: 284px;
-		top: 48px;
+		width: 30px;
+		height: 30px;
+		left: 290px;
+		top: 54px;
 	}
 	li#nav_toggle > a#nav_toggle_button {
 		width: 100% !important;
 		height: 100% !important;
-		padding: 0 !important;
+		padding: 2px !important;
 		display: block !important;
 		border: 0;
-		border-radius: 50%;
-		-webkit-border-radius: 50%;
-		-moz-border-radius: 50%;
 	}
 	li#nav_toggle > a#nav_toggle_button > i {
-		font-size: 30px;
+		font-size: 20px;
 		padding: 5px;
 	}
-	li#nav_toggle > a#nav_toggle_button.clicked > i {
-		-webkit-transform: rotate(180deg);
-		-moz-transform: rotate(180deg);
-		-ms-transform: rotate(180deg);
-		transform: rotate(180deg)
+	li#nav_toggle > a#nav_toggle_button.clicked > i:before {
+		content: "\E208";
 	}
 }
 @media all and (min-width: 960px) {

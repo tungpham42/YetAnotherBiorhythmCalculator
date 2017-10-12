@@ -21,6 +21,6 @@
 		-->
 	</ul>
 	<ul>
-		<li id="nav_toggle"><a id="nav_toggle_button" class="nav_button button keep" href="javascript:void(0);"><i class="icon-arrow-down"></i></a></li>
+		<li id="nav_toggle"><a id="nav_toggle_button" class="nav_button button keep" href="javascript:void(0);"><i class="icon-menu-hamburger"></i></a></li>
 	</ul>
 </nav>

@@ -89,9 +89,9 @@ if ($clicktale):
 	include template('clicktale_bottom');
 endif;
 include template('scripts_bottom');
-if ($p == 'home' || $p == 'member/home'):
-	include template('music');
-endif;
+//if ($p == 'home' || $p == 'member/home'):
+//	include template('music');
+//endif;
 //include template('clicky');
 ?>
 </body>
