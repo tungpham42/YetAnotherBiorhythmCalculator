@@ -2984,17 +2984,17 @@ input[type="submit"]:not(.m-btn), input[type="reset"], input[type="button"], inp
 	background-image: linear-gradient(to top, #009933 0%, #119944 50%, #33aa55 50%, #44aa66 100%);
 	color: #FFF;
 }
-.lang_toggle.button, input[type="submit"]:not(.m-btn), input[type="reset"], input[type="button"], input.button, button, a.button, .m-btn, .rhythm_toggle, #logo, #proverb_refresh, #proverb_list, #embed_toggle, #lunar_desc, label[for="is_secondary"], #results > section .add-on, #results > section .helper, #info > p {
+.lang_toggle.button, input[type="submit"]:not(.m-btn), input[type="reset"], input[type="button"], input.button, button, a.button, .m-btn, .rhythm_toggle, #logo, #proverb_refresh, #proverb_list, #embed_toggle, #lunar_desc, label[for="is_secondary"], #results > section .add-on, #results > section .helper, #info > p, #proverb_text {
 	transition: box-shadow linear 120ms, background-color linear 120ms, background-image linear 120ms, border-color linear 120ms, opacity linear 120ms, text-indent linear 120ms, text-shadow linear 120ms;
 	-webkit-transition: box-shadow linear 120ms, background-color linear 120ms, background-image linear 120ms, border-color linear 120ms, opacity linear 120ms, text-indent linear 120ms, text-shadow linear 120ms;
 	-moz-transition: box-shadow linear 120ms, background-color linear 120ms, background-image linear 120ms, border-color linear 120ms, opacity linear 120ms, text-indent linear 120ms, text-shadow linear 120ms;
 	-o-transition: box-shadow linear 120ms, background-color linear 120ms, background-image linear 120ms, border-color linear 120ms, opacity linear 120ms, text-indent linear 120ms, text-shadow linear 120ms;
 	-ms-transition: box-shadow linear 120ms, background-color linear 120ms, background-image linear 120ms, border-color linear 120ms, opacity linear 120ms, text-indent linear 120ms, text-shadow linear 120ms;
 }
-.lang_toggle.button:hover, input[type="submit"]:not(.m-btn):hover, input[type="reset"]:hover, input[type="button"]:hover, input.button:hover, button:hover, a.button:hover, .m-btn:hover, .rhythm_toggle:hover, #logo:hover, #proverb_refresh:hover, #proverb_list:hover, #proverb.loading #proverb_refresh, #embed_toggle:hover, #lunar_desc:hover, label[for="is_secondary"]:hover, #results > section .add-on:hover, #results > section .helper:hover, #info > p:hover {
+.lang_toggle.button:hover, input[type="submit"]:not(.m-btn):hover, input[type="reset"]:hover, input[type="button"]:hover, input.button:hover, button:hover, a.button:hover, .m-btn:hover, .rhythm_toggle:hover, #logo:hover, #proverb_refresh:hover, #proverb_list:hover, #proverb.loading #proverb_refresh, #embed_toggle:hover, #lunar_desc:hover, label[for="is_secondary"]:hover, #results > section .add-on:hover, #results > section .helper:hover, #info > p:hover, #proverb_text:hover {
 	text-shadow: 0 0 10px #ffffff;
 }
-body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday .rhythm_toggle:hover, body.birthday #logo:hover, body.birthday #proverb_refresh:hover, body.birthday #proverb_list:hover, body.birthday #proverb.loading #proverb_refresh, body.birthday #embed_toggle:hover, body.birthday #lunar_desc:hover, body.birthday label[for="is_secondary"]:hover, body.birthday #results > section .add-on:hover, body.birthday #results > section .helper:hover, body.birthday #info > p:hover {
+body.birthday .lang_toggle.button:hover, body.birthday input[type="submit"]:not(.m-btn):hover, body.birthday input[type="reset"]:hover, body.birthday input[type="button"]:hover, body.birthday input.button:hover, body.birthday button:hover, body.birthday .rhythm_toggle:hover, body.birthday #logo:hover, body.birthday #proverb_refresh:hover, body.birthday #proverb_list:hover, body.birthday #proverb.loading #proverb_refresh, body.birthday #embed_toggle:hover, body.birthday #lunar_desc:hover, body.birthday label[for="is_secondary"]:hover, body.birthday #results > section .add-on:hover, body.birthday #results > section .helper:hover, body.birthday #info > p, body.birthday #proverb_text:hover {
 	text-shadow: 0 0 10px #E35604;
 }
 .lang_toggle.button:active, .nav_button.button:active, input[type="submit"]:not(.m-btn):active, input[type="reset"]:active, input[type="button"]:active, input.button:active, button:active, a.button:active, .lang_toggle.button.clicked, .nav_button.button.clicked, input[type="submit"]:not(.m-btn).clicked, input[type="reset"].clicked, input[type="button"].clicked, input.button.clicked, button.clicked, a.button.clicked, .lang_toggle.button.clicked:hover, .nav_button.button.clicked:hover, input[type="submit"]:not(.m-btn).clicked:hover, input[type="reset"].clicked:hover, input[type="button"].clicked:hover, input.button.clicked:hover, button.clicked:hover, a.button.clicked:hover, body.member .nav_button.button.member, body.bmi .nav_button.button.bmi, body.lunar .nav_button.button.lunar, body.game .nav_button.button.game, body.intro .nav_button.button.intro, body.contact .nav_button.button.contact, body.donation .nav_button.button.donation {
@@ -5390,16 +5390,16 @@ td.count {
 	animation: glowFirst 400ms linear infinite alternate;
 }
 @-webkit-keyframes glowFirst {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-moz-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-moz-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);}
 }
 @-moz-keyframes glowFirst {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-moz-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-moz-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);}
 }
 @keyframes glowFirst {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);box-shadow: 0 2px 4px 1px rgba(255,0,40,.4), inset 0 2px 4px 1px rgba(255,0,40,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-moz-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);box-shadow: 0 0 20px rgba(255,0,40,1), inset 0 0 10px rgba(255,0,40,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);box-shadow: 0 4px 8px 2px rgba(255,0,40,.4), inset 0 4px 8px 2px rgba(255,0,40,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-moz-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);-khtml-box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);box-shadow: 0 0 40px rgba(255,0,40,1), inset 0 0 20px rgba(255,0,40,.5);}
 }
 .player.last {
 	-webkit-animation: glowLast 400ms linear infinite alternate;
@@ -5407,16 +5407,16 @@ td.count {
 	animation: glowLast 400ms linear infinite alternate;
 }
 @-webkit-keyframes glowLast {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-moz-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-moz-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);}
 }
 @-moz-keyframes glowLast {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-moz-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-moz-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);}
 }
 @keyframes glowLast {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);box-shadow: 0 2px 4px 1px rgba(255,255,255,.4), inset 0 2px 4px 1px rgba(255,255,255,.2);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-moz-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);box-shadow: 0 0 20px rgba(255,255,255,1), inset 0 0 10px rgba(255,255,255,.5);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);box-shadow: 0 4px 8px 2px rgba(255,255,255,.4), inset 0 4px 8px 2px rgba(255,255,255,.2);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-moz-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);-khtml-box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);box-shadow: 0 0 40px rgba(255,255,255,1), inset 0 0 20px rgba(255,255,255,.5);}
 }
 .hasPlaceholder {
 	color: #777;
@@ -5481,7 +5481,7 @@ ul.dates > li > a {
 	width: -moz-calc(100% - 8px);
 	padding: 8px 0;
 	margin: 2px 3px 6px;
-	font-size: 12px;
+	font-size: 11px;
 	color: #333;
 }
 #plusone {
@@ -5962,9 +5962,9 @@ body.birthday footer .rotate span::after, body.birthday footer .rotate:hover spa
 	width: 80px;
 }
 #weight:empty, #height:empty, #solarDate:empty, #weight:invalid, #height:invalid, #solarDate, #solarDate:invalid, #compatibility:hover #partner_dob, #controls:hover #dt_change {
-	-webkit-animation: glow 420ms linear infinite alternate;
-	-moz-animation: glow 420ms linear infinite alternate;
-	animation: glow 420ms linear infinite alternate;
+	-webkit-animation: glow 840ms linear infinite alternate;
+	-moz-animation: glow 840ms linear infinite alternate;
+	animation: glow 840ms linear infinite alternate;
 }
 #weight:hover, #height:hover, #solarDate:hover, #weight:active, #height:active, #solarDate:active, #weight:focus, #height:focus, #solarDate:focus, #weight:valid, #height:valid, #weight:empty:hover, #height:empty:hover, #weight:invalid:hover, #height:invalid:hover {
 	-webkit-animation: 0s;
@@ -5973,9 +5973,9 @@ body.birthday footer .rotate span::after, body.birthday footer .rotate:hover spa
 }
 /* Dob */
 #dob_form_status.empty_dob ~ #dob_wrapper #dob, #dob_form_status.wrong_dob ~ #dob_wrapper #dob {
-	-webkit-animation: glow 420ms linear infinite alternate;
-	-moz-animation: glow 420ms linear infinite alternate;
-	animation: glow 420ms linear infinite alternate;
+	-webkit-animation: glow 840ms linear infinite alternate;
+	-moz-animation: glow 840ms linear infinite alternate;
+	animation: glow 840ms linear infinite alternate;
 }
 body.member #dob_form_status.empty_dob ~ #dob_wrapper #dob, body.member #dob_form_status.wrong_dob ~ #dob_wrapper #dob {
 	-webkit-animation: none;
@@ -5990,9 +5990,9 @@ body.member #dob_form_status.empty_dob ~ #dob_wrapper #dob, body.member #dob_for
 }
 /* Fullname */
 #dob_form_status.has_fullname.empty_fullname.correct_dob ~ #dob_wrapper #fullname {
-	-webkit-animation: glow 420ms linear infinite alternate;
-	-moz-animation: glow 420ms linear infinite alternate;
-	animation: glow 420ms linear infinite alternate;
+	-webkit-animation: glow 840ms linear infinite alternate;
+	-moz-animation: glow 840ms linear infinite alternate;
+	animation: glow 840ms linear infinite alternate;
 }
 /* Hide */
 #dob_form_status.disabled_dob ~ #dob_wrapper #dob_submit, #dob_form_status.focus_dob ~ #dob_wrapper #dob, #dob_form_status.focus_fullname ~ #dob_wrapper #fullname, #dob_submit:hover, #dob_submit:active, #dob_submit.clicked {
@@ -6012,16 +6012,16 @@ body.member #dob_form_status.empty_dob ~ #dob_wrapper #dob, body.member #dob_for
 }
 #unhashed, #hashed {width: 300px}
 @-webkit-keyframes glow {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-moz-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-moz-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);}
 }
 @-moz-keyframes glow {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-moz-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-moz-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);}
 }
 @keyframes glow {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);box-shadow: 0 2px 4px 1px rgba(255,0,0,.24), inset 0 2px 4px 1px rgba(255,0,0,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-moz-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);box-shadow: 0 0 20px rgba(255,0,0,.72), inset 0 0 10px rgba(255,0,0,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);box-shadow: 0 4px 8px 2px rgba(255,0,0,.48), inset 0 4px 8px 2px rgba(255,0,0,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-moz-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);-khtml-box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);box-shadow: 0 0 40px rgba(255,0,0,.72), inset 0 0 20px rgba(255,0,0,.48);}
 }
 @-webkit-keyframes glow_button {
 	0% {-webkit-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;-moz-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;-khtml-box-shadow: 0 3px 6px 1px rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;box-shadow: 0 3px 6px 1px rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;}	
@@ -6036,16 +6036,16 @@ body.member #dob_form_status.empty_dob ~ #dob_wrapper #dob, body.member #dob_for
 	100% {-webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 2px 4px 0 rgba(0,0,0,.77) inset;-moz-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 2px 4px 0 rgba(0,0,0,.77) inset;-khtml-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 2px 4px 0 rgba(0,0,0,.77) inset;box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 2px 4px 0 rgba(0,0,0,.77) inset;}
 }
 @-webkit-keyframes glow_new {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-moz-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-moz-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);}
 }
 @-moz-keyframes glow_new {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-moz-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-moz-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);}
 }
 @keyframes glow_new {
-	0% {-webkit-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-moz-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);-khtml-box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);box-shadow: 0 2px 4px 1px rgba(255,255,255,.24), inset 0 2px 4px 1px rgba(255,255,255,.12);}	
-	100% {-webkit-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-moz-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);box-shadow: 0 0 20px rgba(255,255,255,.72), inset 0 0 10px rgba(255,255,255,.48);}
+	0% {-webkit-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-moz-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);-khtml-box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);box-shadow: 0 4px 8px 2px rgba(255,255,255,.48), inset 0 4px 8px 2px rgba(255,255,255,.24);}	
+	100% {-webkit-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-moz-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);-khtml-box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);box-shadow: 0 0 40px rgba(255,255,255,.72), inset 0 0 20px rgba(255,255,255,.48);}
 }
 #main_chart > div.highcharts-container, #main_chart > div.highcharts-container > svg, #explanation_chart > div.highcharts-container, #explanation_chart > div.highcharts-container > svg {
 	width: 100%;
@@ -6991,10 +6991,10 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	#results table td{width: 42px;height: 100%;}
 	ul#nav_buttons > li > a.nav_button.button, body.home header.clicked ul#nav_buttons > li > a.nav_button.button.home {display: none !important;}
 	body:lang(vi) header.clicked ul#nav_buttons > li > a.nav_button.button, body:lang(vi) ul#nav_buttons:hover > li > a.nav_button.button, header.clicked ul#nav_buttons > li > a#member_link, header.clicked ul#nav_buttons > li > a#donation_link, header.clicked ul#nav_buttons > li > a#intro_link, header.clicked ul#nav_buttons > li > a#game_link, ul#nav_buttons:hover > li > a#member_link, ul#nav_buttons:hover > li > a#donation_link, ul#nav_buttons:hover > li > a#intro_link, ul#nav_buttons:hover > li > a#game_link, header.clicked ul#nav_buttons > li > a#apps_link, ul#nav_buttons:hover > li > a#apps_link, header.clicked ul#nav_buttons > li > a#blog_link, ul#nav_buttons:hover > li > a#blog_link, header.clicked ul#nav_buttons > li > a#forum_link, header.clicked ul#nav_buttons > li > a#wiki_link, header.clicked ul#nav_buttons > li > a#job_link, ul#nav_buttons:hover > li > a#forum_link, ul#nav_buttons:hover > li > a#wiki_link, ul#nav_buttons:hover > li > a#job_link, header.clicked ul#nav_buttons > li > a#bmi_link, header.clicked ul#nav_buttons > li > a#contact_link, ul#nav_buttons:hover > li > a#bmi_link, ul#nav_buttons:hover > li > a#contact_link, header.clicked ul#nav_buttons > li > a#vip_link, ul#nav_buttons:hover > li > a#vip_link {display: block !important;}
-	ul#nav_buttons {margin-left: 45px;top: 45px;}
+	ul#nav_buttons {margin-left: 4px;top: 48px;}
 	ul#nav_buttons > li {float: none;}
-	ul#nav_buttons > li > a.nav_button.button {padding: 5px 10px;line-height: 18px;margin: 0;font-size: 12px;width: 180px;text-align: center;}
-	ul#nav_buttons > li > a.nav_button.button > i {line-height: 18px;font-size: 12px;}
+	ul#nav_buttons > li > a.nav_button.button {padding: 7px 10px;line-height: 21px;margin: 0;font-size: 14px;width: 260px;text-align: center;}
+	ul#nav_buttons > li > a.nav_button.button > i {line-height: 21px;font-size: 14px;}
 	#logo, .nav_button.button {position: absolute;-moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,.33);-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.33);-khtml-box-shadow: 0 2px 4px 0 rgba(0,0,0,.33);box-shadow: 0 2px 4px 0 rgba(0,0,0,.33);}
 	#logo:hover, body.loading #logo, .nav_button.button:hover {-moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;-khtml-box-shadow: 0 2px 4px 0 rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;box-shadow: 0 2px 4px 0 rgba(0,0,0,.77), 0 0 0 0 rgba(0,0,0,.77) inset;}
 	#logo:active, .nav_button.button:active, body.member .nav_button.button.member, body.vip .nav_button.button.vip, body.bmi .nav_button.button.bmi, body.lunar .nav_button.button.lunar, body.game .nav_button.button.game, body.intro .nav_button.button.intro, body.contact .nav_button.button.contact, body.donation .nav_button.button.donation {-moz-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 1px 2px 0 rgba(0,0,0,.77) inset;-webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 1px 2px 0 rgba(0,0,0,.77) inset;-khtml-box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 1px 2px 0 rgba(0,0,0,.77) inset;box-shadow: 0 0 0 0 rgba(0,0,0,.77), 0 1px 2px 0 rgba(0,0,0,.77) inset;}
@@ -7021,7 +7021,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	.mobile_banner, .w300, .w300 > ins.adsbygoogle, .w300 > ins.adsbygoogle iframe, .w300 > ins.adsbygoogle ins, .w336, .w336 > ins.adsbygoogle, .w336 > ins.adsbygoogle iframe, .w336 > ins.adsbygoogle ins {display: block;}
 	.leader_banner, .w728, .w728 > ins.adsbygoogle, .w728 > ins.adsbygoogle iframe, .w728 > ins.adsbygoogle ins, .banner.left, .banner.right, .w120, .w120 > ins.adsbygoogle, .w120 > ins.adsbygoogle iframe, .w120 > ins.adsbygoogle ins, .w160, .w160 > ins.adsbygoogle, .w160 > ins.adsbygoogle iframe, .w160 > ins.adsbygoogle ins {display: none;}
 	.bottom.button.donate, .bottom.button.sponsor {margin-bottom: 52px;}
-	.to-top {right: 10px !important;bottom: 150px !important;}
+	.to-top {right: 10px !important;bottom: 60px !important;}
 	#help_dob {top: 0;}
 	#help_name {top: 34px;}
 	#name_toggle ~ #help_dob {left: 10px;}

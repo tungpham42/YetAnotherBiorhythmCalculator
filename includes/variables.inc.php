@@ -260,8 +260,8 @@ $button_interfaces = array(
 	),
 	'bmi' => array(
 		'vi' => 'BMI',
-		'en' => 'Body mass index',
-		'ru' => 'Индекс массы тела',
+		'en' => 'BMI',
+		'ru' => 'ИМТ',
 		'es' => 'IMC',
 		'zh' => '身高體重指數',
 		'ja' => 'ボディマス指数'
