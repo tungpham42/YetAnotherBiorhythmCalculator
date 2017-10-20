@@ -4111,7 +4111,6 @@ body.birthday main {
 	padding: 18px;
 }
 #content p,#content h1 {
-	margin: 5px 0 2px 4px 1px;
 	word-wrap: break-word;
 	white-space:pre-wrap;
 }
@@ -8805,9 +8804,10 @@ div[aria-describedby="register_modal"] .ui-button span.ui-button-text {
 }
 #wiki_user > i {
 	font-size: 190px;
-	margin: 20px 40px;
+	padding: 20px 40px;
 	text-align: center;
 	color: #fff;
+	line-height: 150px;
 }
 /* Comments */
 .comments_anchor {
