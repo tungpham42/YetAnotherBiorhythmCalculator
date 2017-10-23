@@ -31,6 +31,7 @@
 <!--
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/min/b=css&amp;f=fonts.css,normalize.css,install-button.css,jquery.listnav.css,jquery.contextMenu.css,keys.css,jssocials.css,m-styles.css,default.css,jquery-ui.css&amp;2" />
 -->
+<!--
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/fonts.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/normalize.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/install-button.css" />
@@ -42,5 +43,9 @@
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css" />
+-->
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
+<?php
+include template('style');
+?>
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/print.css" media="print" />
