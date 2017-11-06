@@ -1,3 +1,4 @@
+/* global UST */
 'use strict';
 
 var userTrackDownload = {};
@@ -5,10 +6,10 @@ var userTrackDownload = {};
 (function($) {
 
     // Document ready
-    $(function(){
+    $(function() {
         $('#downloadHeatmap').click(function() {
             jQuery('#loading').show().text("Adding the html2canvas library...");
-            oIframe.contentWindow.postMessage(JSON.stringify({ task: 'addHtml2canvas' }), "*");
+            UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'addHtml2canvas' }), "*");
         });
     });
 

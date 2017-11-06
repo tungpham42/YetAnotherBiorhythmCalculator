@@ -58,6 +58,14 @@
         $ignoreGET = str_replace('],',']',$ignoreGET);
     }
 
+    $pattern = '/ignoreIPs: \[.+],/';
+    preg_match($pattern, $contents, $ignoreIPs);
+    if(count($ignoreIPs) > 0 ){
+        $ignoreIPs = $ignoreIPs[0];
+        $ignoreIPs = str_replace('ignoreIPs: ','',$ignoreIPs);
+        $ignoreIPs = str_replace('],',']',$ignoreIPs);
+    }
+
     $pattern = '/percentangeRecorded: \d+,/';
     preg_match($pattern, $contents,$percentangeRecorded);
     $percentangeRecorded = $percentangeRecorded[0];
@@ -73,6 +81,7 @@
              'recordKey' => $recordKey,
              'serverPath' => $serverPath,
              'ignoreGET' => $ignoreGET,
+             'ignoreIPs' => $ignoreIPs,
              'percentangeRecorded' => $percentangeRecorded,
            );
                  

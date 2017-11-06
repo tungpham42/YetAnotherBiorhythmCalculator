@@ -39,7 +39,6 @@ $loggedIn = count($rows);
 
 //If login is incorrect
 if($loggedIn != 1){
-        
     //If in cookie is stored a wrong username
     if( isset($_COOKIE["userTrackUsername"]) ){
         setcookie("userTrackUsername", '', time()-3600, "/");
@@ -53,8 +52,9 @@ if($loggedIn != 1){
     </head>
     <body>
         <div class="wrap">
-            <img src="images/usertrack.png" alt="userTrack"/><h3>Incorrect password.</h3>
-            <form action="login.php" method="post">
+            <img src="images/usertrack.png" alt="userTrack"/>
+            <h3><?php if(isset($_GET['retry'])) echo 'Incorrect password.';?></h3>
+            <form action="login.php?retry" method="post">
                 Username: <input type="text" name="user"/><br/>
                 Password: <input type="password" name="pw"/><br />
                 <input type="submit" />

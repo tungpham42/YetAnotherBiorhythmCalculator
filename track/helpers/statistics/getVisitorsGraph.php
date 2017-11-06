@@ -3,7 +3,7 @@
     // Safety first
     include '../../login.php';
    
-       // Get domain, POST
+    // Get domain, POST
     $domain =  $_POST["domain"]; 
 
     $query = "SELECT clientDate, COUNT(*)

@@ -5,6 +5,11 @@
 
 'use strict';
 
+if(typeof UST !== 'undefined') {
+    // eslint-disable-next-line
+    alert("userTrack: [tracker.js] was included twice on this page. Please remove one instance.");
+}
+
 var UST = {
     DEBUG: false,
     settings: {
@@ -17,7 +22,9 @@ var UST = {
         serverPath: "//nhipsinhhoc.vn/track",
         percentangeRecorded: 100,
         ignoreGET: ['utm_source','utm_ccc_01','gclid','utm_campaign','utm_medium'],
-        minIdleTime: 10
+        ignoreIPs: ['66.249.66.50','66.249.66.20','66.249.66.56','66.249.66.17','66.249.66.20','66.249.66.50','66.249.66.56','66.249.66.14'],
+        minIdleTime: 2,
+        disableMobileTracking: false
     }
 };
 
@@ -27,15 +34,18 @@ UST.randomToken = function () {
 
 UST.enableRecord = function() {
     localStorage.noRecord = 'false';
+    return 'Recording of this device has been ENABLED.';
 };
 
 UST.disableRecord = function() {
     localStorage.noRecord = 'true';
+    return 'Recording of this device has been DISABLED.';
 };
 
 UST.canRecord = function () {
     // If is mobile device
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    UST.isMobileDevice = (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i).test(navigator.userAgent);
+    if (UST.isMobileDevice && UST.settings.disableMobileTracking) {
         return false;
     }
 
@@ -61,64 +71,60 @@ UST.canRecord = function () {
     return true;
 };
 
+/**
+ * Checks wehther the requirements for running the tracker are met.
+ * 
+ * @returns {String}
+ */
 UST.testRequirements = function () {
-    // Test that jQuery exists
-    if(typeof jQuery === 'undefined')
-        return "Did you include jQuery before tracker.js?";
-
-    // Test that jQuery version is new enough
-    // Don't break the script, just display an warning
-    
-    var versions = jQuery.fn.jquery.split('.');
-    var oldEnough = versions[0] > 1 || (versions[1] >= 8 && versions[2] >= 1);
-    if(!oldEnough)
-        console.log("Your jQuery version seems to be old. userTrack requires at least jQuery 1.8.1");
-
+    // Was previously used to test for jQuery requirement
     return 'ok';
 };
 
 /**
  * Helper function to find the main content area.
- * @return {jQuery} - The jQuery Object of the div that probably contains the content.
+ * @return {HTMLElement} - The the Element that probably contains the content.
  */
 UST.getContentDiv = function() {
 
-    var mostProbable = jQuery('body');
+    var mostProbable = document.body;
     var maxP = 0;
-    var documentWidth = jQuery(document).width();
-    var documentHeight = jQuery(document).height();
+    var documentWidth = mostProbable.scrollWidth;
+    var documentHeight = mostProbable.scrollHeight;
 
-    jQuery('div').each(function () {
-
+    var divList = document.getElementsByTagName('div');
+    Array.prototype.forEach.call(divList, function(el) {
         var probability = 0;
-        var t = jQuery(this);
-
-        if (t.css('position') == 'static' || t.css('position') == 'relative')
+        var style = el.currentStyle || window.getComputedStyle(el);
+        
+        if (style.position === 'static' || style.position === 'relative')
             probability += 2;
 
-        if (t.height() > documentHeight / 2)
+        if (el.scrollHeight > documentHeight / 2)
             probability += 3;
 
-        if (t.parent().is('body'))
+        if (el.parentElement.nodeName === 'BODY')
             probability++;
 
-        if (t.css('marginLeft') == t.css('marginRight'))
+        if (style.marginLeft === style.marginRight)
             probability++;
 
-        if (t.attr('id') == 'content')
+        if (el.getAttribute('id') === 'main')
+            probability += 3;
+
+        if (el.getAttribute('id') === 'content')
             probability += 2;
 
-        if (t.attr('id') == 'container')
+        if (el.getAttribute('id') === 'container')
             probability++;
 
-        if (t.width() != documentWidth)
+        if (el.scrollWidth !== documentWidth)
             probability += 2;
 
         if (probability > maxP) {
             maxP = probability;
-            mostProbable = t;
+            mostProbable = el;
         }
-
     });
 
     return mostProbable;
@@ -126,11 +132,7 @@ UST.getContentDiv = function() {
 
 // Get root url to website/ to server
 UST.getContextPath = function() {
-    if (UST.settings.serverPath !== '') {
-        return UST.settings.serverPath + '/';
-    }
-
-    return '/';
+    return UST.settings.serverPath + '/';
 };
 
 // Get domain name, without www.
@@ -146,17 +148,17 @@ UST.getDomain = function() {
 UST.removeURLParam = function(key, url) {
     var rtn = url.split("?")[0],
         param,
-        params_arr = [],
+        paramsArr = [],
         queryString = (url.indexOf("?") !== -1) ? url.split("?")[1] : "";
     if (queryString !== "") {
-        params_arr = queryString.split("&");
-        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-            param = params_arr[i].split("=")[0];
+        paramsArr = queryString.split("&");
+        for (var i = paramsArr.length - 1; i >= 0; i -= 1) {
+            param = paramsArr[i].split("=")[0];
             if (param === key) {
-                params_arr.splice(i, 1);
+                paramsArr.splice(i, 1);
             }
         }
-        rtn = rtn + "?" + params_arr.join("&");
+        rtn = rtn + "?" + paramsArr.join("&");
     }
     return rtn;
 };
@@ -166,7 +168,7 @@ UST.getCleanPageURL = function() {
     var currentURL = window.location.pathname + window.location.search;
 
     // Only compute again if different from last URL
-    if(UST.lastURL != currentURL) {
+    if(UST.lastURL !== currentURL) {
         UST.lastURL = currentURL;
 
         UST.cleanPageURL = currentURL;
@@ -174,7 +176,7 @@ UST.getCleanPageURL = function() {
             var param = UST.settings.ignoreGET[key];
             UST.cleanPageURL = UST.removeURLParam(param, UST.cleanPageURL);
 
-            if(UST.cleanPageURL[UST.cleanPageURL.length - 1] == '?') {
+            if(UST.cleanPageURL[UST.cleanPageURL.length - 1] === '?') {
                 UST.cleanPageURL = UST.cleanPageURL.slice(0, -1);
             }
         }
@@ -182,6 +184,12 @@ UST.getCleanPageURL = function() {
 
     return UST.cleanPageURL;
 };
+
+// https://github.com/Cristy94/dynamic-listener
+/* global addDynamicEventListener:true */
+// eslint-disable-next-line
+!function(t){"use strict";function e(t,e){return function(o){o.target&&o.target.matches(t)&&e.apply(this,arguments)}}Element.prototype.matches||(Element.prototype.matches=Element.prototype.matchesSelector||Element.prototype.mozMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.oMatchesSelector||Element.prototype.webkitMatchesSelector||function(t){for(var e=(this.document||this.ownerDocument).querySelectorAll(t),o=e.length;--o>=0&&e.item(o)!==this;);return o>-1}),t.addDynamicEventListener=function(t,o,n,r,c){t.addEventListener(o,e(n,r),c)}}(this);
+   
 
 // Functions to store/load numbers as 4 digit numbers
 UST.coord4 = {
@@ -219,6 +227,116 @@ UST.coord4 = {
     }
 };
 
+// Create the function without initing so it doesn't throw undefined errors in playback mode
+UST.addTag = function () { console.log('addTag was called before initializing the function.'); };
+
+// Auxiliarry DOM functions
+UST.DOM = {
+
+    ready: function (fn) {
+        if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") fn();
+        else document.addEventListener('DOMContentLoaded', fn);
+    },
+
+    postAjax: function (url, data, success) {
+        var params = typeof data == 'string' ? data : Object.keys(data).map(
+            function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]); }
+        ).join('&');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState > 3 && +xhr.status === 200) { success(xhr.responseText); }
+        };
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+        return xhr;
+    },
+
+    /**
+     * Returns the position of the element relative to the document.
+     * @param  {HTMLElement} el
+     * @return {Object} The `top` and `left` offset.
+     */
+    offset: function(el) {
+        var rect = el.getBoundingClientRect();
+
+        return {
+            top: rect.top + document.body.scrollTop | 0,
+            left: rect.left + document.body.scrollLeft | 0
+        };
+    },
+
+    /**
+     * Returns the document scroll top position converted to an integer.
+     */
+    docScrollTop: function() {
+        return (window.pageYOffset || document.documentElement.scrollTop) | 0;
+    },
+
+    /**
+     * Returns the document scroll left position converted to an integer.
+     */
+    docScrollLeft: function() {
+        return (window.pageXOffset || document.documentElement.scrollLeft) | 0;
+    },
+
+    windowWidth: function() {
+        return Math.max(document.documentElement.clientWidth, window.innerWidth || 0) | 0;
+    },
+
+    windowHeight: function() {
+        return (window.innerHeight || document.documentElement.clientHeight) | 0;
+    },
+
+    hasClass: function(elem, className) {
+        return (" " + elem.className + " ").indexOf(" " + className + " ") > -1;
+    },
+
+    getClosest: function(elem, selector) {
+        while (elem !== document.body && elem !== document.documentElement && elem) {
+            if (elem.matches(selector)) return elem;
+            elem = elem.parentElement;
+        }
+        return null;
+    },
+
+    // Get unqiue path to element
+    getUniquePath: function (element) {
+        //https://github.com/rishihahs/domtalk/blob/master/index.js
+        if (element === document.documentElement) {
+            return ':root';
+        } else if (element.tagName && element.tagName.toUpperCase() === 'BODY') {
+            return 'body';
+        } else if (element.id) {
+            return '#' + element.id;
+        }
+
+        var parent = element.parentNode;
+        var parentLoc = UST.DOM.getUniquePath(parent);
+
+        var children = parent.childNodes;
+
+        var index = 0;
+        for (var i = 0; i < children.length; i++) {
+            // nodeType is 1 if ELEMENT_NODE
+            // or if current element is textNode, also count previous textNodes
+            if (children[i].nodeType === 1 || element.nodeType === 3) {
+                if (children[i] === element) {
+                    break;
+                }
+
+                index++;
+            }
+        }
+        return parentLoc + '(' + (index + 1) + ')';
+    },
+
+    getSelection: function() {
+        return window.getSelection();
+    }
+};
+
 UST.init = function () {
 
     UST.DEBUG && console.log(localStorage);
@@ -226,36 +344,31 @@ UST.init = function () {
     // Make sure all client-side requirements for userTrack are fulfilled
     var errorStarting = UST.testRequirements();
     if(errorStarting !== 'ok') {
-        console.log('userTrack tracker could not be started.', errorStarting)
+        console.log('userTrack tracker could not be started.', errorStarting);
         return;
     }
 
-    if (!UST.canRecord()) {
-        return;
-    }
+    // If tracking is disabled for this device or globally or the user should not be tracked
+    if (!UST.canRecord()) return;
+
+    // Constants
+    var VAL_SEPARATOR = '_';
+    var EVT_SEPARATOR = '~';
+    var KEY_SEPARATOR = "`";
 
     // Tagging
     UST.addTag = function(tag) {
+
         if(typeof tag === 'undefined' || tag.length === 0) {
-          console.log("Tag cannot be empty!");
-          return 0;
+            console.log("Tag cannot be empty!");
+            return 0;
         }
 
-        jQuery.ajax({
-            type: "POST",
-            crossDomain: UST.settings.serverPath !== '',
-            data: {
-                clientID: localStorage.getItem('clientID'),
-                tagContent: tag
-            },
-            url: getContextPath() + 'addTag.php',
-            global: false,
-            success: function () {
-                UST.DEBUG && console.log('Tag ' + tag + 'added');
-            },
-            error: function (data) {
-                console.log(data.responseText);
-            }
+        UST.DOM.postAjax(getContextPath() + 'addTag.php', {
+            clientID: localStorage.getItem('clientID'),
+            tagContent: tag
+        }, function () {
+            UST.DEBUG && console.log('Tag ' + tag + 'added');
         });
 
         return 1;
@@ -265,7 +378,97 @@ UST.init = function () {
     var getContextPath = UST.getContextPath;
     var getDomain = UST.getDomain;
 
-    UST.sendData =  function(clientPageID) {
+    // Store the last data sent index
+    var partialLastIndex = -1;
+
+
+    /**
+     * Just join the Array objects.
+     * The Array elements are already strings and compressed.
+     *
+     * Compressed data has this format:
+     * eg.
+     * {'t': 'm', 'x': 100, 'y': 500} becomes
+     * m_100_500
+     * 
+     * @param {Array} arr - The array to compress.
+     * @return {String}
+     */
+    UST.ArrayToCompressedData = function(arr) {
+        // Empty data guard
+        if(!arr || arr.length === 0) return '';
+
+        // Separate events by ~
+        // !TODO: Better separate events in order not to have collisions with user input.
+        return arr.join(EVT_SEPARATOR);
+    };
+
+    /**
+     * Calls recurseSend immediately and resets the recurseSendTimeout and sendDataDelay.
+     * This might be used to force send all data on page unload or when a specific action happens.
+     */
+    UST.forceSendData = function() {
+        UST.sendDataDelay = 300;
+        clearTimeout(UST.recurseSendTimeout);
+        recurseSend();
+        return 'Data sending has been successfully queued!';
+    };
+
+    var hadPreviousSelection = true;
+    UST.getSelectionData = function() {
+        // Wait a bit for selection/deselection to complete
+        setTimeout(function() {
+            try {
+
+                var selection = UST.DOM.getSelection();
+
+                if(selection) {
+
+                    if(selection.anchorNode === null) {
+                        if (hadPreviousSelection) {
+                            record.push('a' + KEY_SEPARATOR + '0');
+                            hadPreviousSelection = false;
+                        }
+                        return;
+                    }
+
+                    // If it's a text node replace the last (1) with 1#T#
+                    var startElPath = UST.DOM.getUniquePath(selection.anchorNode);
+                    if(selection.anchorNode.nodeType === 3) startElPath = startElPath.replace(/\((\d+)\)$/g, ' $1#T#');
+                    var endElPath = UST.DOM.getUniquePath(selection.focusNode);
+                    if(selection.focusNode.nodeType === 3) endElPath = endElPath.replace(/\((\d+)\)$/g, ' $1#T#');
+                    var selStart = selection.anchorOffset;
+                    var selEnd = selection.focusOffset;
+
+                    // Make sure end is always larger than start
+                    if(selStart > selEnd) {
+                        var t = selStart;
+                        selStart = selEnd;
+                        selEnd = t;
+
+                        t = startElPath;
+                        startElPath = endElPath;
+                        endElPath = t;
+                    }
+
+                    hadPreviousSelection = true;
+                    
+                    record.push(
+                        'a' + KEY_SEPARATOR +
+                        encodeURIComponent(startElPath) +
+                        VAL_SEPARATOR +
+                        encodeURIComponent(endElPath) +
+                        VAL_SEPARATOR +
+                        encodeURIComponent(selStart) +
+                        VAL_SEPARATOR +
+                        encodeURIComponent(selEnd)
+                    );
+                }
+            } catch(e) { console.log(e); }
+        }, 10);
+    };
+
+    UST.sendData = function(clientPageID) {
 
         // Update the date of the client to keep the session active
         localStorage.setItem('lastTokenDate', new Date());
@@ -284,11 +487,11 @@ UST.init = function () {
         for (var v in movements) {
             var obj = UST.coord4.get2DPoint(v);
             obj.count = movements[v];
-            toSend.push(obj);
+            toSend.push(obj.x + VAL_SEPARATOR + obj.y + VAL_SEPARATOR + obj.count);
         }
 
-        if (toSend.length > 3) {
-            data.movements = JSON.stringify(toSend);
+        if (toSend.length > 0) {
+            data.movements = toSend.join(EVT_SEPARATOR);
             // Clear old movements
             movements = {};
         }
@@ -300,11 +503,11 @@ UST.init = function () {
         for (v in clicks) {
             var obj = UST.coord4.get2DPoint(v);
             obj.count = clicks[v];
-            toSend.push(obj);
+            toSend.push(obj.x + VAL_SEPARATOR + obj.y + VAL_SEPARATOR + obj.count);
         }
 
         if (toSend.length > 0) {
-            data.clicks = JSON.stringify(toSend);
+            data.clicks = toSend.join(EVT_SEPARATOR);
             // Clear old clicks
             clicks = {};
         }
@@ -315,37 +518,83 @@ UST.init = function () {
          */
         var cachedRecords = localStorage.getItem('record');
 
-        if (cachedRecords !== null && cachedRecords !== undefined){
-            if(cachedRecords.length > 30){
-                data.partial = cachedRecords;
-            }
-        }
+        if (cachedRecords !== null) {
+            // Get new data since last sent
+            cachedRecords = JSON.parse(cachedRecords);
+            data.partial = cachedRecords.slice(partialLastIndex + 1, cachedRecords.length);
+            
+            // Update last index sent
+            partialLastIndex = cachedRecords.length - 1;
+        }       
 
         /**
-         * Send the data
+         * Send the data if we have new data
          */
-        jQuery.ajax({
-            type: "POST",
-            crossDomain: UST.settings.serverPath !== '',
-            data: {
-                movements: data.movements,
-                clicks: data.clicks,
-                partial: data.partial,
-                what: 'data',
-                clientPageID: clientPageID
-            },
-            global: false,
-            url: getContextPath() + 'addData.php',
-            success: function (data) {
-            },
-            error: function (data) {
-                console.log(data.responseText);
-            }
-        });
+        if(data.movements.length || data.clicks.length || data.partial.length) {
+            UST.startDataTransferBatch(data, clientPageID);
+        }
 
         // Data should have been sent, reset our activity
         activityCount = 0;
     };
+
+    /**
+     * Starts a request for the `addData.php` tracking pixel.
+     * This adds heatmap data and partial session tracking data.
+     * @param  {Object} data         The data to send and store on the server.
+     * @param  {Number} clientPageID The ID of the current page visit of the current client.
+     */
+    UST.startDataTransferBatch = function(data, clientPageID) {
+        UST.transferDataViaPixel([
+            'm=' + data.movements, // movements, already in string format
+            'c=' + data.clicks, // clicks, already in string format
+            'p=' + UST.ArrayToCompressedData(data.partial) + EVT_SEPARATOR, // partial, is an Array
+            'i=' + clientPageID // clientPageID
+        ]);
+    };
+
+    UST.startFinalRecordTransfer = function(cachedRecords, clientPageID) {
+        UST.transferDataViaPixel([
+            'r=' + UST.ArrayToCompressedData(cachedRecords),
+            'w=1',
+            'i=' + clientPageID
+        ]);
+    };
+
+    var trackingPixelURL = getContextPath() + '/tracker/addData.php';
+
+    /**
+     * Adds the given URL params to the tracking pixel src and sets the .src
+     * @param  {Array} params A list of parameters to add in the form ['key=value',...]
+     */
+    UST.transferDataViaPixel = function(params) {
+        // Create an image each time, we might have several requests happening at once
+        var trackingPixelImg = new Image();
+
+        // Remove empty params (their format is 'v=', length is 2)
+        params = params.filter(function(el) {
+            return el.length > 2;
+        });
+
+        trackingPixelImg.src = trackingPixelURL + '?' + params.join('&');
+    };
+
+    UST.partialToFinal = function() {
+
+        // Send complete record stored in localStorage to server
+        var cachedRecords = localStorage.getItem('record');
+        var clientPageID = localStorage.getItem('clientPageID');
+        localStorage.removeItem('record');
+
+        UST.DEBUG && console.log('Trying to save final for clientPage #' + clientPageID, cachedRecords);
+
+        if (cachedRecords !== null) {
+            UST.startFinalRecordTransfer(JSON.parse(cachedRecords), clientPageID);
+        }
+    };
+
+    // Save last page recording as final.
+    UST.partialToFinal();
 
     // Client token, if 40s have passed create a new token
     var lastTokenDate = localStorage.getItem('lastTokenDate');
@@ -361,9 +610,10 @@ UST.init = function () {
     localStorage.setItem('lastTokenDate', new Date());
 
     // Make sure tab is focused while recording
-    var focused = true;
-    jQuery(document).hover(function () { focused = true; },
-                          function () { focused = false; });
+    // @TODO: Record window blur/focus events instead.
+    // var focused = true;
+    // (document).hover(function () { focused = true; },
+    //                       function () { focused = false; });
 
     /*** Tracker ***/
     var lastDate = new Date();
@@ -376,7 +626,15 @@ UST.init = function () {
     var activityCount = 0;
 
     // Last movement coordinates, relX -> static anchor
-    var lastX, lastY, relX = 0;
+    var lastX, lastY;
+    var relX = 0;
+
+    // If wordpress admin bar is visible, offset all postions vertically
+    var offsetY = 0;
+    var wpAdminBar = document.getElementById('wpadminbar');
+    if(wpAdminBar) {
+        offsetY = -wpAdminBar.offsetHeight;
+    }
 
     var cachedClicks = localStorage.getItem('clicks');
     if (cachedClicks !== null && cachedClicks !== undefined) {
@@ -384,56 +642,30 @@ UST.init = function () {
         UST.sendData(localStorage.getItem('clientPageID'));
     }
 
-    // Send complete record stored in localStorage to server
-    var cachedRecords = localStorage.getItem('record');
-    localStorage.removeItem('record');
-
-    if (cachedRecords !== null && cachedRecords !== undefined){
-        if (cachedRecords.length > 2) {
-            jQuery.ajax({
-                type: "POST",
-                data: {
-                    record: cachedRecords,
-                    what: 'record',
-                    clientPageID: localStorage.getItem('clientPageID')
-                },
-                url: getContextPath() + 'addData.php',
-                global: false,
-                success: function () {},
-                error: function (data) {
-                    console.log(data.responseText);
-                }
-            });
-        } else {
-            // Too little data for a recording
-            localStorage.removeItem('record');
-        }
-    }
-
     // Get clientPageID (based on token and current page info)
     var clientPageID;
     var clientID = localStorage.getItem('clientID');
 
-    jQuery.ajax({
-        type: "POST",
-        crossDomain: UST.settings.serverPath !== '',
-        dataType: "JSON",
-        data: { 
-            resolution: ((window.innerWidth || (document.documentElement.clientWidth + 17) ) + ' ' + (window.innerHeight || (document.documentElement.clientHeight) )),
-            token: token, 
-            url: UST.getCleanPageURL(), 
-            domain: getDomain(),
-            clientID: clientID,
+    UST.DOM.postAjax(getContextPath() + 'tracker/createClient.php',
+        {
+            // Resolution
+            r: UST.DOM.windowWidth() + ' ' + UST.DOM.windowHeight(),
+            // Token
+            t: token,
+            // URL
+            u: UST.getCleanPageURL(),
+            // Domain
+            d: getDomain(),
+            // clientID
+            c: clientID,
+            // Referrer
+            s: document.referrer,
+            // Device type
+            v: UST.isMobileDevice === true ? 1 : 0
         },
-        url: getContextPath() + 'tracker/createClient.php',
-        global: false,
-        beforeSend: function (x) {
-            if (x && x.overrideMimeType) {
-                x.overrideMimeType("application/j-son;charset=UTF-8");
-            }
-        },
-        success: function (data) {
+        function (data) {
             UST.DEBUG && console.log(data);
+            if(data) data = JSON.parse(data);
 
             // Save current page session ID
             clientPageID = data.clientPageID;
@@ -445,37 +677,29 @@ UST.init = function () {
             localStorage.setItem('clientID', data.clientID);
 
             startSendingData();
-        },
-        error: function (data) {
-            console.log(data.responseText);
-        }
-    });
+        });
 
 
     // Clear partial data
-    jQuery.ajax({
-        type: "POST",
-        data: {
-            clientPageID : localStorage.getItem('clientPageID')
-        },
-        crossDomain: UST.settings.serverPath !== '',
-        url: getContextPath() + 'helpers/clearPartial.php',
-        global: false,
-        success: function () {
+    UST.DOM.postAjax(getContextPath() + 'helpers/clearPartial.php',
+        {
+            clientPageID: localStorage.getItem('clientPageID')
+
+        }, function () {
             UST.DEBUG && console.log('partials cleared');
         },
-        error: function (data) {
-            console.log("Could not clear partial!" + data.responseText);
-        }
-    });
+        function (data) {
+            console.log("Could not clear partial!" + data);
+        });
 
     if (UST.settings.isStatic) {
-        relX = parseInt(UST.getContentDiv().offset().left);
+        relX = UST.DOM.offset(UST.getContentDiv()).left;
     }
 
     // Tag triggers
-    jQuery(document).on('click', '[data-UST_click_tag]', function() {
-        var tag = jQuery(this).attr('data-UST_click_tag');
+    addDynamicEventListener(document.body, 'click', '[data-ust_click_tag]', function(e) {
+        if(!e.target) return;
+        var tag = e.target.dataset.ust_click_tag;
         UST.addTag(tag);
     });
 
@@ -488,26 +712,34 @@ UST.init = function () {
 
             idleTime -= interpTime;
             if(idleTime >= UST.settings.minIdleTime) {
-                record.push({t : 'i', d: idleTime});
+                record.push('i' + KEY_SEPARATOR + idleTime);
             }
         }
 
         lastActionDate = curDate;
     }
 
-    // Record clicks
-    jQuery(document).click(function (e) {
-        if (!focused) {
+    function handleClickEvent(e, isRightClick) {
+        // Ignore artificial clicks
+        if(typeof e.pageX === 'undefined' || !e.target) {
             return;
         }
 
-        // Ignore artificial clicks
-        if(typeof e.pageX === 'undefined') {
-            return;
+        var clickPos = {
+            x: e.pageX | 0,
+            y: e.pageY | 0
+        };
+
+        // If click was dynamically triggered, get the center of the target
+        if(e.pageX === e.pageY && e.pageX === 0) {
+            var offset = UST.DOM.offset(e.target);
+
+            clickPos.x = offset.left + (e.target.clientWidth / 2) | 0;
+            clickPos.y = offset.top + (e.target.clientHeight / 2) | 0;
         }
         
         if (UST.settings.recordClick) {
-            var p = UST.coord4.fillZeros(e.pageX - relX).toString() + UST.coord4.fillZeros(e.pageY);
+            var p = UST.coord4.fillZeros(clickPos.x - relX).toString() + UST.coord4.fillZeros(clickPos.y + offsetY);
             
             if (clicks[p] === undefined) {
                 clicks[p] = 0;
@@ -520,48 +752,103 @@ UST.init = function () {
         addIdleTime(new Date());
         
         // Save the data into localStorage
-        record.push({ t: 'c', x: e.pageX, y: e.pageY });
+        var clickData = 'c' + KEY_SEPARATOR + clickPos.x + VAL_SEPARATOR + (clickPos.y + offsetY);
+        if(isRightClick) {
+            clickData += VAL_SEPARATOR + 'R';
+        }
+        record.push(clickData);
         localStorage.setItem('record', JSON.stringify(record));
         localStorage.setItem('url', UST.getCleanPageURL());
         activityCount += 10;
 
-        if (jQuery(e.target).closest('a').length) {
+        if (UST.DOM.getClosest(e.target, 'a') !== null) {
             localStorage.setItem('clicks', JSON.stringify(clicks));
             localStorage.setItem('url', UST.getCleanPageURL());
         }
+    }
+
+    // Record clicks
+    document.addEventListener('click', handleClickEvent);
+    document.addEventListener('keyup', UST.getSelectionData);
+    document.addEventListener('mouseup', UST.getSelectionData);
+    document.addEventListener('contextmenu', function(e) {
+        handleClickEvent(e, true);
     });
 
-    // Record scroll
+    // Record resize events
+    var resizeTimeout;
+    window.addEventListener('resize', function() {
+        // Debounce, once every 150ms
+        if(!resizeTimeout) {
+            resizeTimeout = setTimeout(function() {
+                resizeTimeout = null;
+                addCurrentWindowSize();
+            }, 150);
+        }
+    }, true);
+
+    function addCurrentWindowSize() {
+        record.push(
+            'r' + KEY_SEPARATOR + 
+            UST.DOM.windowWidth() +
+            VAL_SEPARATOR +
+            UST.DOM.windowHeight()
+        );
+    }
+
+    // Record scroll events, use passive event
+    var supportsPassive = false;
+    try {
+        var opts = Object.defineProperty({}, 'passive', {
+            get: function () {
+                supportsPassive = true;
+            }
+        });
+        window.addEventListener("test", null, opts);
+    } catch (e) { } // eslint-disable-line
     var lastScrollDate = undefined;
-    jQuery(window).scroll(function () {
+    window.addEventListener('scroll', function () {
         
         var now = new Date();
         
-        // Save scroll once every 100ms
-        if(lastScrollDate == undefined || now - lastScrollDate >= 100) {
+        // Save scroll if 100ms have passed while scrolling
+        if(lastScrollDate === undefined || now - lastScrollDate >= 100) {
             UST.DEBUG && console.log('Scroll event recorded!');
             lastScrollDate = now;
             addIdleTime(now, 100);
-            record.push({ t: 's', x: jQuery(window).scrollLeft(), y: jQuery(window).scrollTop() });
+            record.push(
+                's' + KEY_SEPARATOR +
+                UST.DOM.docScrollLeft() +
+                VAL_SEPARATOR + 
+                UST.DOM.docScrollTop()
+            );
             localStorage.setItem('record', JSON.stringify(record));
             activityCount++;
         }
 
+        // Also save scroll 100ms after the last scroll event (so the final position is set)
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(function () {
             UST.DEBUG && console.log('Scroll event recorded!');
             addIdleTime(now, 100);
-            record.push({ t: 's', x: jQuery(window).scrollLeft(), y: jQuery(window).scrollTop() });
+            record.push(
+                's' + KEY_SEPARATOR +
+                UST.DOM.docScrollLeft() +
+                VAL_SEPARATOR + 
+                UST.DOM.docScrollTop()
+            );
             localStorage.setItem('record', JSON.stringify(record));
             lastScrollDate = new Date();
             activityCount++;
         }, 100);
-    });
+    }, supportsPassive ? { passive: true } : false);
 
     // Record mouse movements
-    jQuery(document).mousemove(function (e) {
-        if (!focused)
+    document.addEventListener('mousemove', function (e) {
+        // Invalid or artificial movement triggered
+        if(typeof e.pageX === 'undefined') {
             return;
+        }
 
         var curDate = new Date();
         var passed = curDate - lastDate;
@@ -576,7 +863,7 @@ UST.init = function () {
                 var p = UST.coord4.fillZeros(lastX).toString() + UST.coord4.fillZeros(lastY);
 
                 // Also filter some possible invalid movements
-                if (!(lastX === 0 || lastY === 0)){
+                if (!(lastX === 0 || lastY === 0)) {
                     if (movements[p] === undefined)
                         movements[p] = 0;
                     movements[p]++;
@@ -584,7 +871,7 @@ UST.init = function () {
             }
 
             if (!(lastX === 0 || lastY === 0)) {
-                record.push({ t: 'm', x: e.pageX, y: e.pageY });
+                record.push('m' + KEY_SEPARATOR + (e.pageX | 0) + VAL_SEPARATOR + (e.pageY + offsetY | 0));
                 localStorage.setItem('record', JSON.stringify(record));
                 activityCount++;
             }
@@ -592,7 +879,7 @@ UST.init = function () {
 
         lastDate = curDate;
         lastX = e.pageX;
-        lastY = e.pageY;
+        lastY = e.pageY + offsetY;
         if (UST.settings.isStatic) {
             lastX -= relX;
         }
@@ -600,79 +887,70 @@ UST.init = function () {
 
     /* Record keyboard input */
     if (UST.settings.recordKeyboard) {
-        jQuery(document).on('blur', 'input:not([type="submit"]):not([type="button"]), textarea', function () {
+        addDynamicEventListener(document.body, 'focusout', 'input:not([type="submit"]):not([type="button"])', function (e) {
+            if(!e.target) return;
+            var el = e.target;
 
             //Don't record val change on password inputs or 
             //  elements with class 'noRecord'
-            if (jQuery(this).hasClass('noRecord') || jQuery(this).attr('type') == 'password')
+            if (UST.DOM.hasClass(el, 'noRecord') || el.type === 'password')
                 return;
 
             // Record time since last action    
             addIdleTime(new Date());
 
             // Add unique selector to the blured element
-            var uniquePath = jQuery(this).getPath();
-            record.push({ t: 'b', p: uniquePath, v: jQuery(this).val() });
+            var uniquePath = UST.DOM.getUniquePath(el);
+            record.push(
+                'b' + KEY_SEPARATOR +
+                encodeURIComponent(uniquePath) +
+                VAL_SEPARATOR +
+                encodeURIComponent(el.value)
+            );
             localStorage.setItem('record', JSON.stringify(record));
         });
     }
 
-    /*!@TODO: CHANGE IN NEXT VERSION
-    // Record select option change
-    jQuery(document).on('change', 'select', function () {
+    // Record select change
+    addDynamicEventListener(document, 'change', 'select', function (e) {
+        if(!e.target) return;
+        var el = e.target;
 
-        //Don't record val change on password inputs or 
-        //  elements with class 'noRecord'
-        if (jQuery(this).hasClass('noRecord') || jQuery(this).attr('type') == 'password')
+        if (UST.DOM.hasClass(el, 'noRecord'))
             return;
 
-        var uniquePath = jQuery(this).getPath();
-        record.push({ t: 'b', p: uniquePath, v: jQuery(this).val() });
+        var uniquePath = UST.DOM.getUniquePath(el);
+        record.push(
+            'b' + KEY_SEPARATOR +
+            encodeURIComponent(uniquePath) +
+            VAL_SEPARATOR +
+            encodeURIComponent(el.value)
+        );
         localStorage.setItem('record', JSON.stringify(record));
-    });*/
+    });
 
     // Start sending data after clientPageID is received
     function startSendingData () {
         // Send data to server once in a while, exponential
-        recurseSend(300);
+        UST.sendDataDelay = 300;
+        recurseSend();
     }
 
-    function recurseSend(t) {
+    function recurseSend() {
         UST.DEBUG && console.log("Sending data for clientPageID: ", clientPageID);
         
         // Max delay between data sending is 4seconds
-        if (t < 4000)
-            t += 400;
+        if (UST.sendDataDelay < 4000)
+            UST.sendDataDelay += 400;
 
         // Reduce delay if activity happened soon
-        if(t > 2000 && localStorage.getItem('record') && activityCount > 10) {
-            t = 800;
+        if(UST.sendDataDelay > 2000 && localStorage.getItem('record') && activityCount > 10) {
+            UST.sendDataDelay = 800;
         }
 
         UST.sendData(clientPageID);
-        setTimeout(function () { recurseSend(t); }, t);
+        UST.recurseSendTimeout = setTimeout(recurseSend, UST.sendDataDelay);
     }
-
-    // Get unqiue path to div
-    jQuery.fn.getPath = function () {
-        if (this.length != 1) throw 'Requires one element.';
-        var path, node = this;
-        if (node[0].id) return "#" + node[0].id;
-        while (node.length) {
-            var realNode = node[0],
-                name = realNode.localName;
-            if (!name) break;
-            name = name.toLowerCase();
-            var parent = node.parent();
-            var siblings = parent.children(name);
-            if (siblings.length > 1) {
-                name += ':eq(' + siblings.index(realNode) + ')';
-            }
-            path = name + (path ? '>' + path : '');
-            node = parent;
-        }
-        return path;
-    };
 };
 
 // Display the error message if userTrack can not start for some reason
@@ -681,8 +959,41 @@ if(errorMessage !== 'ok') {
     console.log(errorMessage);
 }
 
-jQuery(function () {
-    UST.init();
+// DOM ready event, main entry function
+UST.DOM.ready(function () {
+    // Check if we have to get the user IP
+    if(UST.canRecord && UST.settings.ignoreIPs && UST.settings.ignoreIPs.length > 0
+        && UST.settings.ignoreIPs[0] !== '') {
+
+        // Adding the script tag to the head as suggested before
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = UST.getContextPath() + 'helpers/getIP.php';
+
+        var initCalled = false;
+
+        // Then bind the event to the callback function.
+        // There are several events for cross browser compatibility.
+        script.onreadystatechange = script.onload = function() {
+            // Make sure event is called only once
+            if(initCalled) return;
+            initCalled = true;
+
+            // If this IP is not ignored start tracking
+            /* global ust_myIP */
+            if(UST.settings.ignoreIPs.indexOf(ust_myIP) === -1) {
+                UST.init();
+            } else {
+                UST.disableRecord();
+            }
+        };
+
+        // Fire the loading
+        head.appendChild(script);
+    } else {
+        UST.init();
+    }
 });
 
 /**
@@ -691,220 +1002,22 @@ jQuery(function () {
  * Used if frame is insider userTrack admin panel
  */
 if (top !== self) {
+    (function() {
+        var head = document.getElementsByTagName('head')[0];
 
-    var elementUnder = null, lastElement = null;
-    var lastEvent = null;
-
-    // Allow cross-domain interactions using HTML5 postMessage
-    var receiver = function (event) {
-
-        // Don't filter requests by domain, no security problems
-        if (event.origin == UST.settings.serverPath || true) {
-            // Check if JSON
-            if (event.data[0] == '!' || event.data[0] > 'A' && event.data[0] < 'z')
-                return;
-
-            var data = JSON.parse(event.data);
-
-            if (data.task !== undefined)
-                lastEvent = event;
-
-            switch (data.task) {
-                // Allow hover events to be triggered, alter stylesheet
-                case 'CSS':
-                    for (var i = 0; ; ++i) {
-                        var classes = document.styleSheets[i];
-                        if (classes === undefined || classes === null)
-                            break;
-                        classes = classes.rules;
-
-                        if (classes === undefined || classes === null)
-                            continue;
-
-                        for (var x = 0; x < classes.length; x++) {
-                            var ss = "";
-                            if (classes[x].selectorText !== undefined) {
-                                classes[x].selectorText = classes[x].selectorText.replace(':hover', '.hover');
-                            }
-                        }
-                    }
-                break;
-
-                // Set element under
-                case 'EL':
-                    elementUnder = document.elementFromPoint(data.x, data.y);
-                break;
-
-                // Trigger hover
-                case 'HOV':
-                    iframeHover();
-                break;
-
-                // Trigger click
-                case 'CLK':
-                    iframeRealClick();
-                break;
-                
-                // Update input value
-                case 'VAL':
-                    jQuery(data.sel).trigger('focus').val(data.val);
-                break;
-                
-                // Return iframe size
-                case 'SZ':
-                    event.source.postMessage(JSON.stringify({
-                        task: 'SZ',
-                        w: Math.max(jQuery(document).width(), jQuery('html').width(), window.innerWidth),
-                        h: Math.max(jQuery(document).height(), jQuery('html').height(), window.innerHeight)
-                    }), event.origin);
-                break;
-
-                // Return iframe path
-                case 'PTH':
-                    event.source.postMessage(JSON.stringify({ task: 'PTH', p: location.pathname }), event.origin);
-                break;
-                
-                // Scroll iframe
-                case 'SCR':
-                    jQuery(document).scrollTop(data.top);
-                    jQuery(document).scrollLeft(data.left);
-                break;
-                
-                // X position of first div
-                case 'STATIC':
-                    event.source.postMessage(JSON.stringify({ task: 'STATIC', X: UST.getContentDiv().offset().left }), event.origin);
-                break;
-
-                // Append the html2canvas library
-                case 'addHtml2canvas':
-                    if(typeof window.html2canvasAdded === "undefined") {
-                        window.html2canvasAdded = true;
-                        var s = document.createElement("script");
-                        s.type = "text/javascript";
-                        document.body.appendChild(s);
-                        s.onload = function () {
-                            event.source.postMessage(JSON.stringify({ task: 'html2canvasAdded'}), event.origin);
-                        };
-                        s.src = UST.settings.serverPath + '/lib/html2canvas/html2canvas.js';
-                    } else {
-                        // The script is already added
-                        event.source.postMessage(JSON.stringify({ task: 'html2canvasAdded'}), event.origin);
-                    }
-                break;
-
-                // Return a screenshot of the site
-                case 'screenshot':
-                    // Scroll to top before trying to add the screenshot
-                    jQuery(document).scrollTop(0);
-                    jQuery(document).scrollLeft(0);
-
-                    html2canvas(document.body, {
-                        logging: false,
-                        useCORS: false,
-                        proxy: UST.settings.serverPath + '/lib/html2canvas/proxy.php',
-                    }).then(function(canvas) {
-                        var img = new Image();
-                        img.onload = function() {
-                            img.onload = null;
-                            event.source.postMessage(JSON.stringify({ task: 'screenshot', img: img.src }), event.origin);
-                        };
-                        img.onerror = function() {
-                            img.onerror = null;
-                            window.console.log("Not loaded image from canvas.toDataURL");
-
-                        };
-                        img.src = canvas.toDataURL("image/png");
-                    });
-                break;
-
-            }
-        }
-    };
-
-    // Send scroll event back to panel
-    //iframe is scrolled
-    jQuery(document).scroll(function () {
-        var t = jQuery(this).scrollTop();
-        var l = jQuery(this).scrollLeft();
-        if (lastEvent !== null) {
-            lastEvent.source.postMessage(JSON.stringify({ task: 'SCROLL', top: t, left: l }), lastEvent.origin);
-        } else {
-            console.log("Scroll event happened before parent call to iframe");
-        }
-    });
-
-    // Triger click
-    var iframeRealClick = function () {
-        if (elementUnder !== null) {
-            if (elementUnder.nodeName == 'SELECT') {
-                jQuery(elementUnder).get(0).setAttribute('size', elementUnder.options.length);
-            } else {
-                var link = jQuery(elementUnder).parents('a').eq(0);
-                if (link !== undefined) {
-                    link = link.attr('href');
-                    if (link !== undefined && (link.indexOf('//') != -1 || link.indexOf('www.') != -1) 
-                        && link.indexOf(window.location.host) == -1)
-                        link = 'external';
-                }
-
-                // Check for page leave
-                if(link !== 'external') {
-                    // Don't trigger click if element has class UST_noClick
-                    if(!jQuery(elementUnder).closest('.UST_noClick').length) {
-                        fireEvent(elementUnder, 'click');
-                    } else {
-                        UST.DEBUG && console.log("Didn't trigger the click. Had class UST_noClick");
-                    }
-                } else {
-                    alertify.alert('User has left the website');
-                }
-            }
+        if(typeof jQuery === 'undefined') {
+            var jqScriptTag = document.createElement('script');
+            jqScriptTag.type = 'text/javascript';
+            jqScriptTag.async = false;
+            jqScriptTag.src = UST.getContextPath() + 'lib/jquery.1.12.4.min.js';
+            head.appendChild(jqScriptTag);
         }
 
-        if (lastElement !== null && lastElement.nodeName == 'SELECT')
-            jQuery(lastElement).get(0).setAttribute('size', 1);
-        lastElement = elementUnder;
-    };
 
-    // Trigger hover event
-    var lastHover = null;
-    var lastParents = null;
-    var iframeHover = function () {
-        if (lastHover != elementUnder) {
-            var parents = jQuery(elementUnder).parents().addBack();
-
-            if (lastParents !== null) {
-                lastParents.removeClass("hover");
-                lastParents.trigger("mouseout");
-            }
-
-            parents.addClass("hover");
-            parents.trigger("mouseover");
-
-            lastParents = parents;
-        } else {
-            return 1;
-        }
-
-        // No element is currently hovered
-        lastHover = elementUnder;
-        return 0;
-    };
-
-    // Function used to trigger click event
-    var fireEvent = function (element, event) {
-        var evt;
-        if (document.createEvent) {
-            // Dispatch for firefox + others
-            evt = document.createEvent("HTMLEvents");
-            evt.initEvent(event, true, true); // event type,bubbling,cancelable
-            return !element.dispatchEvent(evt);
-        } else {
-            // Dispatch for IE
-            evt = document.createEventObject();
-            return element.fireEvent('on' + event, evt);
-        }
-    };
-
-    window.addEventListener('message', receiver, false);
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = false;
+        script.src = UST.getContextPath() + 'tracker/inject.js';
+        head.appendChild(script);
+    })();
 }

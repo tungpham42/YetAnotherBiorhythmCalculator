@@ -1,10 +1,23 @@
-(function ($){
-    $(function () {
-        loadSettings();
+/* global indexStatistics, UST, userTrackAdminPanel */
+'use strict';
 
+(function ($) {
+    try {
+        // Check browser support
+        // Arow functions 
+        eval('let x = arr => arr');
+        // Default parameters
+        eval('((def=0) => { if(def !== 0) throw new Error("ES6 Default parameters not supported");})()');
+    } catch(e) {
+        // eslint-disable-next-line no-alert
+        alert('Your browser does not support some ES6 features. Please use the latest version of Google Chrome.');
+        return;
+    }
+
+    $(function () {
         // Script path
         var loc = document.location.href;
-        if (loc.indexOf("index.html" != -1)) {
+        if (loc.indexOf("index.html" !== -1)) {
             loc = loc.replace("index.html", "");
         }
         loc += "tracker.js";
@@ -26,24 +39,7 @@
         if (basicUser) {
             $('.adminOnly').hide();
         }
-        // Tooltip
-        $("*[title]").qtip({
-            content: {
-                attr: 'title'
-            },
-            style: {
-                classes: 'qtip-rounded qtip-red tooltip'
-            },
-            position: {
-                target: 'mouse',
-                adjust: {
-                    y: 20,
-                    x: 20
-                },
-                viewport: jQuery(window)
-            }
-        });
-
+        
         // Load domains
         $.getJSON('helpers/getDomains.php', function (data) {
 
@@ -60,18 +56,20 @@
                 var d = $('<div class="domain"></div>');
                 var thumb = $('<div class="thumbnail"></div>');
                 var a = $('<a href="#"></a>');
-                a.append("<img src='http://free.pagepeeker.com/v2/thumbs.php?size=m&url=" + data[v].domain + "' title='Website thumbnail.'/>");
+                var thumbnailAPI = 'https://thumbapi.tips4design.com/thumb';
+                a.append("<img src='" + thumbnailAPI + "?sw=1000&url=" + data[v].domain + "' title='Website thumbnail.'/>");
                 a.append("<span class='domainName'>" + data[v].domain + "</span>");
                 thumb.append(a);
                 thumb.append("<span class='pageViews'>"
-                                    + data[v].count + " distinct visitor" + (data[v].count != 1 ? 's' : '')
+                                    + data[v].count + " recorded visitor" + (+data[v].count !== 1 ? 's' : '')
                                 + "</span>");
                 thumb.append("<br /><span class='recordLimit' title='Click to edit'>Visitors limit...</span>");
                 
                 var statistics = $('<div class="statistics"></div>');
                 var tabs = $('<div class="statistics_tabs">' +
-                                '<div class="selected pageViewsStatistics">Page views</div>' +
-                                '<div class="visitorsStatistics">Distinct visitors </div>' +
+                                '<div class="selected summaryStatistics" data-action="showSummary">Summary</div>' +
+                                '<div class="graph pageViewsStatistics">Page views</div>' +
+                                '<div class="graph visitorsStatistics">Distinct visitors </div>' +
                              '</div>');
 
                 statistics.append(tabs);
@@ -81,10 +79,10 @@
                 $('#domainWrap').append(d);
 
                 // Get the statistics for the current domain
-                indexStatistics.createVisitorsGraph(d);
+                indexStatistics.showSummary(d, true);
 
                 //Ajax call to display the record limit
-                userTrackAjax.getRecordLimit(data[v].domain, displayLimit, v);
+                UST.API.getRecordLimit(data[v].domain, displayLimit, v);
             }
 
             //Save current user and add panel events/*
@@ -94,7 +92,7 @@
                 userTrackAdminPanel.bindEvents();
                 userTrackAdminPanel.getUserList();
             }).fail(function (data) {
-                console.log(data);
+                console.error(data);
             });
 
             //Display number of domains tracked
@@ -103,7 +101,7 @@
 
             //Display number of total page views
             nr = 0;
-            $('.domain > span.pageViews').each(function () {
+            $('.domain span.pageViews').each(function () {
                 nr += parseInt($(this).text());
             });
             $('#viewNumber').text(nr);
@@ -129,18 +127,15 @@
             }, 1000);
         });
 
-        function displayLimit(elIndex, limit) {
+        function displayLimit (elIndex, limit) {
             $('.recordLimit').eq(elIndex).html('Recording latest <b class="val">' + limit + '</b> visitors');
         }
     
         // Change domain
-        $(document).on('click', '.thumbnail',  function () {
+        $(document).on('click', '.thumbnail', function () {
 
             // Get new domain value, from span title
             localStorage.domain = $(this).find('span:first').text();
-
-            // Reset cached url if domain is changed
-            localStorage.url = '/';
 
             // Redirect to userTrack.html page
             window.location = 'userTrack.html';
@@ -150,8 +145,8 @@
         $(document).on('click', '.recordLimit', function (e) {
 
             // Only admins can set a limit
-            if ($.cookie('userTrackUserLevel') != 5) {
-                alert("You do not have admin rights!");
+            if ($.cookie('userTrackUserLevel') !== '5') {
+                alertify.alert("You do not have admin rights!");
                 return;
             }
 
@@ -162,12 +157,13 @@
             var t = $(this);
             var domain = t.parent().find('.domainName').text();
 
-            var value = prompt("New limit?", $('.val', t).text() );
-
-            if (value == parseInt(value)) {            
-                userTrackAjax.setRecordLimit(domain, value);
-                $('.val', t).text(value);
-            }
+            alertify.defaultValue($('.val', t).text())
+                .prompt("New limit?", function (limit) {
+                    if (+limit > 0) {         
+                        UST.API.setRecordLimit(domain, limit);
+                        $('.val', t).text(limit);
+                    } else alertify.error("Value has to be a positive integer");
+                });
 
             return false;
         });
@@ -177,8 +173,12 @@
             $(this).addClass('selected');
 
             var d = $(this).parents('.domain');
-            indexStatistics.createVisitorsGraph(d, $(this).hasClass('visitorsStatistics'));
-        });
 
+            if($(this).hasClass('graph')) {
+                indexStatistics.createVisitorsGraph(d, $(this).hasClass('visitorsStatistics'));
+            } else {
+                indexStatistics[$(this).attr('data-action')](d);
+            }
+        });
     });
 })(jQuery);

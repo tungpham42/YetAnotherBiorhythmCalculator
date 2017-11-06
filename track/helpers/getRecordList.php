@@ -1,25 +1,14 @@
 <?php
   /**
    * Returns a list with all pages visisted by the current client
-   * @param {String} token - The token of the client to get the records for
+   * @param {String} clientID - The client ID of the client to get the records for
    * @returns {JSON} - A list containing page name, time and id
    */
 
   include '../dbconfig.php';
   
-  $token = $_POST['token'];
+  $clientID = $_POST['clientID'];
     
-  // Get clientID based on token
-  $query = "SELECT id FROM ust_clients
-            WHERE token = :token";
-  $stmt = $db->prepare($query);
-  $stmt->bindValue(":token", $token, PDO::PARAM_STR);
-  $stmt->execute();
-
-  $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  $clientID = $row['id'];
-
   // Get all clientPages based on the clientID
   $query = "SELECT * FROM ust_clientpage
             WHERE clientid = :clientID";
@@ -50,10 +39,12 @@
     $idRow = $idStmt->fetch(PDO::FETCH_ASSOC);
     $id = $idRow['id'];
 
-    $res[] =  array('id' => $id ? $id : 0,
-                    'page' => $page,
-                    'res' => $resolution,
-                    'date' => $date
+    $res[] =  array(
+                'id' => $id ? $id : 0,
+                'clientpageid' => $clientPageID,
+                'page' => $page,
+                'res' => $resolution,
+                'date' => $date
               );
   }
 

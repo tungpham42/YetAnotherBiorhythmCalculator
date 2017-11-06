@@ -1,0 +1,111 @@
+#heatmapMenu {
+  z-index: 100000;
+  left: 0px;
+  top: 70px;
+  position: fixed;
+  background: white;
+  border-radius: 5px;
+  transition: left 0.3s ease-out;
+}
+
+#heatmapMenuContent {
+  padding: 10px;
+}
+
+#heatmapMenu.minimized *:not(h2) {
+  display: none;
+}
+
+#heatmapMenu h2 {
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 10px;
+  padding-right: 20px;
+  background: #7f165d;
+  color: white;
+  margin: 0px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  font-weight: normal;
+}
+
+#heatmapMenu h2:hover {
+  background: #93196a;
+}
+
+#heatmapMenu.minimized {
+  background: none;
+  left: -130px;
+}
+
+#heatmapMenu.minimized:hover {
+  left: 0px;
+}
+
+#heatmapMenu.minimized h2 {
+  border-radius: 5px;
+}
+
+#heatmapMenu h2:after {
+  content: '↑';
+  font-weight: bold;
+  position: absolute;
+  right: 5px;
+}
+
+#heatmapMenu.minimized h2:after {
+  content: '↓';
+}
+
+#downloadHeatmap {
+  outline: none;
+}
+
+#heatmapMenu #show_settings {
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
+  color: #7f165d;
+}
+
+#heatmapMenu #show_settings:hover {
+  text-decoration: underline;
+}
+
+#options {
+  float: right;
+  margin: 0px 20px 0px 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+#options li {
+  position: relative;
+  padding: 5px;
+  width: 420px;
+  overflow: hidden;
+}
+
+#options li:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#options button {
+  margin-left: 190px;
+}
+
+#options .option {
+  width: 180px;
+  display: inline-block;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 1px 1px 0px white;
+}
+
+#options select {
+  width: 170px;
+}
+
+#options input[type=range] {
+  width: 170px;
+  outline: none;
+}

@@ -1,6 +1,9 @@
 <?php
-    include '../login.php';
+    require_once '../login.php';
+    require_once '../permissions.php';
   
+    try { checkPermission('CHANGE_SETTINGS'); } catch(Exception $e) { die($e->getMessage());}
+
     $delay           = $_POST['delay'];
     $recordClicks    = $_POST['recordClick'];
     $recordMoves     = $_POST['recordMove'];
@@ -9,6 +12,7 @@
     $static          = $_POST['static'];
     $serverPath      = $_POST['serverPath'];
     $ignoreGET       = $_POST['ignoreGET'];
+    $ignoreIPs       = $_POST['ignoreIPs'];
     $percentangeRecorded = $_POST['percentangeRecorded'];
 
     /*** Directly edit the tracker.js file ***/
@@ -52,6 +56,14 @@
     $ignoreGET = implode(',', $ignoreGET);
     $pattern = '/ignoreGET: \[.+],/';
     $newpat = 'ignoreGET: ['.$ignoreGET .'],';
+    $contents = preg_replace($pattern, $newpat, $contents);
+
+    // Wrap each IP in quotes
+    $ignoreIPs = explode(',', $ignoreIPs);
+    $ignoreIPs = array_map('wrap_in_quotes', $ignoreIPs);
+    $ignoreIPs = implode(',', $ignoreIPs);
+    $pattern = '/ignoreIPs: \[.+],/';
+    $newpat = 'ignoreIPs: ['.$ignoreIPs .'],';
     $contents = preg_replace($pattern, $newpat, $contents);
 
     $pattern = '/percentangeRecorded: \d+,/';

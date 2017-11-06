@@ -1,5 +1,7 @@
 <?php
+    ob_start();
     include 'dbconfig.php';
+    ob_end_clean();
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +16,16 @@
 <body>
 
     <?php
+        function sanitizeStr($string) {
+            $string = str_replace("\\", "\\\\", $string);
+            return var_export($string, true);
+        }
 
-        
         // Step 1: Create the database
         if(isset($db_error)) {
 
             // The form was submitted
-            if(isset($_GET['db_name'])) {
+            if(isset($_POST['db_name'])) {
 
                 /*** Update the connection info from the form ***/
 
@@ -28,19 +33,24 @@
                 $filename = 'dbconfig.php';
                 $contents = file_get_contents($filename);
 
+                // Database host
+                $pattern = "/\\\$host = .*;/";
+                $newpat = '\$host = '. sanitizeStr($_POST['db_host']) .';';
+                $contents = preg_replace($pattern, $newpat, $contents);
+                
+                // Database name
+                $pattern = "/\\\$db_name = .*;/";
+                $newpat = '\$db_name = '. sanitizeStr($_POST['db_name']) .';';
+                $contents = preg_replace($pattern, $newpat, $contents);
+                
                 // Username
-                $pattern = '/username = "\S*";/';
-                $newpat = 'username = "'. $_GET['db_user'] .'";';
+                $pattern = "/\\\$username = .*;/";
+                $newpat = '\$username = '. sanitizeStr($_POST['db_user']) .';';
                 $contents = preg_replace($pattern, $newpat, $contents);
     
                 // Password
-                $pattern = '/password = "\S*";/';
-                $newpat = 'password = "'. $_GET['db_pass'] .'";';
-                $contents = preg_replace($pattern, $newpat, $contents);
-
-                // Database name
-                $pattern = '/db_name = "\S*";/';
-                $newpat = 'db_name = "'. $_GET['db_name'] .'";';
+                $pattern = "/\\\$password = .*;/";
+                $newpat = '\$password = '. sanitizeStr($_POST['db_pass']) .';';
                 $contents = preg_replace($pattern, $newpat, $contents);
 
                 // Save the file

@@ -1,12 +1,16 @@
 <?php
 include '../dbconfig.php';
 
+// Create table queries
 $query = array();
 
 $query[] = "CREATE TABLE IF NOT EXISTS `ust_clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `domain` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
+  `referrer` varchar(2083) DEFAULT NULL,
+  `device_type` tinyint(11) NOT NULL DEFAULT '0',
+  `public_key` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `token` (`token`)
@@ -66,6 +70,8 @@ $query[] = "CREATE TABLE IF NOT EXISTS `ust_partials` (
   CONSTRAINT `FK_partials` FOREIGN KEY (`client`) REFERENCES ust_clientpage(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 ;";
 
+$query[] = "ALTER TABLE `ust_partials` AUTO_INCREMENT=500001";
+
 $query[] = "CREATE TABLE IF NOT EXISTS `ust_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL UNIQUE,
@@ -93,8 +99,29 @@ $query[] = "CREATE TABLE IF NOT EXISTS `ust_limits` (
   UNIQUE KEY `domain` (`domain`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;";
 
+$query[] = "CREATE TABLE IF NOT EXISTS `ust_user_client_watched` (
+  `userid` int(11) NOT NULL,
+  `clientid` int(11) NOT NULL,
+  PRIMARY KEY (`userid`, `clientid`),
+  CONSTRAINT `FK_userid_user_client_watched` FOREIGN KEY (`userid`) REFERENCES ust_users(`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_clientid_user_client_watched` FOREIGN KEY (`clientid`) REFERENCES ust_clients(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;";
+
+// Execute all queries
 foreach($query as $q){
     $db->query($q);
+}
+
+// Add missing column queries if updating from an older version
+$update = array(); 
+
+$update[] = "ALTER TABLE `ust_clients` ADD `referrer` varchar(2083) DEFAULT NULL";
+$update[] = "ALTER TABLE `ust_clients` ADD `device_type` tinyint(11) NOT NULL DEFAULT '0'";
+$update[] = "ALTER TABLE `ust_clients` ADD `public_key` varchar(16) DEFAULT NULL";
+
+foreach($update as $q){
+    try { $db->query($q); } 
+    catch(Exception $e) {}
 }
 
 header("location:autoConfig.php");

@@ -16,13 +16,13 @@
     $stmt->bindValue(':domain', $domain, PDO::PARAM_STR);
     $stmt->execute();
     
-    $limit = 999999;
+    $limit = 1000;
     if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         $limit = $row['record_limit'];
     }
     
     // Get clients to be deleted
-    $query   = "SELECT DISTINCT token FROM `ust_clients`
+    $query   = "SELECT DISTINCT id FROM `ust_clients`
                 WHERE domain = :domain AND id NOT IN (
                     SELECT id
                     FROM (
@@ -42,7 +42,7 @@
     
     // Delete the clients and all the related data
     while($row = $clientsStmt->fetch(PDO::FETCH_ASSOC)){
-        $_POST['token'] =  $row['token'];
+        $_POST['clientID'] = $row['id'];
         include "deleteClient.php";
    }
 ?>

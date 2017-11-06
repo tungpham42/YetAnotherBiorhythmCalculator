@@ -1,8 +1,16 @@
+html,body {
+  overflow: hidden;
+}
+
 #recordList {
-    width:95%;
-    top: 120px;
+    width: 100%;
+    top: 59px;
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
+    max-height: calc(100vh - 59px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 }
 
 #recordList table {
@@ -57,24 +65,31 @@
 }
 
 #recordList tr.selected {
-    background: #fff1f1;
+    background: #e8e1f5;
 }
 
-#recordList tr:nth-child(2n+1).selected {
-    background: #ffe4e4;
-}
 
 #recordList tr.selected td{
-    border:1px dashed #ddd;
+    border:1px dashed #7a0c27;
 }
 
-#recordList .pageEntry, #recordList .tag, .tagFilterElement {
+#recordList .pageEntry, #recordList .tag, .tagFilterElement, .referrer a {
     display: inline-block;
     border: 1px solid #EBDDEF;
     border-radius: 5px;
     padding: 2px 5px 2px 5px;
     margin: 2px;
     position: relative;
+}
+
+.referrer a {
+    color: #006B79;
+    border-color: #C5DDE0;
+}
+
+.referrer a:hover {
+    color: #006B79;
+    border-color: #006B79;
 }
 
 #tagFilter {
@@ -159,7 +174,38 @@ td.pageHistory {
 }
 
 td.playButton button {
-    
+    position: relative;
+}
+
+td.playButton:not(.watched) button:after {
+    content:url('../images/icons/new.png');
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    pointer-events: none;
+}
+
+
+.shareRecordButton {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    border: 1px dotted rgba(0,0,0,0);
+    border-radius: 16px;
+    width: 16px;
+    height: 16px;
+    padding: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    opacity: 0.3;
+}
+
+.shareRecordButton:hover {
+    background: white;
+    border-color: #9157c1;
+    opacity: 1;
+    transform: scale(1.4) rotate(300deg) translate3d(2px, 0px, 0px);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
 }
 
 #clientFilter {
@@ -173,9 +219,6 @@ td.playButton button {
 
 #clientFilter .filter {
     float: right;
-}
-
-#rangeFilter {
 }
 
 #rangeFilter input[type="date"] {
@@ -192,6 +235,8 @@ td.playButton button {
     overflow-y:hidden;
     margin:5px auto;
     padding: 5px;
+    padding-left: 65px;
+    box-sizing: border-box;
     white-space: nowrap;
 }
 
@@ -212,26 +257,42 @@ td.playButton button {
     background: #eee;
 }
 
-#sessionControls{
-    width:100%;
-    height:28px;
-    margin-top:2px;
+#sessionControls {
+    width: auto;
+    color: white;
     background:#a87eb7;
     text-align:center;
     overflow: hidden;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 5px;
 }
 
-#controlsWrap{
-    margin-right:50px;
-
+ #autoplayMode {
+    left: auto;
+    right: 24px;
+    bottom: 0px;
+    padding: 16px;
+    cursor: pointer;
+    position: fixed;
+    background-color: #a87eb7;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
 }
+
+#autoplayMode:hover {
+    background-color: #bf7bc0;
+}
+
 #sessionControls img{
     cursor:pointer;
-    float:right;
+    float:left;
     padding:2px 15px 2px 15px;
 }
 
-#sessionControls img{
+#sessionControls img:not(:last-child){
     border-right:1px dashed #dbb8e8;
 }
 
@@ -240,6 +301,6 @@ td.playButton button {
 }
 
 #sessionControls img:hover{
-    background:rgba(255,255,255,0.3);
+    background-color: #bf7bc0;
 }
 

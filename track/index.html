@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel= "shortcut icon" media="all" type="image/x-icon" href="favicon.ico" />
+
+<!-- Styles -->
 <link rel="stylesheet" href="css/globals.css" />
 <link rel="stylesheet" href="css/userTrack.css" />
 <link rel="stylesheet" href="css/index.css" />
@@ -10,6 +12,9 @@
 <link rel="stylesheet" href="lib/jquery.qtip.min.css" />
 
 <script>
+    // Open dashboard in new window
+    if(top !== self) window.open('#');
+    
     // Just a quick login cookie check
     if (document.cookie.indexOf("userTrackUsername") === -1) window.location = 'login.php';
 </script>
@@ -21,7 +26,7 @@
     <div id="top">
         <img src="images/userTrackLarge.png" title="userTrack by Tips4design" />
         <span>UI testing at its best!</span>
-        <span id="version">v 1.8.1</span>
+        <span id="version">v 2.3.2</span>
     </div>
 
     <div id="domainWrap">
@@ -35,6 +40,29 @@
                 <li class="adminOnly"><span>2.</span> Use the panel below to manage tracked domains. ▼</li>
             </ul>
         </div>
+    
+        <script id="summaryStatsTemplate" type="text/x-jquery-tmpl">        
+            <div class="summaryStats">
+                <div class="leftHalf">
+                    <h3>Top referrers</h3>
+                    <ol class="referrersList">
+                        {{each referrers}}
+                        <li>
+                            <a href="${url}" target="_blank">${name}</a>
+                            <div class="referrersCount" title="How many visitors came from this refferer.">+ ${count}</div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                </div>
+                <div class="rightHalf">
+                    <div class="visitorsCount visitorsCountOnline">${visitorsOnline}</div>
+                    <span class="smallFont">visitors online</span>
+
+                    <div class="visitorsCount visitorsCount24h">${visitors24h}</div>
+                    <span class="smallFont">visitors in the last 24h</span>
+                </div>
+            </div>
+        </script>
 
     </div>
 
@@ -59,7 +87,7 @@
                         <ul>
                         
                             {{each domains}}
-                            <li><span>${this}</span> <img class="removeDomain" src="images/delete.png" title="Double click to remove access to this domain."/></li>
+                            <li><span>${this}</span> <img class="removeDomain" src="images/delete.png" title="Remove access to this domain."/></li>
                             {{/each}}
                             <li><button class="addDomain">Add domain...</button></li>
                         </ul>
@@ -112,110 +140,9 @@
         </div>
     </div>
 
-<div id="settings" class="ust_dialog">
-<div id="close" title="Close without saving">X</div>
-<h1>Tracking Script Settings</h1>
-<center>Change this settings to affect the recording of future user interactions.</center>
-<ul>
-    <li> 
-         <label title="Record the mouse position every X milliseconds">MouseMove delay:</label> 
-         <div class="right" title="Less delay means more accurate playback but more data stored in DB">
-             <input type="range" min="100" max="600" value="200" step="5" id="delayRange"/>
-             <span id="range_value">200ms</span>
-         </div>
-    </li>
-    <li> 
-         <label title="Maximum events recorded for a single user on a page">Max record length:</label> 
-         <div class="right" title="More events means that even the longest session of a user will be recorded.">
-             <input type="range" min="100" max="1500" value="300" step="5" id="maxMoves"/>
-             <span id="range_value2">300</span>
-         </div>
-    </li>
-    <li> 
-        <label title="If your website is not responsive (layout doesn't change depending on user resolution)">
-            <img src="images/icons/static.png"/>
-            Static website:
-        </label>
-        <div class="right">
-            <input id="staticWebsite" type="checkbox" title="This setting can only improve the heatmap display, so it should be always checked."/>
-        </div>
-    </li>
-    <li> 
-        <label title="Each click is stored in the database">
-            <img src="images/icons/mouseClick.png"/>
-            Record clicks:
-        </label>
-        <div class="right">
-            <input id="recordClicks" type="checkbox" title="This data is used to generate click heatmaps."/>
-        </div>
-    </li>
-    <li> 
-        <label title="Each movement is stored in the database">
-            <img src="images/icons/mouseMove.png"/>
-            Record mouse movements:
-        </label>
-        <div class="right">
-            <input id="recordMove" type="checkbox" title="This data is used to generate movement heatmaps."/>
-        </div>
-    </li>
-
-    <li> 
-        <label title="Each input value change is stored in the database">
-            <img src="images/icons/keyboard.png" alt="keyboard"/>
-            Record keyboard input:
-
-        </label>
-        <div class="right">
-            <input id="recordKey" type="checkbox"/>
-        </div>
-    </li>
-
-    <li> 
-        <label title="If you have lots of visitors, reocrd only a part of them.">
-            <img src="images/icons/percentage.png" alt="percentage"/>
-            Record only some users:
-        </label>
-        <div class="right">
-             <input type="range" min="0" max="100" value="100" step="1" id="percentangeRecorded" title="50% means that only half of the visitors will be recorded."/>
-             <span id="range_value3">100</span>
-        </div>
-    </li>
-
-    <li> 
-        <label title="Ignore certain URL parameters so pages aren't considered distinct.">
-            <img src="images/icons/link.png" alt="URL icon"/>
-            Ignore URL params
-        </label>
-        <div class="right">
-            <input id="ignoreGET" type="text" title="Values are comma separated parameters keys (with no spaces between them)."/>
-        </div>
-    </li>
-
-    <li> 
-        <label title="Last 3 digits of the IP won't be displayed.">
-            <img src="images/icons/lock.png" alt="lock"/>
-            Censor IP address
-        </label>
-        <div class="right">
-            <input id="censorIP" type="checkbox" checked="checked"/>
-        </div>
-    </li>
-
-    <li> 
-        <label title="Leave blank if userTrack is on the same domain as the tracked website. Run auto-config to set this automatically.">
-            <img src="images/icons/domain.png" alt="domain"/>
-            Server to store data
-        </label>
-        <div class="right">
-            <input id="serverPath" type="text" />
-        </div>
-    </li>
-    <li> <button id="save_settings">Save</button></li>
-</ul>
-</div>
-
 <!-- Libraries -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.DEBUG = false</script>
+<script src="lib/jquery.1.12.4.min.js"></script>
 <script src="lib/jquery.uniform.min.js"></script>
 <script src="lib/jquery_cookie.js"></script>
 <script src="lib/jquery.tmpl.min.js"></script>
@@ -224,12 +151,13 @@
 <script src="lib/alertify.js"></script>
 
 <!-- userTrack specific includes -->
-<script src="js/userTrackAjax.js"></script>
-<script src="js/userTrackAjaxSettings.js"></script>
-<script src="js/userTrackAdminPanel.js"></script>
-<script src="js/userTrackUI.js"></script>
-<script src="js/indexStatistics.js"></script>
 <script src="js/index.js"></script>
+<script src="js/userTrackAPI.js"></script>
+<script src="components/settings/Ajax.js"></script>
+<script src="components/settings/Interface.js"></script>
+<script src="js/userTrackAdminPanel.js"></script>
+<script src="js/indexStatistics.js"></script>
+<script src="js/userTrackUI.js"></script>
 
 </body>
 </html>

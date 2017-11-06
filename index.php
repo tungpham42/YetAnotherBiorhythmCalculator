@@ -14,6 +14,7 @@ include template('head');
 include template('google_analytics');
 include template('page_level_ads');
 include template('fb_pixel');
+include template('track');
 if ($hotjar):
 	include template('hotjar');
 endif;

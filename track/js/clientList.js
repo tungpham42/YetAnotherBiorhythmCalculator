@@ -1,3 +1,4 @@
+/* global UST, options, Clipboard */
 jQuery(function ($) {
 
     /**
@@ -26,13 +27,13 @@ jQuery(function ($) {
          * @param {Date} start 
          * @param {Date} end  
          */
-        this.setRange =  function (start, end) {
+        this.setRange = function (start, end) {
             fromInput.val(shortISO(start));
             toInput.val(shortISO(end));
-        }
+        };
     };
 
-    var range= new rangeFilter($('#rangeFilter'));
+    var range = new rangeFilter($('#rangeFilter'));
     
     // Default value is 6 months of data
     var end = new Date();
@@ -42,17 +43,17 @@ jQuery(function ($) {
     range.setRange(start, end);
 
     // Update the list on filter change
-    $('.filter *').on('change', function (){
-        userTrackAjax.populateClientsList(0);
+    $('.filter *').on('change', function () {
+        UST.API.populateClientsList(0);
     });
 
     var $tagFilter = $('#tagFilter');
 
     // Removes the given tag from the list and refresh
     function removeTag(el) {
-        el.fadeOut(100, function(){
+        el.fadeOut(100, function() {
             el.remove();
-            userTrackAjax.populateClientsList(0);
+            UST.API.populateClientsList(0);
         });
     }
 
@@ -68,7 +69,7 @@ jQuery(function ($) {
         }
 
         // If tag already exists actually remove it
-        var tagFound = $('.tagFilterElement .value').filter(function(index, el) { return el.innerText == tag});
+        var tagFound = $('.tagFilterElement .value').filter(function(index, el) { return el.innerText === tag; });
         if(tagFound.length > 0) {
             // Remove the tag
             removeTag(tagFound.parent());
@@ -80,25 +81,25 @@ jQuery(function ($) {
         $tagEl.hide();
         $tagFilter.append($tagEl);
         $tagEl.fadeIn(300);
-        userTrackAjax.populateClientsList(0);
-    };
+        UST.API.populateClientsList(0);
+    }
 
     // Add tags to the filter when they are clicked
-    $('#recordList').on('click', '.tag', function(e) {
+    $('#recordList').on('click', '.tag', function() {
         addTag($(this).text());
         return false;
     });
 
     // Remove tags to the filter when they are clicked
-    $('#recordList').on('contextmenu', '.tag', function(e) {
+    $('#recordList').on('contextmenu', '.tag', function() {
         var el = $(this);
         var plusButton = el.parent().find('.plus');
         var clientID = plusButton.attr('data-id');
-        console.log(clientID);
+
         var tag = el.text();
 
-        userTrackAjax.removeTag(clientID, tag, function() {
-            el.slideUp(200, function() { el.remove()});
+        UST.API.removeTag(clientID, tag, function() {
+            el.slideUp(200, function() { el.remove(); });
         });
 
         return false;
@@ -106,7 +107,7 @@ jQuery(function ($) {
 
     // Manually add a tag filter
     $('#addTagFilter').click(function() {
-        alertify.prompt("Tag value", function(tag, ev) {
+        alertify.prompt("Tag value", function(tag) {
             addTag(tag);
         });
     });
@@ -115,8 +116,8 @@ jQuery(function ($) {
     $('#recordList').on('click', '.addTag', function() {
         var plusButton = $(this);
         var clientID = plusButton.attr('data-id');
-        alertify.prompt("Tag value", function(tag, ev) {
-            userTrackAjax.addTag(clientID, tag, function() {
+        alertify.prompt("Tag value", function(tag) {
+            UST.API.addTag(clientID, tag, function() {
                 var span = $('<span class="tag"></span>');
                 span.text(tag);
                 span.hide();
@@ -125,25 +126,87 @@ jQuery(function ($) {
             });
         });
     });
+    // var clientID = findGetParameter('c');
+    // var recordID = findGetParameter('i');
+    // var clientPageID = findGetParameter('x');
+    // var page = findGetParameter('p');
+    // var resolution = findGetParameter('r');
+    // var key = findGetParameter('k');
 
-    $('#deleteRecords').dblclick(function () {
+    // Share link button
+    $('#recordList').on('click', '.shareRecordButton', function() {
+        var $this = $(this);
+        var $tr = $this.closest('tr');
+        var clientID = $tr.attr('data-id');
 
-        // Delete all data for selected clients
-        if ($('#recordList tr.selected').length !== 0) {
-            $('#recordList tr.selected').each(function () {
-                userTrackAjax.deleteClient($(this).attr('data-id'), this);
+
+        UST.API.getShareToken(clientID).then(token => {
+            // Output the link
+            var playButton = $this.prev('button');
+            var resolution = $('.resolution', $tr).text();
+
+            var path = window.location.href.replace('userTrack.html', 'play.html');
+            var params = [
+                'c=' + encodeURIComponent(clientID),
+                'i=' + encodeURIComponent(playButton.attr('data-recordid')),
+                'x=' + encodeURIComponent(playButton.attr('data-clientpageid')),
+                'p=' + encodeURIComponent(playButton.attr('data-page')),
+                'r=' + encodeURIComponent(resolution),
+                'k=' + encodeURIComponent(token),
+                'd=' + encodeURIComponent(options.domain)
+            ];
+            var link = path + '?' + params.join('&');
+
+            // Display a prompt with the link
+            // Use Clipboard.js for better UX
+            // We have to dynamically create/destroy the clipboard.js instance
+            var clipboard;
+            alertify.defaultValue(link).okBtn("Copy to clipboard").prompt("<b>Share link</b>. Anyone with this link can view this recording.", function() {
+                alertify.okBtn("Ok");
+                alertify.success('Link copied to cliboard!');
+                setTimeout(function() {
+                    clipboard && clipboard.destroy();
+                }, 200);
+            }, function() {
+                clipboard && clipboard.destroy();
+                alertify.okBtn("Ok");
             });
+
+            var $dialog = jQuery('.alertify');
+
+            jQuery('input', $dialog).attr('id', 'clipboardInput').attr('value', link);
+            var $okButton = jQuery('.ok', $dialog);
+            $okButton.attr('data-clipboard-target', '#clipboardInput');
+            clipboard = new Clipboard($okButton[0]);
+        });
+    });
+
+    $('#deleteRecords').click(function () {
+        var count = $('#recordList tr.selected').length;
+        if (count === 0) {
+            alertify.alert("No records selected!");
             return;
-        } else {
-            alert("No records selected!");
         }
+
+        alertify.confirm("Are you sure you want to delete the selected records?",
+            function () {
+                // Delete all data for selected clients
+                $('#recordList tr.selected').each(function () {
+                    var id = $(this).attr('data-id');
+                    UST.API.deleteClient(id, this);
+                });
+                alertify.log("Deleting " + count + " client" + (count > 1 ? 's' : ''));
+            });
     });
 
-    $('#cleanDatabase').dblclick(function () {
-        userTrackAjax.cleanDataForDomain(options.domain);
+    $('#cleanDatabase').click(function () {
+        alertify.confirm("This will delete ALL data stored for this domain. Are you sure?",
+            function() {
+                UST.API.cleanDataForDomain(options.domain);
+            });
     });
 
-    $('#deleteZeroRecords').dblclick(function () {
-        userTrackAjax.deleteZeroRecords(options.domain);
+    $('#deleteZeroRecords').click(function () {
+        UST.API.deleteZeroRecords(options.domain);
     });
 });

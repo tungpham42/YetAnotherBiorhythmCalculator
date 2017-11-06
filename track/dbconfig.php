@@ -1,37 +1,39 @@
 <?php
 
-$host= "127.0.0.1";
-$username= "nhipsinh_tracker"; // Mysql username 
-$password= "TR@CKv0d0i"; // Mysql password 
-$db_name= "nhipsinh_track"; // Database name 
+$host = '127.0.0.1';
+$username = 'nhipsinh_tracker'; // Mysql username 
+$password = 'TR@CKv0d0i'; // Mysql password 
+$db_name = 'nhipsinh_track'; // Database name 
 
-error_reporting(E_ERROR | E_PARSE );
+// error_reporting(E_ERROR | E_PARSE );
 
+$PDOconfig = array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+
+// Port not specified
 try {
-    // Default port, not specified
-	$db = new PDO('mysql:host=ss'.$host.';dbname='.$db_name.';charset=utf8', $username , $password,
-	              array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
-	              );
+	$db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=utf8', $username , $password, $PDOconfig);
 } catch (PDOException $e) {
+    
+    // Given port or defualt port (3306)
     try {
-      // Given port (specific 3306 default port if no port is given)
-      if(strpos($host, ':')) {
+      
+      // Don't alter the $host variable
+      $_host = $host;
+      
+      if(strpos($host, ':') === false) {
         $port = '3306';
-        $host .= ':'.$port;
+        $_host .= ':'.$port;
       }
       
-      $host_split =  explode(':', $host);
-      $db = new PDO('mysql:host='.$host_split[0].';dbname='.$db_name.';port='.$host_split[1].';charset=utf8', $username , $password,
-              array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    }
-    catch (PDOException $e) {
+      $host_split =  explode(':', $_host);
+      $db = new PDO('mysql:host='.$host_split[0].';dbname='.$db_name.';port='.$host_split[1].';charset=utf8', $username , $password, $PDOconfig);
+    } catch (PDOException $e) {
+        
+        // Remove any port if it exists or extra ':'
         try {
-            // Remove any port if it exists, use only IP
-            $host = str_replace(':3306','',$host);
-            $host = str_replace(':','',$host);
-            $db = new PDO('mysql:host='.$host.';dbname='.$db_name.';charset=utf8', $username , $password,
-                          array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
-                          );
+            $_host = str_replace(':3306','',$_host);
+            $_host = str_replace(':','',$_host);
+            $db = new PDO('mysql:host='.$_host.';dbname='.$db_name.';charset=utf8', $username , $password, $PDOconfig);
         } 
         catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
@@ -39,5 +41,5 @@ try {
         } 
     }
 }
-         
+
 ?>

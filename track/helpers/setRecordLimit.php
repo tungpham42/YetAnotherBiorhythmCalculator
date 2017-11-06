@@ -1,11 +1,9 @@
 <?php
     /*** Set the record limit for a domain ***/
     require_once '../login.php';
-
-    //Check permission
-    $_GET['level'] = 5;
-    $included = 1;
-    include 'users/getUser.php';
+    require_once '../permissions.php';
+    
+    try { checkPermission('SET_RECORD_LIMIT'); } catch(Exception $e) { die($e->getMessage());}
     
     //Get domain, POST
     $domain =  $_POST["domain"];

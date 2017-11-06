@@ -1,325 +1,589 @@
-/***
- Manage record playback
-***/
-var userTrackRecord = (function () {
+/* global DEBUG, options, iframeFit, setIframeSource,
+          record:true, progressBar, settings, clickSound */
 
-    //Private variables
-    var lastElement = null;
-    var scroll = { left: 0, top: 0 };
-    var cursor = jQuery('<img id="cursor" src="images/cursor.png"/>');
-    var numberOfClicks = 0;
+(function ($) {
+    'use strict';
 
-    //Initialization
-    jQuery(function () {
-        jQuery('body').append(cursor);
-    });
+    var UST = window.UST ? window.UST : window.UST = {};
 
-    // Prepare and play the record given by the arguments
-    function prepareRecord(id, page, res) {
+    /***
+     Manage record playback
+    ***/
+    UST.Records = (function () {
 
-        DEBUG && console.log('Prepare record: ', id, page, res);
+        // Private variables
+        var scroll = { left: 0, top: 0 };
+        var cursor = $('<img id="cursor" src="images/cursor.png"/>');
+        var numberOfClicks = 0;
+        var lastPlayedIndex = 0;
+        var $playButton = $('#recordControls button#play');
+        var $pagesHistory = $('#pagesHistory');
+        var noDataLoadTries = 0;
+        var noNextPageRetries = 0;
 
-        artificialTrigger = 1;
-        fromList = 1;
+        // Constants
+        var MAX_EXTRA_DATA_TRIES = 10;
+        var MAX_NEXT_PAGE_RETRIES = 10;
 
-        options.resolution = res;
-        options.lastid = options.recordid = id;
-        options.url = page;
-        options.stopLoadEvents = true;
+        // Initialization
+        $(function () {
+            $('body').append(cursor);
+        });
 
-        // Set iframe size
-        var res = options.resolution.split(' ');
-        iframeFit(res[0], res[1]);
+        // Prepare and play the record given by the arguments
+        function prepareRecord(id, page, res, clientpageid) {
 
-        // Set iframe path
-        var absolutePath = '';
-        if (options.domain !== '')
-            absolutePath = '//' + options.domain;
-        setIframeSource(absolutePath + options.url);
-        
-        userTrackAjax.getRecord(options.lastid);
-
-        jQuery('#recordList').fadeOut(300);
-        jQuery('#recordControls button').attr('disabled', false);
-    }
-
-    function setNextRecord(data) {
-        DEBUG && console.log('Set next record: ', data);
-
-        //If there is a next record
-        if (data.id !== 0) {
-            artificialTrigger = true;
-            prepareRecord(data.id, data.page, data.res);
-        } else { 
-            //Else exit playback mode
-            inPlaybackMode = false;
-            alertify.alert('User has left the website.');
-        }
-    }
-
-    function setCurrentRecord(data) {
-        record = data;     
-
-        setTimeout(function () { 
-            jQuery('#play').trigger('click'); 
-
-            // Highlight current page
-            jQuery('#pagesHistory div').removeClass('active');
-            jQuery('#pagesHistory div[data-id='+options.recordid+']').addClass('active');
-        }, 500); 
-
-        fromList = 0;
-    }
-
-    function resetElements(minimizeBar) {
-
-        scroll = { left: 0, top: 0 };
-        numberOfClicks = 0;
-        jQuery('.clickBox').remove();
-
-        //Minimize top bar before starting a replay
-        if (minimizeBar === true)
-            jQuery('#header').addClass("minified");
-    }
-
-    function startPlayback(data) {
-
-        // If we start playing a record from the recordList
-        if (fromList) {
-            userTrackAjax.getRecord(options.recordid);
-            artificialTrigger = false;
-        } else {
-
-            // If we continue to play a record
-            if (artificialTrigger) {
-                userTrackAjax.getRecord(options.lastid);
-                artificialTrigger = false;
+            if (+id === 0) {
+                alertify.alert('Selected record does not contain any data.');
+                return;
             }
-        }
-    }
 
-    var lastP = {};
-    //Play i-th action from recording
-    function playRecord(i) {
+            DEBUG && console.log('Prepare record: ', id, page, res);
 
-        if (i === 0)
-            resetElements(1);
+            options.resolution = res;
+            options.recordid = id;
+            options.clientpageid = clientpageid;
+            options.url = page;
+            options.stopLoadEvents = true;
 
-        var p = record[i];
-        if (p === undefined) {
-            recordPlaying = false;
-            jQuery('#recordControls button#play').text('Play');
-            return;
-        }
-        progressBar.css({ width: Math.round((i + 1) * 100 / record.length) + '%' });
+            // Set iframe size
+            var res = options.resolution.split(' ');
+            iframeFit(res[0], res[1]);
 
-        DEBUG && console.log(p);
+            // Make sure that the iframe scale was not changed
+            UST.Heatmap.setScale(1);
 
-        // Handle idle time
-        if(p.t === 'i') {
-            if (i + 1 < record.length) {
-                // Wait for the delay stored in p.d
-                setTimeout(function () { playRecord(i + 1); }, p.d);
-            }
-            return;
-        }
+            // Set iframe path
+            var absolutePath = '';
+            if (options.domain !== '')
+                absolutePath = '//www.' + options.domain;
+            setIframeSource(absolutePath + options.url);
 
-        p.x -= scroll.left;
-        p.y -= scroll.top;
+            UST.API.getRecord(options.clientpageid).then(setCurrentRecord);
 
-        // If click triggered an artificial mouse movement, skip it
-        var oldP = record[i-1];
-        if(i > 0 && p.t === 'm' && oldP.t === 'c' && lastP.x === p.x && lastP.y === p.y) {
-            // Skip
-            if (i + 1 < record.length) {
-                setTimeout(function () { playRecord(i + 1); }, 0);
-            }
-            return;
+            $('#recordList').fadeOut(300);
+            $('#recordControls button').attr('disabled', false);
         }
 
-        //Set element under
-        oIframe.contentWindow.postMessage(JSON.stringify({ task: 'EL', x: p.x, y: p.y }), "*");
+        function continuePlayingFromIndex(i) {
+            UST.recordPlaying = true;
+            $playButton.text('| |');
+            playRecord(i);
+        }
 
-        //Trigger hover
-        oIframe.contentWindow.postMessage(JSON.stringify({ task: 'HOV' }), "*");
+        function playRecordFromHistoryAtIndex(index) {
+            // This record has ended but we have other records ready
+            DEBUG && console.log('A new page has been found while trying to get new data.');
+            $('div:not(.disabled)', $pagesHistory).eq(index).trigger('click');
+        }
 
-        // Scroll
-        if (p.t == 's') {
-            scrollIframe(p.x + scroll.left, p.y + scroll.top);
-            if (recordPlaying) {
-                if (i + 1 < record.length) {
-                    setTimeout(function () { playRecord(i + 1); }, 100);
-                } else {
-                    //We have reached the end of the recording
-                    recordPlaying = false;
-                    jQuery('#recordControls button#play').text('Play');
-                    userTrackAjax.getNextRecord(options.lastid);
+        // Adds more data to the data stored for this page
+        function getExtraRecordData() {
+            DEBUG && console.log('Searching new recorded data for this user.');
+            clearTimeout(UST.liveGetExtraDataTimeout);
+
+            // If we already have new pages loaded, this page will have no new data
+            var $pagesInHistory = $('div:not(.disabled)');
+            var activeIndex = $('.active', $pagesHistory).index($('div:not(.disabled)'));
+            if (activeIndex !== -1 && activeIndex < $pagesInHistory.length - 1) {
+                DEBUG && console.log('New pages exist, no need to get new data for this one.');
+
+                // If we finished playing the current recording, go to the next one
+                if (!UST.recordPlaying) {
+                    console.log('Record is not playing, going to the next available one');
+                    playRecordFromHistoryAtIndex(activeIndex + 1);
+                    UST.liveGetExtraDataTimeout = setTimeout(getExtraRecordData, UST.liveDataLoadDelay);
                 }
+                return;
             }
-        } else {
-            var interpTime = settings.delay - 20;
-            if(p.t === 'c' && lastP.x === p.x && lastP.y === p.y) interpTime = 5;
-            cursor.animate({
-                'top': p.y + jQuery('#heatmapIframe').offset().top,
-                'left': p.x + jQuery('#heatmapIframe').offset().left
-            }, interpTime,
-                function () {
 
-                    lastP.x = p.x;
-                    lastP.y = p.y;
-                    if (p.t == 'c')
-                        triggerClick(p.x, p.y);
-                    if (p.t == 'b') {
-                        triggerValueChange(p.p, p.v, 0, i);
+            if (options.liveSelected) {
+                UST.API.getRecord(options.clientpageid).then((data) => {
+                    var lastRecordLength = record.length;
+                    record = uncompress(data);
+
+                    // We have new data
+                    if (lastRecordLength !== record.length) {
+                        noDataLoadTries = 0;
+                        // If current record reached end and stopped playing, start it again
+                        if (lastPlayedIndex < record.length && !UST.recordPlaying) {
+                            continuePlayingFromIndex(lastPlayedIndex + 1);
+                        }
+                    } else {
+                        noDataLoadTries++;
+
+                        if (noDataLoadTries > MAX_EXTRA_DATA_TRIES) {
+                            if (!UST.recordPlaying) {
+                                onPlaybackEnd();
+                            }
+                            return;
+                        }
+                    }
+                    UST.liveGetExtraDataTimeout = setTimeout(getExtraRecordData, UST.liveDataLoadDelay);
+                });
+            }
+        }
+
+        function setNextRecord(data) {
+            DEBUG && console.log('Set next record: ', data);
+
+            // If there is a next record
+            if (data.id !== 0) {
+                prepareRecord(data.id, data.page, data.res, data.clientpageid);
+            } else if (options.liveSelected) {
+                UST.liveGetExtraDataTimeout = setTimeout(getExtraRecordData, UST.liveDataLoadDelay);
+            } else {
+                onPlaybackEnd();
+            }
+        }
+
+        function updatePagesHistory() {
+            if (!options.currentClientID) return;
+            clearTimeout(UST.updatePagesHistoryTimeout);
+
+            // @TODO: Maybe get pages history more often
+            UST.API.getRecordList(options.currentClientID).then((data) => {
+                // No more new data to show
+                if (data.length === options.currentRecordList.length) {
+                    noNextPageRetries++;
+
+                    if (noNextPageRetries > MAX_NEXT_PAGE_RETRIES) {
+                        DEBUG && console.log('No more new pages were found for this user.');
                         return;
                     }
-
-                    //Skip to the clicked time
-                    if (playNext !== 0) {
-                        i = Math.floor(playNext / 100 * record.length);
-                        playNext = 0;
-                    }
-
-                    // Play next event
-                    if (i + 1 < record.length) {
-                        if (recordPlaying)
-                                setTimeout(function () { playRecord(i + 1); }, 0);
-                    } else {
-                        //We have reached the end of the recording
-                        recordPlaying = false;
-                        jQuery('#recordControls button#play').text('Play');
-                        userTrackAjax.getNextRecord(options.lastid);
-                    }
-                });
-        }
-    }
-
-    function triggerClick(x, y) {
-
-        //Absolute position coordinates
-        x += jQuery('#heatmapIframe').offset().left;
-
-        //Display the click radius animation
-        var circle = jQuery("<div class='clickRadius'>&nbsp;</div>");
-        var radius = 30;
-        circle.css('top', y).css('left', x);
-        jQuery('#pageWrap').append(circle);
-        circle.animate({ 'height': radius, 'width': radius, 'top': y - radius / 2, 'left': x - radius / 2, 'opacity': 0.3 }, 500,
-                        function (v) {
-                            circle.animate({ 'height': 2 * radius, 'width': 2 * radius, 'top': y - radius, 'left': x - radius, 'opacity': 0 }, 100, function () { jQuery(this).remove(); });
-                        });
-
-        //Display the click number
-        numberOfClicks++;
-        var clickBox = jQuery("<span class='clickBox' data-top='" + (y + scroll.top) + "' data-left='" + (x + scroll.left) + "'>" +
-                                    numberOfClicks +
-                                "</span>");
-        clickBox.css('top', y).css('left', x);
-        jQuery('#pageWrap').append(clickBox);
-        clickBox.fadeIn(200);
-
-        //Play click sound
-        clickSound.currentTime = 0;
-        clickSound.play();
-
-        //Trigger click event in iframe
-        oIframe.contentWindow.postMessage(JSON.stringify({ task: 'CLK' }), "*");
-    }
-
-    function triggerValueChange(sel, val, l, i) {
-        if (val.length >= l) {
-            //Change input value
-            oIframe.contentWindow.postMessage(JSON.stringify({ task: 'VAL', sel: sel, val: val.slice(0, l) }), "*");
-            setTimeout(function () { triggerValueChange(sel, val, l + 1, i); }, 60);
-        }
-        else {
-            if (i + 1 < record.length) {
-                playRecord(i + 1);
-            }
-            else {
-                recordPlaying = false;
-                jQuery('#recordControls button#play').text('Play');
-                userTrackAjax.getNextRecord(options.lastid);
-            }
-        }
-    }
-
-    function iframeRealClick() {
-        if (elementUnder !== null) {
-            if (elementUnder.nodeName == 'SELECT')
-                jQuery(elementUnder).get(0).setAttribute('size', elementUnder.options.length);
-            else {
-                var link = jQuery(elementUnder).parents('a').eq(0);
-                if (link !== undefined) {
-                    link = link.attr('href');
-                    if (link !== undefined && (link.indexOf('//') != -1 || link.indexOf('www.') != -1) && link.indexOf(window.location.host) == -1)
-                        link = 'external';
+                } else {
+                    noNextPageRetries = 0;
                 }
-                if (link != 'external')
-                    fireEvent(elementUnder, 'click');
-                else {
-                    alertify.alert('User has left the website');
+
+                // Update the history anyway, as last record might now have data and become enabled
+                setRecordsList(data);
+
+                UST.updatePagesHistoryTimeout = setTimeout(updatePagesHistory, UST.updatePagesHistoryDelay);
+            });
+        }
+
+        /**
+         * This function is called after all the records (pages) for 
+         * the current client have been played.
+         */
+        function onPlaybackEnd() {
+            if (options.autoplayMode) {
+                if (options.autoplayList.length) {
+                    // Get and remove the record
+                    let rec = options.autoplayList.shift();
+                    prepareRecord(rec.id, rec.page, rec.res, rec.clientpageid);
+                    // Update the user info UI
+                    UST.UI.setRecordInfo(rec.button);
+                    return;
                 }
+
+            }
+
+            // Else exit playback mode
+            inPlaybackMode = false; // eslint-disable-line no-undef
+
+            if (options.autoplayMode) {
+                alertify.alert('Autoplay has finished playing all the selected sessions.');
+                options.autoplayMode = false;
+            } else {
+                alertify.alert('User has left the website.');
             }
         }
 
-        if (lastElement !== null && lastElement.nodeName == 'SELECT')
-            jQuery(lastElement).get(0).setAttribute('size', 1);
-        lastElement = elementUnder;
+        /**
+         * Skips the current page playback to the next page recording.
+         * Assumes current clientpageid is stored in `options.clientpageid`.
+         */
+        function goToNextRecord() {
+            DEBUG && console.log('Getting next record after clientpageid #', options.clientpageid);
+            UST.API.getNextRecord(options.clientpageid).then(recordData => {
+                DEBUG && console.log("getNextRecord", recordData);
 
-    }
+                recordData.id = Number(recordData.id);
+                recordData.clientpageid = Number(recordData.clientpageid);
+                setNextRecord(recordData);
+            });
+        }
 
-    function scrollIframe(x, y) {
-        //Save current scroll data
-        scroll.left = x;
-        scroll.top = y;
+        /**
+         * Called after the record playback for the current page has finished. 
+         */
+        function onRecordPageEnd() {
+            DEBUG && console.log('onRecordPageEnd called');
+            UST.recordPlaying = false;
+            $playButton.text('►');
+            goToNextRecord();
+        }
 
-        //Scroll iframe to left:x, top:y
-        oIframe.contentWindow.postMessage(JSON.stringify({ task: 'SCR', top: y, left: x }), "*");
-    }
+        function uncompress(data) {
+            if (!data) return [];
 
-    function setRecordList(data) {
+            // Split each event
+            data = data.split(UST.DATA_EVT_SEPARATOR);
 
-        // Cache selector
-        var pageHistoryDiv = jQuery('#pagesHistory');
-        
-        // Clear old list
-        pageHistoryDiv.html('');
+            return data.map((el) => {
+                // Invalid data is always skipped
+                el = el.split(UST.DATA_KEY_SEPARATOR);
 
-        // Add each page to the list
-        for (var v in data) {
-            var page = data[v];
-            var div = jQuery('<div></div>');
+                if (el.length !== 2) return null;
 
-            // Save all the data as data
-            div.attr('data-url', page.page);
-            div.attr('data-resolution', page.res);
-            div.attr('data-date', page.date);
-            div.attr('data-id', page.id);
+                var type = el[0];
+                var vals = el[1];
 
-            // Set visible data
-            div.text(page.page);
-            div.attr('title', page.page);
+                var eventData = {};
+                switch (type) {
+                    // Inactivity
+                    case 'i':
+                        eventData.d = +vals;
+                        break;
+                    // Clicks
+                    case 'c':
+                        vals = vals.split(UST.DATA_VAL_SEPARATOR);
+                        eventData.x = +vals[0];
+                        eventData.y = +vals[1];
+                        eventData.r = vals.length === 3; // If this is right click
+                        break;
+                    // Input blur
+                    case 'b':
+                        vals = vals.split(UST.DATA_VAL_SEPARATOR);
+                        eventData.p = decodeURIComponent(vals[0]);
+                        eventData.v = decodeURIComponent(vals[1]);
+                        break;
+                    // Text selection
+                    case 'a':
+                        // Handle text deselection
+                        if (vals === '0') {
+                            eventData.startElPath = null;
+                        } else {
+                            vals = vals.split(UST.DATA_VAL_SEPARATOR);
+                            eventData.startElPath = decodeURIComponent(vals[0]);
+                            eventData.endElPath = decodeURIComponent(vals[1]);
+                            eventData.start = +decodeURIComponent(vals[2]);
+                            eventData.end = +decodeURIComponent(vals[3]);
+                        }
+                        break;
+                    // Movements, scroll
+                    default:
+                        vals = vals.split(UST.DATA_VAL_SEPARATOR);
+                        eventData.x = +vals[0];
+                        eventData.y = +vals[1];
+                        break;
+                }
 
-            // Page has no data
-            if(page.id == 0) {
-                div.addClass('disabled');
-                div.attr('title', 'User visited this page but left it before any data could be recorded');
+                return Object.assign({ t: type }, eventData);
+            });
+        }
+
+        function setCurrentRecord(data) {
+            DEBUG && console.log('Set current record called');
+
+            // If it is partial, remove last extra event separator
+            if (data[data.length - 1] === UST.DATA_EVT_SEPARATOR) {
+                data = data.slice(0, -1);
             }
 
-            pageHistoryDiv.append(div);
+            record = uncompress(data);
+
+            setTimeout(function () {
+                $('#play').trigger('click');
+
+                highlightCurrentRecord();
+
+                // Continously get data for live mode
+                if (options.liveSelected) {
+                    // Reset load data count for this page
+                    noDataLoadTries = 0;
+                    UST.liveGetExtraDataTimeout = setTimeout(getExtraRecordData, UST.liveDataLoadDelay);
+                    UST.updatePagesHistoryTimeout = setTimeout(updatePagesHistory, UST.updatePagesHistoryDelay);
+                } else {
+                    clearTimeout(UST.liveGetExtraDataTimeout);
+                    clearTimeout(UST.updatePagesHistoryTimeout);
+                }
+            }, 500);
         }
-    }
 
-    return {
-        startPlayback: startPlayback,
-        setCurrent: setCurrentRecord,
-        setNext: setNextRecord,
-        prepare: prepareRecord,
-        playFrom: playRecord,
-        setRecordList: setRecordList,
-        reset: resetElements,
-        scrollTo: scrollIframe
-    };
+        function highlightCurrentRecord() {
+            DEBUG && console.log('Current recording should be higlighted', options.clientpageid);
 
-}());
+            // Highlight current page
+            $('div', $pagesHistory).removeClass('active');
+            $('div[data-clientpageid=' + options.clientpageid + ']', $pagesHistory).addClass('active');
+        }
+
+        function resetElements() {
+            scroll = { left: 0, top: 0 };
+            numberOfClicks = 0;
+            noDataLoadTries = 0;
+            noNextPageRetries = 0;
+            lastPlayedIndex = 0;
+            $('.clickBox').remove();
+        }
+
+        var lastP = {};
+
+        /**
+         * Calls playRecord after the given delay. 
+         * 
+         * @param {number} i 
+         * @param {number} [delay=0] 
+         */
+        function playRecordAsync(i, delay = 0) {
+            setTimeout(() => playRecord(i), delay);
+        }
+
+        // Play i-th action from recording
+        function playRecord(i) {
+
+            // If we stopped playback
+            if (!UST.recordPlaying) return;
+
+            // Make sure the event index is in range
+            if (i >= record.length || !record[i]) {
+                onRecordPageEnd();
+                return;
+            }
+
+            lastPlayedIndex = i;
+
+            // If it's the first event reset elements so that playing back multiple times
+            //  yields same results
+            if (i === 0) resetElements();
+
+            // Get current event
+            var eventData = JSON.parse(JSON.stringify(record[i]));
+            if (eventData === undefined) {
+                UST.recordPlaying = false;
+                $playButton.text('►');
+                return;
+            }
+            progressBar.css({ width: Math.round((i + 1) * 100 / record.length) + '%' });
+
+            DEBUG && console.log(eventData);
+
+            // Handle idle time
+            if (eventData.t === 'i') {
+                let delay = 0;
+                if (localStorage.skipPauses !== "true") {
+                    delay = eventData.d;
+                }
+
+                playRecordAsync(i + 1, delay);
+                return;
+            }
+
+            // Window resize
+            if (eventData.t === 'r') {
+                // Send the resize event
+                iframeFit(eventData.x, eventData.y);
+
+                // Play the next event
+                playRecordAsync(i + 1, 0);
+                return;
+            }
+
+            eventData.x -= scroll.left;
+            eventData.y -= scroll.top;
+
+            // If click triggered an artificial mouse movement, skip it
+            var oldP = record[i - 1];
+            if (i > 0 && eventData.t === 'm' && oldP.t === 'c' && lastP.x === eventData.x && lastP.y === eventData.y) {
+                // Play the next event
+                playRecordAsync(i + 1, 0);
+                return;
+            }
+
+            // Set element under
+            UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'EL', x: eventData.x, y: eventData.y }), "*");
+
+            // Trigger hover
+            UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'HOV' }), "*");
+
+            // Scroll
+            if (eventData.t === 's') {
+                scrollIframe(eventData.x + scroll.left, eventData.y + scroll.top);
+                // Play the next event after 100ms delay
+                playRecordAsync(i + 1, 100);
+                return;
+            }
+
+            // Text selection
+            if (eventData.t === 'a') {
+                setSelection(eventData.startElPath, eventData.endElPath, eventData.start, eventData.end);
+            }
+
+            // Movement, click or input blur
+            var interpTime = settings.delay - 20;
+            if (eventData.t === 'c' && lastP.x === eventData.x && lastP.y === eventData.y) interpTime = 5;
+            cursor.animate({
+                top: eventData.y + $('#heatmapIframe').offset().top,
+                left: eventData.x + $('#heatmapIframe').offset().left
+            }, interpTime, function () {
+                lastP.x = eventData.x;
+                lastP.y = eventData.y;
+                if (eventData.t === 'c')
+                    triggerClick(eventData.x, eventData.y, eventData.r);
+                if (eventData.t === 'b') {
+                    triggerValueChange(eventData.p, eventData.v, 0, i);
+                    return;
+                }
+
+                // Skip to the clicked time on the progress bar
+                if (UST.skipToPercentage !== undefined) {
+                    i = UST.skipToPercentage / 100 * record.length | 0;
+                    UST.skipToPercentage = undefined;
+                }
+
+                playRecordAsync(i + 1, 0);
+            });
+        }
+
+        function triggerClick(x, y, isRightClick) {
+
+            // Absolute position coordinates
+            x += $('#heatmapIframe').offset().left;
+
+            // Display the click radius animation
+            var circle = $("<div class='clickRadius'>&nbsp;</div>");
+            var radius = 30;
+            circle.css('top', y).css('left', x);
+            $('#pageWrap').append(circle);
+            circle.animate({
+                height: radius,
+                width: radius,
+                top: y - (radius / 2),
+                left: x - (radius / 2),
+                opacity: 0.3
+            }, 500, function () {
+                circle.animate({
+                    height: 2 * radius,
+                    width: 2 * radius,
+                    top: y - radius,
+                    left: x - radius,
+                    opacity: 0
+                }, 100, function () { $(this).remove(); });
+            });
+
+            // Display the click number
+            numberOfClicks++;
+            var clickBox = $("<span class='clickBox' data-top='" + (y + scroll.top) + "' data-left='" + (x + scroll.left) + "'>" +
+                numberOfClicks +
+                "</span>");
+            if (isRightClick) clickBox.addClass('rightClick');
+            clickBox.css('top', y).css('left', x);
+            $('#pageWrap').append(clickBox);
+            clickBox.fadeIn(200);
+
+            // Play click sound
+            clickSound.currentTime = 0;
+            clickSound.play();
+
+            // Trigger click event in iframe
+            UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'CLK' }), "*");
+        }
+
+        /**
+         * Completes an input value, character by character.
+         * One character every 60ms.
+         * 
+         * @param {String} sel The selector used to get the input element.
+         * @param {Number} val The value to input.
+         * @param {Number} l The index of the character.
+         * @param {Number} i The index of the eventData. 
+         *                   We need this to continue playback after input complete.  
+         */
+        function triggerValueChange(sel, val, l, i) {
+            if (val.length >= l) {
+                // Change input value
+                UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'VAL', sel: sel, val: val.slice(0, l) }), "*");
+                setTimeout(function () { triggerValueChange(sel, val, l + 1, i); }, 60);
+            }
+            else playRecordAsync(i + 1, 0);
+        }
+
+        /**
+         * Scrolls the iframe window to the given X,Y coordinates.
+         * 
+         * @param {Number} x 
+         * @param {Number} y 
+         */
+        function scrollIframe(x, y) {
+            // Save current scroll data
+            scroll.left = x;
+            scroll.top = y;
+
+            // Scroll iframe to left:x, top:y
+            UST.iframe.contentWindow.postMessage(JSON.stringify({ task: 'SCR', top: y, left: x }), "*");
+        }
+
+        /**
+         * Sets the current selection on the given element between start and end.
+         * 
+         * @param {string} startElPath 
+         * @param {string} endElPath 
+         * @param {number} start 
+         * @param {number} end 
+         */
+        function setSelection(startElPath, endElPath, start, end) {
+            UST.iframe.contentWindow.postMessage(JSON.stringify({
+                task: 'SEL',
+                startElPath: startElPath,
+                endElPath: endElPath,
+                start: start,
+                end: end
+            }), "*");
+        }
+
+        /**
+         * Sets the pages history in the navigation bar.
+         *  
+         * @param {Array} data Array containing the info about each page visited. 
+         */
+        function setRecordsList(data) {
+
+            options.currentRecordList = data;
+
+            // Cache selector
+            var $pagesHistory = $('#pagesHistory');
+            var $wrap = $('<div>');
+
+            // Add each page to the list
+            for (var v in data) {
+                var page = data[v];
+                var div = $('<div></div>');
+
+                // Save all the data as data
+                div.attr('data-url', page.page);
+                div.attr('data-resolution', page.res);
+                div.attr('data-date', page.date);
+                div.attr('data-id', page.id);
+                div.attr('data-clientpageid', page.clientpageid);
+
+                // Set visible data
+                div.text(page.page);
+                div.attr('title', page.page);
+
+                // Page has no data
+                if (+page.id === 0) {
+                    div.addClass('disabled');
+                    div.attr('title', 'User visited this page but left it before any data could be recorded');
+                }
+
+                $wrap.append(div);
+            }
+
+            // Update pages history list
+            $pagesHistory.html($wrap.contents());
+            highlightCurrentRecord();
+        }
+
+        return {
+            setCurrent: setCurrentRecord,
+            goToNextRecord: goToNextRecord,
+            prepare: prepareRecord,
+            playFrom: playRecord,
+            setRecordsList: setRecordsList,
+            reset: resetElements,
+            scrollTo: scrollIframe
+        };
+    }());
+})(jQuery);

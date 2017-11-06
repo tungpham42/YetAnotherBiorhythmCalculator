@@ -5,10 +5,10 @@
      * @param {Int} id - userId to delete
      * @param {String} name - userName to  delete, if id is not given
      */
-    include '../../login.php';
+    require_once '../../login.php';
+    require_once '../../permissions.php';
 
-    $_GET['level'] = 5;
-    include 'getUser.php';
+    try { checkPermission('DELETE_USER'); } catch(Exception $e) { die($e->getMessage());}
 
     $name = @$_POST['name'];
     $id = @$_POST['id'];

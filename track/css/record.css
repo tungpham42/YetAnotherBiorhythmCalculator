@@ -6,7 +6,7 @@
 #pagesHistory {
     padding-top: 3px;
     padding-left: 15px;
-    max-width: 80%;
+    max-width: calc(100% - 310px);
     overflow-x: auto;
     overflow-y:hidden;
     white-space: nowrap; 
@@ -19,12 +19,12 @@
     direction: rtl;
     overflow: hidden;
     max-width: 100px;
-    padding: 5px 5px 2px 16px;
-    margin-right: 8px;
+    padding: 5px 5px 5px 16px;
+    margin-right: 4px;
     cursor: pointer;
-    text-decoration: underline;
     position: relative;
     border-radius: 5px;
+    border: 1px dotted #444;
 }
 
 #pagesHistory div:before {
@@ -35,21 +35,36 @@
     top: 5;
 }
 
-#pagesHistory div:hover {
-    color: #FF5dBB;
-    box-shadow: inset 0px 0px 8px rgba(255,255,255, 0.2);
+#pagesHistory div:not(.active):hover {
+    background: #e02c3d;
+    border-style: solid;
+    transition: all 0.1s ease-out;
 }
 
-#pagesHistory div:active {
-    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+#pagesHistory div:not(.active):active {
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.8);
 }
 
 #pagesHistory div.active{
-    color: #FF5dBB;
+    background: #e02c3d;
 }
 
 #pagesHistory div.disabled {
     color: #ccc !important;
     opacity: 0.5;
     cursor: help;
+}
+
+#recordButtons label {
+    font-size: 14px;
+    vertical-align: baseline;
+    padding: 1px;
+}
+
+#recordButtons input {
+    cursor: pointer;
+}
+
+#recordButtons .checker {
+    transform: scale(1.2);
 }

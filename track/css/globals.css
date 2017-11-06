@@ -21,6 +21,6 @@
     border: 1px solid rgba(0,0,0,0) !important;
 }
 
-.alertify-logs {
-    z-index: 100001;
+.alertify-logs, .alertify {
+    z-index: 900001;
 }

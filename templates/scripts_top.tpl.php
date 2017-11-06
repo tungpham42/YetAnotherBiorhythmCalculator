@@ -29,7 +29,7 @@
 <script src="<?php echo $cdn_url; ?>/js/jwerty.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/notify.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/jssocials.js"></script>
-<script src="<?php echo $cdn_url; ?>/js/blockadblock.js"></script
+<script src="<?php echo $cdn_url; ?>/js/blockadblock.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/scripts.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/lunar_scripts.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/animation.js"></script>

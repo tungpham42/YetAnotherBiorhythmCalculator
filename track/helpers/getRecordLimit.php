@@ -18,6 +18,6 @@
         echo $row['record_limit'];
     }
     
-    else echo '999999';   
+    else echo '1000';   
     
 ?>

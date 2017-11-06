@@ -9,7 +9,12 @@
 
     <h4>After you have created a database enter the connection details below:</h4>
     
-    <form action="install.php" method="GET">
+    <form action="install.php" method="POST">
+        <div>
+            <label for="db_host">Database host:</label>
+            <input type="text" name="db_host" title="You can also include port here. Leave it as default if not sure" value="<?php echo $host; ?>"/>
+        </div>
+        
         <div>
             <label for="db_name">Database name:</label>
             <input type="text" name="db_name" value="<?php echo $db_name; ?>"/>

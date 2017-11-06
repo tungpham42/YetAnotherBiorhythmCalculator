@@ -1,9 +1,8 @@
 <?php
-
     // Safety first
     include '../../login.php';
    
-       // Get domain, POST
+    // Get domain, POST
     $domain =  $_POST["domain"]; 
 
     $query = "SELECT  DATE(t1.date) as clientDate, count(t1.id)

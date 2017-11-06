@@ -1,18 +1,7 @@
 <?php
     require_once '../login.php';
   
-    $token = $_POST['token'];
-
-    // Get clientID from token
-    $query = "SELECT id FROM ust_clients WHERE token = :token";
-    $stmt  = $db->prepare($query);
-    $stmt->bindValue(':token', $token, PDO::PARAM_STR);
-    $stmt->execute();
-
-    $res = $stmt->fetch(PDO::FETCH_ASSOC);
-    if(!$res)
-        return;
-    $clientID = $res['id'];
+    $clientID = $_POST['clientID'];
 
     $query = array();
 

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel= "shortcut icon" media="all" type="image/x-icon" href="favicon.ico" />
+<link href="css/globals.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/userTrack.css" />
+<link rel="stylesheet" href="css/record.css" />
+<link rel="stylesheet" href="css/clientList.css" />
+<link rel="stylesheet" href="lib/default/css/uniform.default.min.css" media="screen" />
+<link rel="stylesheet" href="lib/jquery.qtip.min.css" />
+
+<title>userTrack - by tips4design</title>
+</head>
+
+<style>
+ #header { display: none;}
+ #recordList {display: none !important;}
+ #recordInfo {display: none;}
+</style>
+<body>
+
+<div id="header">
+    <a href="index.html"><img id="logo" alt="UserTrack logo" src="images/usertrack.png" /></a>
+    <div id="header-center-content">
+        <select id="page">
+            <option value="/">Loading pages...</option>
+        </select>
+    </div>
+    <div id="type">
+            <div data-value="movements" class="opt selected" title="Mouse movement heatmaps."><img src="images/buttons/move.png" alt="move"/></div>
+            <div data-value="clicks" class="opt" title="Mouse click heatmaps."><img src="images/buttons/click.png" alt="move"/></div>
+            <div data-value="scrollmap" class="opt" title="Scroll attention heatmaps."><img src="images/buttons/scroll.png" alt="scroll"/></div>
+            <div data-value="record" class="opt" title="Full session recordings."><img src="images/buttons/record.png" alt="move"/></div>
+    </div>
+
+</div>
+
+<div id="loading">Loading ...</div>
+
+<div id="pageWrap">
+    <iframe id="heatmapIframe" width="100%"></iframe>
+</div>
+
+<div id="recordList" class="ust_dialog">
+    <div id="close" title="Close">X</div>
+    <h1>Recorded sessions</h1>
+    <div id="clientFilter">
+        <div id="rangeFilter" class="filter">
+            Show data
+            <label for="from">from:</label><input type="date" name="from"/>
+            <label for="to">to:</label><input type="date" name="to"/>
+        </div>
+        <div id="numberFilter" class="filter">
+            <label for="number">Results/page: </label>
+            <select name="number">
+                <option value="5" selected>5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="80">80</option>
+                <option value="120">120</option>
+                <option value="100000000">All of them</option>
+            </select>
+        </div>
+        <div id="tagFilter" class="filter">
+        <label>Tag filters:</label> <div id="addTagFilter" class="plus" title="Add new tag filter">+</div>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Country</th>
+            <th>Window Size</th>
+            <th>Browser</th>
+            <th>Referrer</th>
+            <th>Visited pages</th>
+            <th>Tags</th>
+            <th>Record</th>
+        </tr>
+        <tr>
+            <td colspan="7">
+                Loading clients, please wait...
+            </td>
+        </tr>
+    </table>
+    <div id="pagination" class="noTextSelect">
+    </div>
+    <div id="sessionControls">
+        Delete selected sessions
+        <div id="controlsWrap">
+            <img src="images/icons/zero.png" title="Delete all sessions with 0 recorded data" id="deleteZeroRecords" alt="erase 0-data sessions" />
+            <img src="images/icons/trash.png" title="Delete all selected records." id="deleteRecords" alt="erase selected data" />
+            <img src="images/icons/erase.png" title="Delete all data stored for this domain, including heatmap data." id="cleanDatabase" alt="erase all data" />
+        </div>
+    </div>
+</div>
+
+<div id="recordControls">
+
+    <ul id="recordInfo" class="active">
+        <li>
+            <img src="images/icons/user.png" alt="user" />
+            User information
+        </li>
+
+        <li>
+            <img src="images/icons/resolution.png" alt="resolution" title="Screen resolution"/>
+            <span id="resolutionInfo"></span>
+            <span id="browserInfo"></span>
+        </li>
+
+        <li>
+            <img src="images/icons/page.png" alt="page" title="Page URL"/>
+            <span id="urlInfo"></span>
+        </li>
+
+        <li>
+            <span id="userFlag" title="Country flag"></span>
+            <span id="dateInfo" title="Starting time of session"></span>
+        </li>
+
+        <li>
+            Tags: <span id="userTags"></span>
+        </li>
+    </ul>
+
+    <!-- Display the progress bar above controls bar-->
+    <div id="progressBar" title="Click to skip record to this point.">
+        <div></div>
+        <span title="Delete this page recording." id="deleteRecord">X</span>
+    </div>
+
+    <div id="pagesHistory">
+    </div>
+
+    <div id="recordButtons">
+       <!-- <button id="prevPage" disabled> << Go to the previous page</button> -->
+
+        <label>Skip pauses:</label><input id="skipPauses" type="checkbox" title="Uncheck this to see the times when mouse was standing still."/>
+        
+        <button id="play" disabled>►</button>
+        <button id="nextPage" disabled> Skip page >></button>
+    </div>
+</div>
+<!-- Libraries -->
+<script src="lib/jquery.1.12.4.min.js"></script>
+<script src="lib/jquery.qtip.min.js"></script>
+<script src="lib/jquery.uniform.min.js"></script>
+<script src="lib/alertify.js"></script>
+
+<!-- userTrack specific includes -->
+<script>window.DIRECT_PLAYBACK = true;</script>
+<script>window.DEBUG = false;</script>
+<script src="js/userTrackHeatmap.js"></script>
+<script src="js/userTrackHeatmapDownload.js"></script>
+<script src="js/userTrackRecords.js"></script>
+<script src="js/userTrackScrollmap.js"></script>
+<script src="js/userTrackAPI.js"></script>
+<script src="js/userTrack.js"></script>
+<script src="js/userTrackUI.js"></script>
+<script src="js/clientList.js"></script>
+
+<!-- Start playing the record given in GET params -->
+<script>
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+/* global userTrackRecord, UST */
+setTimeout(function() {
+    var recordID = findGetParameter('i');
+    var clientID = findGetParameter('c');
+    var clientPageID = findGetParameter('x');
+    var page = findGetParameter('p');
+    var resolution = findGetParameter('r');
+    var key = findGetParameter('k');
+    var domain = findGetParameter('d');
+
+    if(!recordID || !page || !resolution || !domain || !clientPageID) {
+        alertify.alert('Invalid record id.');
+        return;
+    }
+
+    // Send this from the clientside so we don't have to search it in the database
+    window.CLIENT_ID = clientID;
+    window.PUBLIC_KEY = key;
+
+    window.options.domain = domain;
+    jQuery('.opt').val('record').trigger('click');
+    UST.API.getRecordList(clientID).then(UST.Records.setRecordsList);
+    UST.Records.prepare(recordID, page, resolution, clientPageID);
+}, 10);
+</script>
+</body>
+</html>

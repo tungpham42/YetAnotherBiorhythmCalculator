@@ -6,9 +6,10 @@
      * @param {String} domain
      * @param {Int} userid
      */
-    include '../../login.php';
-    $_GET['level'] = 4;
-    include 'getUser.php';
+    require_once '../../login.php';
+    require_once '../../permissions.php';
+    
+    try { checkPermission('CHANGE_DOMAIN_ACCESS'); } catch(Exception $e) { die($e->getMessage());}
 
     $type   = $_POST['type'];
     $domain = $_POST['domain'];

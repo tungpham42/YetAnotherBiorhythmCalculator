@@ -1,1 +1,1 @@
-<script src="http://113.161.69.52:666/track/tracker.js"></script>
+<script src="http://nhipsinhhoc.vn/track/tracker.js"></script>

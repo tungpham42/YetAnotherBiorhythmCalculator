@@ -3,10 +3,10 @@
      * Returns all userTrack users and the domains
      * they have access to
      */
-    include '../../login.php';
-    $_GET['level'] = 4;
-    $included = 1;
-    include 'getUser.php';
+    require_once '../../login.php';
+    require_once '../../permissions.php';
+    
+    try { checkPermission('GET_USERS_LIST'); } catch(Exception $e) { die($e->getMessage());}
 
     $query = "SELECT id, name, level FROM ust_users";
     $stmt = $db->prepare($query);

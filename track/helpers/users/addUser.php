@@ -2,10 +2,10 @@
     /**
      * Add a new userTrack user from the admin dashboard
      */
-    include '../../login.php';
-
-    $_GET['level'] = 5;
-    include 'getUser.php';
+    require_once '../../login.php';
+    require_once '../../permissions.php';
+    
+    try { checkPermission('ADD_USER'); } catch(Exception $e) { die($e->getMessage());}
 
     $name = $_POST['name'];
     $pass = md5($_POST['pass']);

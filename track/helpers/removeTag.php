@@ -1,10 +1,9 @@
 <?php
 
     require_once '../login.php';
-
-    // Level 3 required to remove tags
-    if($level < 3)
-        die("Your user level is not high enough to remove tags! Level 3 is required");
+    require_once '../permissions.php';
+    
+    try { checkPermission('REMOVE_TAG'); } catch(Exception $e) { die($e->getMessage());}
 
     // Here's the argument from the client.
     $clientID     = $_POST['clientID'];

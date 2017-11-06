@@ -1,6 +1,7 @@
 <?php
     include '../login.php';
     include '../lib/php/array_column.php';
+    include 'clients/clientDataFuncs.php';
 
     // Limit clients before displaying them
     $included = 1;
@@ -13,9 +14,14 @@
     $startDate   = @$_POST['startDate'];
     $endDate     = @$_POST['endDate'];
     $tagFilters  = @$_POST['tagFilters'];
+    $liveOnly    = @$_POST['liveOnly'];
 
     // Date interval condition can be null or given by POST
-    $dateWhere = $startDate != '' ? "AND CAST(`date` AS DATE) BETWEEN :startDate AND :endDate": '';
+    if($liveOnly !== 'true') {
+        $dateWhere = $startDate != '' ? "AND CAST(`date` AS DATE) BETWEEN :startDate AND :endDate ": '';
+    } else {
+        $dateWhere = "AND last_activity > (NOW() - INTERVAL 1 MINUTE) ";
+    }
 
     // Tag filtering
     $tagJoin = '';
@@ -41,7 +47,10 @@
     /**
      * Get all clients that match the current filters
      */
-    // Count the total number of clients
+    
+    // MySQL 5.7 Group by FIX
+    $db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
+    
     $query = "SELECT * FROM ust_clients 
               INNER JOIN ust_clientpage
               ON ust_clients.id = ust_clientpage.clientid"
@@ -56,7 +65,7 @@
     $clientsStmt->bindValue(':domain', $domain, PDO::PARAM_STR);
 
     // Bind date
-    if($dateWhere != '') {
+    if($liveOnly !== 'true' && $dateWhere != '') {
         $clientsStmt->bindValue(':startDate', $startDate, PDO::PARAM_STR);
         $clientsStmt->bindValue(':endDate', $endDate, PDO::PARAM_STR);
     }
@@ -75,7 +84,7 @@
     $cnt = $clientsStmt->rowCount();
     $data = $clientsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Limit the data to the current page
+    // PAGINATION: Limit the data to the current displayed page
     $data = array_slice($data, $from, $take);
        
     // Array to store the data to be returned
@@ -84,98 +93,52 @@
     // Count the number of pages visited
     foreach($data as $row){
     
-        // Get first record ID FROM ust_records
-        $query = "SELECT id FROM ust_records 
-                  WHERE client IN (
-                    SELECT id FROM ust_clientpage
-                    WHERE clientid = :clientid
-                  ) ORDER BY id LIMIT 1";
-
-        $stmt  = $db->prepare($query);
-        $stmt->bindValue(':clientid', $row['clientid'], PDO::PARAM_INT);
-        $stmt->execute();
-
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        $clientpageID = getFirstClientpageID($db, $row['clientid']);
         
-        // If it was not found in records, search in partials
-        if(!$record){
-            $query = "SELECT id FROM ust_partials
-                      WHERE client IN (
-                        SELECT id FROM ust_clientpage
-                        WHERE clientid = :clientid
-                      ) ORDER BY id LIMIT 1";
-
-            $stmt  = $db->prepare($query);
-            $stmt->bindValue(':clientid', $row['clientid'], PDO::PARAM_INT);
-            $stmt->execute();
-
-            $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-
         // If no first record was found, set recordid to -1
-        if(count($record) == 1)
-            $recordid = $record['id'];
-        else
-            $recordid = -1;
-        
-        // Get a list of all the pages that he visited
-        $query = "SELECT page, date, last_activity FROM ust_clientpage
-                  WHERE clientid = :clientid";
-        $stmt  = $db->prepare($query);
-        $stmt->bindValue(':clientid', $row['clientid'], PDO::PARAM_INT);
-        $stmt->execute();
+        $firstRecord = getRecordFromClientpage($db, $clientpageID);
+        $recordid = count($firstRecord) == 1 ? $firstRecord['id'] : -1;
 
-        $visitedPagesData = $stmt->fetchAll();
-
+        $visitedPagesData = getVisitedPagesData($db, $row['clientid']);
         $visitedPages = array_column($visitedPagesData, 'page');
         $visitedPagesList = implode(' ', $visitedPages);
- 
-        // Get approximate time spent by the visitor
-        $times = array_column($visitedPagesData, 'date');
-        $last_times = array_column($visitedPagesData, 'last_activity');
-        $timeSpent = 0;
-        if(count($times) >= 1) {
-            $timeSpent = strtotime(end($last_times)) - strtotime($times[0]);
-            
-            // Maybe last second was not recorded
-            $timeSpent += 1;
-        }
+
+        $timeSpent = getTimeSpent($visitedPagesData);
 
         // Count number of total pages visited
         $nr = count($visitedPages);
         
-        // Get IP from token
-        $ip = preg_split("/#/", $row['token']);
-        $ip = $ip[0];
+        $clientInfo = getInfoFromToken($row['token'], $row['device_type']);
 
-        // Get browser from token
-        $br = preg_split('/@/',$row['token']);
-        $br = $br[1];
-        
-        // Get all tags for current user
-        $query = "SELECT tag FROM ust_client_tag
-                  WHERE clientid = :clientid";
-        $stmt  = $db->prepare($query);
+        // Get tags
+        $tags = getTags($db, $row['clientid']);
+
+        // Check if the recording was watched or not
+        $query = "SELECT COUNT(*) FROM ust_user_client_watched
+                  WHERE clientid = :clientid AND userid = :userid";
+        $stmt = $db->prepare($query);
         $stmt->bindValue(':clientid', $row['clientid'], PDO::PARAM_INT);
+        $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
-
-        $tags = $stmt->fetchAll();
-        $tags = array_column($tags, 'tag');
+        $watched = $stmt->fetchColumn();
 
         // Build the object with all info for current client
         $res[] = array(
                         'date' => $row['date'],
-                        'ip' => $ip,
+                        'ip' => $clientInfo['ip'],
                         'resolution' => $row['resolution'],
-                        'browser' => $br,
+                        'browser' => $clientInfo['browser'],
+                        'referrer' => $row['referrer'],
                         'pageHistory' => $visitedPagesList,
                         'tags' => $tags,
                         'recordid' => $recordid,
                         'timeSpent' => $timeSpent,
                         'id' => $row['id'],
+                        'clientpageid' => $clientpageID,
                         'clientid' => $row['clientid'],
                         'nr' => $nr,
                         'token'=> $row['token'],
+                        'watched' => $watched
                 );
     };
 

@@ -47,5 +47,6 @@
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
 include template('style');
+//include template('script');
 ?>
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/print.css" media="print" />
