@@ -1,4 +1,4 @@
-<link href="/min/f=css/2048.css&amp;6" rel="stylesheet" type="text/css">
+<link href="/css/2048.css" rel="stylesheet" type="text/css">
 <div class="container">
 	<div class="heading">
 		<h1 class="title">2048</h1>
@@ -64,7 +64,19 @@
 	Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a>
 	</p>
 </div>
+<!--
 <script src="/min/b=js/2048&amp;f=bind_polyfill.js,classlist_polyfill.js,animframe_polyfill.js,keyboard_input_manager.js,html_actuator.js,grid.js,tile.js,local_storage_manager.js,game_manager.js,application.js&amp;1"></script>
+-->
+<script src="/js/2048/bind_polyfill.js"></script>
+<script src="/js/2048/classlist_polyfill.js"></script>
+<script src="/js/2048/animframe_polyfill.js"></script>
+<script src="/js/2048/keyboard_input_manager.js"></script>
+<script src="/js/2048/html_actuator.js"></script>
+<script src="/js/2048/grid.js"></script>
+<script src="/js/2048/tile.js"></script>
+<script src="/js/2048/local_storage_manager.js"></script>
+<script src="/js/2048/game_manager.js"></script>
+<script src="/js/2048/application.js"></script>
 <?php
 if ($lang_code == 'vi'):
 ?>
