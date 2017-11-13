@@ -101,13 +101,11 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 	include template('lang_bar');
 	include template('member/register');
 	include template('keyboard');
-	include template('youtube');
 	include template('explanation');
 } else if ($p == 'member/login') {
 	include template('lang_bar');
 	include template('member/login');
 	include template('keyboard');
-	include template('youtube');
 	include template('explanation');
 } else if ($p == 'member/home') {
 	include template('lang_bar');
@@ -145,6 +143,7 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 		include template('banner_728x90');
 	endif;
 	include template('lunar');
+	include template('keyboard_lunar');
 } else if ($p == '2048') {
 	include template('lang_bar');
 	include template('clear');

@@ -93,6 +93,31 @@ $('#next').on('click', function(){
 	$('#solarDate').datepicker('setDate',date).trigger('input');
 	$('textarea').trigger('autosize.resize');
 });
+$(document).off('keyup','**').on('keyup', jwerty.event('j/f/a', function(e){
+	if (!$(e.target).is('input') && !$(e.target).is('textarea')) {
+		var date = new Date($('#solarDate').val());
+		date.setDate(date.getDate()-1);
+		date = date.toDateString();
+		date = new Date(Date.parse(date));
+		$('#solarDate').datepicker('setDate',date).trigger('input');
+		$('textarea').trigger('autosize.resize');
+	}
+})).on('keyup', jwerty.event('k/g/s/w/t/i', function(e){
+	if (!$(e.target).is('input') && !$(e.target).is('textarea')) {
+		var date = new Date(Date.parse('<?php echo date('Y-m-d'); ?>'));
+		$('#solarDate').datepicker('setDate',date).trigger('input');
+		$('textarea').trigger('autosize.resize');
+	}
+})).on('keyup', jwerty.event('l/h/d', function(e){
+	if (!$(e.target).is('input') && !$(e.target).is('textarea')) {
+		var date = new Date($('#solarDate').val());
+		date.setDate(date.getDate()+1);
+		date = date.toDateString();
+		date = new Date(Date.parse(date));
+		$('#solarDate').datepicker('setDate',date).trigger('input');
+		$('textarea').trigger('autosize.resize');
+	}
+}));
 </script>
 <p>Nguồn:</p>
 <ul>
