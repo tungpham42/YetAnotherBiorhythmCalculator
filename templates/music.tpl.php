@@ -25,7 +25,7 @@
 			rightClickContextMenu:"default",
 			showButtonsToolTips:"yes",
 			animate:"no",
-			autoPlay:"yes",
+			autoPlay:"no",
 			loop:"no",
 			shuffle:"no",
 			maxWidth:850,

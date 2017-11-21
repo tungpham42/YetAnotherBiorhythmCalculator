@@ -91,7 +91,7 @@ if ($clicktale):
 endif;
 include template('scripts_bottom');
 //if ($p == 'home' || $p == 'member/home'):
-//	include template('music');
+	include template('music');
 //endif;
 //include template('clicky');
 ?>
