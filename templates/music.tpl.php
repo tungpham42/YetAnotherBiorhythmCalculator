@@ -24,7 +24,7 @@
 			selectedHEXButtonsColor:"#00FF00",
 			rightClickContextMenu:"default",
 			showButtonsToolTips:"yes",
-			animate:"yes",
+			animate:"no",
 			autoPlay:"yes",
 			loop:"no",
 			shuffle:"no",
