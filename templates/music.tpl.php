@@ -135,7 +135,7 @@
 			openerEqulizerOffsetLeft:3,
 			openerEqulizerOffsetTop:-1,					
 			//popup settings
-			showPopupButton:"yes",
+			showPopupButton:"no",
 			popupWindowBackgroundColor:"#878787",
 			popupWindowWidth:900,
 			popupWindowHeight:466
