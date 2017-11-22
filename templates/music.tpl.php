@@ -148,6 +148,11 @@
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
 		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Most Viewed Kpop MV.</p>
 	</li>
+	<li data-source="list=PL15EBBC3899C5503A" data-playlist-name="EXO Playlist" data-thumbnail-path="/images/exo.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">EXO Playlist</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>EXO Playlist.</p>
+	</li>
 	<li data-source="list=PL7urOgP8pdZayjA0TuyPkToWift8mFpyS" data-playlist-name="BTS Playlist" data-thumbnail-path="/images/bts.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">BTS Playlist</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
