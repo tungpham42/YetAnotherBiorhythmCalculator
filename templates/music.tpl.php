@@ -143,6 +143,11 @@
 	});
 </script>
 <ul id="playlists" style="display:none;">
+	<li data-source="list=PLAUgEUsKvpOUDa9wc7QosxGyD6x-btqkc" data-playlist-name="Most Viewed Vpop MV" data-thumbnail-path="/images/vpop.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">Most Viewed Vpop MV</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Most Viewed Vpop MV.</p>
+	</li>
 	<li data-source="list=PL2HEDIx6Li8hDUxaa-0cLX2tNrx_brV7G" data-playlist-name="Most Viewed Kpop MV" data-thumbnail-path="/images/gangnam.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Most Viewed Kpop MV</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
