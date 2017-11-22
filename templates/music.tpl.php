@@ -25,7 +25,7 @@
 			rightClickContextMenu:"default",
 			showButtonsToolTips:"yes",
 			animate:"no",
-			autoPlay:"yes",
+			autoPlay:"no",
 			loop:"no",
 			shuffle:"no",
 			maxWidth:900,
@@ -172,6 +172,11 @@
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Trọn bộ Ghiền Mì Gõ</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
 		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Trọn bộ Ghiền Mì Gõ.</p>
+	</li>
+	<li data-source="list=PLvpRNZDDyxRLvaIJTc9Li-IgrvsqaJckj" data-playlist-name="FTV Midnight Hot" data-thumbnail-path="/images/ftv.png">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">FTV Midnight Hot</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>FTV Midnight Hot.</p>
 	</li>
 	<li data-source="list=PLBcAa442MLAo9uhMRPazrSXlDNe2_mcO3" data-playlist-name="Sơn Tùng M-TP" data-thumbnail-path="/images/sontung.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Những Ca Khúc Mới Nhất Của Sơn Tùng M-TP</span></p>
