@@ -143,6 +143,11 @@
 	});
 </script>
 <ul id="playlists" style="display:none;">
+	<li data-source="list=PLGoKVD_nxvNR3_kYQXs36KKTo6er_7avT" data-playlist-name="NHẠC VÀNG" data-thumbnail-path="/images/nhac_vang.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">TUYỂN TẬP NHẠC VÀNG</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>TUYỂN TẬP NHẠC VÀNG HAY NHẤT.</p>
+	</li>
 	<li data-source="list=PLAUgEUsKvpOUDa9wc7QosxGyD6x-btqkc" data-playlist-name="Most Viewed Vpop MV" data-thumbnail-path="/images/vpop.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Most Viewed Vpop MV</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
