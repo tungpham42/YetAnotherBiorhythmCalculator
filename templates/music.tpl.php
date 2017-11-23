@@ -163,10 +163,10 @@
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
 		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>BTS Playlist.</p>
 	</li>
-	<li data-source="list=PL15B1E77BB5708555" data-playlist-name="Most Viewed Songs" data-thumbnail-path="/images/gangnam.jpg">
-		<p class="minimalDarkCategoriesTitle"><span class="bold">Most Viewed Songs</span></p>
+	<li data-source="list=PLirAqAtl_h2r5g8xGajEwdXd3x1sZh8hC" data-playlist-name="Most Viewed Videos" data-thumbnail-path="/images/gangnam.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">Most Viewed Videos</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
-		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Most Viewed Songs.</p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Most Viewed Videos.</p>
 	</li>
 	<li data-source="list=PLAE6EB41B485F610A" data-playlist-name="Relax Daily" data-thumbnail-path="/images/relax.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Relax Daily</span></p>
