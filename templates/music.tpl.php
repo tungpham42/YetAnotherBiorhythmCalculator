@@ -203,6 +203,16 @@
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
 		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Những Ca Khúc Mới Nhất Của Sơn Tùng M-TP.</p>
 	</li>
+	<li data-source="list=PLEyKu1JwbU4vT1PaNypnI8Ux1TjbNvgdz" data-playlist-name="Yêu Ư ? Để Sau - FAPtv" data-thumbnail-path="/images/faptv.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">Yêu Ư ? Để Sau - FAPtv</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Yêu Ư ? Để Sau - FAPtv.</p>
+	</li>
+	<li data-source="list=PLEyKu1JwbU4uArHCA6p9MuK10Sr49NV3b" data-playlist-name="Quán Cafe Bất Ổn - FAPtv" data-thumbnail-path="/images/faptv.jpg">
+		<p class="minimalDarkCategoriesTitle"><span class="bold">Quán Cafe Bất Ổn - FAPtv</span></p>
+		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
+		<p class="minimalDarkCategoriesDescription"><span class="bold">Description: </span>Quán Cafe Bất Ổn - FAPtv.</p>
+	</li>
 	<li data-source="list=PLWn8QRqY8ySzALbLto3JwDEQLOfl-pOOR" data-playlist-name="Sound meditation music, Healing music meditation soundtrack" data-thumbnail-path="/FWDMSP/thumbnails/youtube.jpg">
 		<p class="minimalDarkCategoriesTitle"><span class="bold">Sound meditation music, Healing music meditation soundtrack</span></p>
 		<p class="minimalDarkCategoriesType"><span class="bold">Type: </span><span class="minimalDarkCategoriesTypeIn">YOUTUBE PLAYLIST</span></p>
