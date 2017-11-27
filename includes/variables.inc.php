@@ -48,7 +48,7 @@ $time_zone = 7;
 $show_ad = false;
 $show_donate = false;
 $show_sponsor = false;
-$show_addthis = true;
+$show_addthis = false;
 $show_sumome = false;
 $hotjar = false;
 $clicktale = false;
@@ -1325,11 +1325,11 @@ $help_interfaces = array(
 		'ja' => '命令'
 	),
 	'help_p' => array(
-		'vi' => 'Nhập thông tin ngày tháng năm sinh Dương lịch của bạn vào ô Ngày sinh theo định dạng YYYY-MM-DD (năm-tháng-ngày). Sau đó, nhấn nút Chạy để hiển thị dự đoán Sức khỏe, Tình cảm, Trí tuệ. Nếu bạn chỉ quan tâm đến Nhịp sinh học ngủ, bạn không cần điền Họ tên và Ngày sinh.',
-		'en' => 'Type in your date of birth into the Date of birth field with the format YYYY-MM-DD (year-month-day). Then click Run to know your physical, emotional, intellectual values. If you only care about Sleep Rhythm, you don\'t need to type in your Full name or Date of birth.',
-		'ru' => 'Введите дату своего рождения в поле День Рождения с форматом YYYY-MM-DD (год-месяц-день). Затем нажмите кнопку Идти, чтобы узнать ваши физические, эмоциональные, интеллектуальные ценности. Если вы только заботиться о Sleep ритм, вам не нужно вводить полное имя или дату рождения.',
-		'es' => 'Escriba su fecha de nacimiento en el campo Fecha de nacimiento con el formato YYYY-MM-DD (año-mes-dia). Luego haga clic en Correr para conocer sus valores, físicas, intelectuales y emocionales. Si sólo se preocupa por el sueño Ritmo, usted no tiene que escribir su nombre o fecha de nacimiento completa.',
-		'zh' => '输入你的出生日期为出生场的日期格式为YYYY-MM-DD（年-月-日）。然后点击运行就知道你的身体，情绪，智力值。如果你只在乎睡眠节律，你不需要输入您的姓名和出生日期。',
+		'vi' => 'Nhập thông tin ngày tháng năm sinh Dương lịch của bạn vào ô Ngày sinh theo định dạng YYYY-MM-DD (năm-tháng-ngày). Sau đó, nhấn nút &#9658; để hiển thị dự đoán Sức khỏe, Tình cảm, Trí tuệ. Nếu bạn chỉ quan tâm đến Nhịp sinh học ngủ, bạn không cần điền Họ tên và Ngày sinh.',
+		'en' => 'Type in your date of birth into the Date of birth field with the format YYYY-MM-DD (year-month-day). Then click &#9658; to know your physical, emotional, intellectual values. If you only care about Sleep Rhythm, you don\'t need to type in your Full name or Date of birth.',
+		'ru' => 'Введите дату своего рождения в поле День Рождения с форматом YYYY-MM-DD (год-месяц-день). Затем нажмите кнопку &#9658;, чтобы узнать ваши физические, эмоциональные, интеллектуальные ценности. Если вы только заботиться о Sleep ритм, вам не нужно вводить полное имя или дату рождения.',
+		'es' => 'Escriba su fecha de nacimiento en el campo Fecha de nacimiento con el formato YYYY-MM-DD (año-mes-dia). Luego haga clic en &#9658; para conocer sus valores, físicas, intelectuales y emocionales. Si sólo se preocupa por el sueño Ritmo, usted no tiene que escribir su nombre o fecha de nacimiento completa.',
+		'zh' => '输入你的出生日期为出生场的日期格式为YYYY-MM-DD（年-月-日）。然后点击&#9658;就知道你的身体，情绪，智力值。如果你只在乎睡眠节律，你不需要输入您的姓名和出生日期。',
 		'ja' => '誕生フィールドの日にあなたの生年月日を入力しますフォーマットYYYY-MM-DDと（年-月-日）。 次に、あなたの物理的、感情的、知的な値を知るために実行]をクリックします。あなたが唯一の睡眠リズムに関心があるのであれば、あなたは自分のフルネームや生年月日を入力する必要はありません。'
 	),
 	'news_box' => array(
