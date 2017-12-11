@@ -463,7 +463,6 @@ function manipulateScroll() {
 	if ($('#go_to_chart').length && $('#main_chart').length && $('#alexa').length) {
 		$('#go_to_chart').on('click', function(){
 			$('body, html').stop().animate({scrollTop: ($('#main_chart').offset().top-$('header').height())}, scroll_top_duration);
-			$('#go_to_chart').addClass('clicked');
 		});
 	}
 }
@@ -547,7 +546,7 @@ function manipulateRegisterModal() {
 		$(window).on('scroll mousewheel wheel DOMMouseScroll resize', function(){
 			var thisScrollTop = $(this).scrollTop();
 			if (thisScrollTop > lastScrollTop) { // scroll down
-				if ($(document).scrollTop() >= 1/6*$(document).innerHeight()) {
+				if ($(document).scrollTop() >= 1/3*$(document).innerHeight()) {
 					$('#register_modal').parent().css({position:'fixed'}).end().dialog('open');
 				}
 			}

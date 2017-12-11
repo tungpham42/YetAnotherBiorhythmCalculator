@@ -361,7 +361,7 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
 ul#nav_buttons [class^="icon-"], ul#nav_buttons [class*=" icon-"], ul#nav_buttons [class^="social-"], ul#nav_buttons [class*=" social-"] {
 	font-size: 18px;
 }
-body.birthday .button [class^="icon-"], body.birthday .button [class*=" icon-"], body.birthday #wiki_user > i {
+body.birthday .button [class^="icon-"], body.birthday .button [class*=" icon-"], body.birthday #wiki_user > i, body.birthday #go_to_chart > i {
 	color: #E35604;
 }
 body.birthday .nav_button.button:hover [class^="icon-"], body.birthday .nav_button.button:hover [class*=" icon-"], body.birthday .nav_button.button:active [class^="icon-"], body.birthday .nav_button.button:active [class*=" icon-"], body.birthday .nav_button.button.clicked [class^="icon-"], body.birthday .nav_button.button.clicked [class*=" icon-"], body.birthday.member .nav_button.button.member [class^="icon-"], body.birthday.member .nav_button.button.member [class*=" icon-"] {
