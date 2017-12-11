@@ -452,13 +452,19 @@ function manipulateScroll() {
 	if ($('#dob_list').length && $('#persons_list_h2').length) {
 		$('#dob_list').on('click', function(){
 			$('body, html').stop().animate({scrollTop: ($('#persons_list_h2').offset().top-$('header').height())}, scroll_top_duration);
-		});		
+		});
 	}
 	if ($('#apps_link').length && $('#apps').length && $('#alexa').length) {
 		$('#apps_link').on('click', function(){
 			$('body, html').stop().animate({scrollTop: ($('#apps').offset().top-$('header').height())}, scroll_top_duration);
 			$('#apps_link').addClass('clicked');
-		});		
+		});
+	}
+	if ($('#go_to_chart').length && $('#main_chart').length && $('#alexa').length) {
+		$('#go_to_chart').on('click', function(){
+			$('body, html').stop().animate({scrollTop: ($('#main_chart').offset().top-$('header').height())}, scroll_top_duration);
+			$('#go_to_chart').addClass('clicked');
+		});
 	}
 }
 function manipulateClock() {
