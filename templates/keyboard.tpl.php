@@ -8,7 +8,7 @@ if (!isset($hide_lang_bar)):
 	<p><span class="dark-keys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd></span></p>
 <?php
 endif;
-if ($p != 'member/register' && $p != 'member/login' && $p != 'intro' && $p != 'bmi' && $p != 'vip' && $p != 'donate' && $p != 'contact' && $p != 'proverbs'):
+if ($p != 'member/register' && $p != 'member/login' && $p != 'intro' && $p != 'bmi' && $p != 'vip' && $p != 'donate' && $p != 'contact' && $p != 'author' && $p != 'proverbs'):
 ?>
 	<p><span class="dark-keys"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd></span></p>
 	<p><span class="dark-keys"><kbd>F</kbd><kbd>G</kbd><kbd>H</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd></span></p>

@@ -908,6 +908,9 @@ $("#compatibility").on("change", "#partner_dob", function(){
 }).on("click", "#partner_dob_label", function(){
 	$("#partner_dob").datepicker("show");
 });
+$("#stats").on("click", "#go_to_chart", function(){
+	$("body, html").stop().animate({scrollTop: ($("#main_chart").offset().top-$("header").height())}, 700);
+});
 $("#controls").on("click", "#today", goToTodayMain).on("click", "#prev", goToPrevMain).on("click", "#next", goToNextMain).on("change", "#dt_change", function(){
 	loadResults("'.$this->_dob.'",'.$this->_diff.'+dateDiff(dt_curr,$("#dt_change").val()),"'.$this->_is_secondary.'",$("#dt_change").val(),"'.$this->_partner_dob.'",lang);
 }).on("change", "#is_secondary", function(){
