@@ -460,11 +460,6 @@ function manipulateScroll() {
 			$('#apps_link').addClass('clicked');
 		});
 	}
-	if ($('#go_to_chart').length && $('#main_chart').length && $('#alexa').length) {
-		$('#go_to_chart').on('click', function(){
-			$('body, html').stop().animate({scrollTop: ($('#main_chart').offset().top-$('header').height())}, scroll_top_duration);
-		});
-	}
 }
 function manipulateClock() {
 	if ($('#clock').length) {
