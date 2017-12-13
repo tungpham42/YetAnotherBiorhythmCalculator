@@ -358,7 +358,7 @@ function isClicked(selector){return $(selector+':active').length>0}
 function isFocused(selector){return $(selector+':focus').length>0}
 function isBlurred(selector){return $(selector+':not(:focus)').length>0}
 function isChild(parentSelector,childSelector){if($(parentSelector).find(childSelector).length>0){return!0}else if(!($(parentSelector).find(childSelector).length>0)){return!1}}
-function selectText(containerid){var range=null;if(document.selection){range=document.body.createTextRange();range.moveToElementText(document.getElementById(containerid));range.select()}else if(window.getSelection){range=document.createRange();range.selectNode(document.getElementById(containerid));window.getSelection().addRange(range)}}
+function selectText(containerid){$('#'+containerid).select();}
 function countChar(string,character){var charRegex=new RegExp(character,'g');return(string.match(charRegex)||[]).length}
 function escapeRegExp(str){return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,'\\$&')}
 function replaceAll(find,replace,str){return str.replace(new RegExp(escapeRegExp(find),'g'),replace)}
