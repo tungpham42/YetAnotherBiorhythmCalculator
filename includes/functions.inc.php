@@ -1064,7 +1064,7 @@ function generate_proverb($lang): array {
 }
 function render_proverb($lang) {
 	$proverb = generate_proverb($lang);
-	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a><div id="proverb_text" onClick="selectText(\'proverb_text\')">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author"><a href="'.get_wiki_url($proverb['author']).'" target="_blank">'.$proverb['author'].'</a></p>';
+	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a><div id="proverb_text">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author"><a href="'.get_wiki_url($proverb['author']).'" target="_blank">'.$proverb['author'].'</a></p>';
 }
 function render_proverb_json($lang) {
 	$proverb = generate_proverb($lang);
@@ -1914,7 +1914,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
-	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 42px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
+	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['create_user_thank'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['create_user_detail'][$lang_code].'</p>';
@@ -1953,7 +1953,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 	$member = load_member_from_email($email);
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
-	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 42px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
+	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 	$content .= get_ad('banner_300x250');
 	$content .= '<p class="lead">'.$email_interfaces['edit_user_notify'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['edit_user_detail'][$lang_code].'</p>';
