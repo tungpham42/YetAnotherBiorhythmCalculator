@@ -225,7 +225,10 @@ function manipulateProverb() {
 	if (isset(dob)) {
 		$('#proverb').addClass('has_dob');
 	}
-	$('#proverb').on('click', 'i#proverb_refresh', function(){
+	$('#proverb').on('click', '#proverb_text', function(){
+		copyToClipboard('#proverb_text');
+		selectText('#proverb_text');
+	}).on('click', 'i#proverb_refresh', function(){
 		loadProverb($('body').attr('lang'));
 	});
 	$(document).on('keyup', jwerty.event('p/u/r', function(e){

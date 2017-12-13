@@ -358,7 +358,9 @@ function isClicked(selector){return $(selector+':active').length>0}
 function isFocused(selector){return $(selector+':focus').length>0}
 function isBlurred(selector){return $(selector+':not(:focus)').length>0}
 function isChild(parentSelector,childSelector){if($(parentSelector).find(childSelector).length>0){return!0}else if(!($(parentSelector).find(childSelector).length>0)){return!1}}
-function selectText(containerid){$('#'+containerid).select();}
+jQuery.fn.selectText=function(){var doc=document;var element=this[0];console.log(this,element);if(doc.body.createTextRange){var range=document.body.createTextRange();range.moveToElementText(element);range.select()}else if(window.getSelection){var selection=window.getSelection();var range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range)}}
+function selectText(element){$(element).selectText();}
+function copyToClipboard(element){var $temp=$('<input>');$('body').append($temp);$temp.val($(element).text()).select();document.execCommand('copy');$temp.remove();switch($('body').attr('lang')){case 'vi':$.notify('Đã sao chép');break;case 'en':$.notify('Copied');break;case 'ru':$.notify('Скопированный');break;case 'es':$.notify('Copiado');break;case 'zh':$.notify('复制');break;case 'ja':$.notify('コピーされた');break;}}
 function countChar(string,character){var charRegex=new RegExp(character,'g');return(string.match(charRegex)||[]).length}
 function escapeRegExp(str){return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,'\\$&')}
 function replaceAll(find,replace,str){return str.replace(new RegExp(escapeRegExp(find),'g'),replace)}
@@ -532,7 +534,7 @@ helpDobForm();helpFullname()},keydown:function(e){if(e.which==13){$(buttonSelect
 helpDobForm();helpFullname()}},'#fullname').on('click','#dob_bar',function(){if($('#fullname').prop('disabled')==!0||$('#dob').prop('disabled')==!0){enableFields(!1)}
 helpDobForm()}).on('click','#dob_submit',function(){validateDob(!0);helpDobForm()}).on('click','#dob_create',function(){validateDob(!0,'create');helpDobForm()}).on('click','#dob_edit',function(){validateDob(!0,'edit');helpDobForm()}).on('click','#dob_remove',function(){validateDob(!0,'remove');helpDobForm()}).on('click','#dob_erase',function(){eraseDobField();validateDob(!1);helpDobForm()}).on('click','#name_remove',function(){hideFullname();helpDobForm()}).on('click','#name_toggle',function(){showFullname();helpDobForm()})}
 function manipulateProverb(){if(isset(dob)){$('#proverb').addClass('has_dob')}
-$('#proverb').on('click','i#proverb_refresh',function(){loadProverb($('body').attr('lang'))});$(document).on('keyup',jwerty.event('p/u/r',function(e){if(!$(e.target).is('input')&&!$(e.target).is('textarea')){loadProverb($('body').attr('lang'))}}))}
+$('#proverb').on('click','#proverb_text',function(){copyToClipboard('#proverb_text');selectText('#proverb_text')}).on('click','i#proverb_refresh',function(){loadProverb($('body').attr('lang'))});$(document).on('keyup',jwerty.event('p/u/r',function(e){if(!$(e.target).is('input')&&!$(e.target).is('textarea')){loadProverb($('body').attr('lang'))}}))}
 function manipulateExplanation(){$('#explanation p.explain').each(function(){$(this).hover(function(){$(this).find('span.explain_more').addClass('hover')},function(){$(this).find('span.explain_more').removeClass('hover')})})}
 function manipulateBirthday(){if($('body').hasClass('birthday')){$('h1#heading').burn(!1).burn()}else if(!$('body').hasClass('birthday')){$('h1#heading').burn(!1)}}
 function manipulateBmiLang(langCode){if($('#bmi_app').length){$('input#bmi_lang').val(langCode).trigger('input');var appElement=document.querySelector('[data-ng-app=bmiApp]');var $scope=angular.element(appElement).scope();$scope.$apply()}}

@@ -31,8 +31,51 @@ function isChild(parentSelector, childSelector) {
 		return false;
 	}	
 }
-function selectText(containerid) {
-	$('#'+containerid).select();
+jQuery.fn.selectText = function(){
+	var doc = document;
+	var element = this[0];
+	console.log(this, element);
+	if (doc.body.createTextRange) {
+		var range = document.body.createTextRange();
+		range.moveToElementText(element);
+		range.select();
+	} else if (window.getSelection) {
+		var selection = window.getSelection();        
+		var range = document.createRange();
+		range.selectNodeContents(element);
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+};
+function selectText(element) {
+	$(element).selectText();
+}
+function copyToClipboard(element) {
+	var $temp = $('<input>');
+	$('body').append($temp);
+	$temp.val($(element).text()).select();
+	document.execCommand('copy');
+	$temp.remove();
+	switch ($('body').attr('lang')) {
+		case 'vi':
+			$.notify('Đã sao chép');
+			break;
+		case 'en':
+			$.notify('Copied');
+			break;
+		case 'ru':
+			$.notify('Скопированный');
+			break;
+		case 'es':
+			$.notify('Copiado');
+			break;
+		case 'zh':
+			$.notify('复制');
+			break;
+		case 'ja':
+			$.notify('コピーされた');
+			break;
+	}
 }
 function countChar(string, character) {
 	var charRegex = new RegExp(character, 'g');
