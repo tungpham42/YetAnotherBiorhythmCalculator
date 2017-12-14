@@ -1,9 +1,6 @@
 <?php
 include template('dob_form');
 include template('proverb');
-if (!has_dob()) {
-	include template('help');
-}
 include template('time');
 include template('adsense_feed');
 include template('scripts_top');
