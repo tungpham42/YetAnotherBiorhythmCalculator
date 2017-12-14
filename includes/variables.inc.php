@@ -32,7 +32,7 @@ $lang_cse_apis = array(
 	'zh' => 'lang_zh-CN',
 	'ja' => 'lang_ja'
 );
-$navs = array('member/home','member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact');
+$navs = array('member/home','member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact','author');
 $adsense_navs = array('member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact');
 $first_domain = 'nhipsinhhoc.vn';
 $second_domain = 'biorhythm.xyz';
@@ -451,6 +451,30 @@ $span_interfaces = array(
 		'es' => 'Yo',
 		'zh' => '我',
 		'ja' => '私に'
+	),
+	'author' => array(
+		'vi' => 'Tác giả',
+		'en' => 'Author',
+		'ru' => 'Автор',
+		'es' => 'Autor',
+		'zh' => '作者',
+		'ja' => '著者'
+	),
+	'author_intro' => array(
+		'vi' => '<h2>Giới thiệu</h2><p>Tôi là Phạm Tùng, hiện đang là lập trình viên PHP.</p>',
+		'en' => '<h2>Introduction</h2><p>I am Tung Pham, currently a PHP programmer.</p>',
+		'ru' => '<h2>Введение</h2><p>Я Тунг Фам, в настоящее время программист PHP.</p>',
+		'es' => '<h2>Introducción</h2><p>Soy Tung Pham, actualmente programador de PHP.</p>',
+		'zh' => '<h2>介绍</h2><p>我是目前的PHP程序员范松。</p>',
+		'ja' => '<h2>前書き</h2><p>私は現在、PHPプログラマーである范松です。</p>'
+	),
+	'author_projects' => array(
+		'vi' => '<h2>Các dự án</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">bấm vào đây</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">bấm vào đây</a></li></ol>',
+		'en' => '<h2>Projects</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">click here</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">click here</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">click here</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">click here</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">click here</a></li></ol>',
+		'ru' => '<h2>Проектов</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">кликните сюда</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">кликните сюда</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">кликните сюда</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">кликните сюда</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">кликните сюда</a></li></ol>',
+		'es' => '<h2>Proyectos</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">haga clic aquí</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">haga clic aquí</a></li></ol>',
+		'zh' => '<h2>项目</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">点击这里</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">点击这里</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">点击这里</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">点击这里</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">点击这里</a></li></ol>',
+		'ja' => '<h2>プロジェクト</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">ここをクリック</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">ここをクリック</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">ここをクリック</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">ここをクリック</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">ここをクリック</a></li></ol>'
 	),
 	'list_user_same_birthday_links' => array(
 		'vi' => 'Những người trùng ngày sinh với tôi',
