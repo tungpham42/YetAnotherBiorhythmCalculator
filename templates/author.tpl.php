@@ -16,6 +16,3 @@ echo translate_span('author_intro');
 	<li><a target="_blank" href="https://twitter.com/tungpham42">Twitter</a></li>
 	<li><a target="_blank" href="https://www.linkedin.com/in/tungpham42/">LinkedIn</a></li>
 </ul>
-<?php
-include template('music');
-?>

@@ -118,6 +118,7 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 	include template('lang_bar');
 	include template('author');
 	include template('keyboard');
+	include template('music');
 } else if ($p == 'proverbs') {
 	include template('lang_bar');
 	include template('clear');
