@@ -1,5 +1,5 @@
-<div class="w300" style="height: 320px;">
-<?php
-echo get_ad('banner_300x250');
-?>
+<div>
+	<center>
+		<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_7.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
+	</center>
 </div>

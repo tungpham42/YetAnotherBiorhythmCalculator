@@ -58,7 +58,7 @@ function setUpMinuteHands() {
   var secondAngle = containers[0].getAttribute("data-second-angle");
   if (secondAngle > 0) {
     // Set a timeout until the end of the current minute, to move the hand
-    var delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
+    var delay = (((360 - secondAngle) / 6)) * 1000; //var delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
     setTimeout(function() {
       moveMinuteHands(containers);
     }, delay);
@@ -80,7 +80,7 @@ var containers = document.querySelectorAll('.minutes-container');
       if (containers[i].angle === undefined) {
         containers[i].angle = 12;
       } else {
-        containers[i].angle += 6;
+        containers[i].angle += 0; //containers[i].angle += 6;
       }
       containers[i].style.webkitTransform = 'rotateZ('+ containers[i].angle +'deg)';
       containers[i].style.transform = 'rotateZ('+ containers[i].angle +'deg)';

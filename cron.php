@@ -1865,7 +1865,7 @@ function email_daily_suggestion() {
 		$content = "";
 		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
 		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($members[$i]['fullname']).'">WIKI</a>)</h1>';
-		$content .= get_ad('banner_300x250');
+		$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
 		$content .= '<p>'.$member_chart->get_birthday_countdown().'</p>';

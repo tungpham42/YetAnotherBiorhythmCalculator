@@ -34,3 +34,4 @@
 	<p class="left"><a class="m-btn green" target="_blank" href="https://www.paypal.me/tungpham42/50">50 USD</a></p>
 	<p class="left"><a class="m-btn green" target="_blank" href="https://www.paypal.me/tungpham42/100">100 USD</a></p>
 </div>
+<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_7.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>

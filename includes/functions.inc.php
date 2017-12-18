@@ -1915,7 +1915,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
-	$content .= get_ad('banner_300x250');
+	$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
 	$content .= '<p class="lead">'.$email_interfaces['create_user_thank'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['create_user_detail'][$lang_code].'</p>';
 	$content .= '<ul>';
@@ -1954,7 +1954,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 //	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
-	$content .= get_ad('banner_300x250');
+	$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
 	$content .= '<p class="lead">'.$email_interfaces['edit_user_notify'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['edit_user_detail'][$lang_code].'</p>';
 	$content .= '<ul>';

@@ -358,6 +358,17 @@ function isClicked(selector){return $(selector+':active').length>0}
 function isFocused(selector){return $(selector+':focus').length>0}
 function isBlurred(selector){return $(selector+':not(:focus)').length>0}
 function isChild(parentSelector,childSelector){if($(parentSelector).find(childSelector).length>0){return!0}else if(!($(parentSelector).find(childSelector).length>0)){return!1}}
+function interval(duration,fn){this.baseline=undefined
+this.run=function(){if(this.baseline===undefined){this.baseline=new Date().getTime()}
+fn()
+var end=new Date().getTime()
+this.baseline+=duration
+var nextTick=duration-(end-this.baseline)
+if(nextTick<0){nextTick=0}(function(i){i.timer=setTimeout(function(){i.run(end)},nextTick)}(this))}
+this.stop=function(){clearTimeout(this.timer)}}
+function accurateInterval(func,interval,opts){if(!opts)opts={};var clear,nextAt,timeout,wrapper,now;now=new Date().getTime();nextAt=now;if(opts.aligned){nextAt+=interval-(now%interval)}
+if(!opts.immediate){nextAt+=interval}
+timeout=null;wrapper=function wrapper(){var scheduledTime=nextAt;nextAt+=interval;timeout=setTimeout(wrapper,nextAt-new Date().getTime());func(scheduledTime)};clear=function clear(){return clearTimeout(timeout)};timeout=setTimeout(wrapper,nextAt-new Date().getTime());return{clear:clear}}
 jQuery.fn.selectText=function(){var doc=document;var element=this[0];console.log(this,element);if(doc.body.createTextRange){var range=document.body.createTextRange();range.moveToElementText(element);range.select()}else if(window.getSelection){var selection=window.getSelection();var range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range)}}
 function selectText(element){$(element).selectText();}
 function copyToClipboard(element){var $temp=$('<input>');$('body').append($temp);$temp.val($(element).text()).select();document.execCommand('copy');$temp.remove();switch($('body').attr('lang')){case 'vi':$.notify('Đã sao chép');break;case 'en':$.notify('Copied');break;case 'ru':$.notify('Скопированный');break;case 'es':$.notify('Copiado');break;case 'zh':$.notify('复制');break;case 'ja':$.notify('コピーされた');break;}}
