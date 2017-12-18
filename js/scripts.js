@@ -1192,7 +1192,8 @@ function renderChart(selector,titleText,percentageText,dateText,datesArray,today
 		legend: {
 			enabled: true,
 			align: 'center',
-			itemWidth: getLegendItemWidth(),
+			itemWidth: null,
+			//itemWidth: getLegendItemWidth(),
 			labelFormat: '<span style="color:{color}">{name}: </span><strong>{point.y} %</strong>'
 		},
 		plotOptions: {
