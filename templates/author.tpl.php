@@ -8,6 +8,7 @@ echo translate_span('author_intro');
 	<li><a target="_blank" href="https://github.com/tungpham42/YetAnotherBiorhythmCalculator">https://github.com/tungpham42/YetAnotherBiorhythmCalculator</a></li>
 	<li><a target="_blank" href="https://github.com/tungpham42/OKMS">https://github.com/tungpham42/OKMS</a></li>
 	<li><a target="_blank" href="https://github.com/tungpham42/RippleButton">https://github.com/tungpham42/RippleButton</a></li>
+	<li><a target="_blank" href="https://github.com/tungpham42/AnalogClock">https://github.com/tungpham42/AnalogClock</a></li>
 </ul>
 <h2><?php echo translate_span('contact'); ?></h2>
 <ul>
