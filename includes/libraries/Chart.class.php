@@ -459,7 +459,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="黄道帯の印:" data-lang-zh="星宮名稱:" data-lang-es="Signo del Zodíaco:" data-lang-ru="Знак зодиака:" data-lang-en="Zodiac sign:" data-lang-vi="Cung hoàng đạo:"></span></strong> <span class="translate" data-lang-ja="'.get_zodiac_from_dob($this->_dob,'ja').'" data-lang-zh="'.get_zodiac_from_dob($this->_dob,'zh').'" data-lang-es="'.get_zodiac_from_dob($this->_dob,'es').'" data-lang-ru="'.get_zodiac_from_dob($this->_dob,'ru').'" data-lang-en="'.get_zodiac_from_dob($this->_dob,'en').'" data-lang-vi="'.get_zodiac_from_dob($this->_dob,'vi').'"></span></p>
 	<textarea style="resize:vertical;" id="embed_box" rows="2" cols="420">http://'.$_SERVER['HTTP_HOST'].'/'.$this->_lang_code.'/?'.((isset($_GET['fullname']) && $_GET['fullname'] != "") ? 'fullname='.str_replace(' ', '+', $_GET['fullname']).'&amp;dob='.$dob : ((function_exists('get_member_fullname') && get_member_fullname() != "") ? 'fullname='.str_replace(' ', '+', get_member_fullname()).'&amp;dob='.$dob : (($fullname != "") ? 'fullname='.str_replace(' ', '+', $fullname).'&amp;dob='.$dob : 'dob='.$this->_dob))).'&date='.date('Y-m-d',time()+86400*$this->_diff).'</textarea>
 	<div id="embed_box_share"></div>
-	<div id="embed_toggle" class="changeable"><i class="icon-share-alt icon-white"></i></div>
+	<div id="embed_toggle" class="changeable"><span class="translate" data-lang-ja="シェア" data-lang-zh="分享" data-lang-es="Compartir" data-lang-ru="Поделиться" data-lang-en="Share" data-lang-vi="Chia sẻ"></span> <i class="icon-share icon-white"></i></div>
 </section>
 		';
 		return $output;
