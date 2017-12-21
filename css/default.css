@@ -3263,12 +3263,12 @@ a#logo > i {
 	font-size: 32px;
 	color: #E35604;
 }
-a#logo:hover > i {
+a#logo:hover, a#logo:hover > i {
 	-webkit-animation: spin 1.2s linear 0s infinite;
 	-moz-animation: spin 1.2s linear 0s infinite;
 	animation: spin 1.2s linear 0s infinite;
 }
-a#logo:active > i {
+a#logo:active, #logo:active > i {
 	-webkit-animation: spin .3s linear 0s infinite;
 	-moz-animation: spin .3s linear 0s infinite;
 	animation: spin .3s linear 0s infinite;
@@ -3316,6 +3316,7 @@ body.scrolling {cursor: s-resize;}
 	-moz-border-radius: 50%;
 	-o-border-radius: 50%;
 	background-color: #ffffff;
+	background-image: url('/app-icons/icon-64.png');
 	color: #E35604;
 	font-size: 32px;
 	font-weight: bold;
@@ -3793,18 +3794,22 @@ body.birthday li.rhythm.secondary {
 	color: #c42;
 }
 body.birthday #logo {
+	/*
 	background-image: -webkit-radial-gradient(#FFF740,#FFD700);
 	background-image: -o-radial-gradient(#FFF740,#FFD700);
 	background-image: -moz-radial-gradient(#FFF740,#FFD700);
 	background-image: radial-gradient(#FFF740,#FFD700);
+	*/
 	background-color: #FFD700;
 	color: #E35604;
 }
 body.birthday #logo:active {
+	/*
 	background-image: -webkit-radial-gradient(#FFD700,#FFF740);
 	background-image: -o-radial-gradient(#FFD700,#FFF740);
 	background-image: -moz-radial-gradient(#FFD700,#FFF740);
 	background-image: radial-gradient(#FFD700,#FFF740);
+	*/
 	background-color: #FFD700;
 	color: #E35604;
 }
@@ -4017,10 +4022,10 @@ body.birthday #proverb span.arrow_down::after {
 body.loading a#logo > i, a#logo:hover > i, a#logo:active > i {
 	text-shadow: 0 0 10px #E35604;
 }
-body.loading a#logo > i {
-	-webkit-animation: spin 120ms linear 0s infinite;
-	-moz-animation: spin 120ms linear 0s infinite;
-	animation: spin 120ms linear 0s infinite;
+body.loading a#logo, body.loading a#logo > i {
+	-webkit-animation: spin 0.24s linear 0s infinite;
+	-moz-animation: spin 0.24s linear 0s infinite;
+	animation: spin 0.24s linear 0s infinite;
 }
 body.loading .lang_toggle.button, body.loading #proverb i#proverb_refresh, body.loading label[for="is_secondary"], body.loading #controls > .m-btn-group > .m-btn {
 	pointer-events: none !important;
@@ -6974,7 +6979,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 	body {background-image: url('images/coin_mobile.png');background-color: rgba(230,239,253,0.44) !important;margin: 0 auto;overflow-x: hidden;}
 	body.birthday {background-image: url('images/gifts_mobile.png');background-color: rgba(255,252,235,0.88) !important;margin: 0 auto;}
 	body header#header {background-color: none !important;background-image: none !important;height: auto;-ms-box-shadow: none !important;-o-box-shadow: none !important;-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;}
-	header a#logo {top: 5px;left: 5px;width: 18px;height: 18px;padding: 9px;font-size: 18px;}
+	header a#logo {top: 5px;left: 5px;width: 18px;height: 18px;padding: 9px;font-size: 18px;background-image: url('/app-icons/icon-36.png');}
 	a#logo > i {width: 18px;height: 18px;font-size: 18px;}
 	header h1 {position: relative;top: 0;left: 0;font-size: 18px;padding: 12px 8px 12px 48px;text-align: left;margin: 0 0 9px;line-height: 24px;background-color: #009933;width: calc(100% - 56px);width: -webkit-calc(100% - 56px);width: -moz-calc(100% - 56px);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aa66',endColorstr='#009933',GradientType=0)";background-image: -ms-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -moz-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -o-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aa66), color-stop(1, #009933));background-image: -webkit-linear-gradient(top, #44aa66 0%, #009933 100%);background-image: linear-gradient(to bottom, #44aa66 0%, #009933 100%);color: #fff;-moz-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-webkit-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);-khtml-box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);box-shadow: 0 3px 6px 1px rgba(0,0,0,.33);}
 	body.today header h1 {background-color: #2299bb;-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#44aacc',endColorstr='#2299bb',GradientType=0)";background-image: -ms-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -moz-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -o-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44aacc), color-stop(1, #2299bb));background-image: -webkit-linear-gradient(top, #44aacc 0%, #2299bb 100%);background-image: linear-gradient(to bottom, #44aacc 0%, #2299bb 100%);color: #fff;}
