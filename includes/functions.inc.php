@@ -1716,7 +1716,7 @@ function invalid_member($email,$password): bool {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 	if (is_dir($path)) {
 		$db_path = $path.'/member.db';
-		$db_sql = 'SELECT password FROM "member"';
+		$db_sql = 'SELECT password FROM `member`';
 		try {
 			$db = new PDO('sqlite:'.$db_path);
 			$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -1742,7 +1742,7 @@ function load_member_from_email($email): array {
 	if ($email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 		$db_path = $path.'/member.db';
-		$db_sql = 'SELECT * FROM "member"';
+		$db_sql = 'SELECT * FROM `member`';
 		try {
 			$db = new PDO('sqlite:'.$db_path);
 			$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);

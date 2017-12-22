@@ -54,20 +54,20 @@ if (isset(\$_GET['pid']) && load_person(\$_GET['pid']) == null) {\r
 require_once realpath(\$_SERVER['DOCUMENT_ROOT']).'/index.php';\r
 ?>";
 	$db_create_member_sql =
-'CREATE TABLE IF NOT EXISTS member (
-	email TEXT PRIMARY KEY,
-	password TEXT NOT NULL,
-	fullname TEXT NOT NULL,
-	dob TEXT NOT NULL,
-	lang TEXT NOT NULL,
-	created_at TEXT NOT NULL,
-	edited_at TEXT NOT NULL
+'CREATE TABLE IF NOT EXISTS `member` (
+	`email` TEXT PRIMARY KEY,
+	`password` TEXT NOT NULL,
+	`fullname` TEXT NOT NULL,
+	`dob` TEXT NOT NULL,
+	`lang` TEXT NOT NULL,
+	`created_at` TEXT NOT NULL,
+	`edited_at` TEXT NOT NULL
 );';
 	$db_create_persons_sql =
-'CREATE TABLE IF NOT EXISTS persons (
-	pid INTEGER PRIMARY KEY AUTOINCREMENT,
-	fullname TEXT NOT NULL,
-	dob TEXT NOT NULL
+'CREATE TABLE IF NOT EXISTS `persons` (
+	`pid` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`fullname` TEXT NOT NULL,
+	`dob` TEXT NOT NULL
 );';
 	$db_insert_sql = 'INSERT INTO member (email,password,fullname,dob,lang,created_at,edited_at) VALUES (:email,:password,:fullname,:dob,:lang,:created_at,:edited_at)';
 	mkdir($path, 0777);
@@ -105,7 +105,7 @@ function edit_member($email,$fullname,$password,$dob,$lang) {
 	$edited_time = date('Y-m-d h:i:s A');
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 	$db_path = $path.'/member.db';
-	$db_sql = 'UPDATE member SET password=:password,fullname=:fullname,dob=:dob,lang=:lang,edited_at=:edited_at WHERE email=:email';
+	$db_sql = 'UPDATE `member` SET `password`=:password,`fullname`=:fullname,`dob`=:dob,`lang`=:lang,`edited_at`=:edited_at WHERE `email`=:email';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -145,7 +145,7 @@ function load_member() {
 	if ($email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 		$db_path = $path.'/member.db';
-		$db_sql = 'SELECT * FROM "member"';
+		$db_sql = 'SELECT * FROM `member`';
 		try {
 			$db = new PDO('sqlite:'.$db_path);
 			$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -168,7 +168,7 @@ function create_person($fullname,$dob) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
-	$db_sql = 'INSERT INTO persons (fullname,dob) VALUES (:fullname,:dob)';
+	$db_sql = 'INSERT INTO `persons` (fullname,dob) VALUES (:fullname,:dob)';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -186,7 +186,7 @@ function edit_person($pid,$fullname,$dob) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
-	$db_sql = 'UPDATE persons SET fullname=:fullname,dob=:dob WHERE pid=:pid';
+	$db_sql = 'UPDATE `persons` SET `fullname`=:fullname,`dob`=:dob WHERE `pid`=:pid';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -203,7 +203,7 @@ function remove_person($pid) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
-	$db_sql = 'DELETE FROM persons WHERE pid=:pid';
+	$db_sql = 'DELETE FROM `persons` WHERE `pid`=:pid';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -219,7 +219,7 @@ function load_persons() {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
-	$db_sql = 'SELECT * FROM persons';
+	$db_sql = 'SELECT * FROM `persons`';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -240,7 +240,7 @@ function load_person($pid) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
-	$db_sql = 'SELECT * FROM persons WHERE pid=:pid';
+	$db_sql = 'SELECT * FROM `persons` WHERE `pid`=:pid';
 	try {
 		$db = new PDO('sqlite:'.$db_path);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);

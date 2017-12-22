@@ -154,7 +154,7 @@ function is_paid_member($email): bool {
 function load_all_array($table_name): array { //Put all table records into an array
 	global $pdo;
 	$array = array();
-	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'"');
+	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'`');
 	$result->execute();
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -166,7 +166,7 @@ function load_all_array($table_name): array { //Put all table records into an ar
 function load_array_with_operator($table_name,$identifier,$value,$operator): array { //Put specific table records according to condition into an array
 	global $pdo;
 	$array = array();
-	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier.$operator.':value');
+	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'`'.$operator.':value');
 	$result->execute(array(':value' => $value));
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -178,7 +178,7 @@ function load_array_with_operator($table_name,$identifier,$value,$operator): arr
 function load_array_with_two_identifiers($table_name,$identifier1,$value1,$identifier2,$value2): array { //Load array from database with 2 identifiers
 	global $pdo;
 	$array = array();	
-	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier1.'=:value1 AND '.$identifier2.'=:value2');
+	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier1.'`=:value1 AND `'.$identifier2.'`=:value2');
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -190,7 +190,7 @@ function load_array_with_two_identifiers($table_name,$identifier1,$value1,$ident
 function load_array_with_two_values($table_name,$identifier,$value1,$value2): array { //Load array from database with 1 identifier and 2 values
 	global $pdo;
 	$array = array();	
-	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier.'=:value1 OR '.$identifier.'=:value2');
+	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'`=:value1 OR `'.$identifier.'`=:value2');
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -206,8 +206,8 @@ function load_array($table_name,$identifier,$value): array { //Load array from d
 function search_array($table_name,$identifier,$value): array {
 	global $pdo;
 	$array = array();
-	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier.' LIKE :value');
-	$result->execute(array(':value' => "%$value%"));
+	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'` LIKE :value');
+	$result->execute(array(':value' => `%$value%`));
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$array[] = $row;
@@ -221,14 +221,14 @@ function insert_record($array = array(), $table_name) { //Insert table record
 	$values = array_values($array);
 	$execute_array = array();
 	$count = count($array);
-	$query = "";
-	$query .= 'INSERT INTO "'.$table_name.'"(';
+	$query = ``;
+	$query .= 'INSERT INTO `'.$table_name.'`(';
 	for ($k = 0; $k < $count; ++$k) {
-		$query .= $keys[$k].(($k < ($count - 1)) ? ',': "");
+		$query .= $keys[$k].(($k < ($count - 1)) ? ',': ``);
 	}
 	$query .= ') VALUES(';
 	for ($i = 0; $i < $count; ++$i) {
-		$query .= '?'.(($i < ($count - 1)) ? ',': "");
+		$query .= '?'.(($i < ($count - 1)) ? ',': ``);
 	}
 	$query .= ')';
 	for ($e = 0; $e < $count; ++$e) {
@@ -243,12 +243,12 @@ function update_record_with_operator($array = array(), $identifier, $value, $tab
 	$values = array_values($array);
 	$execute_array = array();
 	$count = count($array);
-	$query = "";
-	$query .= 'UPDATE "'.$table_name.'" SET ';
+	$query = ``;
+	$query .= 'UPDATE `'.$table_name.'` SET ';
 	for ($i = 0; $i < $count; ++$i) {
-		$query .= $keys[$i].'=?'.(($i < ($count - 1)) ? ',': "");
+		$query .= $keys[$i].'=?'.(($i < ($count - 1)) ? ',': ``);
 	}
-	$query .= ' WHERE '.$identifier.$operator.'?';
+	$query .= ' WHERE `'.$identifier.'`'.$operator.'?';
 	for ($e = 0; $e < $count; ++$e) {
 		$execute_array[$e] = $values[$e];
 	}
@@ -261,12 +261,12 @@ function update_record($array = array(), $identifier, $value, $table_name) { //U
 }
 function delete_record($identifier, $value, $table_name) { //Delete table records with 1 identifier
 	global $pdo;
-	$result = $pdo->prepare('DELETE FROM "'.$table_name.'" WHERE '.$identifier.'=:value');
+	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier.'`=:value');
 	$result->execute(array(':value' => $value));
 }
 function delete_record_with_two_identifier($identifier1, $value1, $identifier2, $value2, $table_name) { //Delete table records with 2 identifiers
 	global $pdo;
-	$result = $pdo->prepare('DELETE FROM "'.$table_name.'" WHERE '.$identifier1.'=:value1 AND '.$identifier2.'=:value2');
+	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier1.'`=:value1 AND `'.$identifier2.'`=:value2');
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));
 }
 function table_row_class($id): string { //Identify the table row class based on counter

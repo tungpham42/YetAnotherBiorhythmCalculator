@@ -90,6 +90,7 @@ if ($clicktale):
 	include template('clicktale_bottom');
 endif;
 include template('scripts_bottom');
+include template('snow');
 //if ($p == 'home' || $p == 'member/home'):
 //	include template('music');
 //endif;
