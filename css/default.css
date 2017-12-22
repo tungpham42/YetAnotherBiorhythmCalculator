@@ -8832,3 +8832,156 @@ div[aria-describedby="register_modal"] .ui-button span.ui-button-text {
 #comments .ui-tabs-nav > .ui-state-active a {
 	border-color: #d4d4d4 !important;
 }
+/* Birthday Presents */
+.wf-flake > img {
+	width: 24px;
+	height: 24px;
+}
+body.birthday .wf-flake > img {
+	width: 32px;
+	height: 32px;
+}
+#wf-flake-0 > img {
+	content: url(/js/snow/ice-24/snowflake-1.gif);
+}
+#wf-flake-1 > img {
+	content: url(/js/snow/ice-24/snowflake-2.gif);
+}
+#wf-flake-2 > img {
+	content: url(/js/snow/ice-24/snowflake-3.gif);
+}
+#wf-flake-3 > img {
+	content: url(/js/snow/ice-24/snowflake-4.gif);
+}
+#wf-flake-4 > img {
+	content: url(/js/snow/ice-24/snowflake-5.gif);
+}
+#wf-flake-5 > img {
+	content: url(/js/snow/ice-24/snowflake-6.gif);
+}
+#wf-flake-6 > img {
+	content: url(/js/snow/ice-24/snowflake-1.gif);
+}
+#wf-flake-7 > img {
+	content: url(/js/snow/ice-24/snowflake-2.gif);
+}
+#wf-flake-8 > img {
+	content: url(/js/snow/ice-24/snowflake-3.gif);
+}
+#wf-flake-9 > img {
+	content: url(/js/snow/ice-24/snowflake-4.gif);
+}
+#wf-flake-10 > img {
+	content: url(/js/snow/ice-24/snowflake-5.gif);
+}
+#wf-flake-11 > img {
+	content: url(/js/snow/ice-24/snowflake-6.gif);
+}
+#wf-flake-12 > img {
+	content: url(/js/snow/ice-24/snowflake-1.gif);
+}
+#wf-flake-13 > img {
+	content: url(/js/snow/ice-24/snowflake-2.gif);
+}
+#wf-flake-14 > img {
+	content: url(/js/snow/ice-24/snowflake-3.gif);
+}
+#wf-flake-15 > img {
+	content: url(/js/snow/ice-24/snowflake-4.gif);
+}
+#wf-flake-16 > img {
+	content: url(/js/snow/ice-24/snowflake-5.gif);
+}
+#wf-flake-17 > img {
+	content: url(/js/snow/ice-24/snowflake-6.gif);
+}
+#wf-flake-18 > img {
+	content: url(/js/snow/ice-24/snowflake-1.gif);
+}
+#wf-flake-19 > img {
+	content: url(/js/snow/ice-24/snowflake-2.gif);
+}
+#wf-flake-20 > img {
+	content: url(/js/snow/ice-24/snowflake-3.gif);
+}
+#wf-flake-21 > img {
+	content: url(/js/snow/ice-24/snowflake-4.gif);
+}
+#wf-flake-22 > img {
+	content: url(/js/snow/ice-24/snowflake-5.gif);
+}
+#wf-flake-23 > img {
+	content: url(/js/snow/ice-24/snowflake-6.gif);
+}
+body.birthday #wf-flake-0 > img {
+	content: url(/js/snow/presents-32/snowflake-1.gif);
+}
+body.birthday #wf-flake-1 > img {
+	content: url(/js/snow/presents-32/snowflake-2.gif);
+}
+body.birthday #wf-flake-2 > img {
+	content: url(/js/snow/presents-32/snowflake-3.gif);
+}
+body.birthday #wf-flake-3 > img {
+	content: url(/js/snow/presents-32/snowflake-4.gif);
+}
+body.birthday #wf-flake-4 > img {
+	content: url(/js/snow/presents-32/snowflake-5.gif);
+}
+body.birthday #wf-flake-5 > img {
+	content: url(/js/snow/presents-32/snowflake-6.gif);
+}
+body.birthday #wf-flake-6 > img {
+	content: url(/js/snow/presents-32/snowflake-1.gif);
+}
+body.birthday #wf-flake-7 > img {
+	content: url(/js/snow/presents-32/snowflake-2.gif);
+}
+body.birthday #wf-flake-8 > img {
+	content: url(/js/snow/presents-32/snowflake-3.gif);
+}
+body.birthday #wf-flake-9 > img {
+	content: url(/js/snow/presents-32/snowflake-4.gif);
+}
+body.birthday #wf-flake-10 > img {
+	content: url(/js/snow/presents-32/snowflake-5.gif);
+}
+body.birthday #wf-flake-11 > img {
+	content: url(/js/snow/presents-32/snowflake-6.gif);
+}
+body.birthday #wf-flake-12 > img {
+	content: url(/js/snow/presents-32/snowflake-1.gif);
+}
+body.birthday #wf-flake-13 > img {
+	content: url(/js/snow/presents-32/snowflake-2.gif);
+}
+body.birthday #wf-flake-14 > img {
+	content: url(/js/snow/presents-32/snowflake-3.gif);
+}
+body.birthday #wf-flake-15 > img {
+	content: url(/js/snow/presents-32/snowflake-4.gif);
+}
+body.birthday #wf-flake-15 > img {
+	content: url(/js/snow/presents-32/snowflake-5.gif);
+}
+body.birthday #wf-flake-17 > img {
+	content: url(/js/snow/presents-32/snowflake-6.gif);
+}
+body.birthday #wf-flake-18 > img {
+	content: url(/js/snow/presents-32/snowflake-1.gif);
+}
+body.birthday #wf-flake-19 > img {
+	content: url(/js/snow/presents-32/snowflake-2.gif);
+}
+body.birthday #wf-flake-20 > img {
+	content: url(/js/snow/presents-32/snowflake-3.gif);
+}
+body.birthday #wf-flake-21 > img {
+	content: url(/js/snow/presents-32/snowflake-4.gif);
+}
+body.birthday #wf-flake-22 > img {
+	content: url(/js/snow/presents-32/snowflake-5.gif);
+}
+body.birthday #wf-flake-23 > img {
+	content: url(/js/snow/presents-32/snowflake-6.gif);
+}
