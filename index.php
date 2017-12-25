@@ -90,11 +90,11 @@ if ($clicktale):
 	include template('clicktale_bottom');
 endif;
 include template('scripts_bottom');
-if (is_birthday()):
-	include template('presents');
-else:
-	include template('snow');
-endif;
+//if (is_birthday()):
+//	include template('presents');
+//else:
+//	include template('snow');
+//endif;
 //if ($p == 'home' || $p == 'member/home'):
 //	include template('music');
 //endif;

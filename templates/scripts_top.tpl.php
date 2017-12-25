@@ -38,4 +38,9 @@
 -->
 <?php
 include template('script');
+//if (is_birthday()):
+//	include template('presents');
+//else:
+//	include template('snow');
+//endif;
 ?>
