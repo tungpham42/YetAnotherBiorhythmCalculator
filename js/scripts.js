@@ -641,7 +641,7 @@ function updateTextInterface(langCode) {
 		$('h1#heading').html(headingH1AjaxResponse[0]);
 		$('head').find('meta[name="description"]').attr('content', headDescriptionAjaxResponse[0]);
 		$('link[rel="chrome-webstore-item"]').attr('href', chromeWebstoreItemAjaxResponse[0]);
-		$('#youtube').find('iframe').attr('src', 'http://www.youtube.com/embed/'+youtubeAjaxResponse[0]);
+		$('#youtube').find('iframe').attr('src', 'https://www.youtube.com/embed/'+youtubeAjaxResponse[0]);
 	});
 }
 function updateBirthdayTextInterface(langCode,time) {
