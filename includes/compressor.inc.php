@@ -3,58 +3,58 @@
  * @author Abhimanyu Sharma <abhimanyusharma003@gmail.com>
  * @copyright Abhimanyu Sharma [abhimanyusharma003]
  * @licence http://codecanyon.net/licenses/regular [ for single application ]
- * @version 2.1
+ * @version 2.2
  */
 
 
 // Main settings
 
-$setting = array(
-    'compress' => TRUE,
-    'cache-folder' => 'AUTO',
-    'minify-css-files' => TRUE,
-    'minify-js-files' => TRUE,
-);
+$dwcSetting = [
+    'compress'         => true,
+    'cache-folder'     => 'AUTO',
+    'minify-css-files' => true,
+    'minify-js-files'  => true,
+];
 
 
 // MIME type settings read more on wikipedia about mime type
 
-$mimetype = array(
+$dwcMimeType = [
     'css' => 'text/css',
-    'js' => 'text/javascript'
-);
+    'js'  => 'text/javascript'
+];
 
 
 // js and css file headers settings
 
-$headers = array(
-    'expire' => (24 * 60 * 60) * 7, // 7 days in seconds
+$dwcHeaders = [
+    'expire'        => (24 * 60 * 60) * 7, // 7 days in seconds
     'cache-control' => 'must-revalidate',
-    'vary' => 'Accept-Encoding'
-);
+    'vary'          => 'Accept-Encoding'
+];
 
 
 //----------------------------------------------------------------------------------------------
 //                                DO NOT MODIFY ANY THING BELOW THIS
 //----------------------------------------------------------------------------------------------
 
-if ($setting['cache-folder'] == 'AUTO') {
+if ($dwcSetting['cache-folder'] == 'AUTO') {
     $cacheDir = dirname(__FILE__) . '/dwccache';
 } else {
-    $cacheDir = $setting['cache-folder'];
+    $cacheDir = $dwcSetting['cache-folder'];
 }
 
 if (!empty($_GET['dwc-debug']) && isset($_GET['dwc-debug'])) {
-    if ($_GET['dwc-debug'] == TRUE) {
-        $setting['compress'] = FALSE;
+    if ($_GET['dwc-debug'] == true) {
+        $dwcSetting['compress'] = false;
     }
 }
 
-$GLOBALS['compressor']['clear'] = FALSE;
+$GLOBALS['compressor']['clear'] = false;
 if (!empty($_GET['dwc-clear-cache']) && isset($_GET['dwc-clear-cache'])) {
-    if ($_GET['dwc-clear-cache'] == TRUE) {
-        $setting['compress'] = FALSE;
-        $GLOBALS['compressor']['clear'] = TRUE;
+    if ($_GET['dwc-clear-cache'] == true) {
+        $dwcSetting['compress'] = false;
+        $GLOBALS['compressor']['clear'] = true;
     }
 }
 
@@ -74,36 +74,36 @@ if (!is_dir($cacheDir . '/css')) {
 }
 
 
-if (preg_match('/.css/', $_SERVER['QUERY_STRING']) && $setting['minify-css-files'] == true) {
+if (preg_match('/.css/', $_SERVER['QUERY_STRING']) && $dwcSetting['minify-css-files'] == true) {
     cssFileCreate($_SERVER['QUERY_STRING']);
 }
 
-if (preg_match('/.js/', $_SERVER['QUERY_STRING']) && $setting['minify-js-files'] == true) {
+if (preg_match('/.js/', $_SERVER['QUERY_STRING']) && $dwcSetting['minify-js-files'] == true) {
     jsFileCreate($_SERVER['QUERY_STRING']);
 }
 
 
 function jsFileCreate($queryString)
 {
-    global $cacheDir, $mimetype;
+    global $cacheDir, $dwcMimeType;
 
     $content = explode('?', urldecode($queryString));
     @$content = file_get_contents($content[0]);
-    if($content == FALSE){
-    	header("content-type: text/javascript; charset: UTF-8");
-    	$content = 'alert("DWC: Sorry, On the fly minification of JavaScript FILES will not work on your script, Please disable it. Rest all will work fine")';
-    	echo $content;
-    	exit();
+    if ($content == false) {
+        header("content-type: text/javascript; charset: UTF-8");
+        $content = 'alert("DWC: Sorry, On the fly minification of JavaScript FILES will not work on your script, Please disable it. Rest all will work fine")';
+        echo $content;
+        exit();
     }
     $cache = new DwcCache($cacheDir . '/js');
     $md = md5($content);
 
     $data = $cache->get($md);
-    if ($data == FALSE) {
+    if ($data == false) {
         $data = jsFileOptimizer($content);
         $cache->set($md, $data);
     }
-    _compress($data, $mimetype['js'], $cache->getTime($md));
+    _compress($data, $dwcMimeType['js'], $cache->getTime($md));
 
 }
 
@@ -116,25 +116,25 @@ function jsFileOptimizer($js)
 
 function cssFileCreate($queryString)
 {
-    global $cacheDir, $mimetype;
+    global $cacheDir, $dwcMimeType;
 
     $content = explode('?', urldecode($queryString));
     @$content = file_get_contents($content[0]);
-    if($content == FALSE){
-    	header("content-type: text/css; charset: UTF-8");
-    	$content = '*{ background:red;}.body{background:red;}';
-    	echo $content;
-    	exit();
+    if ($content == false) {
+        header("content-type: text/css; charset: UTF-8");
+        $content = '*{ background:red;}.body{background:red;}';
+        echo $content;
+        exit();
     }
     $cache = new DwcCache($cacheDir . '/css');
     $md = md5($content);
 
     $data = $cache->get($md);
-    if ($data == FALSE) {
+    if ($data == false) {
         $data = cssFileOptimizer($content);
         $cache->set($md, $data);
     }
-    _compress($data, $mimetype['css'], $cache->getTime($md));
+    _compress($data, $dwcMimeType['css'], $cache->getTime($md));
 
 }
 
@@ -151,15 +151,15 @@ function cssFileOptimizer($str)
 function _compress($data, $mime, $timestamp)
 {
 
-    global $headers;
+    global $dwcHeaders;
 
-    $expire = "expires: " . gmdate("D, d M Y H:i:s", time() + $headers['expire']) . " GMT";
+    $expire = "expires: " . gmdate("D, d M Y H:i:s", time() + $dwcHeaders['expire']) . " GMT";
 
     ob_start("ob_gzhandler");
     header("content-type: {$mime}; charset: UTF-8");
-    header("cache-control: {$headers['cache-control']}");
+    header("cache-control: {$dwcHeaders['cache-control']}");
     header($expire);
-    header("Vary: {$headers['vary']}");
+    header("Vary: {$dwcHeaders['vary']}");
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $timestamp) . ' GMT');
 
     echo $data;
@@ -167,7 +167,8 @@ function _compress($data, $mime, $timestamp)
 }
 
 
-class CompJS {
+class CompJS
+{
     const LF = 10;
     const SP = 32;
     const KPA = 1;
@@ -434,7 +435,8 @@ class CompJS {
     }
 }
 
-class DwcCache {
+class DwcCache
+{
 
     function __construct($dir)
     {
@@ -445,17 +447,17 @@ class DwcCache {
     {
 
         if (!is_dir($this->dir)) {
-            return FALSE;
+            return false;
         }
 
         $cache_path = $this->_name($key);
 
         if (!@file_exists($cache_path)) {
-            return FALSE;
+            return false;
         }
 
         if (!$fp = @fopen($cache_path, 'rb')) {
-            return FALSE;
+            return false;
         }
 
         flock($fp, LOCK_SH);
@@ -464,7 +466,7 @@ class DwcCache {
         if (filesize($cache_path) > 0) {
             $cache = unserialize(fread($fp, filesize($cache_path)));
         } else {
-            $cache = NULL;
+            $cache = null;
         }
 
         flock($fp, LOCK_UN);
@@ -488,24 +490,24 @@ class DwcCache {
     {
 
         if (!is_dir($this->dir) OR !is_writable($this->dir)) {
-            return FALSE;
+            return false;
         }
 
         $cache_path = $this->_name($key);
 
         if (!$fp = fopen($cache_path, 'wb')) {
-            return FALSE;
+            return false;
         }
 
         if (flock($fp, LOCK_EX)) {
             fwrite($fp, serialize($data));
             flock($fp, LOCK_UN);
         } else {
-            return FALSE;
+            return false;
         }
         fclose($fp);
         @chmod($cache_path, 0777);
-        return TRUE;
+        return true;
     }
 }
 
@@ -539,10 +541,10 @@ function compressor_ob_handler($start_buffer)
     $start_buffer = preg_replace('/(<|<)!--(\s){0,1}?(?!<)(?!(\s+)?.(\s+)?(<)?[ifIFIfiF<!])(<)?\s*.*?\s*--((\s){0,3})?(>|>)/s', ' ', $start_buffer);
     $start_buffer = preg_replace('/<script(?!.*(src\=))[^>]*>/', '<script type="text/javascript"> ', $start_buffer);
 
-    $start_buffer = preg_replace_callback('/<\s*script(?![^>]*\.js)[^>]*>(.*?)<\/script>/s', 'minifyJS', $start_buffer);
+    $start_buffer = preg_replace_callback('/<\s*script(?![^>]*\.js)[^>]*>(.*?)<\/script>/s', 'dwcMinifyJS', $start_buffer);
 
     $start_buffer = preg_replace('/>[^\S]+</', '> <', $start_buffer);
-    $start_buffer = str_replace(array("\n", "\t"), ' ', $start_buffer);
+    $start_buffer = str_replace(["\n", "\t"], ' ', $start_buffer);
     $start_buffer = preg_replace('/\s{3,}/', ' ', $start_buffer);
 
 
@@ -563,7 +565,7 @@ function clean_escapes($str)
 {
     $str = " " . $str;
     $parts = preg_split("/(< \s* dwcescape .* \/ \s* dwcescape \s* >)/Umsxu", $str, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $parts = str_replace(array('<dwcescape>', '</dwcescape>'), '', $parts);
+    $parts = str_replace(['<dwcescape>', '</dwcescape>'], '', $parts);
     foreach ($parts as $idx => $part) {
         if ($idx % 2) {
             $parts[$idx] = base64_decode($part);
@@ -579,7 +581,7 @@ function protect_escapes($str)
 {
     $str = " " . $str;
     $parts = preg_split("/(< \s* dwcescape .* \/ \s* dwcescape \s* >)/Umsxu", $str, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $parts = str_replace(array('<dwcescape>', '</dwcescape>'), '', $parts);
+    $parts = str_replace(['<dwcescape>', '</dwcescape>'], '', $parts);
     foreach ($parts as $idx => $part) {
         if ($idx % 2) {
             $parts[$idx] = '<dwcescape>' . base64_encode($part) . '</dwcescape>';
@@ -630,7 +632,7 @@ function protect_script($str)
     return substr($str, 1);
 }
 
-function minifyJS($js)
+function dwcMinifyJS($js)
 {
     global $cacheDir;
 
@@ -641,7 +643,7 @@ function minifyJS($js)
     $cache = new DwcCache($cacheDir . '/inlineJs');
     $md = md5($js[0]);
     $data = $cache->get($md);
-    if ($data === FALSE) {
+    if ($data === false) {
         $comp = new CompJS($js[0]);
         $data = $comp->compressor_function($js[0]);
         $data = protect_script($data);
@@ -651,24 +653,24 @@ function minifyJS($js)
 }
 
 
-function deleteDir($dirPath)
+function dwcDeleteDir($dirPath)
 {
-    if (!is_dir($dirPath)) {
-        return FALSE;
-    }
-    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-        $dirPath .= '/';
-    }
-    $files = glob($dirPath . '*', GLOB_MARK);
-    foreach ($files as $file) {
-        if (is_dir($file)) {
-            deleteDir($file);
+    $content = scandir($dirPath);
+    unset($content[0], $content[1]);
+    foreach ($content as $filename) {
+        if (is_dir($path = $dirPath . '/' . $filename)) {
+            dwcDeleteDir($path);
         } else {
-            unlink($file);
+            unlink($dirPath . '/' . $filename);
         }
     }
+    rmdir($dirPath);
 }
 
-if ($setting['compress'] == TRUE) ob_start('compressor_ob_handler');
-if ($GLOBALS['compressor']['clear'] == TRUE) deleteDir($cacheDir);
+if ($dwcSetting['compress'] == true) {
+    ob_start('compressor_ob_handler');
+}
+if ($GLOBALS['compressor']['clear'] == true) {
+    dwcDeleteDir($cacheDir);
+}
 //////////////////// DO NOT EDIT ABOVE THIS ///////////////////////////////////////////////

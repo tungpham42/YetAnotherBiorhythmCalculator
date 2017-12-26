@@ -1,10 +1,10 @@
 <?php
 $basepath = realpath($_SERVER['DOCUMENT_ROOT']);
 $template_path = $basepath.'/templates/';
-require_once $basepath.'/includes/redirect.inc.php';
-require_once $basepath.'/includes/init.inc.php';
-require_once $basepath.'/includes/template.inc.php';
-//include_once $basepath.'/includes/compressor.inc.php';
+require $basepath.'/includes/redirect.inc.php';
+require $basepath.'/includes/init.inc.php';
+require $basepath.'/includes/template.inc.php';
+//include $basepath.'/includes/compressor.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang_code; ?>">
