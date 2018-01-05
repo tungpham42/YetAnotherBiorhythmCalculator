@@ -12,7 +12,7 @@ require $basepath.'/includes/template.inc.php';
 <?php
 include template('head');
 include template('google_analytics');
-include template('page_level_ads');
+//include template('adsense_top');
 include template('fb_pixel');
 //include template('track');
 if ($hotjar):
@@ -36,9 +36,9 @@ endif;
 if (isset($_SESSION['loggedin'])):
 	include template('toolbar');
 endif;
-if (!is_birthday() && $show_ad):
-	include template('adsense_top');
-endif;
+//if (!is_birthday() && $show_ad):
+//	include template('adsense_top');
+//endif;
 ?>
 	<!-- Start Header -->
 	<header id="header">
@@ -82,13 +82,14 @@ if (!isset($_GET['p']) && $embed == 0 || in_array($p, $navs)):
 		include template('addthis');
 	endif;
 	//if (!is_birthday() && $show_ad):
-	if (!is_birthday()):
+	//if (!is_birthday()):
 		include template('banner_160x600');
-	endif;
+	//endif;
 endif;
 if ($clicktale):
 	include template('clicktale_bottom');
 endif;
+include template('adsense_bottom');
 include template('scripts_bottom');
 //if (is_birthday()):
 //	include template('presents');

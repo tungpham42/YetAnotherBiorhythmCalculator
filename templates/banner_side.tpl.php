@@ -2,7 +2,6 @@
 <?php
 if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs)):
 ?>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- NSH_res -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -22,7 +21,6 @@ endif;
 <?php
 if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs)):
 ?>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- NSH_res -->
 <ins class="adsbygoogle"
      style="display:block"

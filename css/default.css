@@ -5638,7 +5638,8 @@ ins.adsbygoogle {display: inline-block;}
 	width: 728px;
 	height: 15px;
 }
-body.birthday .banner, body.birthday .leader_banner, body.birthday #ads_zone32314 {display: none !important}
+/*body.birthday .banner, body.birthday .leader_banner, body.birthday #ads_zone32314 {display: none !important}*/
+body.birthday .leader_banner, body.birthday #ads_zone32314 {display: none !important}
 .banner.left.w160 {left: 0}
 .banner.right.w160 {right: 0}
 .banner.left.w120 {left: 40px}
