@@ -3443,6 +3443,30 @@ body:lang(ja) #explanation_vi, body:lang(ja) #explanation_en, body:lang(ja) #exp
 #search_submit > i {
 	font-size: 14px;
 }
+body:not(.today) #search_submit {
+	color: white;
+	text-shadow: none;
+	background-color: #4ac;
+	background-image: -moz-linear-gradient(top,#44aacc,#2299bb);
+	background-image: -ms-linear-gradient(top,#44aacc,#2299bb);
+	background-image: -webkit-gradient(linear,0 0,0 100%,from(#44aacc),to(#2299bb));
+	background-image: -webkit-linear-gradient(top,#44aacc,#2299bb);
+	background-image: -o-linear-gradient(top,#44aacc,#2299bb);
+	background-image: linear-gradient(to top,#44aacc,#2299bb);
+	background-repeat: repeat-x;
+}
+body.birthday #search_submit {
+	color: white;
+	text-shadow: none;
+	background-color: #059a37;
+	background-image: -moz-linear-gradient(top,#059a37,#059a37);
+	background-image: -ms-linear-gradient(top,#059a37,#059a37);
+	background-image: -webkit-gradient(linear,0 0,0 100%,from(#059a37),to(#059a37));
+	background-image: -webkit-linear-gradient(top,#059a37,#059a37);
+	background-image: -o-linear-gradient(top,#059a37,#059a37);
+	background-image: linear-gradient(to top,#059a37,#059a37);
+	background-repeat: repeat-x;
+}
 #dob_control_bar {
 	display: block;
 }
