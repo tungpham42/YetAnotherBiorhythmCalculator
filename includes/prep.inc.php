@@ -288,17 +288,17 @@ function substr_word($str,$start,$end): string { //Substract words from content
 		return substr($str,$start,$end_pos);
 	}
 }
-function load_user($uid): array { //Load user array from user ID
+function load_user($uid) { //Load user array from user ID
 	$users = load_array('nsh_users','uid',$uid);
 	sort($users);
 	return $users[0];
 }
-function load_user_from_name($name): array { //Load user array from username
+function load_user_from_name($name) { //Load user array from username
 	$users = load_array('nsh_users','name',$name);
 	sort($users);
 	return $users[0];
 }
-function load_rhythm($rid): array { //Load rhythm array from rhythm ID
+function load_rhythm($rid) { //Load rhythm array from rhythm ID
 	$rhythms = load_array('nsh_rhythms','rid',$rid);
 	sort($rhythms);
 	return $rhythms[0];

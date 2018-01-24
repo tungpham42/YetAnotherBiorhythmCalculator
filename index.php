@@ -11,7 +11,11 @@ require $basepath.'/includes/template.inc.php';
 <head>
 <?php
 include template('head');
-include template('google_analytics');
+if (!isset($_GET['noanal'])):
+	echo "";
+else:
+	include template('google_analytics');
+endif;
 //include template('adsense_top');
 include template('fb_pixel');
 //include template('track');
