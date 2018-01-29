@@ -173,6 +173,10 @@ if (isset($_GET['q']) && $_GET['q'] != "") {
 	$h1 = $span_interfaces['contact'][$lang_code];
 	$title = $span_interfaces['contact'][$lang_code];
 	$body_class = 'contact';
+} else if ($p == 'author') {
+	$h1 = $span_interfaces['author'][$lang_code];
+	$title = $span_interfaces['author'][$lang_code];
+	$body_class = 'author';
 } else if ($p == 'proverbs') {
 	$h1 = $span_interfaces['proverbs'][$lang_code];
 	$title = $span_interfaces['proverbs'][$lang_code];
@@ -257,10 +261,10 @@ if (isset($_GET['q']) && $_GET['q'] != "") {
 	$title = '404 page not found';
 	$body_class = 'not-found';
 }
-if (has_dob() && date('m-d',strtotime($dob)) == date('m-d')) {
-	$h1 = birthday_title();
-	$title = birthday_title();
-}
+//if (has_dob() && date('m-d',strtotime($dob)) == date('m-d')) {
+//	$h1 = birthday_title();
+//	$title = birthday_title();
+//}
 $site_name = site_name();
 $birthday_wish = birthday_wish();
 switch($p) {
@@ -276,5 +280,5 @@ switch($p) {
 	default:
 		$meta_description = (can_wish() ? birthday_title() : $title).((has_dob()) ? ' - '.$chart->render_meta_description(): "").' - '.head_description();
 }
-$head_title = (can_wish() ? birthday_title() : $title).' | '.$site_name;
+$head_title = $title.' | '.$site_name;
 $head_description = can_wish() ? $birthday_wish: $meta_description;
