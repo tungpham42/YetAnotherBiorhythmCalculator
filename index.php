@@ -16,7 +16,7 @@ if (!isset($_GET['noanal'])):
 else:
 	include template('google_analytics');
 endif;
-//include template('adsense_top');
+include template('adsense_top');
 include template('fb_pixel');
 //include template('track');
 if ($hotjar):
