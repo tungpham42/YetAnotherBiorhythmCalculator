@@ -11,7 +11,7 @@ require $basepath.'/includes/template.inc.php';
 <head>
 <?php
 include template('head');
-if (!isset($_GET['noanal'])):
+if (isset($_GET['noanal'])):
 	echo "";
 else:
 	include template('google_analytics');
@@ -95,6 +95,7 @@ if ($clicktale):
 endif;
 include template('adsense_bottom');
 include template('scripts_bottom');
+include template('interstitial_geniee');
 //if (is_birthday()):
 //	include template('presents');
 //else:
