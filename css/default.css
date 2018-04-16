@@ -3486,6 +3486,40 @@ body:lang(zh) #explanation_vi,body:lang(zh) #explanation_en,body:lang(zh) #expla
 body:lang(ja) #explanation_vi,body:lang(ja) #explanation_en,body:lang(ja) #explanation_ru,body:lang(ja) #explanation_es,body:lang(ja) #explanation_zh,body:lang(ja) #introduction_vi,body:lang(ja) #introduction_en,body:lang(ja) #introduction_ru,body:lang(ja) #introduction_es,body:lang(ja) #introduction_zh,body:lang(ja) #android_vi,body:lang(ja) #android_en,body:lang(ja) #android_ru,body:lang(ja) #android_es,body:lang(ja) #android_zh,body:lang(ja) #android_lunar,body:lang(ja) h4.apps.lunar{
     display:none
 }
+.qr_code{
+	display:none;
+	width:200px;
+	height:200px;
+	position:relative;
+	margin:10px auto
+}
+#android_lunar + .qr_code{
+	background:url('/images/qr_lunar.png') no-repeat
+}
+#android + .qr_code{
+	background:url('/images/qr.png') no-repeat
+}
+#android_vi + .qr_code{
+	background:url('/images/qr_vi.png') no-repeat
+}
+#android_en + .qr_code{
+	background:url('/images/qr_en.png') no-repeat
+}
+#android_ru + .qr_code{
+	background:url('/images/qr_ru.png') no-repeat
+}
+#android_es + .qr_code{
+	background:url('/images/qr_es.png') no-repeat
+}
+#android_zh + .qr_code{
+	background:url('/images/qr_zh.png') no-repeat
+}
+#android_ja + .qr_code{
+	background:url('/images/qr_ja.png') no-repeat
+}
+#android + .qr_code,body:lang(vi) #android_lunar + .qr_code,body:lang(vi) #android_vi + .qr_code,body:lang(en) #android_en + .qr_code,body:lang(ru) #android_ru + .qr_code,body:lang(es) #android_es + .qr_code,body:lang(zh) #android_zh + .qr_code,body:lang(ja) #android_ja + .qr_code{
+	display:block
+}
 #search_submit>i{
     font-size:14px
 }

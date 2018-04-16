@@ -9,23 +9,30 @@ if ($ad_position == 1):
 endif;
 ?>
 	<section class="apps">
-		<h3 class="apps">Android</h3>
+		<section class="app">
+			<h4 class="apps lunar">Xem ngày tốt xấu</h4>
+			<a target="_blank" id="android_lunar" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.xemngay"></a>
+			<div class="qr_code"></div>
+		</section>
 		<section class="app">
 			<h4 class="apps lite"><?php echo translate_span('apps_six_lang'); ?></h4>
 			<a target="_blank" id="android" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc"></a>
+			<div class="qr_code"></div>
 		</section>
 		<section class="app">
 			<h4 class="apps one_lang"><?php echo translate_span('apps_one_lang'); ?></h4>
 			<a target="_blank" id="android_vi" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.vi"></a>
+			<div class="qr_code"></div>
 			<a target="_blank" id="android_en" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.en"></a>
+			<div class="qr_code"></div>
 			<a target="_blank" id="android_ru" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.ru"></a>
+			<div class="qr_code"></div>
 			<a target="_blank" id="android_es" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.es"></a>
+			<div class="qr_code"></div>
 			<a target="_blank" id="android_zh" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.zh"></a>
+			<div class="qr_code"></div>
 			<a target="_blank" id="android_ja" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.ja"></a>
-		</section>
-		<section class="app">
-			<h4 class="apps lunar">Xem ngày tốt xấu</h4>
-			<a target="_blank" id="android_lunar" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.xemngay"></a>
+			<div class="qr_code"></div>
 		</section>
 	</section>
 <!--
