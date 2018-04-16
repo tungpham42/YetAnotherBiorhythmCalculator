@@ -18,7 +18,7 @@
 	</div>
 	<div class="left">
 		<h3>Bảo Kim:</h3>
-		<p><a target='_blank' href='https://www.baokim.vn/payment/product/version11?business=tung.42%40gmail.com&amp;id=&amp;order_description=Donate+Nhip+Sinh+Hoc+.+VN+to+maintain+server&amp;product_name=Donate+Nhip+Sinh+Hoc+.+VN&amp;product_price=20000&amp;product_quantity=1&amp;total_amount=20000&amp;url_cancel=&amp;url_detail=&amp;url_success=http%3A%2F%2Fnhipsinhhoc.vn%2F%3Fp%3Dxin-cam-on'><img src='http://www.baokim.vn/developers/uploads/baokim_btn/thanhtoanantoan-l.png' alt='Thanh toán an toàn với Bảo Kim !' border='0' title='Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn' ></a></p>
+		<p><a target='_blank' href='https://www.baokim.vn/payment/product/version11?business=tung.42%40gmail.com&amp;id=&amp;order_description=Donate+Nhip+Sinh+Hoc+.+VN+to+maintain+server&amp;product_name=Donate+Nhip+Sinh+Hoc+.+VN&amp;product_price=20000&amp;product_quantity=1&amp;total_amount=20000&amp;url_cancel=&amp;url_detail=&amp;url_success=http%3A%2F%2Fnhipsinhhoc.vn%2F%3Fp%3Dxin-cam-on'><img src='https://www.baokim.vn/developers/uploads/baokim_btn/thanhtoanantoan-l.png' alt='Thanh toán an toàn với Bảo Kim !' border='0' title='Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn' ></a></p>
 	</div>
 	<div class="left">
 		<h3>Ngân Lượng:</h3>
@@ -33,7 +33,4 @@
 	<p class="left"><a class="m-btn green" target="_blank" href="https://www.paypal.me/tungpham42/20">20 USD</a></p>
 	<p class="left"><a class="m-btn green" target="_blank" href="https://www.paypal.me/tungpham42/50">50 USD</a></p>
 	<p class="left"><a class="m-btn green" target="_blank" href="https://www.paypal.me/tungpham42/100">100 USD</a></p>
-</div>
-<div class="left clear">
-	<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_7.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
 </div>

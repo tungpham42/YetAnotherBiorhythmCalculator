@@ -1,11 +1,11 @@
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "WebSite",
-	"url": "http://nhipsinhhoc.vn/",
+	"url": "https://nhipsinhhoc.vn/",
 	"potentialAction": {
 		"@type": "SearchAction",
-		"target": "http://nhipsinhhoc.vn/?q={search_term_string}",
+		"target": "https://nhipsinhhoc.vn/?q={search_term_string}",
 		"query-input": "required name=search_term_string"
 	}
 }

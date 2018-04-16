@@ -1,7 +1,8 @@
 <?php
 $basepath = realpath($_SERVER['DOCUMENT_ROOT']);
 $template_path = $basepath.'/templates/';
-require $basepath.'/includes/redirect.inc.php';
+//require $basepath.'/includes/redirect.inc.php';
+require $basepath.'/includes/header.inc.php';
 require $basepath.'/includes/init.inc.php';
 require $basepath.'/includes/template.inc.php';
 //include $basepath.'/includes/compressor.inc.php';

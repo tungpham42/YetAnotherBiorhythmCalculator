@@ -1,5 +1,5 @@
 /**
- * @license Highcharts JS v6.0.2 (2017-10-20)
+ * @license Highcharts JS v6.0.7 (2018-02-16)
  *
  * (c) 2014 Highsoft AS
  * Authors: Jon Arild Nygard / Oystein Moseng
@@ -17,13 +17,18 @@
     var result = (function(H) {
         var each = H.each,
             extend = H.extend,
+            isArray = H.isArray,
             isBoolean = function(x) {
                 return typeof x === 'boolean';
             },
             isFn = function(x) {
                 return typeof x === 'function';
             },
-            pick = H.pick;
+            isObject = H.isObject,
+            isNumber = H.isNumber,
+            merge = H.merge,
+            pick = H.pick,
+            reduce = H.reduce;
         // TODO Combine buildTree and buildNode with setTreeValues
         // TODO Remove logic from Treemap and make it utilize this mixin.
         var setTreeValues = function setTreeValues(tree, options) {
@@ -81,7 +86,7 @@
 
         var getColor = function getColor(node, options) {
             var index = options.index,
-                levelMap = options.levelMap,
+                mapOptionsToLevel = options.mapOptionsToLevel,
                 parentColor = options.parentColor,
                 parentColorIndex = options.parentColorIndex,
                 series = options.series,
@@ -92,6 +97,7 @@
                 point,
                 level,
                 colorByPoint,
+                colorIndexByPoint,
                 color,
                 colorIndex;
 
@@ -110,29 +116,22 @@
 
             if (node) {
                 point = points[node.i];
-                level = levelMap[node.levelDynamic] || {};
-                getColorByPoint = (
-                    point &&
-                    (
-                        isBoolean(level.colorByPoint) ?
-                        level.colorByPoint :
-                        !!series.options.colorByPoint
-                    )
-                );
+                level = mapOptionsToLevel[node.level] || {};
+                getColorByPoint = point && level.colorByPoint;
+
                 if (getColorByPoint) {
-                    colorByPoint = colors[(point.index % colors.length)];
+                    colorIndexByPoint = point.index % (colors ?
+                        colors.length :
+                        series.chart.options.chart.colorCount
+                    );
+                    colorByPoint = colors && colors[colorIndexByPoint];
                 }
-                // Select either point color, level color or inherited color.
-                color = pick(
-                    point && point.options.color,
-                    level && level.color,
-                    colorByPoint,
-                    parentColor && variation(parentColor),
-                    series.color
-                );
+
+
                 colorIndex = pick(
                     point && point.options.colorIndex,
                     level && level.colorIndex,
+                    colorIndexByPoint,
                     parentColorIndex,
                     options.colorIndex
                 );
@@ -143,8 +142,72 @@
             };
         };
 
+        /**
+         * getLevelOptions - Creates a map from level number to its given options.
+         * @param {Object} params Object containing parameters.
+         * @param {Object} params.defaults Object containing default options. The
+         * default options are merged with the userOptions to get the final options for
+         * a specific level.
+         * @param {Number} params.from The lowest level number.
+         * @param {Array} params.levels User options from series.levels.
+         * @param {Number} params.to The highest level number.
+         * @return {null|Object} Returns a map from level number to its given options.
+         * Returns null if invalid input parameters.
+         */
+        var getLevelOptions = function getLevelOptions(params) {
+            var result = null,
+                defaults,
+                converted,
+                i,
+                from,
+                to,
+                levels;
+            if (isObject(params)) {
+                result = {};
+                from = isNumber(params.from) ? params.from : 1;
+                levels = params.levels;
+                converted = {};
+                defaults = isObject(params.defaults) ? params.defaults : {};
+                if (isArray(levels)) {
+                    converted = reduce(levels, function(obj, item) {
+                        var level,
+                            levelIsConstant,
+                            options;
+                        if (isObject(item) && isNumber(item.level)) {
+                            options = merge({}, item);
+                            levelIsConstant = (
+                                isBoolean(options.levelIsConstant) ?
+                                options.levelIsConstant :
+                                defaults.levelIsConstant
+                            );
+                            // Delete redundant properties.
+                            delete options.levelIsConstant;
+                            delete options.level;
+                            // Calculate which level these options apply to.
+                            level = item.level + (levelIsConstant ? 0 : from - 1);
+                            if (isObject(obj[level])) {
+                                extend(obj[level], options);
+                            } else {
+                                obj[level] = options;
+                            }
+                        }
+                        return obj;
+                    }, {});
+                }
+                to = isNumber(params.to) ? params.to : 1;
+                for (i = 0; i <= to; i++) {
+                    result[i] = merge({},
+                        defaults,
+                        isObject(converted[i]) ? converted[i] : {}
+                    );
+                }
+            }
+            return result;
+        };
+
         var result = {
             getColor: getColor,
+            getLevelOptions: getLevelOptions,
             setTreeValues: setTreeValues
         };
         return result;
@@ -156,6 +219,7 @@
          *
          * License: www.highcharts.com/license
          */
+        /* eslint max-len: 0 */
 
         var seriesType = H.seriesType,
             seriesTypes = H.seriesTypes,
@@ -165,11 +229,13 @@
             noop = H.noop,
             each = H.each,
             getColor = mixinTreeSeries.getColor,
+            getLevelOptions = mixinTreeSeries.getLevelOptions,
             grep = H.grep,
             isBoolean = function(x) {
                 return typeof x === 'boolean';
             },
             isNumber = H.isNumber,
+            isObject = H.isObject,
             isString = H.isString,
             pick = H.pick,
             Series = H.Series,
@@ -182,7 +248,7 @@
                 });
             },
             reduce = H.reduce,
-            // @todo find correct name for this function. 
+            // @todo find correct name for this function.
             // @todo Similar to reduce, this function is likely redundant
             recursive = function(item, func, context) {
                 var next;
@@ -198,7 +264,7 @@
          * laid out in varying ways depending on options.
          *
          * @sample highcharts/demo/treemap-large-dataset/ Treemap
-         * 
+         *
          * @extends {plotOptions.scatter}
          * @excluding marker
          * @product highcharts
@@ -209,7 +275,7 @@
             /**
              * When enabled the user can click on a point which is a parent and
              * zoom in on its children.
-             * 
+             *
              * @type {Boolean}
              * @sample {highcharts} highcharts/plotoptions/treemap-allowdrilltonode/ Enabled
              * @default false
@@ -227,7 +293,7 @@
              * crop threshold, the series data is cropped to only contain points
              * that fall within the plot area. The advantage of cropping away invisible
              * points is to increase performance on large series.
-             * 
+             *
              * @type {Number}
              * @default 300
              * @since 4.1.0
@@ -240,7 +306,7 @@
              * or just the leaf nodes. When this option is undefined, it will be
              * true by default. However when allowDrillToNode is true, then it will
              * be false by default.
-             * 
+             *
              * @type {Boolean}
              * @sample {highcharts} highcharts/plotoptions/treemap-interactbyleaf-false/ False
              * @sample {highcharts} highcharts/plotoptions/treemap-interactbyleaf-true-and-allowdrilltonode/ InteractByLeaf and allowDrillToNode is true
@@ -251,7 +317,7 @@
 
             /**
              * The sort index of the point inside the treemap level.
-             * 
+             *
              * @type {Number}
              * @sample {highcharts} highcharts/plotoptions/treemap-sortindex/ Sort by years
              * @since 4.1.10
@@ -260,9 +326,31 @@
              */
 
             /**
+             * When using automatic point colors pulled from the `options.colors`
+             * collection, this option determines whether the chart should receive
+             * one color per series or one color per point.
+             *
+             * @type {Boolean}
+             * @see [series colors](#plotOptions.treemap.colors)
+             * @default false
+             * @since 2.0
+             * @apioption plotOptions.treemap.colorByPoint
+             */
+
+            /**
+             * A series specific or series type specific color set to apply instead
+             * of the global [colors](#colors) when [colorByPoint](#plotOptions.
+             * treemap.colorByPoint) is true.
+             *
+             * @type {Array<Color>}
+             * @since 3.0
+             * @apioption plotOptions.treemap.colors
+             */
+
+            /**
              * Whether to display this series type or specific series item in the
              * legend.
-             * 
+             *
              * @type {Boolean}
              * @default false
              * @product highcharts
@@ -273,7 +361,7 @@
              * @ignore
              */
             marker: false,
-
+            colorByPoint: false,
             /**
              * @extends plotOptions.heatmap.dataLabels
              * @since 4.1.0
@@ -297,7 +385,7 @@
             /**
              * Whether to ignore hidden points when the layout algorithm runs.
              * If `false`, hidden points will leave open spaces.
-             * 
+             *
              * @type {Boolean}
              * @default true
              * @since 5.0.8
@@ -309,7 +397,7 @@
              * This option decides which algorithm is used for setting position
              * and dimensions of the points. Can be one of `sliceAndDice`, `stripes`,
              *  `squarified` or `strip`.
-             * 
+             *
              * @validvalue ["sliceAndDice", "stripes", "squarified", "strip"]
              * @type {String}
              * @see [How to write your own algorithm](http://www.highcharts.com/docs/chart-
@@ -327,7 +415,7 @@
             /**
              * Defines which direction the layout algorithm will start drawing.
              *  Possible values are "vertical" and "horizontal".
-             * 
+             *
              * @validvalue ["vertical", "horizontal"]
              * @type {String}
              * @default vertical
@@ -340,7 +428,7 @@
              * Enabling this option will make the treemap alternate the drawing
              * direction between vertical and horizontal. The next levels starting
              * direction will always be the opposite of the previous.
-             * 
+             *
              * @type {Boolean}
              * @sample {highcharts} highcharts/plotoptions/treemap-alternatestartingdirection-true/ Enabled
              * @default false
@@ -354,7 +442,7 @@
              * set to false the first level visible when drilling is considered
              * to be level one. Otherwise the level will be the same as the tree
              * structure.
-             * 
+             *
              * @type {Boolean}
              * @default true
              * @since 4.1.0
@@ -373,6 +461,14 @@
                 position: {
 
                     /**
+                     * Vertical alignment of the button.
+                     *
+                     * @default top
+                     * @validvalue ["top", "middle", "bottom"]
+                     * @apioption plotOptions.treemap.drillUpButton.position.verticalAlign
+                     */
+
+                    /**
                      * Horizontal alignment of the button.
                      * @validvalue ["left", "center", "right"]
                      */
@@ -389,23 +485,14 @@
                      * Vertical offset of the button.
                      */
                     y: 10
-
-                    /**
-                     * Vertical alignment of the button.
-                     *
-                     * @default top
-                     * @validvalue ["top", "middle", "bottom"]
-                     * @apioption plotOptions.treemap.drillUpButton.position.verticalAlign
-                     */
                 }
             },
-
 
 
             /**
              * Set options on specific levels. Takes precedence over series options,
              * but not point options.
-             * 
+             *
              * @type {Array<Object>}
              * @sample {highcharts} highcharts/plotoptions/treemap-levels/
              *         Styling dataLabels and borders
@@ -418,7 +505,7 @@
 
             /**
              * Can set a `borderColor` on all points which lies on the same level.
-             * 
+             *
              * @type {Color}
              * @since 4.1.0
              * @product highcharts
@@ -429,7 +516,7 @@
              * Set the dash style of the border of all the point which lies on the
              * level. See <a href"#plotoptions.scatter.dashstyle">
              * plotOptions.scatter.dashStyle</a> for possible options.
-             * 
+             *
              * @type {String}
              * @since 4.1.0
              * @product highcharts
@@ -438,7 +525,7 @@
 
             /**
              * Can set the borderWidth on all points which lies on the same level.
-             * 
+             *
              * @type {Number}
              * @since 4.1.0
              * @product highcharts
@@ -447,7 +534,7 @@
 
             /**
              * Can set a color on all points which lies on the same level.
-             * 
+             *
              * @type {Color}
              * @since 4.1.0
              * @product highcharts
@@ -462,7 +549,7 @@
              * set in the `to` setting on the last node. This allows a gradient-like
              * color scheme that sets children out from each other while highlighting
              * the grouping on treemaps and sectors on sunburst charts.
-             * 
+             *
              * @type {Object}
              * @sample highcharts/demo/sunburst/ Sunburst with color variation
              * @since 6.0.0
@@ -472,7 +559,7 @@
 
             /**
              * The key of a color variation. Currently supports `brightness` only.
-             *  
+             *
              * @type {String}
              * @validvalue ["brightness"]
              * @since 6.0.0
@@ -483,7 +570,7 @@
             /**
              * The ending value of a color variation. The last sibling will receive this
              * value.
-             *  
+             *
              * @type {Number}
              * @since 6.0.0
              * @product highcharts
@@ -494,7 +581,7 @@
              * Can set the options of dataLabels on each point which lies on the
              * level. [plotOptions.treemap.dataLabels](#plotOptions.treemap.dataLabels)
              * for possible values.
-             * 
+             *
              * @type {Object}
              * @default undefined
              * @since 4.1.0
@@ -504,7 +591,7 @@
 
             /**
              * Can set the layoutAlgorithm option on a specific level.
-             * 
+             *
              * @validvalue ["sliceAndDice", "stripes", "squarified", "strip"]
              * @type {String}
              * @since 4.1.0
@@ -514,7 +601,7 @@
 
             /**
              * Can set the layoutStartingDirection option on a specific level.
-             * 
+             *
              * @validvalue ["vertical", "horizontal"]
              * @type {String}
              * @since 4.1.0
@@ -525,7 +612,7 @@
             /**
              * Decides which level takes effect from the options set in the levels
              * object.
-             * 
+             *
              * @type {Number}
              * @sample {highcharts} highcharts/plotoptions/treemap-levels/
              *         Styling of both levels
@@ -533,6 +620,11 @@
              * @product highcharts
              * @apioption plotOptions.treemap.levels.level
              */
+
+
+
+
+
 
             // Prototype members
         }, {
@@ -683,7 +775,8 @@
             calculateChildrenAreas: function(parent, area) {
                 var series = this,
                     options = series.options,
-                    level = this.levelMap[parent.levelDynamic + 1],
+                    mapOptionsToLevel = series.mapOptionsToLevel,
+                    level = mapOptionsToLevel[parent.level + 1],
                     algorithm = pick((series[level && level.layoutAlgorithm] && level.layoutAlgorithm), options.layoutAlgorithm),
                     alternate = options.alternateStartingDirection,
                     childrenValues = [],
@@ -767,7 +860,7 @@
                     colorInfo = getColor(node, {
                         colors: colors,
                         index: index,
-                        levelMap: series.levelMap,
+                        mapOptionsToLevel: series.mapOptionsToLevel,
                         parentColor: parentColor,
                         parentColorIndex: colorIndex,
                         series: series,
@@ -989,6 +1082,7 @@
             },
             translate: function() {
                 var series = this,
+                    options = series.options,
                     rootId = series.rootNode = pick(series.rootNode, series.options.rootId, ''),
                     rootNode,
                     pointValues,
@@ -998,14 +1092,17 @@
 
                 // Call prototype function
                 Series.prototype.translate.call(series);
-                // Create a object map from level to options
-                series.levelMap = reduce(series.options.levels || [],
-                    function(arr, item) {
-                        arr[item.level] = item;
-                        return arr;
-                    }, {});
                 tree = series.tree = series.getTree(); // @todo Only if series.isDirtyData is true
                 rootNode = series.nodeMap[rootId];
+                series.mapOptionsToLevel = getLevelOptions({
+                    from: rootNode.level + 1,
+                    levels: options.levels,
+                    to: tree.height,
+                    defaults: {
+                        levelIsConstant: series.options.levelIsConstant,
+                        colorByPoint: options.colorByPoint
+                    }
+                });
                 if (
                     rootId !== '' &&
                     (!rootNode || !rootNode.children.length)
@@ -1047,7 +1144,7 @@
                 };
                 series.nodeMap[''].values = seriesArea = merge(pointValues, {
                     width: (pointValues.width * series.axisRatio),
-                    direction: (series.options.layoutStartingDirection === 'vertical' ? 0 : 1),
+                    direction: (options.layoutStartingDirection === 'vertical' ? 0 : 1),
                     val: tree.val
                 });
                 series.calculateChildrenAreas(tree, seriesArea);
@@ -1055,12 +1152,12 @@
                 // Logic for point colors
                 if (series.colorAxis) {
                     series.translateColors();
-                } else if (!series.options.colorByPoint) {
+                } else if (!options.colorByPoint) {
                     series.setColorRecursive(series.tree);
                 }
 
                 // Update axis extremes according to the root node.
-                if (series.options.allowDrillToNode) {
+                if (options.allowDrillToNode) {
                     val = rootNode.pointValues;
                     series.xAxis.setExtremes(val.x, val.x + val.width, false);
                     series.yAxis.setExtremes(val.y, val.y + val.height, false);
@@ -1079,13 +1176,14 @@
              */
             drawDataLabels: function() {
                 var series = this,
+                    mapOptionsToLevel = series.mapOptionsToLevel,
                     points = grep(series.points, function(n) {
                         return n.node.visible;
                     }),
                     options,
                     level;
                 each(points, function(point) {
-                    level = series.levelMap[point.node.levelDynamic];
+                    level = mapOptionsToLevel[point.node.level];
                     // Set options to new object to avoid problems with scope
                     options = {
                         style: {}
@@ -1163,12 +1261,14 @@
                 // attribute.
                 if (this.colorAttribs) { // Heatmap is loaded
                     each(this.points, function(point) {
-                        point.graphic.css(this.colorAttribs(point));
+                        if (point.graphic) {
+                            point.graphic.css(this.colorAttribs(point));
+                        }
                     }, this);
                 }
 
 
-                // If drillToNode is allowed, set a point cursor on clickables & add drillId to point 
+                // If drillToNode is allowed, set a point cursor on clickables & add drillId to point
                 if (series.options.allowDrillToNode) {
                     each(points, function(point) {
                         if (point.graphic) {
@@ -1184,7 +1284,7 @@
                 var series = this,
                     point = event.point,
                     drillId = point && point.drillId;
-                // If a drill id is returned, add click event and cursor. 
+                // If a drill id is returned, add click event and cursor.
                 if (isString(drillId)) {
                     point.setState(''); // Remove hover
                     series.drillToNode(drillId);
@@ -1273,6 +1373,7 @@
                             states && states.hover,
                             states && states.select
                         )
+                        .addClass('highcharts-drillup-button')
                         .attr({
                             align: buttonOptions.position.align,
                             zIndex: 7
@@ -1280,6 +1381,7 @@
                         .add()
                         .align(buttonOptions.position, false, buttonOptions.relativeTo || 'plotBox');
                 } else {
+                    this.drillUpButton.placed = false;
                     this.drillUpButton.attr({
                             text: backText
                         })
@@ -1366,12 +1468,12 @@
         /**
          * A `treemap` series. If the [type](#series.treemap.type) option is
          * not specified, it is inherited from [chart.type](#chart.type).
-         * 
+         *
          * For options that apply to multiple series, it is recommended to add
          * them to the [plotOptions.series](#plotOptions.series) options structure.
          * To apply to all series of this specific type, apply it to [plotOptions.
          * treemap](#plotOptions.treemap).
-         * 
+         *
          * @type {Object}
          * @extends series,plotOptions.treemap
          * @excluding dataParser,dataURL,stack
@@ -1382,19 +1484,19 @@
         /**
          * An array of data points for the series. For the `treemap` series
          * type, points can be given in the following ways:
-         * 
+         *
          * 1.  An array of numerical values. In this case, the numerical values
          * will be interpreted as `value` options. Example:
-         * 
+         *
          *  ```js
          *  data: [0, 5, 3, 5]
          *  ```
-         * 
+         *
          * 2.  An array of objects with named values. The objects are point
          * configuration objects as seen below. If the total number of data
          * points exceeds the series' [turboThreshold](#series.treemap.turboThreshold),
          * this option is not available.
-         * 
+         *
          *  ```js
          *     data: [{
          *         value: 9,
@@ -1406,15 +1508,20 @@
          *         color: "#FF00FF"
          *     }]
          *  ```
-         * 
+         *
          * @type {Array<Object|Number>}
          * @extends series.heatmap.data
          * @excluding x,y
-         * @sample {highcharts} highcharts/chart/reflow-true/ Numerical values
-         * @sample {highcharts} highcharts/series/data-array-of-arrays/ Arrays of numeric x and y
-         * @sample {highcharts} highcharts/series/data-array-of-arrays-datetime/ Arrays of datetime x and y
-         * @sample {highcharts} highcharts/series/data-array-of-name-value/ Arrays of point.name and y
-         * @sample {highcharts} highcharts/series/data-array-of-objects/ Config objects
+         * @sample {highcharts} highcharts/chart/reflow-true/
+         *         Numerical values
+         * @sample {highcharts} highcharts/series/data-array-of-arrays/
+         *         Arrays of numeric x and y
+         * @sample {highcharts} highcharts/series/data-array-of-arrays-datetime/
+         *         Arrays of datetime x and y
+         * @sample {highcharts} highcharts/series/data-array-of-name-value/
+         *         Arrays of point.name and y
+         * @sample {highcharts} highcharts/series/data-array-of-objects/
+         *         Config objects    
          * @product highcharts
          * @apioption series.treemap.data
          */
@@ -1422,7 +1529,7 @@
         /**
          * The value of the point, resulting in a relative area of the point
          * in the treemap.
-         * 
+         *
          * @type {Number}
          * @product highcharts
          * @apioption series.treemap.data.value
@@ -1432,7 +1539,7 @@
          * Serves a purpose only if a `colorAxis` object is defined in the chart
          * options. This value will decide which color the point gets from the
          * scale of the colorAxis.
-         * 
+         *
          * @type {Number}
          * @default undefined
          * @since 4.1.0
@@ -1445,7 +1552,7 @@
          * value should be the id of the point which is the parent. If no points
          * has a matching id, or this option is undefined, then the parent will
          * be set to the root.
-         * 
+         *
          * @type {String}
          * @sample {highcharts} highcharts/point/parent/ Point parent
          * @sample {highcharts} highcharts/demo/treemap-with-levels/ Example where parent id is not matching

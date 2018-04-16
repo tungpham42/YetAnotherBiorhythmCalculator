@@ -5,10 +5,10 @@
 	"version": "1.0",
 	"app": {
 		"urls": [
-			"http://nhipsinhhoc.vn/"
+			"https://nhipsinhhoc.vn/"
 		],
 		"launch": {
-			"web_url": "http://nhipsinhhoc.vn/?lang=en"
+			"web_url": "https://nhipsinhhoc.vn/?lang=en"
 		}
 	},
 	"icons": {

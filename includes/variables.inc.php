@@ -54,8 +54,8 @@ $hotjar = false;
 $clicktale = false;
 $smartlook = true;
 $credential_id = 3; //change this to 4 in DEMO
-//$cdn_url = 'http://nhipsinhhoc.cdn.vccloud.vn';
-$cdn_url = "";
+//$cdn_url = 'https://nhipsinhhoc.cdn.vccloud.vn';
+$cdn_url = "https://cdn.nhipsinhhoc.vn";
 $number = calculate_life_path($dob);
 if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['is_secondary']) && isset($_GET['dt_change']) && isset($_GET['partner_dob']) && isset($_GET['lang_code'])) {
 	$chart = new Chart($_GET['dob'],$_GET['diff'],$_GET['is_secondary'],$_GET['dt_change'],$_GET['partner_dob'],$_GET['lang_code']);
@@ -78,7 +78,7 @@ $email_credentials = array(
 	'password' => '@DM!Nv0d0i'
 );
 $faroo_key = 'kc5BZXhbMCj0@lx0TEVOiHNvSok_';
-$clickbank = '<a href="http://tungpham42.15manifest.hop.clickbank.net"><img src="http://maxcdn.15minutemanifestation.com/affiliates/images/300x250.jpg"></a>';
+$clickbank = '<a href="https://tungpham42.15manifest.hop.clickbank.net"><img src="https://maxcdn.15minutemanifestation.com/affiliates/images/300x250.jpg"></a>';
 $input_interfaces = array(
 	'search' => array(
 		'vi' => 'Tìm kiếm',
@@ -469,12 +469,12 @@ $span_interfaces = array(
 		'ja' => '<h2>前書き</h2><p>私は現在、PHPプログラマーである范松です。</p>'
 	),
 	'author_projects' => array(
-		'vi' => '<h2>Các dự án</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">bấm vào đây</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">bấm vào đây</a></li></ol>',
-		'en' => '<h2>Projects</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">click here</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">click here</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">click here</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">click here</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">click here</a></li></ol>',
-		'ru' => '<h2>Проектов</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">кликните сюда</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">кликните сюда</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">кликните сюда</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">кликните сюда</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">кликните сюда</a></li></ol>',
-		'es' => '<h2>Proyectos</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">haga clic aquí</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">haga clic aquí</a></li></ol>',
-		'zh' => '<h2>项目</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">点击这里</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">点击这里</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">点击这里</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">点击这里</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">点击这里</a></li></ol>',
-		'ja' => '<h2>プロジェクト</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">ここをクリック</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">ここをクリック</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">ここをクリック</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">ここをクリック</a></li><li>Cung Rao . NET -> <a href="http://cungrao.net\/">ここをクリック</a></li></ol>'
+		'vi' => '<h2>Các dự án</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">bấm vào đây</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">bấm vào đây</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">bấm vào đây</a></li></ol>',
+		'en' => '<h2>Projects</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">click here</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">click here</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">click here</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">click here</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">click here</a></li></ol>',
+		'ru' => '<h2>Проектов</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">кликните сюда</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">кликните сюда</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">кликните сюда</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">кликните сюда</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">кликните сюда</a></li></ol>',
+		'es' => '<h2>Proyectos</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">haga clic aquí</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">haga clic aquí</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">haga clic aquí</a></li></ol>',
+		'zh' => '<h2>项目</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">点击这里</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">点击这里</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">点击这里</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">点击这里</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">点击这里</a></li></ol>',
+		'ja' => '<h2>プロジェクト</h2><ol><li>Nhip Sinh Hoc . VN -> <a href="\/">ここをクリック</a></li><li>Nhip Sinh Hoc Blog -> <a href="\/blog\/">ここをクリック</a></li><li>Nhip Sinh Hoc Wiki -> <a href="\/wiki\/">ここをクリック</a></li><li>Nhip Sinh Hoc Quiz -> <a href="\/quiz\/">ここをクリック</a></li><li>Cung Rao . NET -> <a href="https://cungrao.net\/">ここをクリック</a></li></ol>'
 	),
 	'list_user_same_birthday_links' => array(
 		'vi' => 'Những người trùng ngày sinh với tôi',
@@ -1421,20 +1421,20 @@ $help_interfaces = array(
 		'ja' => 'バイオリズム（英: biorhythm）とは、「生命」を意味する bio-（バイオ）と「規則的な運動」を意味する rhythm（リズム）の合成語で、生命体の生理状態、感情、知性などは周期的パターンに沿って変化するという仮説、およびそれを図示したグラフである。'
 	),
 	'wiki' => array(
-		'vi' => 'http://vi.wikipedia.org/wiki/Nh%E1%BB%8Bp_sinh_h%E1%BB%8Dc',
-		'en' => 'http://en.wikipedia.org/wiki/Biorhythm',
+		'vi' => 'https://vi.wikipedia.org/wiki/Nh%E1%BB%8Bp_sinh_h%E1%BB%8Dc',
+		'en' => 'https://en.wikipedia.org/wiki/Biorhythm',
 		'ru' => 'https://ru.wikipedia.org/wiki/%D0%91%D0%B8%D0%BE%D1%80%D0%B8%D1%82%D0%BC',
-		'es' => 'http://es.wikipedia.org/wiki/Biorritmo',
-		'zh' => 'http://zh.wikipedia.org/wiki/%E7%94%9F%E7%90%86%E8%8A%82%E5%BE%8B',
-		'ja' => 'http://ja.wikipedia.org/wiki/%E3%83%90%E3%82%A4%E3%82%AA%E3%83%AA%E3%82%BA%E3%83%A0'
+		'es' => 'https://es.wikipedia.org/wiki/Biorritmo',
+		'zh' => 'https://zh.wikipedia.org/wiki/%E7%94%9F%E7%90%86%E8%8A%82%E5%BE%8B',
+		'ja' => 'https://ja.wikipedia.org/wiki/%E3%83%90%E3%82%A4%E3%82%AA%E3%83%AA%E3%82%BA%E3%83%A0'
 	),
 	'life_path_number_prefix' => array(
-		'vi' => 'http://nhipsinhhoc.vn/wiki/Con_s%E1%BB%91_cu%E1%BB%99c_%C4%91%E1%BB%9Di_',
-		'en' => 'http://www.astrology-numerology.com/num-lifepath.html#lp',
-		'ru' => 'http://www.astroland.ru/numerology/lw/lifeway',
-		'es' => 'http://www.horoscopius.es/numerologia/perfil-numerologico-para-el-numero-',
-		'zh' => 'http://nhipsinhhoc.vn/blog/life-path-number-',
-		'ja' => 'http://www.heavenlyblue.jp/num/'
+		'vi' => 'https://nhipsinhhoc.vn/wiki/Con_s%E1%BB%91_cu%E1%BB%99c_%C4%91%E1%BB%9Di_',
+		'en' => 'https://www.astrology-numerology.com/num-lifepath.html#lp',
+		'ru' => 'https://www.astroland.ru/numerology/lw/lifeway',
+		'es' => 'https://www.horoscopius.es/numerologia/perfil-numerologico-para-el-numero-',
+		'zh' => 'https://nhipsinhhoc.vn/blog/life-path-number-',
+		'ja' => 'https://www.heavenlyblue.jp/num/'
 	),
 	'life_path_number_suffix' => array(
 		'vi' => '',

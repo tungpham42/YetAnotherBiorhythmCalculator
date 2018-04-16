@@ -1,5 +1,5 @@
 /**
- * @license  Highcharts JS v6.0.2 (2017-10-20)
+ * @license  Highcharts JS v6.0.7 (2018-02-16)
  *
  * Support for parallel coordinates in Highcharts
  *
@@ -23,7 +23,7 @@
          *
          * License: www.highcharts.com/license
          */
-        /* eslint max-len: ["warn", 80, 4] */
+
 
         /**
          * Extensions for parallel coordinates plot.
@@ -137,7 +137,7 @@
         /**
          * Initialize parallelCoordinates
          */
-        wrap(ChartProto, 'init', function(proceed, options) {
+        wrap(ChartProto, 'init', function(proceed, options, callback) {
             var defaultyAxis = splat(options.yAxis || {}),
                 yAxisLength = defaultyAxis.length,
                 newYAxes = [];
@@ -186,7 +186,7 @@
                 );
             }
 
-            return proceed.call(this, options);
+            return proceed.call(this, options, callback);
         });
 
         /**
@@ -294,7 +294,7 @@
          * - using series.points instead of series.yData
          */
         wrap(AxisProto, 'getSeriesExtremes', function(proceed) {
-            if (this.chart.hasParallelCoordinates && !this.isXAxis) {
+            if (this.chart && this.chart.hasParallelCoordinates && !this.isXAxis) {
                 var index = this.parallelPosition,
                     currentPoints = [];
                 each(this.series, function(series) {
@@ -415,14 +415,18 @@
         });
 
         function addFormattedValue(proceed) {
-            var chart = this.series.chart,
+            var chart = this.series && this.series.chart,
                 config = proceed.apply(this, Array.prototype.slice.call(arguments, 1)),
                 formattedValue,
                 yAxisOptions,
                 labelFormat,
                 yAxis;
 
-            if (chart.hasParallelCoordinates && !defined(config.formattedValue)) {
+            if (
+                chart &&
+                chart.hasParallelCoordinates &&
+                !defined(config.formattedValue)
+            ) {
                 yAxis = chart.yAxis[this.x];
                 yAxisOptions = yAxis.options;
 
@@ -461,10 +465,11 @@
                             this, {
                                 value: this.y
                             }
-                        )
+                        ),
+                        chart.time
                     );
                 } else if (yAxis.isDatetimeAxis) {
-                    formattedValue = H.dateFormat(
+                    formattedValue = chart.time.dateFormat(
                         yAxisOptions.dateTimeLabelFormats[
                             yAxis.tickPositions.info.unitName
                         ],

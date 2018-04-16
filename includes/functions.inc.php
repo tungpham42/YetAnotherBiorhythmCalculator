@@ -899,11 +899,11 @@ function current_url(): string { //Get current page URL
 		if ($_SERVER['HTTPS'] == 'on') {$page_url .= 's';}
 	}
 	$page_url .= '://';
-	if ($_SERVER['SERVER_PORT'] != '80') {
-		$page_url .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
-	} else {
+//	if ($_SERVER['SERVER_PORT'] != '80') {
+//		$page_url .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
+//	} else {
 		$page_url .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-	}
+//	}
 	return $page_url;
 }
 function current_url_lang($lang): string {

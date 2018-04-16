@@ -1,1 +1,1 @@
-<a id="alexa" target="_blank" href="http://www.alexa.com/siteinfo/<?php echo $_SERVER['HTTP_HOST']; ?>"><script src="http://xslt.alexa.com/site_stats/js/s/a?url=<?php echo $_SERVER['HTTP_HOST']; ?>"></script></a>
+<a id="alexa" target="_blank" href="https://www.alexa.com/siteinfo/<?php echo $_SERVER['HTTP_HOST']; ?>"><script src="https://xslt.alexa.com/site_stats/js/s/a?url=<?php echo $_SERVER['HTTP_HOST']; ?>"></script></a>

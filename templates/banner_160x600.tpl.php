@@ -9,11 +9,7 @@ if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs
      data-ad-slot="9519248888"></ins>
 <?php
 else:
-?>
-<center>
-<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_1.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
-</center>
-<?php
+	echo "";
 endif;
 ?>
 </div>
@@ -28,11 +24,7 @@ if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs
      data-ad-slot="9519248888"></ins>
 <?php
 else:
-?>
-<center>
-<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_1.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
-</center>
-<?php
+	echo "";
 endif;
 ?>
 </div>

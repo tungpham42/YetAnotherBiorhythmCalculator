@@ -1,7 +1,7 @@
 <!--<script src="<?php echo $cdn_url; ?>/min/b=js&amp;f=angular/angular.min.js,lunar.js&amp;2"></script>-->
 <script src="<?php echo $cdn_url; ?>/js/angular/angular.min.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/lunar.js"></script>
-<div data-ng-app="lunarApp" data-ng-controller="lunarController">
+<div data-ng-app="lunarApp" data-ng-controller="lunarController" style="margin-top: 5px;">
 	<span data-ng-model="today" data-ng-init="today='<?php echo date('Y-m-d'); ?>'"></span>
 	<div class="m-btn-group">
 		<a class="m-btn green" id="today"><i class="icon-calendar icon-white"></i> <span>Hôm nay</span></a>

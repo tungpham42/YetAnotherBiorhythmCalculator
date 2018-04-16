@@ -1,13 +1,39 @@
+<div class="banner left w160">
 <?php
-$rand_side_banner = rand(1,2);
+if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs)):
 ?>
-<div class="banner <?php echo ($rand_side_banner == 1) ? 'left': 'right'; ?> w160">
-<?php render_ad('banner_160x600'); ?>
+<!-- NSH_160x600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-3585118770961536"
+     data-ad-slot="9519248888"></ins>
+<?php
+else:
+?>
+<center>
+<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_1.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
+</center>
+<?php
+endif;
+?>
 </div>
-<div class="banner <?php echo ($rand_side_banner == 2) ? 'left': 'right'; ?> w160">
-<ins class="adsbygoogle" data-ad-client="ca-pub-3585118770961536" data-ad-slot="9519248888" data-ad-format="vertical"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="banner right w160">
+<?php
+if (!isset($_COOKIE['NSH:member']) || $p == 'home' || in_array($p, $adsense_navs)):
+?>
+<!-- NSH_160x600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-3585118770961536"
+     data-ad-slot="9519248888"></ins>
+<?php
+else:
+?>
+<center>
+<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_1.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>
+</center>
+<?php
+endif;
+?>
 </div>
 <span class="hide"><?php echo $title; ?></span>

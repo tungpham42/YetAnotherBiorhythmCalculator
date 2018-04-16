@@ -1,5 +1,5 @@
 /**
- * @license  Highcharts JS v6.0.2 (2017-10-20)
+ * @license  Highcharts JS v6.0.7 (2018-02-16)
  * Wind barb series module
  *
  * (c) 2010-2017 Torstein Honsi
@@ -26,6 +26,20 @@
             stableSort = H.stableSort;
 
         var onSeriesMixin = {
+
+            /**
+             * Override getPlotBox. If the onSeries option is valid, return the plot box
+             * of the onSeries, otherwise proceed as usual.
+             */
+            getPlotBox: function() {
+                return H.Series.prototype.getPlotBox.call(
+                    (
+                        this.options.onSeries &&
+                        this.chart.get(this.options.onSeries)
+                    ) || this
+                );
+            },
+
             /**
              * Extend the translate method by placing the point on the related series
              */
@@ -48,12 +62,12 @@
                     i = onData && onData.length,
                     xAxis = series.xAxis,
                     yAxis = series.yAxis,
-                    xAxisExt = xAxis.getExtremes(),
                     xOffset = 0,
                     leftPoint,
                     lastX,
                     rightPoint,
-                    currentDataGrouping;
+                    currentDataGrouping,
+                    distanceRatio;
 
                 // relate to a master series
                 if (onSeries && onSeries.visible && i) {
@@ -71,8 +85,10 @@
 
                     onKey = 'plot' + onKey[0].toUpperCase() + onKey.substr(1);
                     while (i-- && points[cursor]) {
-                        point = points[cursor];
                         leftPoint = onData[i];
+                        point = points[cursor];
+                        point.y = leftPoint.y;
+
                         if (leftPoint.x <= point.x && leftPoint[onKey] !== undefined) {
                             if (point.x <= lastX) { // #803
 
@@ -82,14 +98,16 @@
                                 if (leftPoint.x < point.x && !step) {
                                     rightPoint = onData[i + 1];
                                     if (rightPoint && rightPoint[onKey] !== undefined) {
+                                        // the distance ratio, between 0 and 1
+                                        distanceRatio = (point.x - leftPoint.x) /
+                                            (rightPoint.x - leftPoint.x);
                                         point.plotY +=
-                                            // the distance ratio, between 0 and 1
-                                            (
-                                                (point.x - leftPoint.x) /
-                                                (rightPoint.x - leftPoint.x)
-                                            ) *
-                                            // the y distance
+                                            distanceRatio *
+                                            // the plotY distance
                                             (rightPoint[onKey] - leftPoint[onKey]);
+                                        point.y +=
+                                            distanceRatio *
+                                            (rightPoint.y - leftPoint.y);
                                     }
                                 }
                             }
@@ -107,12 +125,14 @@
 
                     var stackIndex;
 
+                    point.plotX += xOffset; // #2049
+
                     // Undefined plotY means the point is either on axis, outside series
                     // range or hidden series. If the series is outside the range of the
                     // x axis it should fall through with an undefined plotY, but then
                     // we must remove the shapeArgs (#847).
                     if (point.plotY === undefined) {
-                        if (point.x >= xAxisExt.min && point.x <= xAxisExt.max) {
+                        if (point.plotX >= 0 && point.plotX <= xAxis.len) {
                             // we're inside xAxis range
                             point.plotY = chart.chartHeight - xAxis.bottom -
                                 (xAxis.opposite ? xAxis.height : 0) +
@@ -121,7 +141,7 @@
                             point.shapeArgs = {}; // 847
                         }
                     }
-                    point.plotX += xOffset; // #2049
+
                     // if multiple flags appear at the same x, order them into a stack
                     lastPoint = points[i - 1];
                     if (lastPoint && lastPoint.plotX === point.plotX) {
@@ -192,7 +212,7 @@
                  * names can be internationalized by modifying
                  * `Highcharts.seriesTypes.windbarb.prototype.beaufortNames`.
                  */
-                pointFormat: '<b>{series.name}</b>: {point.value} ({point.beaufort})<br/>'
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.value}</b> ({point.beaufort})<br/>'
             },
             /**
              * Pixel length of the stems.
@@ -223,7 +243,7 @@
              */
             pointAttribs: function(point, state) {
                 var options = this.options,
-                    stroke = this.color,
+                    stroke = point.color || this.color,
                     strokeWidth = this.options.lineWidth;
 
                 if (state) {
@@ -241,6 +261,7 @@
             markerAttribs: function() {
                 return undefined;
             },
+            getPlotBox: onSeriesMixin.getPlotBox,
             /**
              * Create a single wind arrow. It is later rotated around the zero
              * centerpoint.
@@ -360,19 +381,30 @@
                 each(this.points, function(point) {
                     var plotX = point.plotX,
                         plotY = point.plotY;
-                    if (!point.graphic) {
-                        point.graphic = this.chart.renderer
-                            .path()
-                            .add(this.markerGroup);
+
+                    // Check if it's inside the plot area, but only for the X dimension.
+                    if (chart.isInsidePlot(plotX, 0, chart.inverted)) {
+
+                        // Create the graphic the first time
+                        if (!point.graphic) {
+                            point.graphic = this.chart.renderer
+                                .path()
+                                .add(this.markerGroup);
+                        }
+
+                        // Position the graphic
+                        point.graphic
+                            .attr({
+                                d: this.windArrow(point),
+                                translateX: plotX,
+                                translateY: plotY + this.options.yOffset,
+                                rotation: point.direction
+                            })
+                            .attr(this.pointAttribs(point));
+
+                    } else if (point.graphic) {
+                        point.graphic = point.graphic.destroy();
                     }
-                    point.graphic
-                        .attr({
-                            d: this.windArrow(point),
-                            translateX: plotX,
-                            translateY: plotY + this.options.yOffset,
-                            rotation: point.direction
-                        })
-                        .attr(this.pointAttribs(point));
 
                     // Set the tooltip anchor position
                     point.tooltipPos = chart.inverted ? [
@@ -461,11 +493,16 @@
          * 
          * @type {Array<Object|Array|Number>}
          * @extends series.line.data
-         * @sample {highcharts} highcharts/chart/reflow-true/ Numerical values
-         * @sample {highcharts} highcharts/series/data-array-of-arrays/ Arrays of numeric x and y
-         * @sample {highcharts} highcharts/series/data-array-of-arrays-datetime/ Arrays of datetime x and y
-         * @sample {highcharts} highcharts/series/data-array-of-name-value/ Arrays of point.name and y
-         * @sample {highcharts} highcharts/series/data-array-of-objects/ Config objects
+         * @sample {highcharts} highcharts/chart/reflow-true/
+         *         Numerical values
+         * @sample {highcharts} highcharts/series/data-array-of-arrays/
+         *         Arrays of numeric x and y
+         * @sample {highcharts} highcharts/series/data-array-of-arrays-datetime/
+         *         Arrays of datetime x and y
+         * @sample {highcharts} highcharts/series/data-array-of-name-value/
+         *         Arrays of point.name and y
+         * @sample {highcharts} highcharts/series/data-array-of-objects/
+         *         Config objects    
          * @product highcharts highstock
          * @apioption series.windbarb.data
          */

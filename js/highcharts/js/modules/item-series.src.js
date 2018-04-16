@@ -1,5 +1,5 @@
 /**
- * @license  Highcharts JS v6.0.2 (2017-10-20)
+ * @license  Highcharts JS v6.0.7 (2018-02-16)
  *
  * Item series type for Highcharts
  *

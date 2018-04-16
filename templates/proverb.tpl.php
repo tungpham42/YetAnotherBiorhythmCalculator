@@ -3,13 +3,15 @@
 if (!isset($_COOKIE['NSH:member']) || $p == 'home') {
 	include template('banner_top');
 } else {
-	include template('banner_300x250_alt');
+//	include template('banner_300x250_alt');
+	echo "";
 }
 render_proverb($lang_code);
 if (!isset($_COOKIE['NSH:member']) || $p == 'home') {
 	include template('banner_top');
 } else {
-	include template('banner_300x250_alt');
+//	include template('banner_300x250_alt');
+	echo "";
 }
 include template('clear');
 if ($show_donate) {

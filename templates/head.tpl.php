@@ -10,7 +10,7 @@
 <meta property="og:url" content="<?php echo str_replace('&', '&amp;', current_url()); ?>">
 <meta property="og:title" content="<?php echo $head_title; ?>">
 <meta property="og:description" content="<?php echo $head_description; ?>">
-<meta property="og:image" content="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/img/img_desc_'.((has_dob() && is_birthday()) ? 'birthday': 'logo').'.png'; ?>">
+<meta property="og:image" content="<?php echo 'https://'.$_SERVER['SERVER_NAME'].'/img/img_desc_'.((has_dob() && is_birthday()) ? 'birthday': 'logo').'.png'; ?>">
 <meta name="p:domain_verify" content="b30465bfdebc3906bbca8efaeda20ddf"/>
 <meta name="renderer" content="webkit">
 <meta name="clickadu" content="58ac30eed8dc4b673f0d4081f122c302" />
@@ -30,9 +30,11 @@
 <link rel="chrome-webstore-item" href="<?php echo chrome_webstore_item(); ?>" />
 <!--
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/min/b=css&amp;f=fonts.css,normalize.css,install-button.css,jquery.listnav.css,jquery.contextMenu.css,keys.css,jssocials.css,m-styles.css,default.css,jquery-ui.css&amp;2" />
+<link rel="stylesheet" href="/css/fonts.css" />
 -->
-<!--
-<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/fonts.css" />
+<?php
+include template('fonts');
+?>
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/normalize.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/install-button.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.listnav.css" />
@@ -43,10 +45,9 @@
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css" />
--->
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
-include template('style');
+//include template('style');
 //include template('script');
 ?>
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/print.css" media="print" />

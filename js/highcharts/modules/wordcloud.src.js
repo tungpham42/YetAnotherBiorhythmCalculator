@@ -1,5 +1,5 @@
 /**
- * @license Highcharts JS v6.0.2 (2017-10-20)
+ * @license Highcharts JS v6.0.7 (2018-02-16)
  *
  * (c) 2016 Highsoft AS
  * Authors: Jon Arild Nygard
@@ -50,6 +50,9 @@
                         onComplete();
                     }
                 });
+            }
+            if (graphic) {
+                graphic.addClass(point.getClassName(), true);
             }
         };
         return draw;
@@ -459,16 +462,15 @@
              * CSS styles for the words.
              *
              * @type {CSSObject}
-             * @default {"fontFamily":"Impact, sans-serif"}
+             * @default {"fontFamily":"sans-serif", "fontWeight": "900"}
              */
             style: {
-                /**
-                 * The font family to use for the word cloud.
-                 */
-                fontFamily: 'Impact, sans-serif'
+                fontFamily: 'sans-serif',
+                fontWeight: '900'
             },
             tooltip: {
-                followPointer: true
+                followPointer: true,
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.weight}</b><br/>'
             }
         };
 
@@ -513,7 +515,9 @@
                     renderer = chart.renderer,
                     testElement = renderer.text().add(group),
                     placed = [],
-                    placementStrategy = series.placementStrategy[options.placementStrategy],
+                    placementStrategy = series.placementStrategy[
+                        options.placementStrategy
+                    ],
                     spiral = series.spirals[options.spiral],
                     rotation = options.rotation,
                     scale,
@@ -530,7 +534,7 @@
                 each(data, function(point) {
                     var relativeWeight = 1 / maxWeight * point.weight,
                         css = extend({
-                            fontSize: series.deriveFontSize(relativeWeight),
+                            fontSize: series.deriveFontSize(relativeWeight) + 'px',
                             fill: point.color
                         }, options.style),
                         placement = placementStrategy(point, {
@@ -707,7 +711,7 @@
          * wordcloud](#plotOptions.wordcloud).
          *
          * @type {Object}
-         * @extends plotOptions.wordcloud
+         * @extends series,plotOptions.wordcloud
          * @product highcharts
          * @apioption series.wordcloud
          */
@@ -728,8 +732,9 @@
          * 
          * 2.  An array of objects with named values. The objects are point
          * configuration objects as seen below. If the total number of data
-         * points exceeds the series' [turboThreshold](#series.arearange.turboThreshold),
-         * this option is not available.
+         * points exceeds the series'
+         * [turboThreshold](#series.arearange.turboThreshold), this option is not
+         * available.
          * 
          *  ```js
          *     data: [{
@@ -768,7 +773,13 @@
          * @product highcharts
          * @apioption series.sunburst.data.weight
          */
-        H.seriesType('wordcloud', 'column', wordCloudOptions, wordCloudSeries, wordCloudPoint);
+        H.seriesType(
+            'wordcloud',
+            'column',
+            wordCloudOptions,
+            wordCloudSeries,
+            wordCloudPoint
+        );
 
     }(Highcharts, draw));
 }));

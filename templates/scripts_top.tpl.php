@@ -36,8 +36,9 @@
 <script src="<?php echo $cdn_url; ?>/js/manipulation.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/lang.js"></script>
 -->
+<script src="<?php echo $cdn_url; ?>/js/all.js"></script>
 <?php
-include template('script');
+//include template('script');
 //if (is_birthday()):
 //	include template('presents');
 //else:

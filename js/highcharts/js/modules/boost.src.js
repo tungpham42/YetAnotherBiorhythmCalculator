@@ -1,5 +1,5 @@
 /**
- * @license Highcharts JS v6.0.2 (2017-10-20)
+ * @license Highcharts JS v6.0.7 (2018-02-16)
  * Boost module
  *
  * (c) 2010-2017 Highsoft AS
@@ -16,6 +16,7 @@
     }
 }(function(Highcharts) {
     (function(H) {
+        /* eslint max-len: 0 */
         /**
          * License: www.highcharts.com/license
          * Author: Christer Vasseng, Torstein Honsi
@@ -88,7 +89,9 @@
          * to be rendered by WebGL instead of the default SVG. This allows hundreds of
          * thousands of data points to be rendered in milliseconds. In addition to the
          * WebGL rendering it saves time by skipping processing and inspection of the
-         * data wherever possible.
+         * data wherever possible. This introduces some limitations to what features are
+         * available in Boost mode. See [the docs](https://www.highcharts.com/docs/advanced-chart-features/boost-module)
+         * for details.
          *
          * In addition to the global `boost` option, each series has a
          * [boostThreshold](#plotOptions.series.boostThreshold) that defines when the
@@ -109,9 +112,11 @@
          * @sample highcharts/boost/area
          *         Area chart
          * @sample highcharts/boost/arearange
-         *         Arearange chart
+         *         Area range chart
          * @sample highcharts/boost/column
          *         Column chart
+         * @sample highcharts/boost/columnrange
+         *         Column range chart
          * @sample highcharts/boost/bubble
          *         Bubble chart
          * @sample highcharts/boost/heatmap
@@ -133,6 +138,7 @@
          * a significant speed improvment in charts with a very high
          * amount of series.
          *
+         * @type {Number}
          * @default  null
          * @apioption boost.seriesThreshold
          */
@@ -292,6 +298,7 @@
                 'area',
                 'arearange',
                 'column',
+                'columnrange',
                 'bar',
                 'line',
                 'scatter',
@@ -491,17 +498,15 @@
             // we should boost the whole chart to avoid running out of webgl contexts.
             var sboostCount = 0,
                 canBoostCount = 0,
-                allowBoostForce = true,
+                allowBoostForce = pick(
+                    chart.options.boost && chart.options.boost.allowForce,
+                    true
+                ),
                 series;
 
             if (typeof chart.boostForceChartBoost !== 'undefined') {
                 return chart.boostForceChartBoost;
             }
-
-            allowBoostForce = chart.options.boost ?
-                (typeof chart.options.boost.allowForce !== 'undefined' ?
-                    chart.options.boost.allowForce : allowBoostForce) :
-                allowBoostForce;
 
             if (chart.series.length > 1) {
                 for (var i = 0; i < chart.series.length; i++) {
@@ -523,7 +528,12 @@
                 }
             }
 
-            chart.boostForceChartBoost = (allowBoostForce && canBoostCount === chart.series.length && sboostCount > 0) ||
+            chart.boostForceChartBoost =
+                (
+                    allowBoostForce &&
+                    canBoostCount === chart.series.length &&
+                    sboostCount > 0
+                ) ||
                 sboostCount > 5;
 
             return chart.boostForceChartBoost;
@@ -535,17 +545,42 @@
          * @returns {Boolean} - true if the chart is in series boost mode
          */
         Chart.prototype.isChartSeriesBoosting = function() {
-            var threshold = 50;
+            var isSeriesBoosting,
+                threshold = pick(
+                    this.options.boost && this.options.boost.seriesThreshold,
+                    50
+                );
 
-            threshold = (
-                    this.options.boost &&
-                    typeof this.options.boost.seriesThreshold !== 'undefined'
-                ) ?
-                this.options.boost.seriesThreshold :
-                threshold;
-
-            return threshold <= this.series.length ||
+            isSeriesBoosting = threshold <= this.series.length ||
                 shouldForceChartSeriesBoosting(this);
+
+            return isSeriesBoosting;
+        };
+
+        /*
+         * Get the clip rectangle for a target, either a series or the chart. For the
+         * chart, we need to consider the maximum extent of its Y axes, in case of
+         * Highstock panes and navigator.
+         */
+        Chart.prototype.getBoostClipRect = function(target) {
+            var clipBox = {
+                x: this.plotLeft,
+                y: this.plotTop,
+                width: this.plotWidth,
+                height: this.plotHeight
+            };
+
+            if (target === this) {
+                each(this.yAxis, function(yAxis) {
+                    clipBox.y = Math.min(yAxis.pos, clipBox.y);
+                    clipBox.height = Math.max(
+                        yAxis.pos - this.plotTop + yAxis.len,
+                        clipBox.height
+                    );
+                }, this);
+            }
+
+            return clipBox;
         };
 
         /*
@@ -1214,8 +1249,10 @@
                 // Things to draw as "rectangles" (i.e lines)
                 asBar = {
                     'column': true,
+                    'columnrange': true,
                     'bar': true,
-                    'area': true
+                    'area': true,
+                    'arearange': true
                 },
                 asCircle = {
                     'scatter': true,
@@ -1365,7 +1402,7 @@
                     // colorIndex = 0,
                     // Required for color axis support
                     // caxis,
-                    // connectNulls = options.connectNulls,
+                    connectNulls = options.connectNulls,
                     // For some reason eslint doesn't pick up that this is actually used
                     maxVal, // eslint-disable-line no-unused-vars
                     points = series.points || false,
@@ -1376,7 +1413,7 @@
                     scolor,
                     sdata = isStacked ? series.data : (xData || rawData),
                     closestLeft = {
-                        x: Number.MIN_VALUE,
+                        x: -Number.MAX_VALUE,
                         y: 0
                     },
                     closestRight = {
@@ -1436,6 +1473,33 @@
                     }
                 }
 
+                function closeSegment() {
+                    if (inst.segments.length) {
+                        inst.segments[inst.segments.length - 1].to = data.length;
+                    }
+                }
+
+                // Create a new segment for the current set
+                function beginSegment() {
+                    // Insert a segment on the series.
+                    // A segment is just a start indice.
+                    // When adding a segment, if one exists from before, it should
+                    // set the previous segment's end
+
+                    if (inst.segments.length &&
+                        inst.segments[inst.segments.length - 1].from === data.length
+                    ) {
+                        return;
+                    }
+
+                    closeSegment();
+
+                    inst.segments.push({
+                        from: data.length
+                    });
+
+                }
+
                 // Push a rectangle to the data buffer
                 function pushRect(x, y, w, h, color) {
                     pushColor(color);
@@ -1452,6 +1516,9 @@
                     pushColor(color);
                     vertice(x + w, y);
                 }
+
+                // Create the first segment
+                beginSegment();
 
                 // Special case for point shapes
                 if (points && points.length > 0) {
@@ -1549,6 +1616,8 @@
                         }
                     });
 
+                    closeSegment();
+
                     return;
                 }
 
@@ -1632,6 +1701,11 @@
                         }
                     }
 
+                    if (!connectNulls && (x === null || y === null)) {
+                        beginSegment();
+                        continue;
+                    }
+
                     if (nx && nx >= xMin && nx <= xMax) {
                         nextInside = true;
                     }
@@ -1654,7 +1728,11 @@
                         low = y - d.y;
                     }
 
-                    if (!series.requireSorting) {
+                    if (yMin !== null &&
+                        typeof yMin !== 'undefined' &&
+                        yMax !== null &&
+                        typeof yMax !== 'undefined'
+                    ) {
                         isYInside = y >= yMin && y <= yMax;
                     }
 
@@ -1668,7 +1746,13 @@
                         closestLeft.y = y;
                     }
 
-                    if (y !== 0 && (!y || !isYInside)) {
+                    if (y === null && connectNulls) {
+                        continue;
+                    }
+
+                    // Cull points outside the extremes
+                    if (y === null || !isYInside) {
+                        beginSegment();
                         continue;
                     }
 
@@ -1696,11 +1780,14 @@
                     if (drawAsBar) {
 
                         maxVal = y;
-                        minVal = 0;
+                        minVal = low;
 
-                        if (y < 0) {
-                            minVal = y;
-                            y = 0;
+                        if (low === false || typeof low === 'undefined') {
+                            if (y < 0) {
+                                minVal = y;
+                            } else {
+                                minVal = 0;
+                            }
                         }
 
                         if (!settings.useGPUTranslations) {
@@ -1808,11 +1895,16 @@
                     );
                 }
 
-                if (!lastX) {
+                if (!lastX &&
+                    connectNulls !== false &&
+                    closestLeft > -Number.MAX_VALUE &&
+                    closestRight < Number.MAX_VALUE) {
                     // There are no points within the selected range
                     pushSupplementPoint(closestLeft);
                     pushSupplementPoint(closestRight);
                 }
+
+                closeSegment();
             }
 
             /*
@@ -1822,7 +1914,7 @@
              */
             function pushSeries(s) {
                 if (series.length > 0) {
-                    series[series.length - 1].to = data.length;
+                    // series[series.length - 1].to = data.length;
                     if (series[series.length - 1].hasMarkers) {
                         series[series.length - 1].markerTo = markerData.length;
                     }
@@ -1833,7 +1925,8 @@
                 }
 
                 series.push({
-                    from: data.length,
+                    segments: [],
+                    // from: data.length,
                     markerFrom: markerData.length,
                     // Push RGBA values to this array to use per. point coloring.
                     // It should be 0-padded, so each component should be pushed in
@@ -1849,6 +1942,7 @@
                         'arearange': 'lines',
                         'areaspline': 'line_strip',
                         'column': 'lines',
+                        'columnrange': 'lines',
                         'bar': 'lines',
                         'line': 'line_strip',
                         'scatter': 'points',
@@ -1980,6 +2074,8 @@
                 // Render the series
                 each(series, function(s, si) {
                     var options = s.series.options,
+                        sindex,
+                        lineWidth = typeof options.lineWidth !== 'undefined' ? options.lineWidth : 1,
                         threshold = options.threshold,
                         hasThreshold = isNumber(threshold),
                         yBottom = s.series.yAxis.getThreshold(threshold),
@@ -2074,7 +2170,16 @@
                     shader.setDrawAsCircle((asCircle[s.series.type] && textureIsReady) || false);
 
                     // Do the actual rendering
-                    vbuffer.render(s.from, s.to, s.drawMode);
+                    // If the line width is < 0, skip rendering of the lines. See #7833.
+                    if (lineWidth > 0 || s.drawMode !== 'line_strip') {
+                        for (sindex = 0; sindex < s.segments.length; sindex++) {
+                            vbuffer.render(
+                                s.segments[sindex].from,
+                                s.segments[sindex].to,
+                                s.drawMode
+                            );
+                        }
+                    }
 
                     if (s.hasMarkers && showMarkers) {
                         if (options.marker && options.marker.radius) {
@@ -2083,7 +2188,13 @@
                             shader.setPointSize(10);
                         }
                         shader.setDrawAsCircle(true);
-                        vbuffer.render(s.from, s.to, 'POINTS');
+                        for (sindex = 0; sindex < s.segments.length; sindex++) {
+                            vbuffer.render(
+                                s.segments[sindex].from,
+                                s.segments[sindex].to,
+                                'POINTS'
+                            );
+                        }
                     }
                 });
 
@@ -2336,12 +2447,14 @@
                 // or if we're exporting.
                 if (chart.renderer.forExport || !foSupported) {
                     target.renderTarget = chart.renderer.image(
-                        '',
-                        0,
-                        0,
-                        width,
-                        height
-                    ).add(targetGroup);
+                            '',
+                            0,
+                            0,
+                            width,
+                            height
+                        )
+                        .addClass('highcharts-boost-canvas')
+                        .add(targetGroup);
 
                     target.boostClear = function() {
                         target.renderTarget.attr({
@@ -2382,25 +2495,28 @@
                     width = chart.chartWidth;
                     height = chart.chartHeight;
 
-                    (target.renderTargetFo || target.renderTarget).attr({
-                        x: 0,
-                        y: 0,
-                        width: width,
-                        height: height,
-                        style: 'pointer-events: none; mix-blend-mode: normal; opacity:' + alpha
-                    });
+                    (target.renderTargetFo || target.renderTarget)
+                    .attr({
+                            x: 0,
+                            y: 0,
+                            width: width,
+                            height: height
+                        })
+                        .css({
+                            pointerEvents: 'none',
+                            mixedBlendMode: 'normal',
+                            opacity: alpha
+                        });
 
                     if (target instanceof H.Chart) {
-                        target.markerGroup.translate(series.xAxis.pos, series.yAxis.pos);
+                        target.markerGroup.translate(
+                            chart.plotLeft,
+                            chart.plotTop
+                        );
                     }
                 };
 
-                target.boostClipRect = chart.renderer.clipRect(
-                    chart.plotLeft,
-                    chart.plotTop,
-                    chart.plotWidth,
-                    chart.chartHeight
-                );
+                target.boostClipRect = chart.renderer.clipRect();
 
                 (target.renderTargetFo || target.renderTarget).clip(target.boostClipRect);
 
@@ -2414,12 +2530,7 @@
             target.canvas.width = width;
             target.canvas.height = height;
 
-            target.boostClipRect.attr({
-                x: chart.plotLeft,
-                y: chart.plotTop,
-                width: chart.plotWidth,
-                height: chart.chartHeight
-            });
+            target.boostClipRect.attr(chart.getBoostClipRect(target));
 
             target.boostResizeTarget();
             target.boostClear();
@@ -2481,7 +2592,7 @@
         /*
          * An "async" foreach loop. Uses a setTimeout to keep the loop from blocking the
          * UI thread.
-         * 
+         *
          * @param arr {Array} - the array to loop through
          * @param fn {Function} - the callback to call for each item
          * @param finalFunc {Function} - the callback to call when done
@@ -2630,19 +2741,22 @@
             function branch(proceed) {
                 var letItPass = this.options.stacking &&
                     (method === 'translate' || method === 'generatePoints'),
-                    enabled = true;
-
-                if (this.chart && this.chart.options && this.chart.options.boost) {
-                    enabled = typeof this.chart.options.boost.enabled === 'undefined' ?
-                        true :
-                        this.chart.options.boost.enabled;
-                }
+                    enabled = pick(
+                        (
+                            this.chart &&
+                            this.chart.options &&
+                            this.chart.options.boost &&
+                            this.chart.options.boost.enabled
+                        ),
+                        true
+                    );
 
                 if (!this.isSeriesBoosting ||
                     letItPass ||
                     !enabled ||
                     this.type === 'heatmap' ||
-                    this.type === 'treemap'
+                    this.type === 'treemap' ||
+                    !boostableMap[this.type]
                 ) {
 
                     proceed.call(this);
@@ -2657,25 +2771,14 @@
 
             // A special case for some types - their translate method is already wrapped
             if (method === 'translate') {
-                if (seriesTypes.column) {
-                    wrap(seriesTypes.column.prototype, method, branch);
-                }
-
-                if (seriesTypes.bar) {
-                    wrap(seriesTypes.bar.prototype, method, branch);
-                }
-
-                if (seriesTypes.arearange) {
-                    wrap(seriesTypes.arearange.prototype, method, branch);
-                }
-
-                if (seriesTypes.treemap) {
-                    wrap(seriesTypes.treemap.prototype, method, branch);
-                }
-
-                if (seriesTypes.heatmap) {
-                    wrap(seriesTypes.heatmap.prototype, method, branch);
-                }
+                each(
+                    ['column', 'bar', 'arearange', 'columnrange', 'heatmap', 'treemap'],
+                    function(type) {
+                        if (seriesTypes[type]) {
+                            wrap(seriesTypes[type].prototype, method, branch);
+                        }
+                    }
+                );
             }
         });
 
@@ -2698,34 +2801,36 @@
                 );
             }
 
-            // If there are no extremes given in the options, we also need to process
-            // the data to read the data extremes. If this is a heatmap, do default
-            // behaviour. 
-            if (!getSeriesBoosting(dataToMeasure) || // First pass with options.data
-                this.type === 'heatmap' ||
-                this.type === 'treemap' ||
-                !this.hasExtremes ||
-                !this.hasExtremes(true)
-            ) {
+            if (boostableMap[this.type]) {
+
+                // If there are no extremes given in the options, we also need to
+                // process the data to read the data extremes. If this is a heatmap, do
+                // default behaviour.
+                if (!getSeriesBoosting(dataToMeasure) || // First pass with options.data
+                    this.type === 'heatmap' ||
+                    this.type === 'treemap' ||
+                    this.options.stacking || // processedYData for the stack (#7481)
+                    !this.hasExtremes ||
+                    !this.hasExtremes(true)
+                ) {
+                    proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                    dataToMeasure = this.processedXData;
+                }
+
+                // Set the isBoosting flag, second pass with processedXData to see if we
+                // have zoomed.
+                this.isSeriesBoosting = getSeriesBoosting(dataToMeasure);
+
+                // Enter or exit boost mode
+                if (this.isSeriesBoosting) {
+                    this.enterBoost();
+                } else if (this.exitBoost) {
+                    this.exitBoost();
+                }
+
+                // The series type is not boostable
+            } else {
                 proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                dataToMeasure = this.processedXData;
-            }
-
-            /*
-            if (!this.hasExtremes || !this.hasExtremes(true)) {
-            	proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-            }
-            */
-
-            // Set the isBoosting flag, second pass with processedXData to see if we
-            // have zoomed.
-            this.isSeriesBoosting = getSeriesBoosting(dataToMeasure);
-
-            // Enter or exit boost mode
-            if (this.isSeriesBoosting) {
-                this.enterBoost();
-            } else if (this.exitBoost) {
-                this.exitBoost();
             }
         });
 
@@ -2816,8 +2921,8 @@
             if (points) {
                 for (i = 0; i < points.length; i = i + 1) {
                     point = points[i];
-                    if (point && point.graphic) {
-                        point.graphic = point.graphic.destroy();
+                    if (point && point.destroyElements) {
+                        point.destroyElements(); // #7557
                     }
                 }
             }
@@ -2834,7 +2939,7 @@
         /*
          * Returns true if the current browser supports webgl
          */
-        function hasWebGLSupport() {
+        H.hasWebGLSupport = function() {
             var i = 0,
                 canvas,
                 contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'],
@@ -2856,7 +2961,7 @@
             }
 
             return false;
-        }
+        };
 
         /* Used for treemap|heatmap.drawPoints */
         function pointDrawHandler(proceed) {
@@ -2889,7 +2994,7 @@
         // /////////////////////////////////////////////////////////////////////////////
         // We're wrapped in a closure, so just return if there's no webgl support
 
-        if (!hasWebGLSupport()) {
+        if (!H.hasWebGLSupport()) {
             if (typeof H.initCanvasBoost !== 'undefined') {
                 // Fallback to canvas boost
                 H.initCanvasBoost();
@@ -2998,6 +3103,12 @@
                     } else {
                         // Use a single group for the markers
                         this.markerGroup = chart.markerGroup;
+
+                        // When switching from chart boosting mode, destroy redundant
+                        // series boosting targets
+                        if (this.renderTarget) {
+                            this.renderTarget = this.renderTarget.destroy();
+                        }
                     }
 
                     points = this.points = [];
@@ -3020,7 +3131,7 @@
                             clientX,
                             plotY,
                             isNull,
-                            low,
+                            low = false,
                             chartDestroyed = typeof chart.index === 'undefined',
                             isYInside = true;
 

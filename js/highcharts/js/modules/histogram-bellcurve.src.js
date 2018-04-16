@@ -1,5 +1,5 @@
 /**
- * @license  Highcharts JS v6.0.2 (2017-10-20)
+ * @license  Highcharts JS v6.0.7 (2018-02-16)
  *
  * (c) 2010-2017 Highsoft AS
  * Author: Sebastian Domas
@@ -31,7 +31,8 @@
          **************************************************************************** */
 
         /**
-         * Provides methods for auto setting/updating series data based on the based series data,
+         * Provides methods for auto setting/updating series data based on the based
+         * series data.
          * 
          * @mixin
          **/
@@ -52,9 +53,10 @@
             },
 
             /**
-             * Method to be implemented - inside the method the series has already access to the base series
-             * via m `this.baseSeries` and the bases data is initialised. It should
-             * return data in the format accepted by Series.setData() method
+             * Method to be implemented - inside the method the series has already access
+             * to the base series via m `this.baseSeries` and the bases data is
+             * initialised. It should return data in the format accepted by
+             * `Series.setData()` method
              *
              * @returns {Array} - an array of data
              **/
@@ -110,14 +112,22 @@
                     updatedDataRemover,
                     destroyRemover;
 
-                updatedDataRemover = addEvent(derivedSeries.baseSeries, 'updatedData', function() {
-                    derivedSeries.setDerivedData();
-                });
+                updatedDataRemover = addEvent(
+                    derivedSeries.baseSeries,
+                    'updatedData',
+                    function() {
+                        derivedSeries.setDerivedData();
+                    }
+                );
 
-                destroyRemover = addEvent(derivedSeries.baseSeries, 'destroy', function() {
-                    derivedSeries.baseSeries = null;
-                    derivedSeries.initialised = false;
-                });
+                destroyRemover = addEvent(
+                    derivedSeries.baseSeries,
+                    'destroy',
+                    function() {
+                        derivedSeries.baseSeries = null;
+                        derivedSeries.initialised = false;
+                    }
+                );
 
                 derivedSeries.eventRemovers.push(
                     updatedDataRemover,
@@ -169,7 +179,8 @@
          **************************************************************************** */
 
         /**
-         * A dictionary with formulas for calculating number of bins based on the base series
+         * A dictionary with formulas for calculating number of bins based on the
+         * base series
          **/
         var binsNumberFormulas = {
             'square-root': function(baseSeries) {
@@ -198,6 +209,17 @@
         }
 
         /**
+         * Identity function - takes a param and returns that param
+         * It is used to grouping data with the same values
+         *
+         * @param {number} y - value
+         * @returns {number}
+         **/
+        function identity(y) {
+            return y;
+        }
+
+        /**
          * Histogram class
          * 
          * @constructor seriesTypes.histogram
@@ -207,7 +229,8 @@
 
         /**
          * A histogram is a column series which represents the distribution of the data
-         * set in the base series. Histogram splits data into bins and shows their frequencies.
+         * set in the base series. Histogram splits data into bins and shows their
+         * frequencies.
          *
          * @product highcharts
          * @sample {highcharts} highcharts/demo/histogram/ Histogram
@@ -219,8 +242,8 @@
         seriesType('histogram', 'column', {
             /**
              * A preferable number of bins. It is a suggestion, so a histogram may have
-             * a different number of bins. By default it is set to the square of the
-             * base series' data length. Available options are: `square-root`,
+             * a different number of bins. By default it is set to the square root
+             * of the base series' data length. Available options are: `square-root`,
              * `sturges`, `rice`. You can also define a function which takes a
              * `baseSeries` as a parameter and should return a positive integer.
              *
@@ -230,8 +253,9 @@
             binsNumber: 'square-root',
 
             /**
-             * Width of each bin. By default the bin's width is calculated as `(max - min) / number of bins`.
-             * This option takes precedence over [binsNumber](#plotOptions.histogram.binsNumber).
+             * Width of each bin. By default the bin's width is calculated as
+             * `(max - min) / number of bins`. This option takes precedence over
+             * [binsNumber](#plotOptions.histogram.binsNumber).
              *
              * @type {Number}
              */
@@ -242,47 +266,12 @@
             pointPlacement: 'between',
             tooltip: {
                 headerFormat: '',
-                pointFormat: '<span style="font-size:10px">{point.x} - {point.x2}</span><br/>' +
-                    '<span style="color:{point.color}">\u25CF</span> {series.name} <b>{point.y}</b><br/>'
+                pointFormat: '<span style="font-size:10px">{point.x} - {point.x2}' +
+                    '</span><br/>' +
+                    '<span style="color:{point.color}">\u25CF</span>' +
+                    ' {series.name} <b>{point.y}</b><br/>'
             }
 
-            /**
-             * A `histogram` series. If the [type](#series.histogram.type) option is not
-             * specified, it is inherited from [chart.type](#chart.type).
-             * 
-             * For options that apply to multiple series, it is recommended to add
-             * them to the [plotOptions.series](#plotOptions.series) options structure.
-             * To apply to all series of this specific type, apply it to [plotOptions.
-             * histogram](#plotOptions.histogram).
-             * 
-             * @type {Object}
-             * @since 6.0.0
-             * @extends series,plotOptions.histogram
-             * @excluding dataParser,dataURL,data
-             * @product highcharts
-             * @apioption series.histogram
-             */
-
-            /**
-             * An integer identifying the index to use for the base series, or a string
-             * representing the id of the series.
-             *
-             * @type {Number|String}
-             * @default undefined
-             * @apioption series.histogram.baseSeries
-             */
-
-            /**
-             * An array of data points for the series. For the `histogram` series type,
-             * points are calculated dynamically. See
-             * [histogram.baseSeries](#series.histogram.baseSeries).
-             * 
-             * @type {Array<Object|Array>}
-             * @since 6.0.0
-             * @extends series.histogram.data
-             * @product highcharts
-             * @apioption series.histogram.data
-             */
         }, merge(derivedSeriesMixin, {
             setDerivedData: function() {
                 var data = this.derivedData(
@@ -302,11 +291,16 @@
                     x,
                     fitToBin;
 
-                binWidth = this.binWidth = isNumber(binWidth) ? binWidth : (max - min) / binsNumber;
-                fitToBin = fitToBinLeftClosed(binWidth);
+                binWidth = this.binWidth = isNumber(binWidth) ?
+                    binWidth :
+                    (max - min) / binsNumber;
 
-                for (x = fitToBin(min); x <= max; x += binWidth) {
-                    frequencies[correctFloat(x)] = 0;
+                fitToBin = binWidth ? fitToBinLeftClosed(binWidth) : identity;
+
+                // If binWidth is 0 then max and min are equaled,
+                // increment the x with some positive value to quit the loop
+                for (x = fitToBin(min); x <= max; x += (binWidth || 1)) {
+                    frequencies[correctFloat(fitToBin(x))] = 0;
                 }
 
                 each(baseData, function(y) {
@@ -331,14 +325,58 @@
 
             binsNumber: function() {
                 var binsNumberOption = this.options.binsNumber;
-                var binsNumber = binsNumberFormulas[binsNumberOption] || typeof binsNumberOption === 'function';
+                var binsNumber = binsNumberFormulas[binsNumberOption] ||
+                    // #7457
+                    (typeof binsNumberOption === 'function' && binsNumberOption);
 
                 return Math.ceil(
                     (binsNumber && binsNumber(this.baseSeries)) ||
-                    (isNumber(binsNumberOption) ? binsNumberOption : binsNumberFormulas['square-root'](this.baseSeries))
+                    (
+                        isNumber(binsNumberOption) ?
+                        binsNumberOption :
+                        binsNumberFormulas['square-root'](this.baseSeries)
+                    )
                 );
             }
         }));
+
+        /**
+         * A `histogram` series. If the [type](#series.histogram.type) option is not
+         * specified, it is inherited from [chart.type](#chart.type).
+         * 
+         * For options that apply to multiple series, it is recommended to add
+         * them to the [plotOptions.series](#plotOptions.series) options structure.
+         * To apply to all series of this specific type, apply it to 
+         * [plotOptions.histogram](#plotOptions.histogram).
+         * 
+         * @type {Object}
+         * @since 6.0.0
+         * @extends series,plotOptions.histogram
+         * @excluding dataParser,dataURL,data
+         * @product highcharts
+         * @apioption series.histogram
+         */
+
+        /**
+         * An integer identifying the index to use for the base series, or a string
+         * representing the id of the series.
+         *
+         * @type {Number|String}
+         * @default undefined
+         * @apioption series.histogram.baseSeries
+         */
+
+        /**
+         * An array of data points for the series. For the `histogram` series type,
+         * points are calculated dynamically. See
+         * [histogram.baseSeries](#series.histogram.baseSeries).
+         * 
+         * @type {Array<Object|Array>}
+         * @since 6.0.0
+         * @extends series.column.data
+         * @product highcharts
+         * @apioption series.histogram.data
+         */
 
     }(Highcharts, derivedSeriesMixin));
     (function(H, derivedSeriesMixin) {
@@ -352,11 +390,11 @@
             reduce = H.reduce;
 
 
-        /* ***************************************************************************
+        /** ****************************************************************************
          *
          * BELL CURVE
          *
-         **************************************************************************** */
+         ******************************************************************************/
 
         function mean(data) {
             var length = data.length,
@@ -403,12 +441,12 @@
          * deviation of the base series data and plots the curve according to the
          * calculated parameters.
          *
-         * @product highcharts
-         * @sample {highcharts} highcharts/demo/bellcurve/ Bell curve
-         * @since 6.0.0
-         * @extends plotOptions.areaspline
-         * @excluding boostThreshold,connectNulls,stacking,pointInterval,
-         *            pointIntervalUnit
+         * @product      highcharts
+         * @sample       {highcharts} highcharts/demo/bellcurve/ Bell curve
+         * @since        6.0.0
+         * @extends      plotOptions.areaspline
+         * @excluding    boostThreshold,connectNulls,stacking,pointInterval,
+         *               pointIntervalUnit
          * @optionparent plotOptions.bellcurve
          **/
         seriesType('bellcurve', 'areaspline', {
@@ -434,42 +472,6 @@
                 enabled: false
             }
 
-            /**
-             * A `bellcurve` series. If the [type](#series.bellcurve.type) option is not
-             * specified, it is inherited from [chart.type](#chart.type).
-             * 
-             * For options that apply to multiple series, it is recommended to add
-             * them to the [plotOptions.series](#plotOptions.series) options structure.
-             * To apply to all series of this specific type, apply it to [plotOptions.
-             * bellcurve](#plotOptions.bellcurve).
-             * 
-             * @type {Object}
-             * @since 6.0.0
-             * @extends series,plotOptions.bellcurve
-             * @excluding dataParser,dataURL,data
-             * @product highcharts
-             * @apioption series.bellcurve
-             **/
-
-            /**
-             * An integer identifying the index to use for the base series, or a string
-             * representing the id of the series.
-             *
-             * @type {Number|String}
-             * @default undefined
-             * @apioption series.bellcurve.baseSeries
-             **/
-
-            /**
-             * An array of data points for the series. For the `bellcurve` series type,
-             * points are calculated dynamically.
-             * 
-             * @type {Array<Object|Array>}
-             * @since 6.0.0
-             * @extends series.bellcurve.data
-             * @product highcharts
-             * @apioption series.bellcurve.data
-             **/
         }, merge(derivedSeriesMixin, {
             setMean: function() {
                 this.mean = correctFloat(mean(this.baseSeries.yData));
@@ -508,6 +510,44 @@
                 return data;
             }
         }));
+
+
+        /**
+         * A `bellcurve` series. If the [type](#series.bellcurve.type) option is not
+         * specified, it is inherited from [chart.type](#chart.type).
+         * 
+         * For options that apply to multiple series, it is recommended to add
+         * them to the [plotOptions.series](#plotOptions.series) options structure.
+         * To apply to all series of this specific type, apply it to
+         * [plotOptions.bellcurve](#plotOptions.bellcurve).
+         * 
+         * @type      {Object}
+         * @since     6.0.0
+         * @extends   series,plotOptions.bellcurve
+         * @excluding dataParser,dataURL,data
+         * @product   highcharts
+         * @apioption series.bellcurve
+         */
+
+        /**
+         * An integer identifying the index to use for the base series, or a string
+         * representing the id of the series.
+         *
+         * @type      {Number|String}
+         * @default   undefined
+         * @apioption series.bellcurve.baseSeries
+         */
+
+        /**
+         * An array of data points for the series. For the `bellcurve` series type,
+         * points are calculated dynamically.
+         * 
+         * @type      {Array<Object|Array>}
+         * @since     6.0.0
+         * @extends   series.areaspline.data
+         * @product   highcharts
+         * @apioption series.bellcurve.data
+         */
 
     }(Highcharts, derivedSeriesMixin));
 }));

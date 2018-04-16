@@ -28,10 +28,12 @@ endif;
 			<a target="_blank" id="android_lunar" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.xemngay"></a>
 		</section>
 	</section>
+<!--
 	<section class="apps">
 		<h3 class="apps">Windows Phone</h3>
-		<a target="_blank" id="windows_phone" href="http://www.windowsphone.com/s?appid=c1cbcc2d-0565-41dd-956e-28e48406e401"></a>
+		<a target="_blank" id="windows_phone" href="https://www.windowsphone.com/s?appid=c1cbcc2d-0565-41dd-956e-28e48406e401"></a>
 	</section>
+-->
 <?php
 if ($ad_position == 2):
 	include template('banner_336x280');
