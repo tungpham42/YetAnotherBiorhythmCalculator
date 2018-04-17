@@ -7,7 +7,7 @@
 		<li><a id="blog_link" class="nav_button button keep" href="/blog/" target="_blank" title="Blog"><i class="icon-book-open"></i></a></li>
 		<li><a id="wiki_link" class="nav_button button keep" href="/wiki/" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>
 		<li><a id="forum_link" class="nav_button button keep" href="https://cungrao.net/" target="_blank" title="CùngRao.net"><i class="icon-shopping-cart"></i></a></li>
-		<li><a id="apps_link" class="nav_button button apps keep" href="javascript:void(0);"><i class="icon-download-alt"></i></a></li>
+		<li><a id="apps_link" class="nav_button button apps keep" href="javascript:void(0);" title="App"><i class="icon-download-alt"></i></a></li>
 		<li><a id="donation_link" class="nav_button button donation keep" href="/donate/"><?php echo translate_span('donate'); ?></a></li>
 		<li><a id="intro_link" class="nav_button button intro keep" href="/introduction/"><?php echo translate_button('intro'); ?></a></li>
 		<!--

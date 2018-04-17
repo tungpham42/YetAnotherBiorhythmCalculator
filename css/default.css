@@ -7330,31 +7330,49 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.lunar li#nav_toggle{
         left:305px!important
     }
-    body.scrolled li#nav_toggle{
+    body.scrolled:not(.bmi) li#nav_toggle{
         left:305px!important
     }
-    body.home:not(.lunar) li#nav_toggle{
+    body.home:not(.lunar):not(.bmi):not(.contact) li#nav_toggle{
         left:280px!important
     }
-    body.home.scrolled li#nav_toggle{
+    body.home.scrolled:not(.lunar):not(.bmi):not(.contact) li#nav_toggle{
         left:290px!important
+    }
+    body.contact.scrolled li#nav_toggle{
+        left:290px!important
+    }
+    body.bmi.scrolled li#nav_toggle {
+	    left:300px!important
+	}
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
     }
 }
 @media all and (max-width:707px){
     .lang_toggle.button.first>span.lang{
         display:none!important
     }
-    body:not(.bmi) li#nav_toggle{
+    body:not(.bmi):not(.contact) li#nav_toggle{
         left:280px!important
     }
-    body.lunar li#nav_toggle{
+    body.home:not(.bmi):not(.contact) li#nav_toggle{
+        left:290px!important
+    }
+    body.lunar:not(.bmi):not(.contact) li#nav_toggle{
         left:305px!important
     }
-    body.scrolled li#nav_toggle{
+    body.scrolled:not(.bmi) li#nav_toggle{
         left:305px!important
     }
     body.home.scrolled li#nav_toggle{
         left:290px!important
+    }
+    body.contact li#nav_toggle{
+        left:290px
+    }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
     }
 }
 @media all and (max-width:345px){
@@ -7362,12 +7380,18 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
 	    padding-left:16px;
 	    padding-right:16px
 	}
-    body.lunar li#nav_toggle{
+    body.lunar:not(.bmi):not(.contact) li#nav_toggle{
         left:280px!important
     }
     body.lunar #solarDate, body.lunar .m-wrap.panel {
 	    width: 156px
 	}
+	body.contact.scrolled li#nav_toggle,body.home.scrolled li#nav_toggle{
+        left:283px!important
+    }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
+    }
 }
 @media all and (max-width:419px){
     #proverb{
@@ -7379,11 +7403,17 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.lunar li#nav_toggle{
         left:305px
     }
-    body.scrolled:not(.lunar) li#nav_toggle{
+    body.scrolled:not(.lunar):not(.contact):not(.donation) li#nav_toggle{
         left:298px!important
     }
     body.home.scrolled li#nav_toggle{
         left:283px!important
+    }
+    body.contact.scrolled li#nav_toggle{
+        left:290px!important
+    }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
     }
 }
 @media all and (min-width:420px) and (max-width:551px){
@@ -7453,6 +7483,12 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     #author_wiki>i{
         font-size:11px
     }
+    body.contact.scrolled li#nav_toggle{
+        left:290px!important
+    }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
+    }
 }
 @media all and (min-width:552px) and (max-width:749px){
     .top.button.donate .reason,.top.button.sponsor .reason{
@@ -7517,15 +7553,18 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
         height:14px;
         font-size:14px
     }
-    body:not(.lunar):not(.bmi) li#nav_toggle{
-        left:280px!important;
+    body:not(.lunar):not(.bmi):not(.contact) li#nav_toggle{
+        left:280px;
         top:56px!important
     }
-    body.scrolled li#nav_toggle{
-        left:305px!important
+    body.scrolled:not(.bmi) li#nav_toggle{
+        left:290px!important
     }
     body.home li#nav_toggle{
         left:290px!important
+    }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+        left:280px!important
     }
     #author_wiki>i{
         font-size:12px
@@ -7913,9 +7952,15 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
         left:305px;
         top:56px
     }
+    body.bmi li#nav_toggle,body.bmi.scrolled li#nav_toggle{
+        left:300px
+    }
     body.home li#nav_toggle{
         left:290px
     }
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle {
+	    left:280px!important
+	}
     li#nav_toggle>a#nav_toggle_button{
         width:100%!important;
         height:100%!important;
