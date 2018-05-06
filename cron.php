@@ -1885,7 +1885,8 @@ function email_daily_suggestion() {
 		$content .= '<p>'.$span_interfaces['for_reference_only'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$email_interfaces['not_mark_as_spam'][$members[$i]['lang']].'</p>';
-		$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$members[$i]['lang']].'&body='.$email_interfaces['unsubscribe'][$members[$i]['lang']].' '.$members[$i]['email'].'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$members[$i]['lang']].'</a></p>';
+//		$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$members[$i]['lang']].'&body='.$email_interfaces['unsubscribe'][$members[$i]['lang']].' '.$members[$i]['email'].'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$members[$i]['lang']].'</a></p>';
+		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$members[$i]['email'].'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$members[$i]['lang']].'" /></form>';
 		$message = email_message($heading, $content);
 		//send_mail($my_email,$email_interfaces['hi'][$members[$i]['lang']].' '.$members[$i]['fullname'].', '.$email_interfaces['daily_suggestion'][$members[$i]['lang']].' | '.date('Y-m-d'),$message); // test only
 		send_mail($members[$i]['email'],$email_interfaces['hi'][$members[$i]['lang']].' '.$members[$i]['fullname'].', '.$email_interfaces['daily_suggestion'][$members[$i]['lang']].' | '.date('Y-m-d'),$message);

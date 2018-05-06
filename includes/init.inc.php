@@ -173,6 +173,18 @@ if (isset($_GET['q']) && $_GET['q'] != "") {
 	$h1 = $span_interfaces['contact'][$lang_code];
 	$title = $span_interfaces['contact'][$lang_code];
 	$body_class = 'contact';
+} else if ($p == 'unsubscribe') {
+	$h1 = $span_interfaces['unsubscribe'][$lang_code];
+	$title = $span_interfaces['unsubscribe'][$lang_code];
+	$body_class = 'unsubscribe';
+} else if ($p == 'forgot_password') {
+	$h1 = $span_interfaces['forgot_password'][$lang_code];
+	$title = $span_interfaces['forgot_password'][$lang_code];
+	$body_class = 'forgot_password';
+} else if ($p == 'reset_password') {
+	$h1 = $span_interfaces['reset_password'][$lang_code];
+	$title = $span_interfaces['reset_password'][$lang_code];
+	$body_class = 'reset_password';
 } else if ($p == 'author') {
 	$h1 = $span_interfaces['author'][$lang_code];
 	$title = $span_interfaces['author'][$lang_code];

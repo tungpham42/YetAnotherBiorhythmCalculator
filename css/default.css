@@ -7101,18 +7101,18 @@ body.home #member_register{
     padding:39px 0 40px;
     font-size:42px
 }
-body.member #profile_form span.error,body.member.register span.error,body.member.login span.error,body.contact span.error{
-    color:red;
-    font-size:14px;
-    line-height:21px;
-    display:block;
-    clear:left;
-    margin:4px
+body.member #profile_form .error,body.member.register .error,body.member.login .error,body.contact .error,body.unsubscribe .error,body.forgot_password .error,body.reset_password .error{
+    color: red;
+    font-size: 16px;
+    line-height: 24px;
+    display: block;
+    clear: both;
+    margin: 4px;
 }
-body.member #profile_form span.success,body.member.register span.success,body.member.login span.success,body.contact span.success{
+body.member #profile_form span.success,body.member.register span.success,body.member.login span.success,body.contact span.success,body.unsubscribe .success,body.forgot_password .success,body.reset_password .success{
     color:green;
-    font-size:14px;
-    line-height:21px;
+    font-size:16px;
+    line-height:24px;
     display:block;
     clear:left;
     margin:4px
@@ -7308,6 +7308,21 @@ body:lang(vi) #sms{
 body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body:lang(ja) #sms{
     display:none
 }
+#forgot_password_form,#reset_password_form {
+    width: 300px;
+    display: block;
+}
+#forgot_password_form span.add-on,#reset_password_form span.add-on,#reset_password_form input[type='password'] {
+    width: 138px;
+}
+#forgot_password_submit,#reset_password_submit {
+    width: 300px;
+    padding: 15px 0;
+}
+#resubscribe + span {
+    position: relative;
+    top: 2px;
+}
 @media all and (max-width:632px){
     #lang_bar{
         float:left;
@@ -7321,7 +7336,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     .lang_toggle.button.first>span.lang{
         display:none
     }
-    #bmi_app,#contact_form{
+    #bmi_app,#contact_form,#forgot_password_form,#reset_password_form{
         clear:both
     }
     li#nav_toggle{
@@ -7345,7 +7360,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.bmi.scrolled li#nav_toggle {
 	    left:300px!important
 	}
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
 }
@@ -7353,7 +7368,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     .lang_toggle.button.first>span.lang{
         display:none!important
     }
-    body:not(.bmi):not(.contact) li#nav_toggle{
+    body:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle{
         left:280px!important
     }
     body.home:not(.bmi):not(.contact) li#nav_toggle{
@@ -7371,7 +7386,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.contact li#nav_toggle{
         left:290px
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
 }
@@ -7384,12 +7399,13 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
         left:280px!important
     }
     body.lunar #solarDate, body.lunar .m-wrap.panel {
-	    width: 156px
+	    width:156px;
+        font-size:12px
 	}
-	body.contact.scrolled li#nav_toggle,body.home.scrolled li#nav_toggle{
+	body.contact.scrolled:not(.lunar):not(.donation):not(.proverbs) li#nav_toggle,body.home.scrolled:not(.lunar):not(.donation):not(.proverbs) li#nav_toggle{
         left:283px!important
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
 }
@@ -7403,7 +7419,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.lunar li#nav_toggle{
         left:305px
     }
-    body.scrolled:not(.lunar):not(.contact):not(.donation) li#nav_toggle{
+    body.scrolled:not(.home):not(.lunar):not(.contact):not(.donation):not(.intro):not(.proverbs) li#nav_toggle{
         left:298px!important
     }
     body.home.scrolled li#nav_toggle{
@@ -7412,7 +7428,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.contact.scrolled li#nav_toggle{
         left:290px!important
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
 }
@@ -7486,7 +7502,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.contact.scrolled li#nav_toggle{
         left:290px!important
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
 }
@@ -7553,7 +7569,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
         height:14px;
         font-size:14px
     }
-    body:not(.lunar):not(.bmi):not(.contact) li#nav_toggle{
+    body:not(.lunar):not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle{
         left:280px;
         top:56px!important
     }
@@ -7563,7 +7579,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.home li#nav_toggle{
         left:290px!important
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle{
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle{
         left:280px!important
     }
     #author_wiki>i{
@@ -7958,7 +7974,7 @@ body:lang(en) #sms,body:lang(ru) #sms,body:lang(es) #sms,body:lang(zh) #sms,body
     body.home li#nav_toggle{
         left:290px
     }
-    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle {
+    body.donation li#nav_toggle,body.donation.scrolled li#nav_toggle,body.intro li#nav_toggle,body.intro.scrolled li#nav_toggle,body.proverbs li#nav_toggle,body.proverbs.scrolled li#nav_toggle {
 	    left:280px!important
 	}
     li#nav_toggle>a#nav_toggle_button{

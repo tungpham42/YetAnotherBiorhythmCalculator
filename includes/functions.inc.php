@@ -1712,6 +1712,27 @@ function taken_email($email): bool {
 		return false;
 	}
 }
+function unsubscribed_email($email): bool {
+	$unsubscriber_emails = array();
+	$unsubscribers = new parseCSV();
+	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
+	$unsubscribers_count = count($unsubscribers->data);
+	for ($i = 0; $i < $unsubscribers_count; ++$i) {
+		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
+	}
+	sort($unsubscriber_emails);
+	if (in_array($email, $unsubscriber_emails)) {
+		return true;
+	} else {
+		return false;
+	}
+//	$i = 0
+//	while($unsubscribers->data[$i]['email']==$email){
+//		++$i;
+//		if ($unsubscribers->data[$i]['email']==null) return false;
+//	}
+//	return true;
+}
 function invalid_member($email,$password): bool {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 	if (is_dir($path)) {
@@ -1859,15 +1880,15 @@ function generate_message_id() {
 }
 function send_mail($to,$subject,$message) {
 	global $lang_code, $span_interfaces, $email_credentials;
-	$unsubscriber_emails = array();
-	$unsubscribers = new parseCSV();
-	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
-	$unsubscribers_count = count($unsubscribers->data);
-	for ($i = 0; $i < $unsubscribers_count; ++$i) {
-		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
-	}
-	sort($unsubscriber_emails);
-	if (!in_array(strtolower($to), $unsubscriber_emails)) {
+//	$unsubscriber_emails = array();
+//	$unsubscribers = new parseCSV();
+//	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
+//	$unsubscribers_count = count($unsubscribers->data);
+//	for ($i = 0; $i < $unsubscribers_count; ++$i) {
+//		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
+//	}
+//	sort($unsubscriber_emails);
+//	if (!in_array(strtolower($to), $unsubscriber_emails)) {
 		$fullname = load_member_from_email($to)['fullname'];
 		$boundary = uniqid('np');
 		$headers = "";
@@ -1895,7 +1916,7 @@ function send_mail($to,$subject,$message) {
 		$body .= $message['html'].PHP_EOL;
 		$body .= PHP_EOL.PHP_EOL."--".$boundary."--";
 		mail("\"".$fullname."\" <".strtolower($to).">", '=?utf-8?B?'.base64_encode('☺ '.$subject).'?=', $body, $headers);
-	}
+//	}
 }
 function email_message($heading,$content): array {
 	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="width=device-width"/></head><body style="padding: 0px; margin: 0px; width: 100%; min-width: 100%"> <table class="body" style="color: #222222;background-image: url(\'http://nhipsinhhoc.vn/css/images/coin.png\'); min-height: 420px;border: none; border-spacing: 0px; position: relative; height: 100%;width: 100%; top: 0px; left: 0px; margin: 0px;"> <tr style="padding: 0px; margin: 0px;text-align: center; width: 100%;"> <td style="padding: 0px; margin: 0px;text-align: center; width: 100%;" align="center" valign="top"> <center> <table style="height: 100px;padding: 0px;width: 100%;position: relative;background: #007799;" class="row header"> <tr> <td style="text-align: center;" align="center"> <center> <table style="margin: 0 auto;text-align: inherit;width: 95% !important;" class="container"> <tr> <td style="padding: 10px 20px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 95%;" class="twelve columns"> <tr> <td style="padding: 8px;" class="six sub-columns"> <a target="_blank" href="http://nhipsinhhoc.vn/"><img alt="logo" src="http://nhipsinhhoc.vn/app-icons/icon-60.png"> </a> </td><td class="six sub-columns last" style="text-align:left; vertical-align:middle;padding-right: 0px; color: white; width: 90%"> <span class="template-label"><a style="font-size: 24px;color: white; text-decoration: none;" target="_blank" href="http://nhipsinhhoc.vn/">'.$heading.'</a></span> </td><td class="expander"></td></tr></table> </td></tr></table> </center> </td></tr></table> <table class="container"> <tr> <td> <table class="row"> <tr> <td style="padding: 10px 10px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 80%;font-size:16px;margin: auto;" class="twelve columns"> <tr> <td> '.$content.' </td><td class="expander"></td></tr></table> </td></tr></table> </td></tr></table> </center> </td></tr></table></body></html>';
@@ -1938,7 +1959,8 @@ function email_create_member($email,$fullname,$password,$dob) {
 	$content .= '<p>'.$span_interfaces['for_reference_only'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['keyboard_shortcuts'][$lang_code].'</p>';
 	$content .= '<p>'.$email_interfaces['not_mark_as_spam'][$lang_code].'</p>';
-	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';
+//	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';
+	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
@@ -1981,7 +2003,8 @@ function email_edit_member($email,$fullname,$password,$dob) {
 //		$member_chart = new Chart($dob,0,0,date('Y-m-d'),$dob,$lang_code);
 //		$content .= '<p>'.$member_chart->get_infor_values().'</p>';
 //	}
-	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';
+//	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';	
+	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
@@ -1997,6 +2020,64 @@ function email_contact($email,$fullname,$body) {
 	$content .= '<p>Nội dung gửi: '.$body.'</p>';
 	$message = email_message($heading, $content);
 	send_mail($my_email,'Email phản hồi từ Form Contact',$message);
+}
+function do_unsubscribe($email) {
+	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member//unsubscribers_list.csv';
+	if (!$handle = fopen($path, 'a+')) {
+		echo 'Cannot open index file ('.$path.')';
+		exit;
+	}
+	if (fwrite($handle, PHP_EOL.$email) === false) {
+		echo 'Cannot write to index file ('.$path.')';
+		exit;
+	} else {
+		echo translate_span('has_been_unsubscribed','class: success');
+	}
+	fclose($handle);
+
+	$my_email = 'tung.42@gmail.com';
+	$heading = site_name();
+	$content = "";
+	$content .= '<h1>Email hủy đăng ký</h1>';
+	$content .= '<p>Email người hủy đăng ký: '.$email.'</p>';
+	$message = email_message($heading, $content);
+	send_mail($my_email,'Email hủy đăng ký: "'.$email.'"',$message);
+}
+function do_resubscribe($email) {
+	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member//unsubscribers_list.csv';
+	$lines = file($path, FILE_IGNORE_NEW_LINES);
+	$remove = $email;
+	foreach ($lines as $key => $line) {
+		if (stristr($line, $remove)) {
+			unset($lines[$key]);
+		}
+	}
+	$data = implode(PHP_EOL, array_values($lines));
+	$file = fopen($path, 'w');
+	fwrite($file, $data);
+	fclose($file);
+
+	$my_email = 'tung.42@gmail.com';
+	$heading = site_name();
+	$content = "";
+	$content .= '<h1>Email đăng ký lại</h1>';
+	$content .= '<p>Email người đăng ký lại: '.$email.'</p>';
+	$message = email_message($heading, $content);
+	send_mail($my_email,'Email đăng ký lại: "'.$email.'"',$message);
+}
+function email_forgot_password($email) {
+	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
+	$my_email = 'tung.42@gmail.com';
+	if (taken_email($email)) {
+		$heading = site_name();
+		$content = "";
+		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].'</h1>';
+		$content .= '<p>'.$email_interfaces['reset_password_notify'][$lang_code].'</p>';
+		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
+		$message = email_message($heading, $content);
+		send_mail($email,$email_interfaces['reset_password'][$lang_code],$message);
+		send_mail($my_email,$email_interfaces['reset_password'][$lang_code],$message);
+	}
 }
 function email_daily_suggestion() {
 	global $email_interfaces, $span_interfaces;

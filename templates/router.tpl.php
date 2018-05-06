@@ -114,6 +114,18 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 	include template('lang_bar');
 	include template('contact');
 	include template('keyboard');
+} else if ($p == 'unsubscribe') {
+	include template('lang_bar');
+	include template('unsubscribe');
+	include template('keyboard');
+} else if ($p == 'forgot_password') {
+	include template('lang_bar');
+	include template('forgot_password');
+	include template('keyboard');
+} else if ($p == 'reset_password') {
+	include template('lang_bar');
+	include template('reset_password');
+	include template('keyboard');
 } else if ($p == 'author') {
 	include template('lang_bar');
 	include template('author');

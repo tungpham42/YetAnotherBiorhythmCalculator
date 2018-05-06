@@ -55,6 +55,7 @@ $clicktale = false;
 $smartlook = true;
 $credential_id = 3; //change this to 4 in DEMO
 //$cdn_url = 'https://nhipsinhhoc.cdn.vccloud.vn';
+//$cdn_url = "https://cdn_local.nhipsinhhoc.vn";
 $cdn_url = "https://cdn.nhipsinhhoc.vn";
 $number = calculate_life_path($dob);
 if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['is_secondary']) && isset($_GET['dt_change']) && isset($_GET['partner_dob']) && isset($_GET['lang_code'])) {
@@ -716,15 +717,23 @@ $span_interfaces = array(
 		'zh' => '已经注册？',
 		'ja' => '既に登録されています？'
 	),
-	'forget_password' => array(
+	'reset_password' => array(
+		'vi' => 'Đặt lại mật khẩu',
+		'en' => 'Reset password',
+		'ru' => 'Сброс пароля',
+		'es' => 'Restablecer la contraseña',
+		'zh' => '重设密码',
+		'ja' => 'パスワードを再設定する'
+	),
+	'forgot_password' => array(
 		'vi' => 'Quên mật khẩu?',
-		'en' => 'Forget password?',
+		'en' => 'Forgot password?',
 		'ru' => 'Забыли пароль?',
 		'es' => '¿Contraseña olvidada?',
 		'zh' => '忘记密码？',
 		'ja' => 'パスワードをお忘れですか？'
 	),
-	'forget_password_hint' => array(
+	'forgot_password_hint' => array(
 		'vi' => '[cho mình biết họ tên đăng ký của bạn]',
 		'en' => '[let me know your registered full name]',
 		'ru' => '[Дайте мне знать ваше зарегистрированное полное имя]',
@@ -1043,6 +1052,38 @@ $span_interfaces = array(
 		'es' => 'Todos los proverbios',
 		'zh' => '所有谚语',
 		'ja' => 'すべての諺'
+	),
+	'unsubscribe' => array(
+		'vi' => 'Hủy đăng ký',
+		'en' => 'Unsubscribe',
+		'ru' => 'Отказаться',
+		'es' => 'Darse de baja',
+		'zh' => '退订',
+		'ja' => '退会'
+	),
+	'unsubscribed_email' => array(
+		'vi' => 'Thư điện tử đã được hủy đăng ký',
+		'en' => 'Email has already been unsubscribed',
+		'ru' => 'Электронная почта уже отписана',
+		'es' => 'El correo electrónico ya ha sido cancelado',
+		'zh' => '电子邮件已被取消订阅',
+		'ja' => 'メールは既に登録解除されています'
+	),
+	'has_been_unsubscribed' => array(
+		'vi' => 'Bạn đã được hủy đăng ký',
+		'en' => 'You have been unsubscribed',
+		'ru' => 'Ваша подписка была отменена',
+		'es' => 'Has sido cancelado',
+		'zh' => '你已经退订了',
+		'ja' => 'あなたがサブスクライブ解除されています'
+	),
+	'resubscribe' => array(
+		'vi' => 'Đăng ký lại',
+		'en' => 'Resubscribe',
+		'ru' => 'Переоформить подписку',
+		'es' => 'Reinscribirse',
+		'zh' => '重新订阅',
+		'ja' => '再登録'
 	)
 );
 $email_interfaces = array(
@@ -1205,6 +1246,30 @@ $email_interfaces = array(
 		'es' => 'Darse de baja',
 		'zh' => '退订',
 		'ja' => '退会'
+	),
+	'forgot_password' => array(
+		'vi' => 'Quên mật khẩu?',
+		'en' => 'Forgot password?',
+		'ru' => 'Забыли пароль?',
+		'es' => '¿Contraseña olvidada?',
+		'zh' => '忘记密码？',
+		'ja' => 'パスワードをお忘れですか？'
+	),
+	'reset_password' => array(
+		'vi' => 'Đặt lại mật khẩu',
+		'en' => 'Reset password',
+		'ru' => 'Сброс пароля',
+		'es' => 'Restablecer la contraseña',
+		'zh' => '重设密码',
+		'ja' => 'パスワードを再設定する'
+	),
+	'reset_password_notify' => array(
+		'vi' => 'Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản Nhịp Sinh Học, hãy ấn nút "Đặt lại mật khẩu" bên dưới. Nếu không phải là bạn yêu cầu đặt lại mật khẩu, vui lòng bỏ qua thư này.',
+		'en' => 'You requested to reset the password for your account, click the button "Reset password" below. If it was not you requesting the reset, please ignore this email.',
+		'ru' => 'Вы попросили сбросить пароль для своей учетной записи, нажмите кнопку «Сбросить пароль» ниже. Если вы не запрашивали сброс, пожалуйста, проигнорируйте это письмо.',
+		'es' => 'Ha solicitado restablecer la contraseña de su cuenta, haga clic en el botón "Restablecer contraseña" a continuación. Si no fue usted quien solicita el restablecimiento, ignore este correo electrónico.',
+		'zh' => '您要求重置您帐户的密码，请点击下面的“重置密码”按钮。 如果不是您请求重置，请忽略此电子邮件。',
+		'ja' => 'アカウントのパスワードをリセットするように要求された場合は、下の[パスワードをリセット]ボタンをクリックしてください。 リセットをリクエストしていない場合は、このメールを無視してください。'
 	)
 );
 $menu_interfaces = array(
@@ -1337,6 +1402,30 @@ $error_interfaces = array(
 		'es' => 'Email tomada',
 		'zh' => '采取电子邮件',
 		'ja' => 'メール撮影'
+	),
+	'unsubscribed_email' => array(
+		'vi' => 'Thư điện tử đã được hủy đăng ký rồi',
+		'en' => 'Email has already been unsubscribed',
+		'ru' => 'Электронная почта уже отписана',
+		'es' => 'El correo electrónico ya ha sido cancelado',
+		'zh' => '电子邮件已被取消订阅',
+		'ja' => 'メールは既に登録解除されています'
+	),
+	'no_email' => array(
+		'vi' => 'Thư điện tử chưa đăng ký',
+		'en' => 'Email has not been subscribed yet',
+		'ru' => 'Электронная почта еще не подписана',
+		'es' => 'El correo electrónico no se ha suscrito aún',
+		'zh' => '电子邮件尚未订阅',
+		'ja' => '電子メールはまだ購読されていません'
+	),
+	'invalid_input' => array(
+		'vi' => 'Đầu vào không hợp lệ',
+		'en' => 'Invalid input',
+		'ru' => 'Неправильный ввод',
+		'es' => 'Entrada inválida',
+		'zh' => '输入无效',
+		'ja' => '無効入力'
 	)
 );
 $help_interfaces = array(

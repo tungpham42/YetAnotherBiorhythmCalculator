@@ -47,6 +47,9 @@ if (isset($_POST['member_profile_submit'])) {
 			edit_member($_POST['member_profile_email'], $_POST['member_profile_fullname'], load_member()['password'], $_POST['member_profile_dob'], $lang_code);
 			email_edit_member($_POST['member_profile_email'], $_POST['member_profile_fullname'], $email_interfaces['not_changed'][$lang_code], $_POST['member_profile_dob']);
 		}
+		if (isset($_POST['resubscribe']) && $_POST['resubscribe'] == 'yes') {
+			do_resubscribe(load_member()['email']);
+		}
 	}
 }
 ?>
@@ -64,6 +67,17 @@ if (isset($_POST['member_profile_submit'])) {
 		<span class="add-on"><?php echo translate_span('dob'); ?></span>
 		<input id="member_profile_dob" class="m-wrap required" size="20" type="text" name="member_profile_dob" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" value="<?php echo $inputted_dob; ?>" required>
 	</div>
+<?php
+if (unsubscribed_email(load_member()['email'])):
+?>
+	<center>
+		<label class="m-checkbox m-wrap">
+			<input id="resubscribe" type="checkbox" name="resubscribe" value="yes"> <?php echo translate_span('resubscribe'); ?>
+		</label>
+	</center>
+<?php
+endif;
+?>
 	<a id="change_pass" href="javascript:void(0);"><?php echo translate_button('change_pass'); ?></a>
 	<div class="m-input-prepend hide pass">
 		<span class="add-on"><?php echo translate_span('password'); ?></span>
