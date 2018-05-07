@@ -2067,11 +2067,13 @@ function do_resubscribe($email) {
 }
 function email_forgot_password($email) {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
+	$member = load_member_from_email($email);
+	$fullname = $member['fullname'];
 	$my_email = 'tung.42@gmail.com';
 	if (taken_email($email)) {
 		$heading = site_name();
 		$content = "";
-		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].'</h1>';
+		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 		$content .= '<p>'.$email_interfaces['reset_password_notify'][$lang_code].'</p>';
 		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
 		$message = email_message($heading, $content);
