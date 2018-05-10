@@ -1637,6 +1637,14 @@ html {
 	';
 }
 /* Member Management */
+function hash_token($email) {
+	$hasher = new PasswordHash(12, true);
+	return $hasher->HashPassword(trim($email));
+}
+function check_token($email, $hash) {
+	$hasher = new PasswordHash(12, true);
+	return $hasher->CheckPassword(trim($email), $hash);
+}
 /* Validation */
 function invalid_email($email): bool {
 	if (!filter_var(strtolower($email), FILTER_VALIDATE_EMAIL)) {
@@ -1961,7 +1969,7 @@ function email_create_member($email,$fullname,$password,$dob) {
 	$content .= '<p>'.$email_interfaces['not_mark_as_spam'][$lang_code].'</p>';
 //	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';
 //	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
-	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
+	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
@@ -2006,7 +2014,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 //	}
 //	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';	
 //	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
-	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
+	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
@@ -2078,7 +2086,7 @@ function email_forgot_password($email) {
 		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 		$content .= '<p>'.$email_interfaces['reset_password_notify'][$lang_code].'</p>';
 //		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
-		$content .= '<a href="https://nhipsinhhoc.vn/reset_password/?forgot_password_email='.$email.'">'.$email_interfaces['reset_password'][$lang_code].'</a>';
+		$content .= '<a href="https://nhipsinhhoc.vn/reset_password/?forgot_password_email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['reset_password'][$lang_code].'</a>';
 		$message = email_message($heading, $content);
 		send_mail($email,$email_interfaces['reset_password'][$lang_code],$message);
 		send_mail($my_email,$email_interfaces['reset_password'][$lang_code],$message);

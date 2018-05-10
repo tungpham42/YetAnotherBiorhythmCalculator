@@ -1,7 +1,8 @@
 <?php
 $unsubscribe_errors = array();
 $email = isset($_GET['email']) ? $_GET['email']: "";
-if ($email != "") {
+$token = isset($_GET['token']) ? $_GET['token']: "";
+if ($email != "" && check_token($email,$token)) {
 	if (invalid_email($email) || !taken_email($email)) {
 		$unsubscribe_errors[] = translate_error('invalid_email');
 	}
