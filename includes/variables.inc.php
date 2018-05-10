@@ -32,8 +32,8 @@ $lang_cse_apis = array(
 	'zh' => 'lang_zh-CN',
 	'ja' => 'lang_ja'
 );
-$navs = array('member/home','member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact','author');
-$adsense_navs = array('member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact');
+$navs = array('member/home','member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact','author','unsubscribe','forgot_password','reset_password');
+$adsense_navs = array('member/login','member/register','intro','bmi','lunar','donate','2048','race','race/1','race/2','race/3','co','fish','proverbs','contact','unsubscribe','forgot_password','reset_password');
 $first_domain = 'nhipsinhhoc.vn';
 $second_domain = 'biorhythm.xyz';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/prep.inc.php';
