@@ -9381,7 +9381,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 
   li#nav_toggle {
     display: none !important; } }
-@media all and (min-width: 960px) and (max-width: 1279px) {
+@media all and (min-width: 960px) and (max-width: 1296px) {
   .inner {
     width: 960px;
     margin: auto; }
@@ -9438,7 +9438,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 
   body.home #member_register {
     margin-bottom: 20px; } }
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1296px) {
   .banner {
     display: none; }
 
@@ -9448,7 +9448,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
   .to-top {
     right: 20px;
     bottom: 20px; } }
-@media all and (min-width: 1280px) {
+@media all and (min-width: 1297px) {
   .inner {
     width: calc(100% - 320px);
     width: -webkit-calc(100% - 320px);
@@ -9548,7 +9548,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
 
   body.home #member_register {
     margin-bottom: 20px; } }
-@media all and (min-width: 1280px) and (max-width: 1582px) {
+@media all and (min-width: 1297px) and (max-width: 1582px) {
   ul.dates > li {
     width: calc(100% / 3);
     width: -webkit-calc(100% / 3);
