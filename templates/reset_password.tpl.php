@@ -1,10 +1,10 @@
 <?php
 $email_errors = array();
 $reset_password_errors = array();
-$forgot_password_email = isset($_POST['forgot_password_email']) ? $_POST['forgot_password_email']: "";
+$forgot_password_email = isset($_REQUEST['forgot_password_email']) ? $_REQUEST['forgot_password_email']: "";
 $password = isset($_POST['password']) ? $_POST['password']: "";
 $repeat_password = isset($_POST['repeat_password']) ? $_POST['repeat_password']: "";
-if (isset($_POST['forgot_password_submit']) || isset($_POST['reset_password_submit'])) {
+if ($forgot_password_email != "" || isset($_POST['reset_password_submit'])) {
 	if (invalid_email($forgot_password_email) || !taken_email($forgot_password_email)) {
 		$email_errors[] = translate_error('invalid_email');
 	}

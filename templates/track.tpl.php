@@ -1,1 +1,1 @@
-<script src="http://nhipsinhhoc.vn/track/tracker.js"></script>
+<script src="https://usertrack.xyz/tracker.min.js"></script>

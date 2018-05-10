@@ -1,12 +1,9 @@
 <?php
 $unsubscribe_errors = array();
-$email = isset($_POST['email']) ? $_POST['email']: "";
-if (isset($_POST['unsubscribe_submit'])) {
-	if (invalid_email($email)) {
+$email = isset($_GET['email']) ? $_GET['email']: "";
+if ($email != "") {
+	if (invalid_email($email) || !taken_email($email)) {
 		$unsubscribe_errors[] = translate_error('invalid_email');
-	}
-	if (!taken_email($email)) {
-		$unsubscribe_errors[] = translate_error('no_email');
 	}
 	if (unsubscribed_email($email)) {
 		$unsubscribe_errors[] = translate_error('unsubscribed_email');

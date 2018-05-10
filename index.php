@@ -19,7 +19,6 @@ else:
 endif;
 include template('adsense_top');
 include template('fb_pixel');
-//include template('track');
 if ($hotjar):
 	include template('hotjar');
 endif;
@@ -96,6 +95,7 @@ if ($clicktale):
 endif;
 include template('adsense_bottom');
 include template('scripts_bottom');
+include template('track');
 include template('interstitial_geniee');
 //if (is_birthday()):
 //	include template('presents');
