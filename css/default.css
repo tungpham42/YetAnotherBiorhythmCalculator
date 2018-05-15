@@ -3047,7 +3047,11 @@ body {
   width: 100%;
   margin: 0; }
 
-::selection, ::-moz-selection {
+::selection {
+  color: #FFF;
+  background: #29b; }
+
+::-moz-selection {
   color: #FFF;
   background: #29b; }
 
@@ -3055,7 +3059,10 @@ body.birthday {
   background-color: #fff6c4;
   background-image: url(/css/images/gifts.png);
   margin: 0; }
-  body.birthday ::selection, body.birthday ::-moz-selection {
+  body.birthday ::selection {
+    color: #E35604;
+    background: gold; }
+  body.birthday ::-moz-selection {
     color: #E35604;
     background: gold; }
   body.birthday .button_changeable {
