@@ -8636,14 +8636,10 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
   .lang_toggle.button.first > span.lang {
     display: none !important; }
 
-  body:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
-    left: 280px !important; }
-  body.home:not(.bmi):not(.contact) li#nav_toggle {
+  body.home.scrolled:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
     left: 290px !important; }
-  body.lunar:not(.bmi):not(.contact) li#nav_toggle, body.scrolled:not(.bmi) li#nav_toggle {
+  body.lunar:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle, body.scrolled:not(.bmi) li#nav_toggle {
     left: 305px !important; }
-  body.home.scrolled li#nav_toggle {
-    left: 290px !important; }
   body.contact li#nav_toggle {
     left: 290px; }
   body.donation li#nav_toggle, body.donation.scrolled li#nav_toggle {
@@ -8656,7 +8652,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
   body.lunar #prev, body.lunar #next {
     padding-left: 16px;
     padding-right: 16px; }
-  body.lunar:not(.bmi):not(.contact) li#nav_toggle {
+  body.lunar:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
     left: 280px !important; }
   body.lunar #solarDate, body.lunar .m-wrap.panel {
     width: 156px;
@@ -8820,7 +8816,7 @@ body:lang(en) #sms, body:lang(ru) #sms, body:lang(es) #sms, body:lang(zh) #sms, 
   body:not(.lunar):not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
     left: 280px;
     top: 56px !important; }
-  body.scrolled:not(.bmi) li#nav_toggle, body.home li#nav_toggle {
+  body.scrolled:not(.lunar):not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle, body.home li#nav_toggle {
     left: 290px !important; }
   body.donation li#nav_toggle, body.donation.scrolled li#nav_toggle {
     left: 280px !important; }

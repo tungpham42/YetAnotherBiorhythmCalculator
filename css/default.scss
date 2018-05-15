@@ -9294,17 +9294,11 @@ body {
     display: none !important;
   }
   body {
-    &:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
-      left: 280px !important;
-    }
-    &.home:not(.bmi):not(.contact) li#nav_toggle {
+    &.home.scrolled:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
       left: 290px !important;
     }
-    &.lunar:not(.bmi):not(.contact) li#nav_toggle, &.scrolled:not(.bmi) li#nav_toggle {
+    &.lunar:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle, &.scrolled:not(.bmi) li#nav_toggle {
       left: 305px !important;
-    }
-    &.home.scrolled li#nav_toggle {
-      left: 290px !important;
     }
     &.contact li#nav_toggle {
       left: 290px;
@@ -9334,7 +9328,7 @@ body {
         padding-left: 16px;
         padding-right: 16px;
       }
-      &:not(.bmi):not(.contact) li#nav_toggle {
+      &:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
         left: 280px !important;
       }
       #solarDate, .m-wrap.panel {
@@ -9578,7 +9572,7 @@ body {
       left: 280px;
       top: 56px !important;
     }
-    &.scrolled:not(.bmi) li#nav_toggle, &.home li#nav_toggle {
+    &.scrolled:not(.lunar):not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle, &.home li#nav_toggle {
       left: 290px !important;
     }
     &.donation {

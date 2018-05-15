@@ -1762,11 +1762,11 @@ function get_ad($name): string {
 	}
 	return $ad;
 }
-function hash_token($email) {
+function hash_token($email): string {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->HashPassword(trim($email));
 }
-function check_token($email, $hash) {
+function check_token($email, $hash): bool {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->CheckPassword(trim($email), $hash);
 }

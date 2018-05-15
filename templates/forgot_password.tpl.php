@@ -2,13 +2,17 @@
 $forgot_password_errors = array();
 $inputted_email = isset($_POST['email']) ? $_POST['email']: "";
 if (isset($_POST['forgot_password_submit'])) {
-	if (!$_POST['email']) {
+	if ($inputted_email == "") {
 		$forgot_password_errors[] = translate_error('not_filled');
-	} else if (invalid_email($_POST['email']) || !taken_email($_POST['email'])) {
+	} else if (invalid_email($inputted_email)) {
 		$forgot_password_errors[] = translate_error('invalid_email');
 	}
 	if (!count($forgot_password_errors)) {
-		email_forgot_password($_POST['email']);
+		if (taken_email($inputted_email)) {
+			email_forgot_password($inputted_email);
+		} else {
+			email_forgot_password_alert($inputted_email);
+		}
 	}
 }
 ?>
