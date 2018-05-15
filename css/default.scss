@@ -8904,7 +8904,6 @@ body.member {
     float: left;
     width: 280px;
     margin: 4px;
-    clear: both;
   }
   #profile_form input.m-wrap, &.register input.m-wrap, &.login input.m-wrap {
     width: 128px;
@@ -9247,7 +9246,7 @@ body {
   .lang_toggle.button.first > span.lang {
     display: none;
   }
-  #bmi_app, #contact_form, #forgot_password_form, #reset_password_form {
+  #bmi_app, #contact_form, #login_form, #register_form, #forgot_password_form, #reset_password_form {
     clear: both;
   }
   li#nav_toggle {
