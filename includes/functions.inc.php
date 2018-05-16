@@ -1139,11 +1139,11 @@ function credential($type) {
 			break;
 	}
 }
-function hash_pass($password) {
+function hash_pass($password): string {
 	$hasher = new PasswordHash(8, true);
 	return $hasher->HashPassword(trim($password));
 }
-function check_pass($password, $hash) {
+function check_pass($password, $hash): bool {
 	$hasher = new PasswordHash(8, true);
 	return $hasher->CheckPassword(trim($password), $hash);
 }
@@ -1637,11 +1637,11 @@ html {
 	';
 }
 /* Member Management */
-function hash_token($email) {
+function hash_token($email): string {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->HashPassword(trim($email));
 }
-function check_token($email, $hash) {
+function check_token($email, $hash): bool {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->CheckPassword(trim($email), $hash);
 }
@@ -1897,7 +1897,7 @@ function send_mail($to,$subject,$message) {
 //	}
 //	sort($unsubscriber_emails);
 //	if (!in_array(strtolower($to), $unsubscriber_emails)) {
-		$fullname = load_member_from_email($to)['fullname'];
+		$fullname = taken_email($to) ? load_member_from_email($to)['fullname']: "";
 		$boundary = uniqid('np');
 		$headers = "";
 		$headers .= "Organization: \"Nhip Sinh Hoc . VN\"".PHP_EOL;
@@ -2092,6 +2092,21 @@ function email_forgot_password($email) {
 		send_mail($my_email,$email_interfaces['reset_password'][$lang_code],$message);
 	}
 }
+function email_forgot_password_alert($email) {
+	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
+	$my_email = 'tung.42@gmail.com';
+	if (!taken_email($email)) {
+		$heading = site_name();
+		$content = "";
+		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].'</h1>';
+		$content .= '<p>'.$email_interfaces['forgot_password_alert'][$lang_code].'</p>';
+//		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
+		$content .= '<a href="https://nhipsinhhoc.vn/member/register/">'.$email_interfaces['register'][$lang_code].'</a>';
+		$message = email_message($heading, $content);
+		send_mail($email,$email_interfaces['forgot_password_alert_title'][$lang_code],$message);
+		send_mail($my_email,$email_interfaces['forgot_password_alert_title'][$lang_code],$message);
+	}
+}
 function email_daily_suggestion() {
 	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
@@ -2210,6 +2225,48 @@ function test_email_daily_suggestion() {
 	echo '<pre>';
 	print_r($unsubscriber_emails);
 	print_r($all_emails);
+	print_r($emails);
+	print_r($members);
+	echo '</pre>';
+}
+function list_emails() {
+	global $email_interfaces, $span_interfaces;
+//	$my_email = 'nhipsinhhoc@mail-tester.com';
+//	$my_email = 'tung.42@gmail.com';
+//	$unsubscriber_emails = array();
+//	$all_emails = array();
+	$emails = array();
+	$members = array();
+//	$unsubscribers = new parseCSV();
+//	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
+//	$unsubscribers_count = count($unsubscribers->data);
+//	for ($i = 0; $i < $unsubscribers_count; ++$i) {
+//		$unsubscriber_emails[$i] = $unsubscribers->data[$i]['email'];
+//	}
+//	sort($unsubscriber_emails);
+	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
+	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
+	if (!count($directories)) {
+		echo 'No matches';
+	} else {
+		$n = 0;
+		foreach ($directories as $directory) {
+			//if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register' && is_dir($path.str_replace($path, "", $directory))) {
+			if (str_replace($path, "", $directory) != 'login' && str_replace($path, "", $directory) != 'register') {
+				$emails[] = str_replace($path, "", $directory);
+			}
+		}
+	}
+	sort($emails);
+//	$emails = array_diff($all_emails, $unsubscriber_emails);
+	$count = count($emails);
+	for ($m = 0; $m < $count; ++$m) {
+		$members[$m] = load_member_from_email($emails[$m]);
+	}
+	usort($members,'sort_date_member_ascend');
+	echo '<pre>';
+//	print_r($unsubscriber_emails);
+//	print_r($all_emails);
 	print_r($emails);
 	print_r($members);
 	echo '</pre>';

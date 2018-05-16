@@ -35,6 +35,7 @@
 <?php
 include template('fonts');
 ?>
+<!--
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/normalize.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/install-button.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.listnav.css" />
@@ -44,7 +45,8 @@ include template('fonts');
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/m-styles.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
-<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=24" />
+-->
+<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=28" />
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
 //include template('style');

@@ -1255,6 +1255,22 @@ $email_interfaces = array(
 		'zh' => '忘记密码？',
 		'ja' => 'パスワードをお忘れですか？'
 	),
+	'forgot_password_alert' => array(
+		'vi' => 'Có vẻ như thư điện tử bạn điền không nằm trong hệ thống. Bạn có thể muốn đăng ký tài khoản mới.',
+		'en' => 'It seems that your email address is not registered in our system. You may want to register a new account.',
+		'ru' => 'Кажется, что ваш адрес электронной почты не зарегистрирован в нашей системе. Возможно, вы захотите зарегистрировать новую учетную запись.',
+		'es' => 'Parece que su dirección de correo electrónico no está registrada en nuestro sistema. Es posible que desee registrar una nueva cuenta.',
+		'zh' => '看来您的电子邮件地址未在我们的系统中注册。您可能需要注册一个新帐户。',
+		'ja' => 'あなたのメールアドレスが私たちのシステムに登録されていないようです。新しいアカウントを登録することができます。'
+	),
+	'forgot_password_alert_title' => array(
+		'vi' => 'Đăng ký tài khoản mới?',
+		'en' => 'Register new account?',
+		'ru' => 'Регистрация нового аккаунта?',
+		'es' => '¿Registrar una cuenta nueva?',
+		'zh' => '注册新帐户？',
+		'ja' => '新しいアカウントを登録しますか？'
+	),
 	'reset_password' => array(
 		'vi' => 'Đặt lại mật khẩu',
 		'en' => 'Reset password',
@@ -1270,6 +1286,14 @@ $email_interfaces = array(
 		'es' => 'Ha solicitado restablecer la contraseña de su cuenta, haga clic en el botón "Restablecer contraseña" a continuación. Si no fue usted quien solicita el restablecimiento, ignore este correo electrónico.',
 		'zh' => '您要求重置您帐户的密码，请点击下面的“重置密码”按钮。 如果不是您请求重置，请忽略此电子邮件。',
 		'ja' => 'アカウントのパスワードをリセットするように要求された場合は、下の[パスワードをリセット]ボタンをクリックしてください。 リセットをリクエストしていない場合は、このメールを無視してください。'
+	),
+	'register' => array(
+		'vi' => 'Đăng ký',
+		'en' => 'Register',
+		'ru' => 'Регистр',
+		'es' => 'Registrarse',
+		'zh' => '注册',
+		'ja' => '登録'
 	)
 );
 $menu_interfaces = array(
