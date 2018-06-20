@@ -3,7 +3,6 @@ $avatar_url = get_gravatar(load_member()['email']);
 $header = get_http_response_code($avatar_url);
 if ($header != '404'):
 ?>
-<img id="avatar" src="<?php echo $avatar_url; ?>" alt="avatar" />
+<img id="avatar" src="<?php echo $avatar_url; ?>" alt="avatar" class="top-left-corner top-right-corner bottom-left-corner bottom-right-corner" />
 <?php
 endif;
-?>

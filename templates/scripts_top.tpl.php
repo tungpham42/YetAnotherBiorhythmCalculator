@@ -36,7 +36,7 @@
 <script src="<?php echo $cdn_url; ?>/js/manipulation.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/lang.js"></script>
 -->
-<script src="<?php echo $cdn_url; ?>/js/all.js"></script>
+<script src="<?php echo $cdn_url; ?>/js/all.js?v=9"></script>
 <?php
 //include template('script');
 //if (is_birthday()):

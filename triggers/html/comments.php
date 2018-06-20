@@ -15,4 +15,3 @@ if (isset($_GET['lang_code'])):
 </div>
 <?php
 endif;
-?>

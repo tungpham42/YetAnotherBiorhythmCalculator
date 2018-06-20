@@ -23,4 +23,3 @@ if (!isset($_SESSION['loggedin'])):
 elseif (isset($_SESSION['loggedin'])):
 	echo '<h2>You have logged in!</h2>';
 endif;
-?>

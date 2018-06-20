@@ -25,5 +25,3 @@ $data = substr($data, 0, strlen($data)-1).'}';
 
 echo json_encode($data);
 mysql_close($con);
-
-?>

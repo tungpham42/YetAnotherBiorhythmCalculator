@@ -3,10 +3,10 @@
 <script src="<?php echo $cdn_url; ?>/js/lunar.js"></script>
 <div data-ng-app="lunarApp" data-ng-controller="lunarController" style="margin-top: 5px;">
 	<span data-ng-model="today" data-ng-init="today='<?php echo date('Y-m-d'); ?>'"></span>
-	<div class="m-btn-group">
-		<a class="m-btn green" id="today"><i class="icon-calendar icon-white"></i> <span>Hôm nay</span></a>
+	<div class="m-btn-group top-left-corner top-right-corner">
+		<a class="m-btn green top-left-corner" id="today"><i class="icon-calendar icon-white"></i> <span>Hôm nay</span></a>
 		<a class="m-btn blue" id="prev"><i class="icon-backward icon-white"></i> <span>Trước</span></a>
-		<a class="m-btn blue" id="next"><span>Sau</span> <i class="icon-forward icon-white"></i></a>
+		<a class="m-btn blue top-right-corner" id="next"><span>Sau</span> <i class="icon-forward icon-white"></i></a>
 	</div>
 	<div class="m-input-prepend">
 		<span class="add-on label">Xem ngày:</span>
@@ -41,16 +41,16 @@
 		<input type="text" class="m-wrap panel" disabled value="{{lunarPeriodDate()}}">
 	</div>
 	<div class="m-input-prepend">
-		<span class="add-on label">Giờ tốt:</span>
+		<span class="add-on label bottom-left-corner">Giờ tốt:</span>
 		<textarea class="m-wrap panel" disabled>{{lunarGoodHours()}}</textarea>
 	</div>
 	<div class="m-input-prepend">
-		<span class="add-on label">Sao tốt:</span>
+		<span class="add-on label top-left-corner bottom-left-corner">Sao tốt:</span>
 		<textarea class="m-wrap panel" disabled>{{lunarGoodStars()}}</textarea>
 	</div>
 	<div class="m-input-prepend">
-		<span class="add-on label">Sao xấu:</span>
-		<textarea class="m-wrap panel" disabled>{{lunarBadStars()}}</textarea>
+		<span class="add-on label top-left-corner bottom-left-corner">Sao xấu:</span>
+		<textarea class="m-wrap panel bottom-left-corner bottom-right-corner" disabled>{{lunarBadStars()}}</textarea>
 	</div>
 </div>
 <script>

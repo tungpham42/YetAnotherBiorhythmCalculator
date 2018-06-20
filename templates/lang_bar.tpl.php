@@ -50,10 +50,16 @@ $lang_bar_count = count($current_lang_bar_strings);
 <div id="lang_bar">
 <?php
 for ($i = 0; $i < $lang_bar_count; ++$i):
+	if ($i == 0):
+?>
+	<a class="lang_toggle button top-right-corner bottom-right-corner" title="<?php echo $current_lang_bar_strings[$i]['order']; ?>" data-order="<?php echo $current_lang_bar_strings[$i]['order']; ?>" lang="<?php echo $current_lang_bar_strings[$i]['code']; ?>" id="<?php echo $current_lang_bar_strings[$i]['code']; ?>_toggle"><i class="flag"></i><span class="lang"><?php echo $current_lang_bar_strings[$i]['span']; ?></span></a>
+<?php
+	else:
 ?>
 	<a class="lang_toggle button" title="<?php echo $current_lang_bar_strings[$i]['order']; ?>" data-order="<?php echo $current_lang_bar_strings[$i]['order']; ?>" lang="<?php echo $current_lang_bar_strings[$i]['code']; ?>" id="<?php echo $current_lang_bar_strings[$i]['code']; ?>_toggle"><i class="flag"></i><span class="lang"><?php echo $current_lang_bar_strings[$i]['span']; ?></span></a>
 <?php
+	endif;
 endfor;
 ?>
-	<a class="lang_toggle button" title="<?php echo $current_lang_strings[0]['order']; ?>" data-order="<?php echo $current_lang_strings[0]['order']; ?>" lang="<?php echo $current_lang_strings[0]['code']; ?>" id="<?php echo $current_lang_strings[0]['code']; ?>_toggle"><i class="flag"></i><span class="lang"><?php echo $current_lang_strings[0]['span']; ?></span></a>
+	<a class="lang_toggle button top-left-corner bottom-left-corner" title="<?php echo $current_lang_strings[0]['order']; ?>" data-order="<?php echo $current_lang_strings[0]['order']; ?>" lang="<?php echo $current_lang_strings[0]['code']; ?>" id="<?php echo $current_lang_strings[0]['code']; ?>_toggle"><i class="flag"></i><span class="lang"><?php echo $current_lang_strings[0]['span']; ?></span></a>
 </div>

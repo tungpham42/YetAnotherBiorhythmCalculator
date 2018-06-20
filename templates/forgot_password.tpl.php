@@ -17,11 +17,11 @@ if (isset($_POST['forgot_password_submit'])) {
 }
 ?>
 <form id="forgot_password_form" method="POST" action="/forgot_password/">
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('email'); ?></span>
-		<input id="email" class="m-wrap required" size="20" type="text" name="email" placeholder="john@example.com" value="<?php echo $inputted_email; ?>" tabindex="1" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('email'); ?></span>
+		<input id="email" class="m-wrap required top-right-corner bottom-right-corner" size="20" type="text" name="email" placeholder="john@example.com" value="<?php echo $inputted_email; ?>" tabindex="1" required>
 	</div>
-	<input id="forgot_password_submit" class="m-btn translate green" name="forgot_password_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['submit']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['submit']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['submit']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['submit']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['submit']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['submit']['vi']; ?>" value="<?php echo $button_interfaces['submit'][$lang_code]; ?>" tabindex="2" />
+	<input id="forgot_password_submit" class="m-btn translate green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" name="forgot_password_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['submit']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['submit']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['submit']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['submit']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['submit']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['submit']['vi']; ?>" value="<?php echo $button_interfaces['submit'][$lang_code]; ?>" tabindex="2" />
 </form>
 <?php
 if (isset($_POST['forgot_password_submit'])) {
@@ -31,4 +31,3 @@ if (isset($_POST['forgot_password_submit'])) {
 		echo translate_span('submit_success','class: success');
 	}
 }
-?>

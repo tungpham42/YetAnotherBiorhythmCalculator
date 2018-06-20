@@ -1,1 +1,1 @@
-<a href="#0" class="to-top">Top</a>
+<a href="#0" class="to-top top-left-corner top-right-corner bottom-left-corner bottom-right-corner">Top</a>

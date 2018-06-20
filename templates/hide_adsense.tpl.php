@@ -19,4 +19,3 @@ elseif ((isset($_COOKIE['NSH:show_ad']) && $_COOKIE['NSH:show_ad'] == 0) || (iss
 <link rel="stylesheet" href="/min/f=css/hide_adsense.css&amp;1" />
 <?php
 endif;
-?>

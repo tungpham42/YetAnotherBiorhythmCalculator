@@ -4,4 +4,3 @@ if (isset($_GET['dob'])) {
 	header('Content-Type: application/json; charset=utf-8');
 	echo get_json_same_birthday($_GET['dob']);
 }
-?>

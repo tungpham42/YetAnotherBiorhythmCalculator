@@ -57,6 +57,7 @@ $credential_id = 3; //change this to 4 in DEMO
 //$cdn_url = 'https://nhipsinhhoc.cdn.vccloud.vn';
 //$cdn_url = "https://cdn_local.nhipsinhhoc.vn";
 $cdn_url = "https://cdn.nhipsinhhoc.vn";
+//$cdn_url = "";
 $number = calculate_life_path($dob);
 if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['is_secondary']) && isset($_GET['dt_change']) && isset($_GET['partner_dob']) && isset($_GET['lang_code'])) {
 	$chart = new Chart($_GET['dob'],$_GET['diff'],$_GET['is_secondary'],$_GET['dt_change'],$_GET['partner_dob'],$_GET['lang_code']);

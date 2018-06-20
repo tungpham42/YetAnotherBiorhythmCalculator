@@ -4,4 +4,3 @@ header('Content-Type: text/html; charset=utf-8');
 if (isset($_GET['url'])) {
 	load_rss_feed($_GET['url']);
 }
-?>

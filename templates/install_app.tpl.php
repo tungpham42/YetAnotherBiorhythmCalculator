@@ -19,6 +19,7 @@ endif;
 			<a target="_blank" id="android" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc"></a>
 			<div class="qr_code"></div>
 		</section>
+    <!--
 		<section class="app">
 			<h4 class="apps one_lang"><?php echo translate_span('apps_one_lang'); ?></h4>
 			<a target="_blank" id="android_vi" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.vi"></a>
@@ -34,6 +35,7 @@ endif;
 			<a target="_blank" id="android_ja" href="https://play.google.com/store/apps/details?id=vn.nhipsinhhoc.ja"></a>
 			<div class="qr_code"></div>
 		</section>
+    -->
 	</section>
 <!--
 	<section class="apps">

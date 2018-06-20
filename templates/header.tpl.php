@@ -5,5 +5,4 @@ if (!isset($hide_nav)):
 endif;
 include template('heading_h1');
 include template('search_form');
-?>
-<div class="clear"></div>
+include template('clear');

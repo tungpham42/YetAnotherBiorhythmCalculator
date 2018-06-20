@@ -17,4 +17,3 @@ if ($email != "" && check_token($email,$token)) {
 } else {
 	echo '<span class="clear error">'.translate_error('invalid_input').'</span>';
 }
-?>

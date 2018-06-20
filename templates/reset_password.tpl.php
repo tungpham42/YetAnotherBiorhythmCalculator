@@ -49,15 +49,15 @@ if (check_token($forgot_password_email,$token)) {
 <form id="reset_password_form" method="POST" action="/reset_password/">
 	<input type="hidden" name="forgot_password_email" value="<?php echo $forgot_password_email; ?>" />
 	<input type="hidden" name="token" value="<?php echo $token; ?>" />
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('password'); ?></span>
-		<input id="password" class="m-wrap translate required" size="20" type="password" name="password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="1" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('password'); ?></span>
+		<input id="password" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="password" name="password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="1" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('repeat_password'); ?></span>
-		<input id="repeat_password" class="m-wrap translate required" size="20" type="password" name="repeat_password" data-lang-ja="<?php echo $input_interfaces['repeat_password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['repeat_password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['repeat_password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['repeat_password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['repeat_password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['repeat_password']['vi']; ?>" placeholder="<?php echo $input_interfaces['repeat_password'][$lang_code]; ?>" tabindex="2" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('repeat_password'); ?></span>
+		<input id="repeat_password" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="password" name="repeat_password" data-lang-ja="<?php echo $input_interfaces['repeat_password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['repeat_password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['repeat_password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['repeat_password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['repeat_password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['repeat_password']['vi']; ?>" placeholder="<?php echo $input_interfaces['repeat_password'][$lang_code]; ?>" tabindex="2" required>
 	</div>
-	<input id="reset_password_submit" class="m-btn translate green" name="reset_password_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['update']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['update']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['update']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['update']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['update']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['update']['vi']; ?>" value="<?php echo $button_interfaces['update'][$lang_code]; ?>" tabindex="3" />
+	<input id="reset_password_submit" class="m-btn translate green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" name="reset_password_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['update']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['update']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['update']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['update']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['update']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['update']['vi']; ?>" value="<?php echo $button_interfaces['update'][$lang_code]; ?>" tabindex="3" />
 </form>
 <?php
 			if (isset($_POST['reset_password_submit'])) {
@@ -76,4 +76,3 @@ if (check_token($forgot_password_email,$token)) {
 } else {
 	echo '<span class="clear error">'.translate_error('invalid_input').'</span>';
 }
-?>

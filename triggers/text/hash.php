@@ -4,4 +4,3 @@ if (isset($_POST['unhashed'])) {
 	header('Content-Type: text/plain; charset=utf-8');
 	echo hash_pass($_POST['unhashed']);
 }
-?>

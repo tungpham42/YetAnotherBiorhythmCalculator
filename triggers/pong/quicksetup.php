@@ -75,5 +75,3 @@ if(!mysql_query($query, $con)) {
 }
 
 mysql_close($con);
-
-?>

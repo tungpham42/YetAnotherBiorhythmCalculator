@@ -170,29 +170,29 @@ form .svgContainer .mySVG {
 			</svg>
 		</div>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('email'); ?></span>
-		<input id="email" class="m-wrap required" size="20" type="text" name="member_register_email" placeholder="john@example.com" value="<?php echo $inputted_email; ?>" tabindex="1" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('email'); ?></span>
+		<input id="email" class="m-wrap required top-right-corner bottom-right-corner" size="20" type="text" name="member_register_email" placeholder="john@example.com" value="<?php echo $inputted_email; ?>" tabindex="1" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('fullname'); ?></span>
-		<input id="member_register_fullname" class="m-wrap required" size="20" type="text" name="member_register_fullname" placeholder="John Doe" value="<?php echo $inputted_fullname; ?>" tabindex="2" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('fullname'); ?></span>
+		<input id="member_register_fullname" class="m-wrap required top-right-corner bottom-right-corner" size="20" type="text" name="member_register_fullname" placeholder="John Doe" value="<?php echo $inputted_fullname; ?>" tabindex="2" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('dob'); ?></span>
-		<input id="member_register_dob" class="m-wrap required" size="20" type="text" name="member_register_dob" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" value="<?php echo $inputted_dob; ?>" tabindex="3" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('dob'); ?></span>
+		<input id="member_register_dob" class="m-wrap required top-right-corner bottom-right-corner" size="20" type="text" name="member_register_dob" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" value="<?php echo $inputted_dob; ?>" tabindex="3" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('password'); ?></span>
-		<input id="password" class="m-wrap translate required" size="20" type="password" name="member_register_password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="4" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('password'); ?></span>
+		<input id="password" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="password" name="member_register_password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="4" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('repeat_password'); ?></span>
-		<input id="repeat_password" class="m-wrap translate required" size="20" type="password" name="member_register_repeat_password" data-lang-ja="<?php echo $input_interfaces['repeat_password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['repeat_password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['repeat_password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['repeat_password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['repeat_password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['repeat_password']['vi']; ?>" placeholder="<?php echo $input_interfaces['repeat_password'][$lang_code]; ?>" tabindex="5" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('repeat_password'); ?></span>
+		<input id="repeat_password" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="password" name="member_register_repeat_password" data-lang-ja="<?php echo $input_interfaces['repeat_password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['repeat_password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['repeat_password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['repeat_password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['repeat_password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['repeat_password']['vi']; ?>" placeholder="<?php echo $input_interfaces['repeat_password'][$lang_code]; ?>" tabindex="5" required>
 	</div>
-	<input class="m-btn translate green" name="member_register_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['register']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['register']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['register']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['register']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['register']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['register']['vi']; ?>" value="<?php echo $button_interfaces['register'][$lang_code]; ?>" tabindex="6" />
+	<input class="m-btn translate green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" name="member_register_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['register']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['register']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['register']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['register']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['register']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['register']['vi']; ?>" value="<?php echo $button_interfaces['register'][$lang_code]; ?>" tabindex="6" />
 	<h5><?php echo translate_span('already_registered'); ?></h5>
-	<a id="member_login" class="m-btn blue button_changeable" href="/member/login/" tabindex="7"><?php echo translate_button('login'); ?></a>
+	<a id="member_login" class="m-btn blue button_changeable top-left-corner top-right-corner bottom-left-corner bottom-right-corner" href="/member/login/" tabindex="7"><?php echo translate_button('login'); ?></a>
 </form>
 <div class="clear"></div>
 <script>
@@ -451,4 +451,3 @@ if (isset($_POST['member_register_submit'])) {
 		echo '<span class="error">'.implode('<br />',$member_register_errors).'</span>';
 	}
 }
-?>

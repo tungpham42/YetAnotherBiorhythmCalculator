@@ -8,4 +8,3 @@ if (isset($_GET['lang_code'])) {
 	load_news_feed(date('Y',strtotime($dob)));
 	load_news_feed();
 }
-?>

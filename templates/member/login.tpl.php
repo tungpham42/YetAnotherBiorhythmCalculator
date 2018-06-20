@@ -137,17 +137,17 @@ form .svgContainer .mySVG {
 			</svg>
 		</div>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('email'); ?></span>
-		<input id="email" class="m-wrap translate required" size="20" type="text" name="member_login_email" data-lang-ja="<?php echo $input_interfaces['email']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['email']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['email']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['email']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['email']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['email']['vi']; ?>" placeholder="<?php echo $input_interfaces['email'][$lang_code]; ?>" value="<?php echo $inputted_email; ?>" tabindex="1" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('email'); ?></span>
+		<input id="email" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="text" name="member_login_email" data-lang-ja="<?php echo $input_interfaces['email']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['email']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['email']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['email']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['email']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['email']['vi']; ?>" placeholder="<?php echo $input_interfaces['email'][$lang_code]; ?>" value="<?php echo $inputted_email; ?>" tabindex="1" required>
 	</div>
-	<div class="m-input-prepend">
-		<span class="add-on"><?php echo translate_span('password'); ?></span>
-		<input id="password" class="m-wrap translate required" size="20" type="password" name="member_login_password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="2" required>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span class="add-on top-left-corner bottom-left-corner"><?php echo translate_span('password'); ?></span>
+		<input id="password" class="m-wrap translate required top-right-corner bottom-right-corner" size="20" type="password" name="member_login_password" data-lang-ja="<?php echo $input_interfaces['password']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['password']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['password']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['password']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['password']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['password']['vi']; ?>" placeholder="<?php echo $input_interfaces['password'][$lang_code]; ?>" tabindex="2" required>
 	</div>
-	<input class="m-btn translate green" name="member_login_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['login']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['login']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['login']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['login']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['login']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['login']['vi']; ?>" value="<?php echo $button_interfaces['login'][$lang_code]; ?>" tabindex="3" />
+	<input class="m-btn translate green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" name="member_login_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['login']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['login']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['login']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['login']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['login']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['login']['vi']; ?>" value="<?php echo $button_interfaces['login'][$lang_code]; ?>" tabindex="3" />
 	<h5><?php echo translate_span('not_yet_registered'); ?></h5>
-	<a id="member_register" class="m-btn blue button_changeable" href="/member/register/" tabindex="4"><?php echo translate_button('register'); ?></a>
+	<a id="member_register" class="m-btn blue button_changeable top-left-corner top-right-corner bottom-left-corner bottom-right-corner" href="/member/register/" tabindex="4"><?php echo translate_button('register'); ?></a>
 <!--
 	<h5><a id="forgot_password" href="mailto:admin@nhipsinhhoc.vn?subject=<?php echo $span_interfaces['forgot_password'][$lang_code]; ?>&amp;body=<?php echo $span_interfaces['forgot_password'][$lang_code].' : '.$span_interfaces['forgot_password_hint'][$lang_code]; ?>&amp;cc=tung.42@gmail.com" target="_blank"><?php echo translate_span('forgot_password'); ?></a></h5>
 -->

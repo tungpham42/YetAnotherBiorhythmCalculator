@@ -7,4 +7,3 @@ if (isset($_GET['term'])) {
 	$response = json_encode($usernames);
 	echo $response;
 }
-?>

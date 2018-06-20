@@ -21,4 +21,3 @@ mysql_query("INSERT INTO ".$your_table_name."(name, score, time) VALUES('$name',
 
 mysql_close($con);
 echo "loaded: {".$name.','.$time.','.$score.'}';
-?>

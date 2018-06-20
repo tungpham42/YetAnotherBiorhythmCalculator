@@ -21,4 +21,3 @@ manipulateEnd();
 </script>
 <?php
 include template('adblock');
-?>

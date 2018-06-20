@@ -32,4 +32,3 @@ if (isset($_GET['a']) && $_GET['a'] == 'p') {
 	//redirect to the url
 	header('Location: '.$_POST['url']);
 }
-?>

@@ -1,4 +1,4 @@
-<section id="sleep_time">
+<section id="sleep_time" class="top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5><?php echo translate_span('sleep_time'); ?></h5>
 	<p><?php echo translate_span('sleep_time_head'); ?></p>
 <?php

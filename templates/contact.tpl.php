@@ -17,19 +17,19 @@ if (isset($_POST['contact_submit'])) {
 }
 ?>
 <form id="contact_form" method="POST" action="/contact/">
-	<div class="m-input-prepend">
-		<?php echo translate_span('fullname','class: add-on label'); ?>
-		<input id="contact_fullname" type="text" class="m-wrap" name="contact_fullname" placeholder="John Doe" required="required" value="<?php echo $inputted_fullname; ?>">
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<?php echo translate_span('fullname','class: add-on label top-left-corner bottom-left-corner'); ?>
+		<input id="contact_fullname" type="text" class="m-wrap top-right-corner bottom-right-corner" name="contact_fullname" placeholder="John Doe" required="required" value="<?php echo $inputted_fullname; ?>">
 	</div>
-	<div class="m-input-prepend">
-		<?php echo translate_span('email','class: add-on label'); ?>
-		<input id="contact_email" type="text" class="m-wrap" name="contact_email" placeholder="john@example.com" required="required" value="<?php echo $inputted_email; ?>">
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<?php echo translate_span('email','class: add-on label top-left-corner bottom-left-corner'); ?>
+		<input id="contact_email" type="text" class="m-wrap top-right-corner bottom-right-corner" name="contact_email" placeholder="john@example.com" required="required" value="<?php echo $inputted_email; ?>">
 	</div>
-	<div class="m-input-prepend">
-		<?php echo translate_span('content','class: add-on label'); ?>
-		<textarea id="contact_body" class="m-wrap panel" name="contact_body" required="required"><?php echo $inputted_body; ?></textarea>
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<?php echo translate_span('content','class: add-on label top-left-corner bottom-left-corner'); ?>
+		<textarea id="contact_body" class="m-wrap panel top-right-corner bottom-left-corner bottom-right-corner" name="contact_body" required="required"><?php echo $inputted_body; ?></textarea>
 	</div>
-	<input class="m-btn translate green" name="contact_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['submit']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['submit']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['submit']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['submit']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['submit']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['submit']['vi']; ?>" value="<?php echo $button_interfaces['submit'][$lang_code]; ?>" />
+	<input class="m-btn translate green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" name="contact_submit" type="submit" data-lang-ja="<?php echo $button_interfaces['submit']['ja']; ?>" data-lang-zh="<?php echo $button_interfaces['submit']['zh']; ?>" data-lang-es="<?php echo $button_interfaces['submit']['es']; ?>" data-lang-ru="<?php echo $button_interfaces['submit']['ru']; ?>" data-lang-en="<?php echo $button_interfaces['submit']['en']; ?>" data-lang-vi="<?php echo $button_interfaces['submit']['vi']; ?>" value="<?php echo $button_interfaces['submit'][$lang_code]; ?>" />
 <?php
 include template('clear');
 if (isset($_POST['contact_submit'])) {

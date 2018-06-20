@@ -20,7 +20,7 @@ function get_member_email() {
 	}
 	return strtolower($email);
 }
-function pay_member($email) {
+function pay_member(string $email) {
 	$receipt_content = date('Y-m-d h:i:s A');
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 	$receipt_path = $path.'/paid.txt';
@@ -35,7 +35,7 @@ function pay_member($email) {
 	}
 	fclose($handle);
 }
-function create_member($email,$fullname,$password,$dob,$lang) {
+function create_member(string $email,string $fullname,string $password,string $dob,string $lang) {
 	$hashed_password = hash_pass($password);
 	$created_time = date('Y-m-d h:i:s A');
 	$edited_time = 'Not edited yet';
@@ -100,7 +100,7 @@ require_once realpath(\$_SERVER['DOCUMENT_ROOT']).'/index.php';\r
 		echo 'ERROR: '.$e->getMessage();
 	}
 }
-function edit_member($email,$fullname,$password,$dob,$lang) {
+function edit_member(string $email,string $fullname,string $password,string $dob,string $lang) {
 	$hashed_password = ($password == load_member()['password']) ? $password: hash_pass($password);
 	$edited_time = date('Y-m-d h:i:s A');
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
@@ -121,7 +121,7 @@ function edit_member($email,$fullname,$password,$dob,$lang) {
 		echo 'ERROR: '.$e->getMessage();
 	}	
 }
-function delete_path($path) {
+function delete_path(string $path) {
 	if (is_dir($path) === true) {
 		$files = array_diff(scandir($path), array('.', '..'));
 		foreach ($files as $file) {
@@ -133,7 +133,7 @@ function delete_path($path) {
 	}
 	return false;
 }
-function delete_member($email) {
+function delete_member(string $email) {
 	if (isset($email) && $email != "") {
 		$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 		delete_path($path);
@@ -164,7 +164,7 @@ function load_member() {
 		return null;
 	}
 }
-function create_person($fullname,$dob) {
+function create_person(string $fullname,string $dob) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
@@ -182,7 +182,7 @@ function create_person($fullname,$dob) {
 		echo 'ERROR: '.$e->getMessage();
 	}
 }
-function edit_person($pid,$fullname,$dob) {
+function edit_person($pid,string $fullname,string $dob) {
 	$email = get_member_email();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.$email;
 	$db_path = $path.'/member.db';
@@ -314,7 +314,7 @@ function list_persons() {
  * @return String containing either just a URL or a complete image tag
  * @source http://gravatar.com/site/implement/images/php/
  */
-function get_gravatar($email, $s = 270, $d = '404', $r = 'g', $img = false, $atts = array()) {
+function get_gravatar(string $email,int $s = 270,string $d = '404',string $r = 'g',bool $img = false,array $atts = array()) {
 	$url = 'https://www.gravatar.com/avatar/';
 	$url .= md5(strtolower(trim($email)));
 	$url .= "?s=$s&d=$d&r=$r";
@@ -327,7 +327,7 @@ function get_gravatar($email, $s = 270, $d = '404', $r = 'g', $img = false, $att
 	}
 	return $url;
 }
-function get_http_response_code($url) {
+function get_http_response_code(string $url) {
 	$headers = get_headers($url);
 	return substr($headers[0], 9, 3);
 }

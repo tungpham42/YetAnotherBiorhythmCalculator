@@ -31,4 +31,3 @@ if ((isset($_COOKIE['NSH:member']) && $_COOKIE['NSH:member'] == get_member_email
 	header('Location: http'.(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'').'://'.$_SERVER['HTTP_HOST'].'/member/login/');
 	exit;
 }
-?>

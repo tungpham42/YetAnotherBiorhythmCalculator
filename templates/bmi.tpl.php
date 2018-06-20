@@ -3,10 +3,10 @@
 <script src="<?php echo $cdn_url; ?>/js/bmi.js"></script>
 <div id="bmi_app" data-ng-app="bmiApp" data-ng-controller="bmiController">
 	<input id="bmi_lang" type="hidden" data-ng-model="language" value="<?php echo $lang_code; ?>">
-	<div class="m-input-prepend m-input-append">
-		<?php echo translate_span('bmi_weight','bmi_weight class: add-on label'); ?>
+	<div class="m-input-prepend m-input-append top-left-corner top-right-corner">
+		<?php echo translate_span('bmi_weight','bmi_weight class: add-on label top-left-corner'); ?>
 		<input pattern="\d*" id="weight" type="number" min="25" max="200" step="1" class="m-wrap" placeholder="84" data-ng-model="weight" required="required">
-		<?php echo translate_span('bmi_weight_unit','bmi_weight_unit class: add-on unit'); ?>
+		<?php echo translate_span('bmi_weight_unit','bmi_weight_unit class: add-on unit top-right-corner'); ?>
 	</div>
 	<div class="m-input-prepend m-input-append">
 		<?php echo translate_span('bmi_height','bmi_height class: add-on label'); ?>
@@ -29,8 +29,8 @@
 		<?php echo translate_span('bmi_ideal_height','bmi_ideal_height class: add-on label'); ?>
 		<input type="text" class="m-wrap panel" disabled value="{{idealHeight()}}">
 	</div>
-	<div class="m-input-prepend">
-		<?php echo translate_span('bmi_recommendation','bmi_recommendation class: add-on label'); ?>
-		<input type="text" class="m-wrap panel" disabled value="{{recommendation()}}">
+	<div class="m-input-prepend bottom-left-corner bottom-right-corner">
+		<?php echo translate_span('bmi_recommendation','bmi_recommendation class: add-on label bottom-left-corner'); ?>
+		<input type="text" class="m-wrap panel bottom-right-corner" disabled value="{{recommendation()}}">
 	</div>
 </div>

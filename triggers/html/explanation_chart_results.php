@@ -5,4 +5,3 @@ if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['dt_change'])  &&
 	$explanation_chart = new Chart($_GET['dob'],$_GET['diff'],1,$_GET['dt_change'],$_GET['partner_dob'],$_GET['lang_code']);
 	$explanation_chart->render_explanation_chart();
 }
-?>

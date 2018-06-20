@@ -25,4 +25,3 @@ else if ($arParams['signature'] != $signature || $arParams['mo_message'] != 'NSH
 
 // return json for 1pay system
 echo json_encode($arResponse);
-?>

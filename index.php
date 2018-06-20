@@ -60,6 +60,7 @@ include template('header');
 		<div id="content">
 <?php
 include template('router');
+include template('highlight');
 ?>
 		</div>
 	</main>

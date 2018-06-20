@@ -1,4 +1,4 @@
-<h2 id="comments_head"><?php echo translate_span('comments_head'); ?> <i class="icon-red icon-heart"></i></h2>
+<h2 id="comments_head" class="top-left-corner top-right-corner bottom-left-corner bottom-right-corner"><?php echo translate_span('comments_head'); ?> <i class="icon-red icon-heart"></i></h2>
 <div id="comments" data-href="<?php echo str_replace('&', '&amp;', current_url()); ?>">
 	<div id="facebook_section">
 <?php

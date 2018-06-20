@@ -4,4 +4,3 @@ header('Content-Type: text/html; charset=utf-8');
 if (isset($_POST['page']) && isset($_POST['keyword'])) {
 	echo list_members($_POST['page'],$_POST['keyword']);
 }
-?>

@@ -10,4 +10,3 @@ $data = "access_key=" . $arParams['access_key'] . "&command=" . $arParams['comma
 $secret = 'x6i83eedtagl5462q9b4aysjiegy7wh8'; // serequire your secret key from 1pay
 $signature = hash_hmac("sha256", $data, $secret); 
 echo $signature;
-?>

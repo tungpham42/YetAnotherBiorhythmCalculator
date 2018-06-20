@@ -20,7 +20,7 @@ if ($db_type == 'mysql') {
 	$pdo = new PDO('sqlite:'.$db_path);
 }
 $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-function load_all_array($table_name): array { //Put all table records into an array
+function load_all_array(string $table_name): array { //Put all table records into an array
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'"');
@@ -32,7 +32,7 @@ function load_all_array($table_name): array { //Put all table records into an ar
 	}
 	return $array;
 }
-function load_array_with_operator($table_name,$identifier,$value,$operator): array { //Put specific table records according to condition into an array
+function load_array_with_operator(string $table_name,string $identifier,string $value,string $operator): array { //Put specific table records according to condition into an array
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier.$operator.':value');
@@ -44,7 +44,7 @@ function load_array_with_operator($table_name,$identifier,$value,$operator): arr
 	}
 	return $array;
 }
-function load_array_with_two_identifiers($table_name,$identifier1,$value1,$identifier2,$value2): array { //Load array from database with 2 identifiers
+function load_array_with_two_identifiers(string $table_name,string $identifier1,string $value1,string $identifier2,string $value2): array { //Load array from database with 2 identifiers
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier1.'=:value1 AND '.$identifier2.'=:value2');
@@ -56,7 +56,7 @@ function load_array_with_two_identifiers($table_name,$identifier1,$value1,$ident
 	}
 	return $array;
 }
-function load_array_with_two_values($table_name,$identifier,$value1,$value2): array { //Load array from database with 1 identifier and 2 values
+function load_array_with_two_values(string $table_name,string $identifier,string $value1,string $value2): array { //Load array from database with 1 identifier and 2 values
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM "'.$table_name.'" WHERE '.$identifier.'=:value1 OR '.$identifier.'=:value2');
@@ -68,11 +68,11 @@ function load_array_with_two_values($table_name,$identifier,$value1,$value2): ar
 	}
 	return $array;
 }
-function load_array($table_name,$identifier,$value): array { //Load array from database with 1 identifier and 1 value
+function load_array(string $table_name,string $identifier,string $value): array { //Load array from database with 1 identifier and 1 value
 	$array = load_array_with_operator($table_name,$identifier,$value,'=');
 	return $array;
 }
-function digitval($number): int {
+function digitval(int $number): int {
 	$sum = 0;
 	while ($number > 0) {
 	    $rem = $number % 10;
@@ -87,7 +87,7 @@ function digitval($number): int {
 		$res = $sum;
 	return $res;
 }
-function calculate_life_path($dob): int {
+function calculate_life_path(string $dob): int {
 	$life_path_number = 0;
 	$year = date('Y',strtotime($dob));
 	$month = date('m',strtotime($dob));
@@ -95,10 +95,10 @@ function calculate_life_path($dob): int {
 	$life_path_number = digitval(digitval($year) + digitval($month) + digitval($day));
 	return $life_path_number;
 }
-function libraries_autoload($class_name) {
+function libraries_autoload(string $class_name) {
 	require '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/includes/libraries/'.$class_name.'.class.php';
 }
-function google_api_php_client_autoload($class_name) {
+function google_api_php_client_autoload(string $class_name) {
 	$class_path = explode('_', $class_name);
 	if ($class_path[0] != 'Google') {
 		return;
@@ -1622,7 +1622,7 @@ $information_interfaces = array(
 	)
 );
 $clickbank = '<a href="http://tungpham42.15manifest.hop.clickbank.net"><img src="http://maxcdn.15minutemanifestation.com/affiliates/images/300x250.jpg"></a>';
-function generate_proverb($lang): array {
+function generate_proverb(string $lang): array {
 	$proverbs = new parseCSV();
 	$proverbs->delimiter = '|';
 	$proverbs->parse('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/proverbs/'.$lang.'.csv');
@@ -1630,11 +1630,11 @@ function generate_proverb($lang): array {
 	$index = rand(0, $count-1);
 	return $proverbs->data[$index];
 }
-function render_proverb($lang) {
+function render_proverb(string $lang) {
 	$proverb = generate_proverb($lang);
 	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><div id="proverb_text" onClick="selectText(\'proverb_text\')">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author">'.$proverb['author'].'</p><a id="all_proverbs" class="m-btn green" href="/proverbs/" target="_blank"><i class="icon-more-items"></i> '.translate_span('all_proverbs').'</a>';
 }
-function has_birthday($dob,$time): bool {
+function has_birthday(string $dob,$time): bool {
 	if (date('m-d',strtotime($dob)) == date('m-d',$time)) {
 		return true;
 	} else {
@@ -1657,7 +1657,7 @@ function sort_date_member_ascend($a,$b){ //Call back function to sort date ascen
 		return strcmp(strtotime($a['created_at']),strtotime($b['created_at']));
 	}
 }
-function load_member_from_email($email): array {
+function load_member_from_email(string $email): array {
 	$array = array();
 	if ($email != "") {
 		$path = '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/member/'.strtolower($email);
@@ -1682,27 +1682,27 @@ function load_member_from_email($email): array {
 		return null;
 	}
 }
-function differ_date($start, $end): int {
+function differ_date(string $start,string $end): int {
 	$start_ts = strtotime($start);
 	$end_ts = strtotime($end);
 	$diff = $end_ts - $start_ts;
 	return round($diff/86400);
 }
-function differ_year($start, $end): int {
+function differ_year(string $start,string $end): int {
 	$start_dt = new DateTime(date('Y-m-d', strtotime($start)));
 	$end_dt = new DateTime(date('Y-m-d', strtotime($end)));
 	$diff = $end_dt->diff($start_dt);
 	return $diff->y;
 }
-function bio_count($dob,$date,$scale): float { //http://en.wikipedia.org/wiki/Biorhythm
+function bio_count(string $dob,string $date,int $scale): float { //http://en.wikipedia.org/wiki/Biorhythm
 	$x = differ_date($dob,$date);
 	//return (number_format((sin(2*pi()*$x/$scale)*100),2) != '-0.00') ? number_format((sin(2*pi()*$x/$scale)*100),2): '0.00';
 	return number_format(((sin(2*pi()*$x/$scale)*100)+100)/2,2);
 }
-function percent_bio_count($dob,$date,$scale): string {
+function percent_bio_count(string $dob,string $date,int $scale): string {
 	return bio_count($dob,$date,$scale).' %';
 }
-function average_bio_count($dob,$date,$rhythms): float {
+function average_bio_count(string $dob,string $date,array $rhythms): float {
 	$total = 0;
 	$count = (count($rhythms) > 0) ? count($rhythms): 1;
 	$i = 0;
@@ -1712,10 +1712,10 @@ function average_bio_count($dob,$date,$rhythms): float {
 	}
 	return number_format($total/$count,2);
 }
-function percent_average_bio_count($dob,$date,$rhythms): string {
+function percent_average_bio_count(string $dob,string $date,array $rhythms): string {
 	return average_bio_count($dob,$date,$rhythms).' %';
 }
-function countdown_birthday($dob, $date = 'today'): int {
+function countdown_birthday(string $dob,string $date = 'today'): int {
 	$countdown = 0;
 	$birthday = date('m-d', strtotime($dob));
 	$diff = differ_date($date, date('Y', strtotime($date)).'-'.$birthday);
@@ -1726,14 +1726,14 @@ function countdown_birthday($dob, $date = 'today'): int {
 	}
 	return $countdown;
 }
-function pluralize($count, $singular, $plural = false): string {
+function pluralize(string $count,string $singular,bool $plural = false): string {
 	if (!$plural) $plural = $singular . 's';
 	return (($count == 0 || $count == 1) ? $singular : $plural);
 }
-function get_wiki_url_nsh($title): string {
+function get_wiki_url_nsh(string $title): string {
 	return 'http://nhipsinhhoc.vn/wiki/'.str_replace(' ', '_', $title);
 }
-function get_ad($name): string {
+function get_ad(string $name): string {
 	$ads = new parseCSV('/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/ads/'.$name.'.csv');
 	$count = count($ads->data);
 	$index = rand(0, $count-1);
@@ -1762,18 +1762,18 @@ function get_ad($name): string {
 	}
 	return $ad;
 }
-function hash_token($email): string {
+function hash_token(string $email): string {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->HashPassword(trim($email));
 }
-function check_token($email, $hash): bool {
+function check_token(string $email,string $hash): bool {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->CheckPassword(trim($email), $hash);
 }
 function generate_message_id() {
 	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),"nhipsinhhoc.vn");
 }
-function send_mail($to,$subject,$message) {
+function send_mail(string $to,string $subject,array $message) {
 	global $span_interfaces, $email_credentials;
 //	$unsubscriber_emails = array();
 //	$unsubscribers = new parseCSV();
@@ -1813,7 +1813,7 @@ function send_mail($to,$subject,$message) {
 		mail("\"".$fullname."\" <".strtolower($to).">", '=?utf-8?B?'.base64_encode('☺ '.$subject).'?=', $body, $headers);
 //	}
 }
-function email_message($heading,$content): array {
+function email_message(string $heading,string $content): array {
 	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="width=device-width"/></head><body style="padding: 0px; margin: 0px; width: 100%; min-width: 100%"> <table class="body" style="color: #222222;background-image: url(\'http://nhipsinhhoc.vn/css/images/coin.png\'); min-height: 420px;border: none; border-spacing: 0px; position: relative; height: 100%;width: 100%; top: 0px; left: 0px; margin: 0px;"> <tr style="padding: 0px; margin: 0px;text-align: center; width: 100%;"> <td style="padding: 0px; margin: 0px;text-align: center; width: 100%;" align="center" valign="top"> <center> <table style="height: 100px;padding: 0px;width: 100%;position: relative;background: #007799;" class="row header"> <tr> <td style="text-align: center;" align="center"> <center> <table style="margin: 0 auto;text-align: inherit;width: 95% !important;" class="container"> <tr> <td style="padding: 10px 20px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 95%;" class="twelve columns"> <tr> <td style="padding: 8px;" class="six sub-columns"> <a target="_blank" href="http://nhipsinhhoc.vn/"><img alt="logo" src="http://nhipsinhhoc.vn/app-icons/icon-60.png"> </a> </td><td class="six sub-columns last" style="text-align:left; vertical-align:middle;padding-right: 0px; color: white; width: 90%"> <span class="template-label"><a style="font-size: 24px;color: white; text-decoration: none;" target="_blank" href="http://nhipsinhhoc.vn/">'.$heading.'</a></span> </td><td class="expander"></td></tr></table> </td></tr></table> </center> </td></tr></table> <table class="container"> <tr> <td> <table class="row"> <tr> <td style="padding: 10px 10px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 80%;font-size:16px;margin: auto;" class="twelve columns"> <tr> <td> '.$content.' </td><td class="expander"></td></tr></table> </td></tr></table> </td></tr></table> </center> </td></tr></table></body></html>';
 	return array(
 		'html' => $message,
@@ -1873,7 +1873,7 @@ function email_daily_suggestion() {
 		$content = "";
 		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
 		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($members[$i]['fullname']).'">WIKI</a>)</h1>';
-		$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
+//		$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
 		$content .= '<p>'.$member_chart->get_birthday_countdown().'</p>';
@@ -1952,4 +1952,3 @@ if (isset($_GET['test']) && $_GET['test'] == 'yes') {
 	email_daily_suggestion();
 	echo 'success!';
 }
-?>

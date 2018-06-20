@@ -1,8 +1,8 @@
 <?php
-function libraries_autoload($class_name) {
+function libraries_autoload(string $class_name) {
 	require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/libraries/'.$class_name.'.class.php';
 }
-function google_api_php_client_autoload($class_name) {
+function google_api_php_client_autoload(string $class_name) {
 	$class_path = explode('_', $class_name);
 	if ($class_path[0] != 'Google') {
 		return;
@@ -32,7 +32,7 @@ function is_bot(): bool {
 		return false;
 	}
 }
-function prevent_xss($query_string) {
+function prevent_xss(string $query_string) {
 	return htmlentities($query_string, ENT_QUOTES, 'UTF-8');
 }
 function init_timezone() {
@@ -100,7 +100,7 @@ function get_timezone() {
 	$timezone = get_time_zone($geoip_record->country_code,$geoip_record->region);
 	return $timezone;
 }
-function get_timezone_offset($remote_tz, $origin_tz = 'UTC') {
+function get_timezone_offset(string $remote_tz,string $origin_tz = 'UTC') {
 	$origin_dtz = new DateTimeZone($origin_tz);
 	$remote_dtz = new DateTimeZone($remote_tz);
 	$origin_dt = new DateTime('now', $origin_dtz);
@@ -108,7 +108,7 @@ function get_timezone_offset($remote_tz, $origin_tz = 'UTC') {
 	$offset = $remote_dtz->getOffset($remote_dt) - $origin_dtz->getOffset($origin_dt);
 	return $offset/3600;
 }
-function digitval($number): int {
+function digitval(int $number): int {
 	$sum = 0;
 	while ($number > 0) {
 	    $rem = $number % 10;
@@ -123,7 +123,7 @@ function digitval($number): int {
 		$res = $sum;
 	return $res;
 }
-function calculate_life_path($dob): int {
+function calculate_life_path(string $dob): int {
 	$life_path_number = 0;
 	$year = date('Y',strtotime($dob));
 	$month = date('m',strtotime($dob));
@@ -140,7 +140,7 @@ function has_one_lang(): bool {
 		return false;
 	}
 }
-function is_paid_member($email): bool {
+function is_paid_member(string $email): bool {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/'.strtolower($email);
 	$receipt_path = $path.'/paid.txt';
 	if (file_exists($receipt_path)) {
@@ -151,7 +151,7 @@ function is_paid_member($email): bool {
 }
 
 /* General Functions */
-function load_all_array($table_name): array { //Put all table records into an array
+function load_all_array(string $table_name): array { //Put all table records into an array
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'`');
@@ -163,7 +163,7 @@ function load_all_array($table_name): array { //Put all table records into an ar
 	}
 	return $array;
 }
-function load_array_with_operator($table_name,$identifier,$value,$operator): array { //Put specific table records according to condition into an array
+function load_array_with_operator(string $table_name,string $identifier,string $value,string $operator): array { //Put specific table records according to condition into an array
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'`'.$operator.':value');
@@ -175,7 +175,7 @@ function load_array_with_operator($table_name,$identifier,$value,$operator): arr
 	}
 	return $array;
 }
-function load_array_with_two_identifiers($table_name,$identifier1,$value1,$identifier2,$value2): array { //Load array from database with 2 identifiers
+function load_array_with_two_identifiers(string $table_name,string $identifier1,string $value1,string $identifier2,string $value2): array { //Load array from database with 2 identifiers
 	global $pdo;
 	$array = array();	
 	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier1.'`=:value1 AND `'.$identifier2.'`=:value2');
@@ -187,7 +187,7 @@ function load_array_with_two_identifiers($table_name,$identifier1,$value1,$ident
 	}
 	return $array;
 }
-function load_array_with_two_values($table_name,$identifier,$value1,$value2): array { //Load array from database with 1 identifier and 2 values
+function load_array_with_two_values(string $table_name,string $identifier,string $value1,string $value2): array { //Load array from database with 1 identifier and 2 values
 	global $pdo;
 	$array = array();	
 	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'`=:value1 OR `'.$identifier.'`=:value2');
@@ -199,11 +199,11 @@ function load_array_with_two_values($table_name,$identifier,$value1,$value2): ar
 	}
 	return $array;
 }
-function load_array($table_name,$identifier,$value): array { //Load array from database with 1 identifier and 1 value
+function load_array(string $table_name,string $identifier,string $value): array { //Load array from database with 1 identifier and 1 value
 	$array = load_array_with_operator($table_name,$identifier,$value,'=');
 	return $array;
 }
-function search_array($table_name,$identifier,$value): array {
+function search_array(string $table_name,string $identifier,string $value): array {
 	global $pdo;
 	$array = array();
 	$result = $pdo->prepare('SELECT * FROM `'.$table_name.'` WHERE `'.$identifier.'` LIKE :value');
@@ -215,7 +215,7 @@ function search_array($table_name,$identifier,$value): array {
 	}
 	return $array;
 }
-function insert_record($array = array(), $table_name) { //Insert table record
+function insert_record(array $array = array(),string $table_name) { //Insert table record
 	global $pdo;
 	$keys = array_keys($array);
 	$values = array_values($array);
@@ -237,7 +237,7 @@ function insert_record($array = array(), $table_name) { //Insert table record
 	$result = $pdo->prepare($query);
 	$result->execute($execute_array);
 }
-function update_record_with_operator($array = array(), $identifier, $value, $table_name, $operator) { //Update table record
+function update_record_with_operator(array $array = array(),string $identifier,string $value,string $table_name,string $operator) { //Update table record
 	global $pdo;
 	$keys = array_keys($array);
 	$values = array_values($array);
@@ -256,15 +256,15 @@ function update_record_with_operator($array = array(), $identifier, $value, $tab
 	$result = $pdo->prepare($query);
 	$result->execute($execute_array);
 }
-function update_record($array = array(), $identifier, $value, $table_name) { //Update table record
+function update_record(array $array = array(),string $identifier,string $value,string $table_name) { //Update table record
 	update_record_with_operator($array, $identifier, $value, $table_name, '=');
 }
-function delete_record($identifier, $value, $table_name) { //Delete table records with 1 identifier
+function delete_record(string $identifier,string $value,string $table_name) { //Delete table records with 1 identifier
 	global $pdo;
 	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier.'`=:value');
 	$result->execute(array(':value' => $value));
 }
-function delete_record_with_two_identifier($identifier1, $value1, $identifier2, $value2, $table_name) { //Delete table records with 2 identifiers
+function delete_record_with_two_identifier(string $identifier1,string $value1,string $identifier2,string $value2,string $table_name) { //Delete table records with 2 identifiers
 	global $pdo;
 	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier1.'`=:value1 AND `'.$identifier2.'`=:value2');
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));
@@ -282,23 +282,23 @@ function pluralize($count, $singular, $plural = false): string {
 	if (!$plural) $plural = $singular . 's';
 	return (($count == 0 || $count == 1) ? $singular : $plural) ;
 }
-function substr_word($str,$start,$end): string { //Substract words from content
+function substr_word(string $str,string $start,string $end): string { //Substract words from content
 	$end_pos = strpos($str,' ',$end);
 	if ($pos !== false) {
 		return substr($str,$start,$end_pos);
 	}
 }
-function load_user($uid) { //Load user array from user ID
+function load_user($uid): array { //Load user array from user ID
 	$users = load_array('nsh_users','uid',$uid);
 	sort($users);
 	return $users[0];
 }
-function load_user_from_name($name) { //Load user array from username
+function load_user_from_name(string $name): array { //Load user array from username
 	$users = load_array('nsh_users','name',$name);
 	sort($users);
 	return $users[0];
 }
-function load_rhythm($rid) { //Load rhythm array from rhythm ID
+function load_rhythm($rid): array { //Load rhythm array from rhythm ID
 	$rhythms = load_array('nsh_rhythms','rid',$rid);
 	sort($rhythms);
 	return $rhythms[0];
@@ -308,7 +308,7 @@ function load_credential($id): array { //Load credential array from ID
 	sort($credentials);
 	return $credentials[0];
 }
-function get_rhythm_title($rid,$lang): string {
+function get_rhythm_title($rid,string $lang): string {
 	$rhythm = load_rhythm($rid);
 	switch ($lang) {
 		case 'vi':

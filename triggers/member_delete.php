@@ -4,4 +4,3 @@ if (isset($_GET['email'])) {
 	delete_member($_GET['email']);
 	header('Location: '.$_SERVER['HTTP_REFERER'].'');
 }
-?>

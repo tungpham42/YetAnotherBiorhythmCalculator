@@ -4,4 +4,3 @@ if (isset($_GET['lang_code'])) {
 	header('Content-Type: application/json; charset=utf-8');
 	render_proverb_json($_GET['lang_code']);
 }
-?>

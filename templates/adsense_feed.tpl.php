@@ -1,4 +1,4 @@
-<section id="adsense_feed">
+<section id="adsense_feed" class="top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5><?php echo translate_span('advertisements'); ?></h5>
 	<ins class="adsbygoogle" id="ad_feed"
 	style="display:block; width: auto; clear: left;"

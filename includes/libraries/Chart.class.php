@@ -6,7 +6,7 @@ class Chart {
 	protected $_dates = array();
 	protected $_is_registered = false;
 
-	function __construct($dob,$diff,$is_secondary,$dt_change,$partner_dob,$lang_code) {
+	function __construct(string $dob,int $diff,int $is_secondary,string $dt_change,string $partner_dob,string $lang_code) {
 		global $lang_codes;
 		$this->_dob = $dob;
 		$this->_partner_dob = isset($partner_dob) ? $partner_dob: $dob;
@@ -243,10 +243,10 @@ class Chart {
 				break;
 		}
 	}
-	function set_fullname($fullname) {
+	function set_fullname(string $fullname) {
 		$this->_fullname = $fullname;
 	}
-	function set_registered($is_registered) {
+	function set_registered(bool $is_registered) {
 		$this->_is_registered = $is_registered;
 	}
 	function serialize_chart_data(): string {
@@ -429,7 +429,7 @@ class Chart {
 		global $help_interfaces;
 		$output = "";
 		$output .= '
-<section id="news" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="news" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_news_h5.'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<ul>';
@@ -448,7 +448,7 @@ class Chart {
 		global $help_interfaces, $dob, $fullname;
 		$output = "";
 		$output .= '
-<section id="stats" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="stats" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_statistics_h5.' - '.$dob.'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<center><a id="go_to_chart" href="javascript:void(0);"><i class="icon-stats x3"></i></a><a id="wiki_user" target="_blank" href="'.get_wiki_url(($fullname != "" ? $fullname : $dob)).'"><i class="social-wikipedia x3"></i></a></center>
@@ -459,7 +459,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="黄道帯の印:" data-lang-zh="星宮名稱:" data-lang-es="Signo del Zodíaco:" data-lang-ru="Знак зодиака:" data-lang-en="Zodiac sign:" data-lang-vi="Cung hoàng đạo:"></span></strong> <span class="translate" data-lang-ja="'.get_zodiac_from_dob($this->_dob,'ja').'" data-lang-zh="'.get_zodiac_from_dob($this->_dob,'zh').'" data-lang-es="'.get_zodiac_from_dob($this->_dob,'es').'" data-lang-ru="'.get_zodiac_from_dob($this->_dob,'ru').'" data-lang-en="'.get_zodiac_from_dob($this->_dob,'en').'" data-lang-vi="'.get_zodiac_from_dob($this->_dob,'vi').'"></span></p>
 	<textarea style="resize:vertical;" id="embed_box" rows="2" cols="420">https://'.$_SERVER['HTTP_HOST'].'/'.$this->_lang_code.'/?'.((isset($_GET['fullname']) && $_GET['fullname'] != "") ? 'fullname='.str_replace(' ', '+', $_GET['fullname']).'&amp;dob='.$dob : ((function_exists('get_member_fullname') && get_member_fullname() != "") ? 'fullname='.str_replace(' ', '+', get_member_fullname()).'&amp;dob='.$dob : (($fullname != "") ? 'fullname='.str_replace(' ', '+', $fullname).'&amp;dob='.$dob : 'dob='.$this->_dob))).'&date='.date('Y-m-d',time()+86400*$this->_diff).'</textarea>
 	<div id="embed_box_share"></div>
-	<div id="embed_toggle" class="changeable"><span class="translate" data-lang-ja="シェア" data-lang-zh="分享" data-lang-es="Compartir" data-lang-ru="Поделиться" data-lang-en="Share" data-lang-vi="Chia sẻ"></span> <i class="icon-share icon-white"></i></div>
+	<div id="embed_toggle" class="changeable bottom-left-corner bottom-right-corner"><span class="translate" data-lang-ja="シェア" data-lang-zh="分享" data-lang-es="Compartir" data-lang-ru="Поделиться" data-lang-en="Share" data-lang-vi="Chia sẻ"></span> <i class="icon-share icon-white"></i></div>
 </section>
 		';
 		return $output;
@@ -468,7 +468,7 @@ class Chart {
 	function output_lunar(): string {
 		$output = "";
 		$output .= '
-<section id="lunar" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="lunar" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_lunar_h5.' - '.get_lunar_date($this->_dob,true).'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<p><strong><span class="translate" data-lang-ja="歳:" data-lang-zh="岁老:" data-lang-es="Años:" data-lang-ru="Лет:" data-lang-en="Years old:" data-lang-vi="Số năm tuổi:"></span></strong> '.get_lunar_years_old($this->_dob,$this->_date).' <span class="translate" data-lang-ja="年々" data-lang-zh="岁" data-lang-es="año" data-lang-ru="лет" data-lang-en="'.pluralize(get_lunar_years_old($this->_dob,$this->_date),'year').'" data-lang-vi="năm"></span></p>
@@ -476,7 +476,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="月:" data-lang-zh="月:" data-lang-es="Mes:" data-lang-ru="Месяц:" data-lang-en="Month:" data-lang-vi="Tháng:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_month($this->_dob,'ja').'" data-lang-zh="'.get_lunar_month($this->_dob,'zh').'" data-lang-es="'.get_lunar_month($this->_dob,'es').'" data-lang-ru="'.get_lunar_month($this->_dob,'ru').'" data-lang-en="'.get_lunar_month($this->_dob,'en').'" data-lang-vi="'.get_lunar_month($this->_dob,'vi').'"></span></p>
 	<p><strong><span class="translate" data-lang-ja="日:" data-lang-zh="日:" data-lang-es="Día:" data-lang-ru="Сутки:" data-lang-en="Day:" data-lang-vi="Ngày:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_day($this->_dob,'ja').'" data-lang-zh="'.get_lunar_day($this->_dob,'zh').'" data-lang-es="'.get_lunar_day($this->_dob,'es').'" data-lang-ru="'.get_lunar_day($this->_dob,'ru').'" data-lang-en="'.get_lunar_day($this->_dob,'en').'" data-lang-vi="'.get_lunar_day($this->_dob,'vi').'"></span></p>
 	<div id="lunar_box">
-		<p id="lunar_desc"><strong><span class="translate" data-lang-ja="月面日付:" data-lang-zh="农历日期:" data-lang-es="Fecha lunar:" data-lang-ru="Лунный день:" data-lang-en="Lunar date:" data-lang-vi="Ngày Âm lịch:"></span></strong> <span>'.get_lunar_date($this->_date,true).'</span></p>
+		<p id="lunar_desc" class="bottom-left-corner bottom-right-corner"><strong><span class="translate" data-lang-ja="月面日付:" data-lang-zh="农历日期:" data-lang-es="Fecha lunar:" data-lang-ru="Лунный день:" data-lang-en="Lunar date:" data-lang-vi="Ngày Âm lịch:"></span></strong> <span>'.get_lunar_date($this->_date,true).'</span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="年:" data-lang-zh="年:" data-lang-es="Año:" data-lang-ru="Год:" data-lang-en="Year:" data-lang-vi="Năm:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_year($this->_date,'ja').'" data-lang-zh="'.get_lunar_year($this->_date,'zh').'" data-lang-es="'.get_lunar_year($this->_date,'es').'" data-lang-ru="'.get_lunar_year($this->_date,'ru').'" data-lang-en="'.get_lunar_year($this->_date,'en').'" data-lang-vi="'.get_lunar_year($this->_date,'vi').'"></span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="月:" data-lang-zh="月:" data-lang-es="Mes:" data-lang-ru="Месяц:" data-lang-en="Month:" data-lang-vi="Tháng:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_month($this->_date,'ja').'" data-lang-zh="'.get_lunar_month($this->_date,'zh').'" data-lang-es="'.get_lunar_month($this->_date,'es').'" data-lang-ru="'.get_lunar_month($this->_date,'ru').'" data-lang-en="'.get_lunar_month($this->_date,'en').'" data-lang-vi="'.get_lunar_month($this->_date,'vi').'"></span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="日:" data-lang-zh="日:" data-lang-es="Día:" data-lang-ru="Сутки:" data-lang-en="Day:" data-lang-vi="Ngày:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_day($this->_date,'ja').'" data-lang-zh="'.get_lunar_day($this->_date,'zh').'" data-lang-es="'.get_lunar_day($this->_date,'es').'" data-lang-ru="'.get_lunar_day($this->_date,'ru').'" data-lang-en="'.get_lunar_day($this->_date,'en').'" data-lang-vi="'.get_lunar_day($this->_date,'vi').'"></span></p>
@@ -491,7 +491,7 @@ class Chart {
 		$h5 = "";
 		$output = "";
 		$output .= '
-<section id="compatibility" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="compatibility" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_compatibility_h5.'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<ul>
@@ -501,9 +501,9 @@ class Chart {
 		}
 		$output .= '
 	</ul>
-	<div class="m-input-prepend">
-		<span data-lang-ja="パートナー:" data-lang-zh="伙伴:" data-lang-es="Compañero:" data-lang-ru="Напарник:" data-lang-en="Partner:" data-lang-vi="Đối tác:" class="add-on translate" id="partner_dob_label"></span>
-		<input readonly data-lang-ja="'.$input_interfaces['partner_dob']['ja'].'" data-lang-zh="'.$input_interfaces['partner_dob']['zh'].'" data-lang-es="'.$input_interfaces['partner_dob']['es'].'" data-lang-ru="'.$input_interfaces['partner_dob']['ru'].'" data-lang-en="'.$input_interfaces['partner_dob']['en'].'" data-lang-vi="'.$input_interfaces['partner_dob']['vi'].'" class="m-wrap required" placeholder="'.$input_interfaces['partner_dob'][$this->_lang_code].'" id="partner_dob" type="text" name="partner_dob" size="42" maxlength="128" value="'.(($this->_partner_dob == $this->_dob) ? 'YYYY-MM-DD': $this->_partner_dob).'" />
+	<div class="m-input-prepend bottom-left-corner bottom-right-corner">
+		<span data-lang-ja="パートナー:" data-lang-zh="伙伴:" data-lang-es="Compañero:" data-lang-ru="Напарник:" data-lang-en="Partner:" data-lang-vi="Đối tác:" class="add-on translate bottom-left-corner" id="partner_dob_label"></span>
+		<input readonly data-lang-ja="'.$input_interfaces['partner_dob']['ja'].'" data-lang-zh="'.$input_interfaces['partner_dob']['zh'].'" data-lang-es="'.$input_interfaces['partner_dob']['es'].'" data-lang-ru="'.$input_interfaces['partner_dob']['ru'].'" data-lang-en="'.$input_interfaces['partner_dob']['en'].'" data-lang-vi="'.$input_interfaces['partner_dob']['vi'].'" class="m-wrap required bottom-right-corner" placeholder="'.$input_interfaces['partner_dob'][$this->_lang_code].'" id="partner_dob" type="text" name="partner_dob" size="42" maxlength="128" value="'.(($this->_partner_dob == $this->_dob) ? 'YYYY-MM-DD': $this->_partner_dob).'" />
 	</div>
 	<div class="clear"></div>
 </section>';
@@ -514,7 +514,7 @@ class Chart {
 		global $help_interfaces;
 		$output = "";
 		$output .= '
-<section id="info" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="info" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_info_h5.'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	'.$this->get_infor_details().'
@@ -530,7 +530,7 @@ class Chart {
 		$h5 = "";
 		$output = "";
 		$output .= '
-<section id="controls" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'">
+<section id="controls" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_controls_h5.((date('m-d',time()+86400*$this->_diff) == date('m-d',strtotime($this->_dob))) ? ' <i class="icon-birthday-cake"></i>': "").'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
 	<ul>
@@ -550,10 +550,10 @@ class Chart {
 		<span data-lang-ja="日付を表示す:" data-lang-zh="查看日期:" data-lang-es="Ver la fecha:" data-lang-ru="Посмотреть дата:" data-lang-en="View date:" data-lang-vi="Xem ngày:" class="add-on translate" id="dt_change_label"></span>
 		<input readonly data-lang-ja="'.$input_interfaces['dt_change']['ja'].'" data-lang-zh="'.$input_interfaces['dt_change']['zh'].'" data-lang-es="'.$input_interfaces['dt_change']['es'].'" data-lang-ru="'.$input_interfaces['dt_change']['ru'].'" data-lang-en="'.$input_interfaces['dt_change']['en'].'" data-lang-vi="'.$input_interfaces['dt_change']['vi'].'" class="m-wrap required" placeholder="'.$input_interfaces['dt_change'][$this->_lang_code].'" id="dt_change" type="text" name="dt_change" size="42" maxlength="128" value="'.(($this->_dt_change == date('Y-m-d')) ? 'YYYY-MM-DD': $this->_dt_change).'" />
 	</div>
-	<div class="m-btn-group">
-		<a class="m-btn green" id="today" title="S / G / K"><i class="icon-calendar icon-white"></i><span class="translate" data-lang-ja="'.$button_interfaces['today']['ja'].'" data-lang-zh="'.$button_interfaces['today']['zh'].'" data-lang-es="'.$button_interfaces['today']['es'].'" data-lang-ru="'.$button_interfaces['today']['ru'].'" data-lang-en="'.$button_interfaces['today']['en'].'" data-lang-vi="'.$button_interfaces['today']['vi'].'">'.$button_interfaces['today'][$this->_lang_code].'</span></a>
+	<div class="m-btn-group bottom-left-corner bottom-right-corner">
+		<a class="m-btn green bottom-left-corner" id="today" title="S / G / K"><i class="icon-calendar icon-white"></i><span class="translate" data-lang-ja="'.$button_interfaces['today']['ja'].'" data-lang-zh="'.$button_interfaces['today']['zh'].'" data-lang-es="'.$button_interfaces['today']['es'].'" data-lang-ru="'.$button_interfaces['today']['ru'].'" data-lang-en="'.$button_interfaces['today']['en'].'" data-lang-vi="'.$button_interfaces['today']['vi'].'">'.$button_interfaces['today'][$this->_lang_code].'</span></a>
 		<a class="m-btn blue button_changeable" id="prev" title="A / F / J"><i class="icon-backward icon-white"></i><span class="translate" data-lang-ja="'.$button_interfaces['prev']['ja'].'" data-lang-zh="'.$button_interfaces['prev']['zh'].'" data-lang-es="'.$button_interfaces['prev']['es'].'" data-lang-ru="'.$button_interfaces['prev']['ru'].'" data-lang-en="'.$button_interfaces['prev']['en'].'" data-lang-vi="'.$button_interfaces['prev']['vi'].'">'.$button_interfaces['prev'][$this->_lang_code].'</span></a>
-		<a class="m-btn blue button_changeable" id="next" title="D / H / L"><span class="translate" data-lang-ja="'.$button_interfaces['next']['ja'].'" data-lang-zh="'.$button_interfaces['next']['zh'].'" data-lang-es="'.$button_interfaces['next']['es'].'" data-lang-ru="'.$button_interfaces['next']['ru'].'" data-lang-en="'.$button_interfaces['next']['en'].'" data-lang-vi="'.$button_interfaces['next']['vi'].'">'.$button_interfaces['next'][$this->_lang_code].'</span><i class="icon-forward icon-white"></i></a>
+		<a class="m-btn blue button_changeable bottom-right-corner" id="next" title="D / H / L"><span class="translate" data-lang-ja="'.$button_interfaces['next']['ja'].'" data-lang-zh="'.$button_interfaces['next']['zh'].'" data-lang-es="'.$button_interfaces['next']['es'].'" data-lang-ru="'.$button_interfaces['next']['ru'].'" data-lang-en="'.$button_interfaces['next']['en'].'" data-lang-vi="'.$button_interfaces['next']['vi'].'">'.$button_interfaces['next'][$this->_lang_code].'</span><i class="icon-forward icon-white"></i></a>
 	</div>
 	<div class="clear"></div>
 </section>';
@@ -564,7 +564,7 @@ class Chart {
 		global $menu_interfaces;
 		$output = "";
 		$output .= '
-<div id="explanation_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
+<div id="explanation_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner"></div>
 <script>
 function goToTodayExplanation() {
 	loadExplanationChartResults("'.$this->_dob.'","0","1","'.date('Y-m-d').'","'.$this->_partner_dob.'",lang);
@@ -676,7 +676,7 @@ $("#lang_bar").off("click","**").on("click", "#vi_toggle", function(){
 		global $menu_interfaces;
 		$output = "";
 		$output .= '
-<div id="embed_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
+<div id="embed_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner"></div>
 <script>
 function goToTodayEmbed() {
 	loadEmbedChartResults("'.$this->_dob.'","0","0","'.date('Y-m-d').'","'.$this->_partner_dob.'",lang);
@@ -733,7 +733,7 @@ renderChart("#embed_chart","'.$this->_title_text.$this->_dob.' | '.date('Y-m-d',
 		global $help_interfaces;
 		$output = "";
 		$output .= '
-<div id="main_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.'"></div>
+<div id="main_chart" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner"></div>
 <script>';
 		if ($this->_diff == 0) {
 			$output .= '

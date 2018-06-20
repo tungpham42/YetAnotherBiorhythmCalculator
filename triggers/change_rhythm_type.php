@@ -10,4 +10,3 @@ if (isset($_POST['rid'])) {
 	}
 	header('Location: '.$_SERVER['HTTP_REFERER'].'');
 }
-?>

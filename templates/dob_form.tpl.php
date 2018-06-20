@@ -1,27 +1,27 @@
 <span id="dob_form_status"></span>
 <div id="dob_wrapper">
-	<form id="dob_form" class="no-select-highlight" action="/<?php echo (isset($hide_lang_bar) && isset($hide_nav)) ? $lang_code.'/': ''; ?>" method="GET">
+	<form id="dob_form" class="no-select-highlight top-left-corner top-right-corner bottom-left-corner bottom-right-corner" action="/<?php echo (isset($hide_lang_bar) && isset($hide_nav)) ? $lang_code.'/': ''; ?>" method="GET">
 		<div class="m-input-prepend" id="dob_bar">
 <?php
 if ($fullname != ''):
 ?>
-			<a tabindex="4" id="name_remove" class="m-btn green icn-only"><i class="icon-remove icon-white"></i></a><input tabindex="2" data-lang-ja="<?php echo $input_interfaces['fullname']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['fullname']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['fullname']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['fullname']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['fullname']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['fullname']['vi']; ?>" placeholder='<?php echo $input_interfaces['fullname'][$lang_code]; ?>' id='fullname' type='text' name='fullname' size='24' maxlength='128' class='required m-wrap translate' readonly disabled value='<?php echo $fullname; ?>' autocomplete="off" spellcheck="false" />
+			<a tabindex="4" id="name_remove" class="m-btn green icn-only top-left-corner"><i class="icon-remove icon-white"></i></a><input tabindex="2" data-lang-ja="<?php echo $input_interfaces['fullname']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['fullname']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['fullname']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['fullname']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['fullname']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['fullname']['vi']; ?>" placeholder='<?php echo $input_interfaces['fullname'][$lang_code]; ?>' id='fullname' type='text' name='fullname' size='24' maxlength='128' class='required m-wrap translate' readonly disabled value='<?php echo $fullname; ?>' autocomplete="off" spellcheck="false" />
 <?php
 else:
 ?>
-			<a tabindex="2" class="m-btn" id="name_toggle"><?php echo translate_button('name_toggle'); ?></a>
+			<a tabindex="2" class="m-btn top-left-corner" id="name_toggle"><?php echo translate_button('name_toggle'); ?></a>
 <?php
 endif;
 ?>
 			<div id="help_name" class="help"></div>
-			<input pattern="\d{4}-\d{2}-\d{2}" tabindex="1" data-lang-ja="<?php echo $input_interfaces['dob']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['dob']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['dob']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['dob']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['dob']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['dob']['vi']; ?>" placeholder="<?php echo $input_interfaces['dob'][$lang_code]; ?>" id="dob" type="text" name="dob" size="10" maxlength="128" class="required m-wrap translate" <?php echo ($dob != '') ? 'readonly disabled': ''; ?> value="<?php echo ($dob != '') ? date('Y-m-d',strtotime($dob)): ''; ?>" autocomplete="off" spellcheck="false" />
+			<input pattern="\d{4}-\d{2}-\d{2}" tabindex="1" data-lang-ja="<?php echo $input_interfaces['dob']['ja']; ?>" data-lang-zh="<?php echo $input_interfaces['dob']['zh']; ?>" data-lang-es="<?php echo $input_interfaces['dob']['es']; ?>" data-lang-ru="<?php echo $input_interfaces['dob']['ru']; ?>" data-lang-en="<?php echo $input_interfaces['dob']['en']; ?>" data-lang-vi="<?php echo $input_interfaces['dob']['vi']; ?>" placeholder="<?php echo $input_interfaces['dob'][$lang_code]; ?>" id="dob" type="text" name="dob" size="10" maxlength="128" class="required m-wrap translate top-right-corner" <?php echo ($dob != '') ? 'readonly disabled': ''; ?> value="<?php echo ($dob != '') ? date('Y-m-d',strtotime($dob)): ''; ?>" autocomplete="off" spellcheck="false" />
 			<table id="same_birthday_suggestion"></table>
 			<div id="help_dob" class="help">YYYY-MM-DD</div>
 		</div>
-		<div class="m-btn-group" id="dob_control_bar">
-			<a tabindex="6" class="m-btn blue button_changeable" id="home_page" href="/<?php echo (isset($hide_lang_bar) && isset($hide_nav)) ? $lang_code.'/': ''; ?>"><i class="icon-home icon-white"></i> <?php echo translate_button('home_page'); ?></a>
+		<div class="m-btn-group bottom-left-corner bottom-right-corner" id="dob_control_bar">
+			<a tabindex="6" class="m-btn blue button_changeable bottom-left-corner" id="home_page" href="/<?php echo (isset($hide_lang_bar) && isset($hide_nav)) ? $lang_code.'/': ''; ?>"><i class="icon-home icon-white"></i> <?php echo translate_button('home_page'); ?></a>
 			<a tabindex="5" class="m-btn blue button_changeable" id="dob_erase"><i class="icon-erase icon-white"></i> <?php echo translate_button('dob_erase'); ?></a>
-			<a tabindex="3" class="m-btn green" id="dob_submit"><i class="icon-play icon-white"></i></a>
+			<a tabindex="3" class="m-btn green bottom-right-corner" id="dob_submit"><i class="icon-play icon-white"></i></a>
 		</div>
 	</form>
 	<div class="clear"></div>

@@ -16,4 +16,3 @@ if (isset($_GET['type']) && isset($_GET['dob']) && isset($_GET['diff']) && isset
 			break;
 	}
 }
-?>

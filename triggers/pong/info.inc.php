@@ -6,4 +6,3 @@
 	$your_db_name = 'nhipsinh_pong'; // The name of the database you want to use. The database MUST exist in your MySQL setup.
 	$your_table_name = 'game_html5pong'; // The name of the table created for the game. The table MUST exist in the database specified above.
 	//************************
-	?>

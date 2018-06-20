@@ -189,4 +189,3 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 	echo 'Page not found';
 }
 include template('bottom');
-?>
