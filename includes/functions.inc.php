@@ -34,7 +34,7 @@ function get_wiki_url(string $title): string {
 function get_wiki_url_nsh(string $title): string {
 	return 'http://nhipsinhhoc.vn/wiki/'.str_replace(' ', '_', $title);
 }
-function error($msg) { //Show popup meesage
+function error($msg): void { //Show popup meesage
     echo '
     <html>
     <head>
@@ -277,21 +277,21 @@ function list_same_birthday(string $keyword=""): string { //Return users list, f
 				</script>';
 	return $output;
 }
-function create_user(string $name,string $dob) { //Create new user
+function create_user(string $name,string $dob): void { //Create new user
 	$array = array(
 				'name' => $name,
 				'dob' => $dob
 			);
 	insert_record($array,'nsh_users');
 }
-function edit_user($uid,string $name,string $dob) { //Edit user details
+function edit_user($uid,string $name,string $dob): void { //Edit user details
 	$array = array(
 				'name' => $name,
 				'dob' => $dob
 			);
 	update_record($array,'uid',$uid,'nsh_users');
 }
-function delete_user($uid) { //Delete user with user ID
+function delete_user($uid): void { //Delete user with user ID
 	delete_record('uid',$uid,'nsh_users');
 }
 /* Rhythm Functions */
@@ -316,7 +316,7 @@ function list_rhythms(): string { //Return list of rhythms, for admin use
 	$output .= '</table>';
 	return $output;
 }
-function create_rhythm(string $name,$scale,string $description_en,string $description_ru,string $description_es,string $description_zh,string $description_ja) { //Create new rhythm
+function create_rhythm(string $name,$scale,string $description_en,string $description_ru,string $description_es,string $description_zh,string $description_ja): void { //Create new rhythm
 	$array = array(
 				'name' => $name,
 				'scale' => $scale,
@@ -328,7 +328,7 @@ function create_rhythm(string $name,$scale,string $description_en,string $descri
 			);
 	insert_record($array,'nsh_rhythms');
 }
-function edit_rhythm($rid,string $name,$scale,string $description_en,string $description_ru,string $description_es,string $description_zh,string $description_ja) { //Edit rhythm details
+function edit_rhythm($rid,string $name,$scale,string $description_en,string $description_ru,string $description_es,string $description_zh,string $description_ja): void { //Edit rhythm details
 	$array = array(
 				'name' => $name,
 				'scale' => $scale,
@@ -340,16 +340,16 @@ function edit_rhythm($rid,string $name,$scale,string $description_en,string $des
 			);
 	update_record($array,'rid',$rid,'nsh_rhythms');
 }
-function delete_rhythm($rid) { //Delete rhythm
+function delete_rhythm($rid): void { //Delete rhythm
 	delete_record('rid',$rid,'nsh_rhythms');
 }
-function make_rhythm_secondary($rid) {
+function make_rhythm_secondary($rid): void {
 	$array = array(
 				'is_secondary' => '1'
 			);
 	update_record($array,'rid',$rid,'nsh_rhythms');
 }
-function make_rhythm_primary($rid) {
+function make_rhythm_primary($rid): void {
 	$array = array(
 				'is_secondary' => '0'
 			);
@@ -609,7 +609,7 @@ function player_input(int $count): string {
 	}
 	return $output;
 }
-function render_game() {
+function render_game(): void {
 	$count = (isset($_POST['count'])) ? $_POST['count']: 0;
 	$time = (isset($_POST['time'])) ? $_POST['time']: 0;
 	$player_names = array();
@@ -676,8 +676,7 @@ function render_game() {
  * @param integer $max_b Maximum value for the blue color
  * @return string
  */
-function get_random_color_hex(int $max_r = 255,int $max_g = 255,int $max_b = 255)
-{
+function get_random_color_hex(int $max_r = 255,int $max_g = 255,int $max_b = 255): string {
     // ensure that values are in the range between 0 and 255
     if ($max_r > 255) { $max_r = 255; }
     if ($max_g > 255) { $max_g = 255; }
@@ -692,7 +691,7 @@ function get_random_color_hex(int $max_r = 255,int $max_g = 255,int $max_b = 255
            str_pad(dechex(rand(0, $max_b)), 2, '0', STR_PAD_LEFT);
 }
 /* Sort Functions */
-function sort_descend($a,$b){ //Call back function to sort descendently
+function sort_descend($a,$b): int { //Call back function to sort descendently
 	if (isset($a['sort']) && isset($b['sort'])) {
 		if ((int)$a['sort'] == (int)$b['sort']) {
 			return 0;
@@ -700,7 +699,7 @@ function sort_descend($a,$b){ //Call back function to sort descendently
 		return ((int)$b['sort'] < (int)$a['sort']) ? -1 : 1;
 	}
 }
-function sort_ascend($a,$b){ //Call back function to sort ascendently
+function sort_ascend($a,$b): int { //Call back function to sort ascendently
 	if (isset($a['sort']) && isset($b['sort'])) {
 		if ((int)$a['sort'] == (int)$b['sort']) {
 			return 0;
@@ -708,52 +707,52 @@ function sort_ascend($a,$b){ //Call back function to sort ascendently
 		return ((int)$a['sort'] < (int)$b['sort']) ? -1 : 1;
 	}
 }
-function sort_name_descend($a,$b){ //Call back function to sort date descendently
+function sort_name_descend($a,$b): int { //Call back function to sort date descendently
 	if (isset($a['name']) && isset($b['name'])) {
 		return strcmp($b['name'],$a['name']);
 	}
 }
-function sort_name_ascend($a,$b){ //Call back function to sort date ascendently
+function sort_name_ascend($a,$b): int { //Call back function to sort date ascendently
 	if (isset($a['name']) && isset($b['name'])) {
 		return strcmp($a['name'],$b['name']);
 	}
 }
-function sort_date_descend($a,$b){ //Call back function to sort date descendently
+function sort_date_descend($a,$b): int { //Call back function to sort date descendently
 	if (isset($a['created']) && isset($b['created'])) {
 		return strcmp($b['created'],$a['created']);
 	}
 }
-function sort_date_ascend($a,$b){ //Call back function to sort date ascendently
+function sort_date_ascend($a,$b): int { //Call back function to sort date ascendently
 	if (isset($a['created']) && isset($b['created'])) {
 		return strcmp($a['created'],$b['created']);
 	}
 }
-function sort_date_member_descend($a,$b){ //Call back function to sort date descendently
+function sort_date_member_descend($a,$b): int { //Call back function to sort date descendently
 	if (isset($a['created_at']) && isset($b['created_at'])) {
 		return strcmp(strtotime($b['created_at']),strtotime($a['created_at']));
 	}
 }
-function sort_date_member_ascend($a,$b){ //Call back function to sort date ascendently
+function sort_date_member_ascend($a,$b): int { //Call back function to sort date ascendently
 	if (isset($a['created_at']) && isset($b['created_at'])) {
 		return strcmp(strtotime($a['created_at']),strtotime($b['created_at']));
 	}
 }
-function sort_fullname_descend($a,$b){ //Call back function to sort fullname descendently
+function sort_fullname_descend($a,$b): int { //Call back function to sort fullname descendently
 	if (isset($a['fullname']) && isset($b['fullname'])) {
 		return strcmp($b['fullname'],$a['fullname']);
 	}
 }
-function sort_fullname_ascend($a,$b){ //Call back function to sort fullname ascendently
+function sort_fullname_ascend($a,$b): int { //Call back function to sort fullname ascendently
 	if (isset($a['fullname']) && isset($b['fullname'])) {
 		return strcmp($a['fullname'],$b['fullname']);
 	}
 }
-function sort_dob_descend($a,$b){ //Call back function to sort dob descendently
+function sort_dob_descend($a,$b): int { //Call back function to sort dob descendently
 	if (isset($a['dob']) && isset($b['dob'])) {
 		return strcmp($b['dob'],$a['dob']);
 	}
 }
-function sort_dob_ascend($a,$b){ //Call back function to sort dob ascendently
+function sort_dob_ascend($a,$b): int { //Call back function to sort dob ascendently
 	if (isset($a['dob']) && isset($b['dob'])) {
 		return strcmp($a['dob'],$b['dob']);
 	}
@@ -1062,11 +1061,11 @@ function generate_proverb(string $lang): array {
 	$index = rand(0, $count-1);
 	return $proverbs->data[$index];
 }
-function render_proverb(string $lang) {
+function render_proverb(string $lang): void {
 	$proverb = generate_proverb($lang);
-	echo '<blockquote id="proverb_content" class="changeable top-left-corner top-right-corner bottom-left-corner bottom-right-corner"><div id="proverb_text"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a>'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author"><a href="'.get_wiki_url($proverb['author']).'" target="_blank">'.$proverb['author'].'</a></p>';
+	echo '<blockquote id="proverb_content" class="changeable top-left-corner top-right-corner bottom-left-corner bottom-right-corner"><div id="proverb_text"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><a id="proverb_list" href="/proverbs/" target="_blank" class="changeable"><i class="icon-white icon-list-numbered"></i></a><span class="content">'.$proverb['content'].'</span></div></blockquote ><span class="arrow_down"></span><p id="proverb_author"><a href="'.get_wiki_url($proverb['author']).'" target="_blank">'.$proverb['author'].'</a></p>';
 }
-function render_proverb_json(string $lang) {
+function render_proverb_json(string $lang): void {
 	$proverb = generate_proverb($lang);
 	echo json_encode($proverb);
 }
@@ -1115,7 +1114,7 @@ function list_proverbs(int $page=1,string $lang): string { //Return users list, 
 				</script>';
 	return $output;
 }
-function render_country_json() {
+function render_country_json(): void {
 	global $geoip_record;
 	global $time_zone;
 	init_timezone();
@@ -1127,7 +1126,7 @@ function render_country_json() {
 	echo json_encode($json_array);
 }
 /* ass */
-function credential(int $type) {
+function credential(int $type): string {
 	global $credential_id;
 	$credential = load_credential($credential_id);
 	switch($type) {
@@ -1548,7 +1547,7 @@ function get_lunar_years_old(string $dob,string $date = 'today'): int {
 	$lunar_birth_year = $lunar_birth_date[2];
 	return $lunar_year-$lunar_birth_year;
 }
-function render_rss_feed(string $rss_url,string $feed_header,$feed_id) {
+function render_rss_feed(string $rss_url,string $feed_header,$feed_id): void {
 	$result = '<section id="'.$feed_id.'" class="rss_feed">';
 	$result .= '<h2>'.$feed_header.'</h2>';
 	//$result .= '<div class="help help_rss_feed changeable"><i class="m-icon-white"></i></div>';
@@ -1582,7 +1581,7 @@ function rss_feed_email(string $rss_url,string $feed_header,$feed_id): string {
 	$result .= '</section>';
 	return $result;
 }
-function load_rss_feed(string $rss_url) {
+function load_rss_feed(string $rss_url): void {
 	$rss = new Rss;
 	$feed = $rss->getFeed($rss_url, Rss::XML);
 	$result = "";
@@ -1595,7 +1594,7 @@ function load_rss_feed(string $rss_url) {
 	}
 	echo $result;
 }
-function load_news_feed(string $keyword="") {
+function load_news_feed(string $keyword=""): void {
 	global $faroo_key;
 	$keyword = ($keyword != "") ? '%22'.urlencode($keyword).'%22' : "";
 	$url = 'http://www.faroo.com/api?q='.$keyword.'&start=1&length=20&src='.(($keyword == "") ? 'news': 'web').'&i=false&f=json&key='.$faroo_key;
@@ -1616,7 +1615,7 @@ function load_news_feed(string $keyword="") {
 	}
 	echo $result;
 }
-function render_photo_of_the_day() {
+function render_photo_of_the_day(): void {
   $nasa_api = 'SqccgSap9C0luAWhNxIYYQOourgnZiR60MD721ho';
 	$nasa_url = 'https://api.nasa.gov/planetary/apod?api_key='.$nasa_api;
 	$nasa_json = file_get_contents($nasa_url);
@@ -1624,7 +1623,7 @@ function render_photo_of_the_day() {
 	//echo '<pre>';
 	//print_r($bing_array);
 	//echo '</pre>';
-	$nasa_photo_url = $nasa_array['hdurl'];
+	$nasa_photo_url = $nasa_array['url'];
 	echo '
 <style>
 body:not(.birthday) {
@@ -1854,7 +1853,7 @@ function list_members(int $page=1,string $keyword=""): string { //Return members
 				</script>';
 	return $output;
 }
-function bulk_sql_members(string $db_sql) {
+function bulk_sql_members(string $db_sql): void {
 	$emails = array();
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
 	$directories = glob($path.'*', GLOB_ONLYDIR|GLOB_NOSORT);
@@ -1884,10 +1883,10 @@ function bulk_sql_members(string $db_sql) {
 		}
 	}
 }
-function generate_message_id() {
+function generate_message_id(): string {
 	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),"nhipsinhhoc.vn");
 }
-function send_mail(string $to,string $subject,array $message) {
+function send_mail(string $to,string $subject,array $message): void {
 	global $lang_code, $span_interfaces, $email_credentials;
 //	$unsubscriber_emails = array();
 //	$unsubscribers = new parseCSV();
@@ -1934,7 +1933,7 @@ function email_message(string $heading,string $content): array {
 		'plain' => strip_tags($content)
 	);
 }
-function email_create_member(string $email,string $fullname,string $password,string $dob) {
+function email_create_member(string $email,string $fullname,string $password,string $dob): void {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces, $clickbank;
 	$my_email = 'tung.42@gmail.com';
 	$hidden_password = str_repeat('*',strlen($password)-3).substr($password,-3);
@@ -1975,7 +1974,7 @@ function email_create_member(string $email,string $fullname,string $password,str
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
 }
-function email_edit_member($email,$fullname,$password,$dob) {
+function email_edit_member($email,$fullname,$password,$dob): void {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces, $clickbank;
 	$my_email = 'tung.42@gmail.com';
 	$hidden_password = str_repeat('*',strlen($password)-3).substr($password,-3);
@@ -2020,7 +2019,7 @@ function email_edit_member($email,$fullname,$password,$dob) {
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
 }
-function email_contact($email,$fullname,$body) {
+function email_contact($email,$fullname,$body): void {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
 	$my_email = 'tung.42@gmail.com';
 	$heading = site_name();
@@ -2032,7 +2031,7 @@ function email_contact($email,$fullname,$body) {
 	$message = email_message($heading, $content);
 	send_mail($my_email,'Email phản hồi từ Form Contact',$message);
 }
-function do_unsubscribe($email) {
+function do_unsubscribe($email): void {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member//unsubscribers_list.csv';
 	if (!$handle = fopen($path, 'a+')) {
 		echo 'Cannot open index file ('.$path.')';
@@ -2054,7 +2053,7 @@ function do_unsubscribe($email) {
 	$message = email_message($heading, $content);
 	send_mail($my_email,'Email hủy đăng ký: "'.$email.'"',$message);
 }
-function do_resubscribe($email) {
+function do_resubscribe($email): void {
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member//unsubscribers_list.csv';
 	$lines = file($path, FILE_IGNORE_NEW_LINES);
 	$remove = $email;
@@ -2076,7 +2075,7 @@ function do_resubscribe($email) {
 	$message = email_message($heading, $content);
 	send_mail($my_email,'Email đăng ký lại: "'.$email.'"',$message);
 }
-function email_forgot_password($email) {
+function email_forgot_password($email): void {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
 	$member = load_member_from_email($email);
 	$fullname = $member['fullname'];
@@ -2093,7 +2092,7 @@ function email_forgot_password($email) {
 		send_mail($my_email,$email_interfaces['reset_password'][$lang_code],$message);
 	}
 }
-function email_forgot_password_alert($email) {
+function email_forgot_password_alert($email): void {
 	global $lang_code, $email_interfaces, $input_interfaces, $span_interfaces;
 	$my_email = 'tung.42@gmail.com';
 	if (!taken_email($email)) {
@@ -2108,7 +2107,7 @@ function email_forgot_password_alert($email) {
 		send_mail($my_email,$email_interfaces['forgot_password_alert_title'][$lang_code],$message);
 	}
 }
-function email_daily_suggestion() {
+function email_daily_suggestion(): void {
 	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
@@ -2187,7 +2186,7 @@ function email_daily_suggestion() {
 		//sleep(2);
 	}
 }
-function test_email_daily_suggestion() {
+function test_email_daily_suggestion(): void {
 	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';

@@ -5174,7 +5174,7 @@ a.m-btn {
 }
 
 #help_dob {
-  width: 88px;
+  width: 96px;
   top: -26px;
 }
 
@@ -11854,4 +11854,10 @@ body.birthday {
   #wf-flake-23 > img {
     content: url(/js/snow/presents-32/snowflake-6.gif);
   }
+}
+#ui-datepicker-div {
+  @include border-top-left-radius(8px);
+  @include border-top-right-radius(8px);
+  @include border-bottom-left-radius(8px);
+  @include border-bottom-right-radius(8px);
 }

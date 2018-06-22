@@ -243,10 +243,10 @@ class Chart {
 				break;
 		}
 	}
-	function set_fullname(string $fullname) {
+	function set_fullname(string $fullname): void {
 		$this->_fullname = $fullname;
 	}
-	function set_registered(bool $is_registered) {
+	function set_registered(bool $is_registered): void {
 		$this->_is_registered = $is_registered;
 	}
 	function serialize_chart_data(): string {
@@ -416,7 +416,7 @@ class Chart {
 		$infor_values .= '</ul>';
 		return $infor_values;
 	}
-	function render_meta_description() {
+	function render_meta_description(): string {
 		$meta_description = differ_year($this->_dob, $this->_date).' '.$this->_age;
 		$meta_description .= ' - '.date('Y-m-d',time()+86400*$this->_diff).' -';
 		foreach ($this->_rhythms as $rhythm) {
@@ -560,7 +560,7 @@ class Chart {
 		return $output;
 	}
 	// Render explanation chart
-	function render_explanation_chart() {
+	function render_explanation_chart(): void {
 		global $menu_interfaces;
 		$output = "";
 		$output .= '
@@ -672,7 +672,7 @@ $("#lang_bar").off("click","**").on("click", "#vi_toggle", function(){
 		echo $output;
 	}
 	// Render embed chart
-	function render_embed_chart() {
+	function render_embed_chart(): void {
 		global $menu_interfaces;
 		$output = "";
 		$output .= '

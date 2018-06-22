@@ -1,8 +1,8 @@
 <?php
-function libraries_autoload(string $class_name) {
+function libraries_autoload(string $class_name): void {
 	require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/libraries/'.$class_name.'.class.php';
 }
-function google_api_php_client_autoload(string $class_name) {
+function google_api_php_client_autoload(string $class_name): void {
 	$class_path = explode('_', $class_name);
 	if ($class_path[0] != 'Google') {
 		return;
@@ -32,10 +32,10 @@ function is_bot(): bool {
 		return false;
 	}
 }
-function prevent_xss(string $query_string) {
+function prevent_xss(string $query_string): string {
 	return htmlentities($query_string, ENT_QUOTES, 'UTF-8');
 }
-function init_timezone() {
+function init_timezone(): void {
 	global $geoip_record;
 	if (is_public_server() || is_bot() || !isset($geoip_record)) {
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -95,7 +95,7 @@ function init_lang_code(): string {
 	$lang_code = (isset($one_lang)) ? $one_lang: ((isset($_GET['lang']) && in_array($_GET['lang'], $lang_codes)) ? prevent_xss($_GET['lang']): $lang_code);
 	return $lang_code;
 }
-function get_timezone() {
+function get_timezone(): string {
 	global $geoip_record;
 	$timezone = get_time_zone($geoip_record->country_code,$geoip_record->region);
 	return $timezone;
@@ -215,7 +215,7 @@ function search_array(string $table_name,string $identifier,string $value): arra
 	}
 	return $array;
 }
-function insert_record(array $array = array(),string $table_name) { //Insert table record
+function insert_record(array $array = array(),string $table_name): void { //Insert table record
 	global $pdo;
 	$keys = array_keys($array);
 	$values = array_values($array);
@@ -237,7 +237,7 @@ function insert_record(array $array = array(),string $table_name) { //Insert tab
 	$result = $pdo->prepare($query);
 	$result->execute($execute_array);
 }
-function update_record_with_operator(array $array = array(),string $identifier,string $value,string $table_name,string $operator) { //Update table record
+function update_record_with_operator(array $array = array(),string $identifier,string $value,string $table_name,string $operator): void { //Update table record
 	global $pdo;
 	$keys = array_keys($array);
 	$values = array_values($array);
@@ -256,15 +256,15 @@ function update_record_with_operator(array $array = array(),string $identifier,s
 	$result = $pdo->prepare($query);
 	$result->execute($execute_array);
 }
-function update_record(array $array = array(),string $identifier,string $value,string $table_name) { //Update table record
+function update_record(array $array = array(),string $identifier,string $value,string $table_name): void { //Update table record
 	update_record_with_operator($array, $identifier, $value, $table_name, '=');
 }
-function delete_record(string $identifier,string $value,string $table_name) { //Delete table records with 1 identifier
+function delete_record(string $identifier,string $value,string $table_name): void { //Delete table records with 1 identifier
 	global $pdo;
 	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier.'`=:value');
 	$result->execute(array(':value' => $value));
 }
-function delete_record_with_two_identifier(string $identifier1,string $value1,string $identifier2,string $value2,string $table_name) { //Delete table records with 2 identifiers
+function delete_record_with_two_identifier(string $identifier1,string $value1,string $identifier2,string $value2,string $table_name): void { //Delete table records with 2 identifiers
 	global $pdo;
 	$result = $pdo->prepare('DELETE FROM `'.$table_name.'` WHERE `'.$identifier1.'`=:value1 AND `'.$identifier2.'`=:value2');
 	$result->execute(array(':value1' => $value1, ':value2' => $value2));

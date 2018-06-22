@@ -205,7 +205,7 @@ $button_interfaces = array(
 		'ja' => '編集'
 	),
 	'dob_remove' => array(
-		'vi' => 'Xóa hẳn',
+		'vi' => 'Xóa bỏ',
 		'en' => 'Remove',
 		'ru' => 'Удалить',
 		'es' => 'Quitar',
