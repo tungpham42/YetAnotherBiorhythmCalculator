@@ -5127,7 +5127,7 @@ body {
 main {
   position: relative;
   font: normal .9em $font-stack;
-  background: rgba(230, 239, 253, 0.77);
+  background: rgba(230, 239, 253, 0.666);
   padding: 0;
   padding-top: 100px;
   min-height: 420px;
@@ -5143,7 +5143,7 @@ main {
 }
 
 body.birthday main {
-  background: rgba(255, 252, 235, 0.88);
+  background: rgba(255, 252, 235, 0.666);
 }
 
 #content {

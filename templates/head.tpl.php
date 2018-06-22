@@ -46,7 +46,7 @@ include template('fonts');
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
 -->
-<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=57" />
+<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=58" />
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
 render_photo_of_the_day();

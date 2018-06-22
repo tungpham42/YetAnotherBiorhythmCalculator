@@ -1615,10 +1615,22 @@ function load_news_feed(string $keyword=""): void {
 	}
 	echo $result;
 }
+function curl_get_contents($url): string {
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+  $data = curl_exec($ch);
+  curl_close($ch);
+  return $data;
+}
 function render_photo_of_the_day(): void {
   $nasa_api = 'SqccgSap9C0luAWhNxIYYQOourgnZiR60MD721ho';
 	$nasa_url = 'https://api.nasa.gov/planetary/apod?api_key='.$nasa_api;
-	$nasa_json = file_get_contents($nasa_url);
+  //$nasa_json = file_get_contents($nasa_url);
+	$nasa_json = curl_get_contents($nasa_url);
 	$nasa_array = json_decode($nasa_json, true);
 	//echo '<pre>';
 	//print_r($bing_array);
