@@ -35,8 +35,9 @@
 <script src="<?php echo $cdn_url; ?>/js/animation.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/manipulation.js"></script>
 <script src="<?php echo $cdn_url; ?>/js/lang.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 -->
-<script src="<?php echo $cdn_url; ?>/js/all.js?v=10"></script>
+<script src="<?php echo $cdn_url; ?>/js/all.min.js"></script>
 <?php
 //include template('script');
 //if (is_birthday()):

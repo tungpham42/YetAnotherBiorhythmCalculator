@@ -57,7 +57,7 @@ echo translate_span('minute','minute_text');
 		</span>
 	</div>
 	<p><?php echo translate_span('wake_up_time_head'); ?></p>
-	<a class="m-btn green" id="sleep_now"><?php echo translate_button('sleep_now'); ?></a>
+	<a class="m-btn green top-left-corner top-right-corner bottom-left-corner bottom-right-corner" id="sleep_now"><?php echo translate_button('sleep_now'); ?></a>
 	<div>
 		<p><?php echo translate_span('wake_up_time_results'); ?></p>
 		<span id="wake_up_time_results">

@@ -26,6 +26,4 @@ endif;
 	</form>
 	<div class="clear"></div>
 </div>
-<!--
 <div id="help_dob_form" class="help"><i class="m-icon-white"></i></div>
--->

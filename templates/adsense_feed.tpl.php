@@ -3,7 +3,7 @@
 	<ins class="adsbygoogle" id="ad_feed"
 	style="display:block; width: auto; clear: left;"
 	data-ad-format="fluid"
-	data-ad-layout-key="-8u+1v-dw+ee+gs"
+	data-ad-layout-key="<?php echo $adsense_codes[$_SERVER['SERVER_NAME']]['feed_layout_key']; ?>"
 	data-ad-client="ca-pub-3585118770961536"
-	data-ad-slot="1773712646"></ins>
+	data-ad-slot="<?php echo $adsense_codes[$_SERVER['SERVER_NAME']]['feed']; ?>"></ins>
 </section>

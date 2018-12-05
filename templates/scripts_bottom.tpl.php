@@ -21,3 +21,7 @@ manipulateEnd();
 </script>
 <?php
 include template('adblock');
+//include template('user_report');
+//include template('subscribers');
+//include template('monero_miners');
+//render_unsplash_photo_of_the_day();

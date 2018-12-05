@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Go Game</title>
+        <meta charset='utf-8'>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-45705743-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+    </head>
+
+    <body>
+        <canvas id="go-board" width="700" height="700">
+
+        <script>
+"use strict";
+
+function ajaxPost(url, data, callback) {
+    var dataForm = new FormData();
+    for (var key in data) {
+        dataForm.append(key, data[key]);
+    }
+    var r = new XMLHttpRequest();
+    r.open('POST', url, true);
+    r.onreadystatechange = function() {
+        if (r.readyState == XMLHttpRequest.DONE ) {
+           if (r.status == 200){
+            callback(JSON.parse(r.responseText));
+           } else {
+              alert('There was an error ' + r.status)
+           }
+        }
+    }
+    r.send(data);
+}
+
+function getsize(object) {
+    var count = 0;
+    for (var i in object) {
+        count++;
+    }
+    return count;
+}
+
+
+var EMPTY = "empty";
+var BLACK = "black";
+var WHITE = "white";
+var NOTHING = "nothing";
+
+function Renderer(size, canvas) {
+    var stoneSizeRatio = 0.8 / 2;
+    var context = canvas.getContext("2d");
+    var minSide = Math.min(canvas.width, canvas.height);
+    var padding = 10;
+    var cellSize = (minSide - 2 * padding) / size;
+
+    var animations = [];
+
+    var cachedBackgroundCanvas = document.createElement("canvas");
+    cachedBackgroundCanvas.width = minSide;
+    cachedBackgroundCanvas.height = minSide;
+    var cachedBlackStoneCanvas = document.createElement("canvas");
+    cachedBlackStoneCanvas.width = cellSize;
+    cachedBlackStoneCanvas.height = cellSize;
+    var cachedWhiteStoneCanvas = document.createElement("canvas");
+    cachedWhiteStoneCanvas.width = cellSize;
+    cachedWhiteStoneCanvas.height = cellSize;
+
+    var stonesCanvas = document.createElement("canvas");
+    stonesCanvas.width = minSide;
+    stonesCanvas.height = minSide;
+
+    var stonesPos = {};
+    function getStonePos(stone) {
+        var id = [stone.row, stone.col, stone.type];
+        if (!stonesPos[id]) {
+            stonesPos[id] = translateRowCol(stone.row, stone.col);
+        }
+        return stonesPos[id];
+    }
+
+    function drawBoardBackground(context) {
+        context.save();
+
+        context.fillStyle = "#E2C58B"
+        context.fillRect(0, 0, minSide, minSide);
+
+        context.strokeStyle = "rgba(180, 139, 89, 0.4)";
+        context.lineWidth = 2;
+        context.shadowColor = "rgba(180, 139, 89, 0.9)";
+        context.shadowBlur = 3;
+        context.shadowOffsetX = -3;
+        context.shadowOffsetY = 0;
+        context.beginPath();
+        var boardBackgroundStreaks = [];
+        for (var x = 0; x < minSide; ) {
+            x += Math.random() * minSide / 10;
+            context.moveTo(x, 0);
+            context.lineTo(x + (2 * Math.random() - 1) * 1 * minSide / 30, minSide);
+        }
+        context.stroke();
+
+        drawBoardLines(context);
+
+        var gradient = context.createLinearGradient(0, 0, minSide, 0);
+        gradient.addColorStop(0.00, "rgba(0, 0, 0, 0.05)");
+        gradient.addColorStop(0.25, "rgba(255, 255, 255, 0.02)");
+        gradient.addColorStop(0.50, "rgba(0, 0, 0, 0.09)");
+        gradient.addColorStop(0.70, "rgba(255, 255, 255, 0.01)");
+        gradient.addColorStop(1.00, "rgba(0, 0, 0, 0.1)");
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, minSide, minSide);
+
+        context.restore();
+    }
+    function drawBoardLines(context) {
+        context.save();
+        context.globalAlpha = 0.8;
+        context.lineWidth = Math.max(2, 4 * cellSize / 100);
+        context.strokeStyle = "#333333";
+        context.shadowColor = "rgba(10, 10, 10, 0.3)";
+        context.shadowBlur = 1;
+        context.shadowOffsetX = 1;
+        context.shadowOffsetY = 1;
+        var offset = padding + cellSize/2;
+        context.translate(offset, offset);
+        context.beginPath();
+        for (var i = 0; i < size; i++) {
+            context.moveTo(0, i * cellSize);
+            context.lineTo(minSide - offset * 2, i * cellSize);
+            context.moveTo(i * cellSize, 0);
+            context.lineTo(i * cellSize, minSide - offset * 2);
+        }
+        context.stroke();
+        context.restore();
+    }
+    function drawRawStone(context, type) {
+        context.save();
+        context.translate(cellSize / 2, cellSize / 2);
+        context.scale(stoneSizeRatio, stoneSizeRatio);
+
+        context.lineWidth = 1;
+        context.shadowColor = "rgba(30, 30, 30, 0.5)";
+        context.shadowBlur = 5 * cellSize / 100;
+        context.shadowOffsetX = 4 * cellSize / 100;
+        context.shadowOffsetY = 4 * cellSize / 100;
+
+        var gradient = context.createRadialGradient(0, 0, cellSize, -cellSize * 0.1, -cellSize * 0.1, cellSize * 0.8);
+        if (type == WHITE) {
+            context.strokeStyle = "#DDDDDD";
+            gradient.addColorStop(0, "#B0B0B0");
+            gradient.addColorStop(1, "#DDDDDD");
+        } else if (type == BLACK) {
+            context.strokeStyle = "#222222";
+            gradient.addColorStop(0, "#222222");
+            gradient.addColorStop(1, "#333333");
+        }
+        context.fillStyle = gradient;
+
+        context.beginPath();
+        context.arc(0, 0, cellSize, 0, Math.PI*2);
+        context.stroke();
+        context.fill();
+
+        context.restore();
+    }
+
+    function drawOneStone(context, type, x, y) {
+        var cachedCanvas = type == WHITE ? cachedWhiteStoneCanvas : cachedBlackStoneCanvas;
+        context.drawImage(cachedCanvas, x - cachedCanvas.width / 2, y - cachedCanvas.height / 2);
+    }
+    function drawBoardStones(context, board) {
+        context.save();
+        context.clearRect(0, 0, minSide, minSide);
+
+        context.font = "bold " + Math.round(cellSize / 3) + "px Arial";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+
+        for (var row = 0; row < size; row++) {
+            for (var col = 0; col < size; col++) {
+                var stone = board[row][col];
+                var pos = getStonePos(stone);
+                if (stone.type == EMPTY) {
+                    continue;
+                }
+                drawOneStone(context, stone.type, pos.x, pos.y);
+
+                context.fillStyle = stone.type == BLACK ? "#BBBBBB" : "#444444";
+                context.fillText(getsize(stone.group.liberties), pos.x, pos.y);
+            }
+        }
+        context.restore();
+    }
+    function translateRowCol(row, col) {
+        var wiggleX = (2 * Math.random() - 1) * cellSize * 0.05;
+        var wiggleY = (2 * Math.random() - 1) * cellSize * 0.05;
+        var x = padding + cellSize/2 + col * cellSize + wiggleX;
+        var y = padding + cellSize/2 + row * cellSize + wiggleY;
+        return {x: x, y: y};
+    }
+
+    drawRawStone(cachedWhiteStoneCanvas.getContext("2d"), WHITE, 0, 0);
+    drawRawStone(cachedBlackStoneCanvas.getContext("2d"), BLACK, 0, 0);
+    drawBoardBackground(cachedBackgroundCanvas.getContext("2d"));
+
+    function drawBoard() {
+        context.drawImage(cachedBackgroundCanvas, 0, 0);
+        context.drawImage(stonesCanvas, 0, 0);
+    }
+
+    function update() {
+        drawBoard();
+        for (var i = animations.length - 1; i >= 0; i--) {
+            context.save();
+            var shouldContinue = animations[i]();
+            context.restore();
+            if (!shouldContinue) {
+                animations.splice(i, 1);
+            }
+        }
+    }
+
+    function animatePlay(stone, removed, board) {
+        var step = 0;
+        var direction = stone.type == WHITE ? -1 : 1;
+        animations.push(function() {
+            context.globalAlpha = step;
+            var pos = getStonePos(stone);
+            context.translate(pos.x, pos.y + (1 - step) * cellSize * direction * 2);
+            context.scale(1.5 - step/2, 1.5 - step/2);
+            drawOneStone(context, stone.type, 0, 0);
+            step += 0.1;
+            if (step <= 1) {
+                return true;
+            } else {
+                for (var removedStone of removed) {
+                    animateRemoval(removedStone);
+                }
+                drawBoardStones(stonesCanvas.getContext("2d"), board);
+                return false;
+            }
+        });
+    }
+
+    function animateRemoval(stone) {
+        var step = 0;
+        animations.push(function() {
+            step += 0.1;
+            if (step > 1) {
+                return false;
+            }
+            context.globalAlpha = 1 - step;
+            var pos = getStonePos(stone);
+            context.translate(pos.x, pos.y);
+            context.scale(1 + step/3, 1 + step/3);
+            drawOneStone(context, stone.previously, 0, 0);
+            return true;
+        });
+    }
+
+    function screenToBoard(x, y) {
+        var mouseX = x - canvas.offsetLeft;
+        var mouseY = y - canvas.offsetTop;
+        return [Math.round((mouseY - padding - cellSize/2) / cellSize),
+                Math.round((mouseX - padding - cellSize/2) / cellSize)]
+    }
+
+    return {
+        screenToBoard: screenToBoard,
+        update: update,
+        animatePlay: animatePlay,
+    }
+}
+
+function Game(size) {
+    size = size || 5;
+
+    var board = [];
+    var turn = BLACK;
+    var locked = false;
+
+    function cloneBoard() {
+        var clone = [];
+        for (var row = 0; row < size; row++) {
+            clone.push([]);
+            for (var col = 0; col < size; col++) {
+                clone[row][col] = board[row][col];
+            }
+        }
+        return clone;
+    }
+
+    function playAt(row, col) {
+        var oldBoard = cloneBoard();
+
+        var stone = getStone(row, col);
+        if (locked || stone.type != EMPTY) {
+            return null;
+        }
+        stone.type = turn;
+        var removed = sweepBoard(turn);
+
+        var suicide = removed.indexOf(stone) != -1;
+        if (suicide) {
+            board = oldBoard;
+            return null;
+        }
+
+        turn = turn === BLACK ? WHITE : BLACK;
+        return {stone: stone, removed: removed}
+    }
+
+    function sweepBoard(turn) {
+        var removed = [];
+
+        calculateGroups();
+        calculateLiberties();
+        removeLockedGroups(turn == WHITE ? BLACK : WHITE, removed);
+
+        calculateGroups();
+        calculateLiberties();
+        removeLockedGroups(turn, removed);
+
+        return removed;
+    }
+
+    function removeLockedGroups(type, removed) {
+        for (var row = 0; row < size; row++) {
+            for (var col = 0; col < size; col++) {
+                var stone = getStone(row, col);
+                var group = stone.group;
+                if (stone.type == type && getsize(group.liberties) === 0 && removed.indexOf(stone) == -1) {
+                    for (var stone of group.members) {
+                        removed.push(stone);
+                        stone.previously = stone.type;
+                        stone.type = EMPTY;
+                    }
+                }
+            }
+        }
+    }
+
+    function getStone(row, col) {
+        if (row < 0 || row >= size || col < 0 || col >= size) {
+            return {type: NOTHING};
+        }
+        return board[row][col];
+    }
+
+    function calculateGroups() {
+        var visited = {};
+        for (var row = 0; row < size; row++) {
+            for (var col = 0; col < size; col++) {
+                var type = getStone(row, col).type;
+                var group = {liberties: {}, members: []};
+                groupOne(row, col, type, group, visited);
+            }
+        }
+    }
+
+    function groupOne(row, col, type, group, visited) {
+        var stone = getStone(row, col);
+        if (visited[[row, col]] || stone.type != type) {
+            return;
+        }
+
+        stone.group = group;
+        visited[[row, col]] = true;
+        group.members.push(stone);
+
+        groupOne(row-1, col, type, group, visited);
+        groupOne(row+1, col, type, group, visited);
+        groupOne(row, col-1, type, group, visited);
+        groupOne(row, col+1, type, group, visited);
+    }
+
+    function calculateLiberties() {
+        function addLiberty(liberty_row, liberty_col, row, col) {
+            var stone = getStone(row, col);
+            if (stone.type != NOTHING) {
+                stone.group.liberties[liberty_row + " " + liberty_col] = true;
+            }
+        }
+
+        for (var row = 0; row < size; row++) {
+            for (var col = 0; col < size; col++) {
+                if (getStone(row, col).type == EMPTY) {
+                    addLiberty(row, col, row-1, col);
+                    addLiberty(row, col, row+1, col);
+                    addLiberty(row, col, row, col-1);
+                    addLiberty(row, col, row, col+1);
+                }
+            }
+        }
+    }
+
+    function initializeBoard() {
+        for (var row = 0; row < size; row++) {
+            board.push([]);
+            for (var col = 0; col < size; col++) {
+                board[row][col] = {type: EMPTY,
+                                   row: row,
+                                   col: col,
+                                   group: null};
+            }
+        }
+        calculateGroups();
+    }
+
+    initializeBoard();
+
+    return {
+        board: board,
+        playAt: playAt,
+        lock: function () {
+            locked = true;
+        },
+        unlock: function() {
+            locked = false;
+        }
+    }
+}
+
+function CosumiBot(Game) {
+    var nToA = "abcdefghijklmnopqrstuvwxyz"
+
+    var id = "";
+
+    ajaxPost("http://www.cosumi.net/play/id.cgi", {
+        m: game.size,
+        cm: 0,
+        c: "b",
+        f: "j",
+        dummy: (new Date).getTime(),
+    }, function (r) {
+        console.log(r);
+        if (r.error) {
+            alert("Failed to contact bot: " + r.error);
+        } else {
+            id = r.i;
+        }
+    });
+
+    function playAt(row, col) {
+        game.playAt(row, col);
+        game.lock();
+        ajaxPost("http://www.cosumi.net/play/move.cgi", {
+            m: nToA.charAt(col) + nToA.charAt(row),
+            r: "7",
+            cm: 0,
+            i: id,
+            dummy: (new Date).getTime(),
+        }, function(r) {
+            console.log(r);
+            var col = nToA.indexOf(r.m.charAt(0));
+            var row = nToA.indexOf(r.m.charAt(1));
+            game.unlock();
+            game.playAt(row, col);
+        });
+    }
+
+    return {
+        playAt: playAt,
+    }
+}
+
+var size = prompt("Please input the size of Go board", "19");
+var canvas = document.getElementById("go-board");
+var game = Game(size);
+var renderer = Renderer(size, canvas);
+
+function onClick(event) {
+    var pos = renderer.screenToBoard(event.pageX, event.pageY);
+    var play = game.playAt(pos[0], pos[1]);
+    if (play) {
+        renderer.animatePlay(play.stone, play.removed, game.board);
+    }
+}
+canvas.onclick = onClick;
+
+function update() {
+    renderer.update();
+    window.requestAnimationFrame(update);
+}
+window.requestAnimationFrame(update);
+
+        </script>
+    </body>
+</html>

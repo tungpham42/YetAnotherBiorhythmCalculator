@@ -321,7 +321,7 @@ class Chart {
 		} else if ($intellectual >= 0 && $intellectual < 20) {
 			$intellectual_text = $information_interfaces['intellectual'][$this->_lang_code]['bad'];
 		}
-		return $average_text.' '.$physical_text.' '.$emotional_text.' '.$intellectual_text;
+		return '<p>'.$average_text.'</p><p>'.$physical_text.'</p><p>'.$emotional_text.'</p><p>'.$intellectual_text.'</p>';
 	}
 	function get_infor_details(): string {
 		global $information_interfaces;
@@ -459,7 +459,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="黄道帯の印:" data-lang-zh="星宮名稱:" data-lang-es="Signo del Zodíaco:" data-lang-ru="Знак зодиака:" data-lang-en="Zodiac sign:" data-lang-vi="Cung hoàng đạo:"></span></strong> <span class="translate" data-lang-ja="'.get_zodiac_from_dob($this->_dob,'ja').'" data-lang-zh="'.get_zodiac_from_dob($this->_dob,'zh').'" data-lang-es="'.get_zodiac_from_dob($this->_dob,'es').'" data-lang-ru="'.get_zodiac_from_dob($this->_dob,'ru').'" data-lang-en="'.get_zodiac_from_dob($this->_dob,'en').'" data-lang-vi="'.get_zodiac_from_dob($this->_dob,'vi').'"></span></p>
 	<textarea style="resize:vertical;" id="embed_box" rows="2" cols="420">https://'.$_SERVER['HTTP_HOST'].'/'.$this->_lang_code.'/?'.((isset($_GET['fullname']) && $_GET['fullname'] != "") ? 'fullname='.str_replace(' ', '+', $_GET['fullname']).'&amp;dob='.$dob : ((function_exists('get_member_fullname') && get_member_fullname() != "") ? 'fullname='.str_replace(' ', '+', get_member_fullname()).'&amp;dob='.$dob : (($fullname != "") ? 'fullname='.str_replace(' ', '+', $fullname).'&amp;dob='.$dob : 'dob='.$this->_dob))).'&date='.date('Y-m-d',time()+86400*$this->_diff).'</textarea>
 	<div id="embed_box_share"></div>
-	<div id="embed_toggle" class="changeable bottom-left-corner bottom-right-corner"><span class="translate" data-lang-ja="シェア" data-lang-zh="分享" data-lang-es="Compartir" data-lang-ru="Поделиться" data-lang-en="Share" data-lang-vi="Chia sẻ"></span> <i class="icon-share icon-white"></i></div>
+	<div id="embed_toggle" class="changeable top-left-corner top-right-corner bottom-left-corner bottom-right-corner"><span class="translate" data-lang-ja="シェア" data-lang-zh="分享" data-lang-es="Compartir" data-lang-ru="Поделиться" data-lang-en="Share" data-lang-vi="Chia sẻ"></span> <i class="icon-share icon-white"></i></div>
 </section>
 		';
 		return $output;
@@ -476,7 +476,7 @@ class Chart {
 	<p><strong><span class="translate" data-lang-ja="月:" data-lang-zh="月:" data-lang-es="Mes:" data-lang-ru="Месяц:" data-lang-en="Month:" data-lang-vi="Tháng:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_month($this->_dob,'ja').'" data-lang-zh="'.get_lunar_month($this->_dob,'zh').'" data-lang-es="'.get_lunar_month($this->_dob,'es').'" data-lang-ru="'.get_lunar_month($this->_dob,'ru').'" data-lang-en="'.get_lunar_month($this->_dob,'en').'" data-lang-vi="'.get_lunar_month($this->_dob,'vi').'"></span></p>
 	<p><strong><span class="translate" data-lang-ja="日:" data-lang-zh="日:" data-lang-es="Día:" data-lang-ru="Сутки:" data-lang-en="Day:" data-lang-vi="Ngày:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_day($this->_dob,'ja').'" data-lang-zh="'.get_lunar_day($this->_dob,'zh').'" data-lang-es="'.get_lunar_day($this->_dob,'es').'" data-lang-ru="'.get_lunar_day($this->_dob,'ru').'" data-lang-en="'.get_lunar_day($this->_dob,'en').'" data-lang-vi="'.get_lunar_day($this->_dob,'vi').'"></span></p>
 	<div id="lunar_box">
-		<p id="lunar_desc" class="bottom-left-corner bottom-right-corner"><strong><span class="translate" data-lang-ja="月面日付:" data-lang-zh="农历日期:" data-lang-es="Fecha lunar:" data-lang-ru="Лунный день:" data-lang-en="Lunar date:" data-lang-vi="Ngày Âm lịch:"></span></strong> <span>'.get_lunar_date($this->_date,true).'</span></p>
+		<p id="lunar_desc" class="top-left-corner top-right-corner bottom-left-corner bottom-right-corner"><strong><span class="translate" data-lang-ja="月面日付:" data-lang-zh="农历日期:" data-lang-es="Fecha lunar:" data-lang-ru="Лунный день:" data-lang-en="Lunar date:" data-lang-vi="Ngày Âm lịch:"></span></strong> <span>'.get_lunar_date($this->_date,true).'</span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="年:" data-lang-zh="年:" data-lang-es="Año:" data-lang-ru="Год:" data-lang-en="Year:" data-lang-vi="Năm:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_year($this->_date,'ja').'" data-lang-zh="'.get_lunar_year($this->_date,'zh').'" data-lang-es="'.get_lunar_year($this->_date,'es').'" data-lang-ru="'.get_lunar_year($this->_date,'ru').'" data-lang-en="'.get_lunar_year($this->_date,'en').'" data-lang-vi="'.get_lunar_year($this->_date,'vi').'"></span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="月:" data-lang-zh="月:" data-lang-es="Mes:" data-lang-ru="Месяц:" data-lang-en="Month:" data-lang-vi="Tháng:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_month($this->_date,'ja').'" data-lang-zh="'.get_lunar_month($this->_date,'zh').'" data-lang-es="'.get_lunar_month($this->_date,'es').'" data-lang-ru="'.get_lunar_month($this->_date,'ru').'" data-lang-en="'.get_lunar_month($this->_date,'en').'" data-lang-vi="'.get_lunar_month($this->_date,'vi').'"></span></p>
 		<p class="lunar_desc"><strong><span class="translate" data-lang-ja="日:" data-lang-zh="日:" data-lang-es="Día:" data-lang-ru="Сутки:" data-lang-en="Day:" data-lang-vi="Ngày:"></span></strong> <span class="translate" data-lang-ja="'.get_lunar_day($this->_date,'ja').'" data-lang-zh="'.get_lunar_day($this->_date,'zh').'" data-lang-es="'.get_lunar_day($this->_date,'es').'" data-lang-ru="'.get_lunar_day($this->_date,'ru').'" data-lang-en="'.get_lunar_day($this->_date,'en').'" data-lang-vi="'.get_lunar_day($this->_date,'vi').'"></span></p>
@@ -494,16 +494,16 @@ class Chart {
 <section id="compatibility" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_compatibility_h5.'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
-	<ul>
+	<ul class="rhythms">
 		<li class="rhythm changeable"><span class="translate" data-lang-ja="平均する:" data-lang-zh="平均:" data-lang-es="Promedio:" data-lang-ru="Средний:" data-lang-en="Average:" data-lang-vi="Trung bình:"></span><span class="value">'.percent_average_compatible_count($this->_dob,$this->_partner_dob,$this->_rhythms).'</span></li>';
 		foreach ($this->_rhythms as $rhythm){
 			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': "").'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_compatible_count($this->_dob,$this->_partner_dob,$rhythm['scale']).'</span></li>';
 		}
 		$output .= '
 	</ul>
-	<div class="m-input-prepend bottom-left-corner bottom-right-corner">
-		<span data-lang-ja="パートナー:" data-lang-zh="伙伴:" data-lang-es="Compañero:" data-lang-ru="Напарник:" data-lang-en="Partner:" data-lang-vi="Đối tác:" class="add-on translate bottom-left-corner" id="partner_dob_label"></span>
-		<input readonly data-lang-ja="'.$input_interfaces['partner_dob']['ja'].'" data-lang-zh="'.$input_interfaces['partner_dob']['zh'].'" data-lang-es="'.$input_interfaces['partner_dob']['es'].'" data-lang-ru="'.$input_interfaces['partner_dob']['ru'].'" data-lang-en="'.$input_interfaces['partner_dob']['en'].'" data-lang-vi="'.$input_interfaces['partner_dob']['vi'].'" class="m-wrap required bottom-right-corner" placeholder="'.$input_interfaces['partner_dob'][$this->_lang_code].'" id="partner_dob" type="text" name="partner_dob" size="42" maxlength="128" value="'.(($this->_partner_dob == $this->_dob) ? 'YYYY-MM-DD': $this->_partner_dob).'" />
+	<div class="m-input-prepend top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
+		<span data-lang-ja="パートナー:" data-lang-zh="伙伴:" data-lang-es="Compañero:" data-lang-ru="Напарник:" data-lang-en="Partner:" data-lang-vi="Đối tác:" class="add-on translate top-left-corner bottom-left-corner" id="partner_dob_label"></span>
+		<input readonly data-lang-ja="'.$input_interfaces['partner_dob']['ja'].'" data-lang-zh="'.$input_interfaces['partner_dob']['zh'].'" data-lang-es="'.$input_interfaces['partner_dob']['es'].'" data-lang-ru="'.$input_interfaces['partner_dob']['ru'].'" data-lang-en="'.$input_interfaces['partner_dob']['en'].'" data-lang-vi="'.$input_interfaces['partner_dob']['vi'].'" class="m-wrap required top-right-corner bottom-right-corner" placeholder="'.$input_interfaces['partner_dob'][$this->_lang_code].'" id="partner_dob" type="text" name="partner_dob" size="42" maxlength="128" value="'.(($this->_partner_dob == $this->_dob) ? 'YYYY-MM-DD': $this->_partner_dob).'" />
 	</div>
 	<div class="clear"></div>
 </section>';
@@ -533,7 +533,7 @@ class Chart {
 <section id="controls" class="context-menu-'.$this->_diff.'-'.$this->_is_secondary.'-'.$this->_partner_dob.'-'.$this->_lang_code.' top-left-corner top-right-corner bottom-left-corner bottom-right-corner">
 	<h5>'.$this->_controls_h5.((date('m-d',time()+86400*$this->_diff) == date('m-d',strtotime($this->_dob))) ? ' <i class="icon-birthday-cake"></i>': "").'</h5>
 	<div class="helper changeable"><i class="icon-circle-question-mark icon-white"></i></div>
-	<ul>
+	<ul class="rhythms">
 		<li class="rhythm changeable"><span class="translate" data-lang-ja="平均する:" data-lang-zh="平均:" data-lang-es="Promedio:" data-lang-ru="Средний:" data-lang-en="Average:" data-lang-vi="Trung bình:"></span><span class="value">'.percent_average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms).'</span><i class="icon-white icon-'.((average_bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$this->_rhythms) < average_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$this->_rhythms)) ? 'up': 'down').'-arrow"></i><i class="rhythm_toggle" data-rhythm-id="0" class="icon-white"></i></li>';
 		foreach ($this->_rhythms as $rhythm){
 			$output .= '<li class="rhythm changeable'.(($rhythm['is_secondary'] == 1) ? ' secondary': "").'"><span class="translate" data-lang-ja="'.$rhythm['description_ja'].':" data-lang-zh="'.$rhythm['description_zh'].':" data-lang-es="'.$rhythm['description_es'].':" data-lang-ru="'.$rhythm['description_ru'].':" data-lang-en="'.$rhythm['description_en'].':" data-lang-vi="'.$rhythm['name'].':"></span><span class="value">'.percent_bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']).'</span>'.((bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 0 || bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale']) == 100) ? '<i class="icon-white icon-minus"></i>': '<i class="icon-white icon-'.((bio_count($this->_dob,date('Y-m-d',time()+86400*($this->_diff-1)),$rhythm['scale']) < bio_count($this->_dob,date('Y-m-d',time()+86400*$this->_diff),$rhythm['scale'])) ? 'up': 'down').'-arrow"></i>').'<i class="rhythm_toggle" data-rhythm-id="'.($rhythm['rid']).'" class="icon-white"></i></li>';
@@ -541,14 +541,14 @@ class Chart {
 		$output .= '
 	</ul>
 	<input type="hidden" id="dt_curr" value="'.date('Y-m-d',time()+86400*$this->_diff).'" />
-	<label title="E / Y / O" class="m-checkbox m-wrap" for="is_secondary">
+	<label title="E / Y / O" class="m-checkbox m-wrap top-left-corner top-right-corner bottom-left-corner bottom-right-corner" for="is_secondary">
 		<i id="checkbox_icon" class="icon-'.(($this->_is_secondary == 1) ? 'check': 'unchecked').'"></i>
 		<span class="translate" data-lang-ja="表示セカンダリ・リズム" data-lang-zh="示第二性韵律" data-lang-es="Mostrar secundario ritmos" data-lang-ru="Показать вторичные ритмы" data-lang-en="Show secondary rhythms" data-lang-vi="Hiện nhịp sinh học phụ"></span>
 		<input class="m-wrap" type="checkbox" name="is_secondary" id="is_secondary" value="1" '.(($this->_is_secondary == 1) ? 'checked': "").' />
 	</label>
-	<div class="m-input-prepend">
-		<span data-lang-ja="日付を表示す:" data-lang-zh="查看日期:" data-lang-es="Ver la fecha:" data-lang-ru="Посмотреть дата:" data-lang-en="View date:" data-lang-vi="Xem ngày:" class="add-on translate" id="dt_change_label"></span>
-		<input readonly data-lang-ja="'.$input_interfaces['dt_change']['ja'].'" data-lang-zh="'.$input_interfaces['dt_change']['zh'].'" data-lang-es="'.$input_interfaces['dt_change']['es'].'" data-lang-ru="'.$input_interfaces['dt_change']['ru'].'" data-lang-en="'.$input_interfaces['dt_change']['en'].'" data-lang-vi="'.$input_interfaces['dt_change']['vi'].'" class="m-wrap required" placeholder="'.$input_interfaces['dt_change'][$this->_lang_code].'" id="dt_change" type="text" name="dt_change" size="42" maxlength="128" value="'.(($this->_dt_change == date('Y-m-d')) ? 'YYYY-MM-DD': $this->_dt_change).'" />
+	<div class="m-input-prepend top-left-corner top-right-corner" id="dt_change_wrapper">
+		<span data-lang-ja="日付を表示す:" data-lang-zh="查看日期:" data-lang-es="Ver la fecha:" data-lang-ru="Посмотреть дата:" data-lang-en="View date:" data-lang-vi="Xem ngày:" class="add-on translate top-left-corner" id="dt_change_label"></span>
+		<input readonly data-lang-ja="'.$input_interfaces['dt_change']['ja'].'" data-lang-zh="'.$input_interfaces['dt_change']['zh'].'" data-lang-es="'.$input_interfaces['dt_change']['es'].'" data-lang-ru="'.$input_interfaces['dt_change']['ru'].'" data-lang-en="'.$input_interfaces['dt_change']['en'].'" data-lang-vi="'.$input_interfaces['dt_change']['vi'].'" class="m-wrap required top-right-corner" placeholder="'.$input_interfaces['dt_change'][$this->_lang_code].'" id="dt_change" type="text" name="dt_change" size="42" maxlength="128" value="'.(($this->_dt_change == date('Y-m-d')) ? 'YYYY-MM-DD': $this->_dt_change).'" />
 	</div>
 	<div class="m-btn-group bottom-left-corner bottom-right-corner">
 		<a class="m-btn green bottom-left-corner" id="today" title="S / G / K"><i class="icon-calendar icon-white"></i><span class="translate" data-lang-ja="'.$button_interfaces['today']['ja'].'" data-lang-zh="'.$button_interfaces['today']['zh'].'" data-lang-es="'.$button_interfaces['today']['es'].'" data-lang-ru="'.$button_interfaces['today']['ru'].'" data-lang-en="'.$button_interfaces['today']['en'].'" data-lang-vi="'.$button_interfaces['today']['vi'].'">'.$button_interfaces['today'][$this->_lang_code].'</span></a>

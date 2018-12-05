@@ -185,6 +185,8 @@ if (isset($_GET['q']) && $_GET['q'] != '') {
 	include template('thank_you');
 } else if ($p == 'xin-cam-on') {
 	include template('cam_on');
+} else if ($p == 'birthday' && $_SERVER['SERVER_NAME'] == $second_domain) {
+	include template('birthday');
 } else {
 	echo 'Page not found';
 }

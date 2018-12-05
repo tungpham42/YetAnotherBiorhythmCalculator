@@ -3840,7 +3840,7 @@ header {
   height: 100px;
   top: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 42;
   @include box-shadow(0 0 10px 3px rgba(42, 42, 42, 0.42));
 }
 
@@ -3983,7 +3983,7 @@ ul#nav_buttons {
   position: absolute;
   list-style: none;
   margin-left: 75px;
-  top: 60px;
+  top: 56px;
   > li {
     float: left;
     > a.nav_button.button {
@@ -4008,7 +4008,7 @@ body {
 }
 
 ul#nav_buttons > li > a {
-  &#member_link, &#donation_link, &#intro_link, &#game_link, &#apps_link, &#blog_link, &#forum_link, &#wiki_link, &#job_link, &#vip_link, &#bmi_link, &#contact_link {
+  &#member_link, &#donation_link, &#intro_link, &#game_link, &#apps_link, &#blog_link, &#forum_link, &#bio_forum_link, &#wiki_link, &#job_link, &#vip_link, &#bmi_link, &#contact_link {
     display: block;
   }
 }
@@ -4247,6 +4247,24 @@ body {
     text-shadow: none;
     @include linear-gradient(#44aacc, #2299bb);
     background-repeat: repeat-x;
+    &.red {
+      @include linear-gradient(#d14836, #dd4b39);
+      &:hover, &:focus, &:active, &.active, &[disabled], &.disabled {
+        @include linear-gradient(#c53727, #c53727);
+      }
+      &:active, &.active {
+        @include linear-gradient(#c53727, #dd4b39);
+      }
+    }
+    &.green {
+	    @include linear-gradient(#059a37, #059a37);
+	    &:hover, &:focus, &:active, &.clicked, &.disabled, &[disabled] {
+	      @include linear-gradient(#0d943b, #0d943b);
+	    }
+	    &:active, &.clicked {
+	      @include linear-gradient(#0d943b, #059a37);
+	    }
+    }
   }
   &.birthday #search_submit {
     color: white;
@@ -5127,10 +5145,10 @@ body {
 main {
   position: relative;
   font: normal .9em $font-stack;
-  background: rgba(230, 239, 253, 0.666);
+  background: rgba(230, 239, 253, 0.777);
   padding: 0;
   padding-top: 100px;
-  min-height: 420px;
+  min-height: calc(100vh - 152px);
   height: 100%;
   height: auto !important;
   margin: 0 auto;
@@ -5141,14 +5159,16 @@ main {
     list-style: decimal;
   }
 }
-
+body.donation main {
+  background: whiteSmoke;
+}
 body.birthday main {
-  background: rgba(255, 252, 235, 0.666);
+  background: rgba(255, 252, 235, 0.777);
 }
 
 #content {
   position: relative;
-  min-height: 420px;
+  min-height: 100%;
   height: auto !important;
   background: transparent;
   text-align: left;
@@ -5170,6 +5190,10 @@ a.m-btn {
 #dob_bar {
   position: relative;
   cursor: text;
+  margin-bottom: 0;
+}
+
+#dt_change_wrapper {
   margin-bottom: 0;
 }
 
@@ -5729,9 +5753,9 @@ label[for="is_secondary"] > input[type="checkbox"] {
   position: relative;
   clear: left;
   display: block;
-  width: 264px;
-  height: 264px;
-  padding: 8px;
+  width: 272px;
+  height: 272px;
+  padding: 4px;
   margin: 22px 4px 0;
 }
 
@@ -6135,7 +6159,8 @@ body.birthday #info [class^="icon-"] {
   line-height: 1.3em;
   cursor: default;
   > select {
-    width: 128px;
+    width: 132px;
+    font-size: 12px;
     margin: auto;
     height: auto;
   }
@@ -6320,16 +6345,19 @@ body.birthday {
 #controls ul > li.rhythm, #compatibility ul > li.rhythm, #controls > h5 {
   cursor: default;
 }
-
-li.rhythm {
-  display: table-row;
-  > span {
-    display: table-cell;
-    padding: 5px;
-    &.value {
-      width: 72px;
-      padding-right: 0;
-      text-align: right;
+ul.rhythms {
+  display: table;
+  width: calc(100% - 24px);
+  li.rhythm {
+    display: table-row;
+    > span {
+      display: table-cell;
+      padding: 5px;
+      &.value {
+        width: 72px;
+        padding-right: 0;
+        text-align: right;
+      }
     }
   }
 }
@@ -7416,7 +7444,6 @@ body.birthday {
 #introduction {
   clear: both;
   h3 {
-    font-variant: small-caps;
     font-size: 24px;
     font-weight: 700;
     line-height: 36px;
@@ -8833,7 +8860,28 @@ body {
   }
 }
 
-@media all and (max-width: 345px) {
+@media all and (max-width: 320px) {
+  #name_toggle {
+    width: 41vw !important;
+    padding: 13px 1.6vw !important;
+    ~ #dob {
+      width: 45vw !important;
+      padding-left: 1.4vw !important;
+      padding-right: 1.4vw !important;
+    }
+  }
+  #fullname {
+    width: 35vw !important;
+    padding-left: 1.4vw !important;
+    padding-right: 1.4vw !important;
+    ~ #dob {
+      width: 41vw !important;
+      padding-left: 1.4vw !important;
+      padding-right: 1.4vw !important;
+    }
+  }
+}
+@media all and (max-width: 360px) {
   body {
     &.lunar {
       #prev, #next {
@@ -8867,11 +8915,265 @@ body {
       }
     }
   }
+  #name_toggle {
+    width: 41vw;
+    padding: 13px 1.6vw;
+    ~ #dob {
+      width: 45vw;
+      padding-left: 1.4vw;
+      padding-right: 1.4vw;
+    }
+  }
+  #fullname {
+    width: 35vw;
+    padding-left: 1.4vw;
+    padding-right: 1.4vw;
+    ~ #dob {
+      width: 42vw;
+      padding-left: 1.4vw;
+      padding-right: 1.4vw;
+    }
+  }
 }
 
 @media all and (max-width: 419px) {
-  #proverb {
-    display: none;
+  html {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden !important;
+    body {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      padding-right: 17px;
+      box-sizing: content-box;
+    }
+  }
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+  body.home:not(.lunar):not(.bmi):not(.contact) li#nav_toggle, body.home.scrolled:not(.bmi):not(.contact):not(.forgot_password):not(.reset_password) li#nav_toggle {
+    left: auto !important;
+    right: 12px !important;
+  }
+  #proverb, #help_dob_form {
+    display: none !important;
+  }
+  #sleep_time > select {
+    width: calc(50vw - 12px);
+  }
+  #stats textarea#embed_box {
+    width: calc(100vw - 32px);
+  }
+  #dt_change_label, #partner_dob_label, #dt_change, #partner_dob {
+    width: calc(50vw - 24px);
+  }
+  #dob_form, #clock, #help, #news, #info, #stats, #link_ads, #sleep_time, #adsense_feed, #compatibility, #controls, #lunar, #wiki, .rss_feed {
+    width: calc(100vw - 18px) !important;
+  }
+  .clock_local {
+    margin: 0 calc(50vw - 132px) !important;
+  }
+  #name_toggle {
+    width: 41vw;
+    padding: 13px 1.6vw;
+    ~ #dob {
+      width: 46vw;
+      padding-left: 1.4vw;
+      padding-right: 1.4vw;
+    }
+  }
+  #fullname {
+    width: 35vw;
+    padding-left: 1.4vw;
+    padding-right: 1.4vw;
+    ~ #dob {
+      width: 44vw;
+      padding-left: 1.4vw;
+      padding-right: 1.4vw;
+    }
+  }
+  body {
+    &:lang(vi) {
+      #home_page {
+        width: 34vw;
+      }
+      #dob_erase {
+        width: 23vw;
+      }
+      #dob_submit {
+        width: 21vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 2.7vw;
+        padding-right: 2.7vw;
+      }
+    }
+    &:lang(en) {
+      #home_page {
+        width: 23vw;
+      }
+      #dob_erase {
+        width: 22vw;
+      }
+      #dob_submit {
+        width: 18vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 5.2vw;
+        padding-right: 5.2vw;
+      }
+    }
+    &:lang(ru) {
+      #home_page {
+        width: 20vw;
+      }
+      #dob_erase {
+        width: 25vw;
+      }
+      #dob_submit {
+        width: 22vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 4.6vw;
+        padding-right: 4.6vw;
+      }
+    }
+    &:lang(es) {
+      #home_page {
+        width: 20vw;
+      }
+      #dob_erase {
+        width: 22vw;
+      }
+      #dob_submit {
+        width: 22vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 5.1vw;
+        padding-right: 5.1vw;
+      }
+    }
+    &:lang(zh) {
+      #home_page {
+        width: 19vw;
+      }
+      #dob_erase {
+        width: 19vw;
+      }
+      #dob_submit {
+        width: 15vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 7vw;
+        padding-right: 7vw;
+      }
+    }
+    &:lang(ja) {
+      #home_page {
+        width: 24vw;
+      }
+      #dob_erase {
+        width: 19vw;
+      }
+      #dob_submit {
+        width: 19vw;
+      }
+      #dob_control_bar > .m-btn {
+        padding-left: 5.5vw;
+        padding-right: 5.5vw;
+      }
+    }
+    &:lang(vi) #controls > .m-btn-group > {
+      #today {
+        width: 29vw;
+      }
+      #prev {
+        width: 21vw;
+      }
+      #next {
+        width: 18vw;
+      }
+      .m-btn {
+        padding-left: 4.6vw;
+        padding-right: 4.6vw;
+      }
+    }
+    &:lang(en) #controls > .m-btn-group > {
+      #today {
+        width: 19vw;
+      }
+      #prev {
+        width: 22vw;
+      }
+      #next {
+        width: 28vw;
+      }
+      .m-btn {
+        padding-left: 4.4vw;
+        padding-right: 4.4vw;
+      }
+    }
+    &:lang(ru) #controls > .m-btn-group > {
+      #today {
+        width: 27vw;
+      }
+      #prev {
+        width: 24vw;
+      }
+      #next {
+        width: 28vw;
+      }
+      .m-btn {
+        padding-left: 3.3vw;
+        padding-right: 3.3vw;
+      }
+    }
+    &:lang(es) #controls > .m-btn-group > {
+      #today {
+        width: 18vw;
+      }
+      #prev {
+        width: 21vw;
+      }
+      #next {
+        width: 22vw;
+      }
+      .m-btn {
+        padding-left: 5.7vw;
+        padding-right: 5.8vw;
+      }
+    }
+    &:lang(zh) #controls > .m-btn-group > {
+      #today {
+        width: 17vw;
+      }
+      #prev {
+        width: 18vw;
+      }
+      #next {
+        width: 18vw;
+      }
+      .m-btn {
+        padding-left: 7vw;
+        padding-right: 7.1vw;
+      }
+    }
+    &:lang(ja) #controls > .m-btn-group > {
+      #today {
+        width: 18vw;
+      }
+      #prev {
+        width: 18vw;
+      }
+      #next {
+        width: 27vw;
+      }
+      .m-btn {
+        padding-left: 5.4vw;
+        padding-right: 5.5vw;
+      }
+    }
   }
   .top.button {
     &.donate, &.sponsor {
@@ -9313,7 +9615,7 @@ body {
       display: block !important;
     }
   }
-  header.clicked ul#nav_buttons > li > a#apps_link, ul#nav_buttons:hover > li > a#apps_link, header.clicked ul#nav_buttons > li > a#blog_link, ul#nav_buttons:hover > li > a#blog_link {
+  header.clicked ul#nav_buttons > li > a#apps_link, ul#nav_buttons:hover > li > a#apps_link, header.clicked ul#nav_buttons > li > a#blog_link, ul#nav_buttons:hover > li > a#blog_link, header.clicked ul#nav_buttons > li > a#bio_forum_link, ul#nav_buttons:hover > li > a#bio_forum_link {
     display: block !important;
   }
   header.clicked ul#nav_buttons > li > a {
@@ -9657,7 +9959,7 @@ body {
     }
     ul#nav_buttons {
       margin-left: 62px;
-      top: 36px;
+      top: 34px;
       > li > a.nav_button.button {
         line-height: 26px;
         font-size: 12px;

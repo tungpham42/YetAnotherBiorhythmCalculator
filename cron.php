@@ -95,10 +95,10 @@ function calculate_life_path(string $dob): int {
 	$life_path_number = digitval(digitval($year) + digitval($month) + digitval($day));
 	return $life_path_number;
 }
-function libraries_autoload(string $class_name) {
+function libraries_autoload(string $class_name): void {
 	require '/home/nhipsinh/domains/nhipsinhhoc.vn/public_html/includes/libraries/'.$class_name.'.class.php';
 }
-function google_api_php_client_autoload(string $class_name) {
+function google_api_php_client_autoload(string $class_name): void {
 	$class_path = explode('_', $class_name);
 	if ($class_path[0] != 'Google') {
 		return;
@@ -1630,7 +1630,7 @@ function generate_proverb(string $lang): array {
 	$index = rand(0, $count-1);
 	return $proverbs->data[$index];
 }
-function render_proverb(string $lang) {
+function render_proverb(string $lang): void {
 	$proverb = generate_proverb($lang);
 	echo '<blockquote id="proverb_content" class="changeable"><i title="R / U / P" id="proverb_refresh" class="icon-white icon-refresh"></i><div id="proverb_text" onClick="selectText(\'proverb_text\')">'.$proverb['content'].'</div></blockquote ><span class="arrow_down"></span><p id="proverb_author">'.$proverb['author'].'</p><a id="all_proverbs" class="m-btn green" href="/proverbs/" target="_blank"><i class="icon-more-items"></i> '.translate_span('all_proverbs').'</a>';
 }
@@ -1652,7 +1652,7 @@ function can_wish(): bool {
 		return false;
 	}
 }
-function sort_date_member_ascend($a,$b){ //Call back function to sort date ascendently
+function sort_date_member_ascend($a,$b): int { //Call back function to sort date ascendently
 	if (isset($a['created_at']) && isset($b['created_at'])) {
 		return strcmp(strtotime($a['created_at']),strtotime($b['created_at']));
 	}
@@ -1770,10 +1770,10 @@ function check_token(string $email,string $hash): bool {
 	$hasher = new PasswordHash(12, true);
 	return $hasher->CheckPassword(trim($email), $hash);
 }
-function generate_message_id() {
+function generate_message_id(): string {
 	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),"nhipsinhhoc.vn");
 }
-function send_mail(string $to,string $subject,array $message) {
+function send_mail(string $to,string $subject,array $message): void {
 	global $span_interfaces, $email_credentials;
 //	$unsubscriber_emails = array();
 //	$unsubscribers = new parseCSV();
@@ -1820,7 +1820,7 @@ function email_message(string $heading,string $content): array {
 		'plain' => strip_tags($content)
 	);
 }
-function email_daily_suggestion() {
+function email_daily_suggestion(): void {
 	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';
@@ -1902,7 +1902,7 @@ function email_daily_suggestion() {
 		//sleep(2);
 	}
 }
-function test_email_daily_suggestion() {
+function test_email_daily_suggestion(): void {
 	global $email_interfaces, $span_interfaces;
 	//$my_email = 'nhipsinhhoc@mail-tester.com';
 	$my_email = 'tung.42@gmail.com';

@@ -3,11 +3,19 @@
 		<!--
 		<li><a id="home_link" class="nav_button button home" href="/"><?php echo translate_button('home_page'); ?></a></li>
 		-->
-		<li><a id="member_link" class="nav_button button member keep top-left-corner bottom-left-corner" href="/member/login/"><i class="icon-<?php echo isset($_COOKIE['NSH:member']) ? 'user' : 'log-in'; ?>"></i></a></li>
+		<li><a id="member_link" class="nav_button button member keep top-left-corner bottom-left-corner" href="/member/login/" title="<?php echo isset($_COOKIE['NSH:member']) ? 'Account' : 'Login'; ?>"><i class="icon-<?php echo isset($_COOKIE['NSH:member']) ? 'user' : 'log-in'; ?>"></i></a></li>
+<?php
+if ($_SERVER['SERVER_NAME'] == $second_domain):
+?>
+		<li><a id="bio_forum_link" class="nav_button button keep" href="https://forum.biorhythm.xyz/" target="_blank" title="Biorhythm Forum"><i class="icon-conversation"></i></a></li>
+<?php
+endif;
+?>
 		<li><a id="blog_link" class="nav_button button keep" href="/blog/" target="_blank" title="Blog"><i class="icon-book-open"></i></a></li>
 		<li><a id="wiki_link" class="nav_button button keep" href="/wiki/" target="_blank" title="Wiki"><i class="social-wikipedia"></i></a></li>
 		<li><a id="forum_link" class="nav_button button keep" href="https://cungrao.net/" target="_blank" title="CùngRao.net"><i class="icon-shopping-cart"></i></a></li>
 		<li><a id="yoga_link" class="nav_button button keep" href="https://yogakhoe.com/" target="_blank" title="Yoga Khỏe"><i class="icon-heartbeat"></i></a></li>
+		<li><a id="file_link" class="nav_button button keep" href="https://filecuatui.com/" target="_blank" title="File Của Tui"><i class="icon-file"></i></a></li>
 		<li><a id="apps_link" class="nav_button button apps keep" href="javascript:void(0);" title="App"><i class="icon-download-alt"></i></a></li>
 		<li><a id="donation_link" class="nav_button button donation keep" href="/donate/"><?php echo translate_span('donate'); ?></a></li>
 		<li><a id="intro_link" class="nav_button button intro keep" href="/introduction/"><?php echo translate_button('intro'); ?></a></li>

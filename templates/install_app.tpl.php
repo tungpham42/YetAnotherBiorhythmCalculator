@@ -49,8 +49,10 @@ if ($ad_position == 2):
 endif;
 ?>
 	<button class="install-btn" onclick="chrome.webstore.install()" id="chrome_install"><?php echo translate_button('install_chrome'); ?></button>
+<!--
 	<button class="install-btn" id="firefox_install"><?php echo translate_button('install_firefox'); ?></button>
 	<script src="/js/install.js"></script>
+-->
 <?php
 include template('flag_counter');
 include template('histats');

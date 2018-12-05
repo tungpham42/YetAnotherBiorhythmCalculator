@@ -2,10 +2,10 @@
 {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
-	"url": "https://nhipsinhhoc.vn/",
+	"url": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/",
 	"potentialAction": {
 		"@type": "SearchAction",
-		"target": "https://nhipsinhhoc.vn/?q={search_term_string}",
+		"target": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/?q={search_term_string}",
 		"query-input": "required name=search_term_string"
 	}
 }

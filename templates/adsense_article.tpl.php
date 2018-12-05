@@ -5,5 +5,5 @@
 		data-ad-layout="in-article"
 		data-ad-format="fluid"
 		data-ad-client="ca-pub-3585118770961536"
-		data-ad-slot="3153586380"></ins>
+		data-ad-slot="<?php echo $adsense_codes[$_SERVER['SERVER_NAME']]['article']; ?>"></ins>
 </section>

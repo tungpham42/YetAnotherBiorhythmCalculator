@@ -1,4 +1,6 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
 //ini_set('session.save_handler','files');
 //ini_set('session.save_path','/tmp');
 ini_set('session.save_handler', 'redis');

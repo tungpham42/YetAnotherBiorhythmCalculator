@@ -10,7 +10,7 @@ init_timezone();
 session_name('NSH');
 if (!session_id()) session_start();
 if (!isset($_SESSION['loggedin'])) {
-	$_SESSION['loggedin'] = null; 
+	$_SESSION['loggedin'] = null;
 }
 $err = array();
 if (isset($_POST['login'])) {
@@ -268,6 +268,11 @@ if (isset($_GET['q']) && $_GET['q'] != "") {
 	$h1 = 'Bạn đã tài trợ 50.000 VNĐ';
 	$title = 'Bạn đã tài trợ 50.000 VNĐ';
 	$body_class = 'cam-on';
+} else if ($p == 'birthday' && $_SERVER['SERVER_NAME'] == $second_domain) {
+	$h1 = 'How to make birthday wish with us';
+	$title = 'How to make birthday wish with us';
+	$body_class = 'birthday-wish';
+	$keywords = 'birthday wish, birthday wishes, birthday';
 } else {
 	$h1 = '404 page not found';
 	$title = '404 page not found';

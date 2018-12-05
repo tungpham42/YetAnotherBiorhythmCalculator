@@ -37,9 +37,12 @@ function prevent_xss(string $query_string): string {
 }
 function init_timezone(): void {
 	global $geoip_record;
+//	if (is_public_server() || is_bot() || !isset($geoip_record->location->time_zone)) {
 	if (is_public_server() || is_bot() || !isset($geoip_record)) {
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
+//	} else if (!is_public_server() && !is_bot() && isset($geoip_record->location->time_zone)) {
 	} else if (!is_public_server() && !is_bot() && isset($geoip_record)) {
+//		$timezone = $geoip_record->location->time_zone;
 		$timezone = get_time_zone($geoip_record->country_code,$geoip_record->region);
 		date_default_timezone_set($timezone);
 	}
@@ -52,9 +55,11 @@ function init_lang_code(): string {
 	global $second_domain;
 	if ($_SERVER['SERVER_NAME'] == $first_domain) {
 		$lang_code = 'vi';
+//		$country_code = isset($geoip_record) ? $geoip_record->country->isoCode: 'VN';
 		$country_code = isset($geoip_record) ? $geoip_record->country_code: 'VN';
 	} else if ($_SERVER['SERVER_NAME'] == $second_domain) {
 		$lang_code = 'en';
+//		$country_code = isset($geoip_record) ? $geoip_record->country->isoCode: 'US';
 		$country_code = isset($geoip_record) ? $geoip_record->country_code: 'US';
 	}
 	$country_codes = array(
@@ -97,6 +102,7 @@ function init_lang_code(): string {
 }
 function get_timezone(): string {
 	global $geoip_record;
+//	$timezone = $geoip_record->location->time_zone;
 	$timezone = get_time_zone($geoip_record->country_code,$geoip_record->region);
 	return $timezone;
 }
@@ -288,22 +294,22 @@ function substr_word(string $str,string $start,string $end): string { //Substrac
 		return substr($str,$start,$end_pos);
 	}
 }
-function load_user($uid): array { //Load user array from user ID
+function load_user($uid) { //Load user array from user ID
 	$users = load_array('nsh_users','uid',$uid);
 	sort($users);
 	return $users[0];
 }
-function load_user_from_name(string $name): array { //Load user array from username
+function load_user_from_name(string $name) { //Load user array from username
 	$users = load_array('nsh_users','name',$name);
 	sort($users);
 	return $users[0];
 }
-function load_rhythm($rid): array { //Load rhythm array from rhythm ID
+function load_rhythm($rid) { //Load rhythm array from rhythm ID
 	$rhythms = load_array('nsh_rhythms','rid',$rid);
 	sort($rhythms);
 	return $rhythms[0];
 }
-function load_credential($id): array { //Load credential array from ID
+function load_credential($id) { //Load credential array from ID
 	$credentials = load_array('nsh_@dm!n','id',$id);
 	sort($credentials);
 	return $credentials[0];

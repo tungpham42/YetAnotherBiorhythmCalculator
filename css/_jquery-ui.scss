@@ -105,7 +105,7 @@
  *
  * http://docs.jquery.com/UI/Theming/API
  *
- * To view and modify this theme, visit http://jquit.com/builder/#gcc=ffffff&gcb=d4d4d4&gct=525252&gci=d4d4d4&pcc=d4d4d4&acb=525252&o=ffffff&ghc=007799&ght=ffffff&ghi=ffffff&gdc=d4d4d4&gdb=d4d4d4&gdt=525252&tdc=007799&tdb=007799&tdt=ffffff&tdi=ffffff&ddc=d4d4d4&ddb=d4d4d4&ddt=525252&pxd=000000&asc=007799&ast=ffffff&goc=1188aa&gob=1188aa&got=ffffff&toc=1188aa&tob=1188aa&tot=ffffff&toi=ffffff&doc=1188aa&dob=1188aa&dot=ffffff&pxa=525252&gac=007799&gab=007799&gat=ffffff&tac=ffffff&tab=d4d4d4&tat=525252&tai=d4d4d4&dac=007799&dab=007799&dat=ffffff&dic=d4d4d4&dib=007799&dit=ffffff&gic=efdca9&gib=efdca9&git=525252&gii=525252&ec=c31d1d&eb=c31d1d&et=ffffff&ei=ffffff
+ * To view and modify this theme, visit http://jquit.com/builder/#gcc=ffffff&gcb=d4d4d4&gct=525252&gci=d4d4d4&pcc=d4d4d4&acb=525252&o=ffffff&ghc=44aacc&ght=ffffff&ghi=ffffff&gdc=d4d4d4&gdb=d4d4d4&gdt=525252&tdc=44aacc&tdb=44aacc&tdt=ffffff&tdi=ffffff&ddc=d4d4d4&ddb=d4d4d4&ddt=525252&pxd=000000&asc=44aacc&ast=ffffff&goc=1188aa&gob=1188aa&got=ffffff&toc=1188aa&tob=1188aa&tot=ffffff&toi=ffffff&doc=1188aa&dob=1188aa&dot=ffffff&pxa=525252&gac=44aacc&gab=44aacc&gat=ffffff&tac=ffffff&tab=d4d4d4&tat=525252&tai=d4d4d4&dac=44aacc&dab=44aacc&dat=ffffff&dic=d4d4d4&dib=44aacc&dit=ffffff&gic=efdca9&gib=efdca9&git=525252&gii=525252&ec=c31d1d&eb=c31d1d&et=ffffff&ei=ffffff
  */
 
 /* Component containers
@@ -2057,8 +2057,8 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active {
-  background-color: #007799;
-  border-color: #007799;
+  background-color: #44aacc;
+  border-color: #44aacc;
   color: #ffffff;
 }
 
@@ -2088,8 +2088,8 @@ button.ui-button::-moz-focus-inner {
     }
   }
   &.ui-state-default {
-    border-color: #007799;
-    background: #007799;
+    border-color: #44aacc;
+    background: #44aacc;
     a {
       color: #ffffff;
     }
@@ -2123,8 +2123,8 @@ button.ui-button::-moz-focus-inner {
 
 .ui-tabs-nav > {
   .ui-state-default a {
-    border-color: #007799;
-    background: #007799;
+    border-color: #44aacc;
+    background: #44aacc;
     color: #ffffff;
   }
   .ui-state-active a {
@@ -2151,18 +2151,18 @@ button.ui-button::-moz-focus-inner {
 /* Dialog states */
 
 .ui-dialog {
-  border-color: #007799;
+  border-color: #44aacc;
   background-color: #ffffff !important;
 }
 
 .ui-dialog-titlebar {
-  border-color: #007799;
+  border-color: #44aacc;
   color: #ffffff;
-  background-color: #007799;
+  background-color: #44aacc;
 }
 
 .ui-dialog-buttonpane {
-  border-color: #007799 !important;
+  border-color: #44aacc !important;
   background-color: #ffffff;
 }
 
@@ -2175,7 +2175,7 @@ button.ui-button::-moz-focus-inner {
     background-image: url(jquery-ui-img/ui-icons_ffffff_0.png);
   }
   .ui-state-hover .ui-icon {
-    background-image: url(jquery-ui-img/ui-icons_007799_0.png) !important;
+    background-image: url(jquery-ui-img/ui-icons_44aacc_0.png) !important;
   }
 }
 
@@ -2193,7 +2193,7 @@ button.ui-button::-moz-focus-inner {
 .ui-slider {
   background: #d4d4d4;
   .ui-slider-range {
-    background: #007799;
+    background: #44aacc;
   }
   .ui-state-default {
     background-color: #000000;
@@ -2214,7 +2214,7 @@ button.ui-button::-moz-focus-inner {
 .ui-progressbar {
   background: #d4d4d4;
   .ui-progressbar-value {
-    background-color: #007799;
+    background-color: #44aacc;
   }
 }
 
@@ -2227,7 +2227,7 @@ button.ui-button::-moz-focus-inner {
     color: #525252;
   }
   .ui-state-hover {
-    background: #007799;
+    background: #44aacc;
     color: #ffffff;
   }
 }
@@ -2235,9 +2235,9 @@ button.ui-button::-moz-focus-inner {
 /* Datepicker */
 
 .ui-datepicker {
-  border-color: #007799;
+  border-color: #44aacc;
   .ui-datepicker-header {
-    background-color: #007799;
+    background-color: #44aacc;
     color: #ffffff;
   }
   table {
@@ -2261,12 +2261,12 @@ button.ui-button::-moz-focus-inner {
   }
   .ui-state-highlight {
     background-color: #d4d4d4;
-    border-color: #007799;
+    border-color: #44aacc;
     color: #ffffff;
   }
   .ui-state-active {
-    background-color: #007799;
-    border-color: #007799;
+    background-color: #44aacc;
+    border-color: #44aacc;
     color: #ffffff;
   }
 }
@@ -2276,7 +2276,7 @@ button.ui-button::-moz-focus-inner {
     background-image: url(jquery-ui-img/ui-icons_ffffff_0.png);
   }
   .ui-state-hover .ui-icon {
-    background-image: url(jquery-ui-img/ui-icons_007799_0.png);
+    background-image: url(jquery-ui-img/ui-icons_44aacc_0.png);
   }
 }
 

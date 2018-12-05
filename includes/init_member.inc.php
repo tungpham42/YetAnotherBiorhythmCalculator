@@ -12,7 +12,7 @@ function get_member_email(): string {
 			$email = $matches[1];
 		}
 	} else {
-		$url = $_SERVER['HTTP_REFERER'];
+		$url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER']: $_SERVER['REQUEST_URI'];
 		preg_match($pattern, $url, $matches);
 		if (isset($matches[1])) {
 			if (filter_var($matches[1], FILTER_VALIDATE_EMAIL)) {

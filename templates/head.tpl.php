@@ -3,14 +3,18 @@
 <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="<?php echo $head_description; ?>">
-<meta name="keywords" content="<?php if ($_SERVER['SERVER_NAME'] == 'biorhythm.xyz'): ?>biorhythm, biorhythm calculator, what is biorhythm, <?php endif; echo ($keywords != '') ? $keywords.', ': ''; ?>nhip sinh hoc co the nguoi, xem bói ngày sinh, xem boi ngay sinh, bói ngày sinh, boi ngay sinh, xem bói theo ngày sinh, xem boi theo ngay sinh, xem bói qua ngày sinh, xem boi qua ngay sinh, nhịp sinh học, nhip sinh hoc, nhipsinhhoc, chu ky sinh hoc cua nguoi, nhịp sinh học là gì, nhip sinh hoc hom nay, nhip sinh hoc voi suc khoe, nhip sinh hoc cua ban, nhip sinh hoc cua con nguoi, nhip sinh hoc hang ngay, nhip sinh hoc cua co the la gi, nhip sinh hoc 12 cung hoang dao, biorhythm, биоритм, biorritmo, 生理节律, バイオリズム, xem biểu đồ sinh học, xem ngay tot xau, dong ho sinh hoc, phan mem nhip sinh hoc, xem tu vi, cach tinh nhip sinh hoc, sinh hoc, boi nhip sinh hoc, nhip sinh hoc theo thang, bieu do nhip sinh hoc, bói nhịp sinh học, biểu đồ nhịp sinh học, bieu do sinh hoc, xem ngay sinh, xem ngay, xem ngày sinh, xem ngày, tu vi, tử vi<?php echo (isset($_GET['fullname']) && $_GET['fullname'] != '') ? ', '.$_GET['fullname']: ''; ?>, bmi, tính chỉ số bmi, tinh chi so bmi">
+<meta name="keywords" content="<?php if ($_SERVER['SERVER_NAME'] == 'biorhythm.xyz'): ?>biorhythm, バイオリズム, biorhythm calculator, what is biorhythm, <?php endif; echo ($keywords != '') ? $keywords.', ': ''; ?>nhip sinh hoc co the nguoi, xem bói ngày sinh, xem boi ngay sinh, bói ngày sinh, boi ngay sinh, xem bói theo ngày sinh, xem boi theo ngay sinh, xem bói qua ngày sinh, xem boi qua ngay sinh, nhịp sinh học, nhip sinh hoc, nhipsinhhoc, chu ky sinh hoc cua nguoi, nhịp sinh học là gì, nhip sinh hoc hom nay, nhip sinh hoc voi suc khoe, nhip sinh hoc cua ban, nhip sinh hoc cua con nguoi, nhip sinh hoc hang ngay, nhip sinh hoc cua co the la gi, nhip sinh hoc 12 cung hoang dao, biorhythm, биоритм, biorritmo, 生理节律, バイオリズム, xem biểu đồ sinh học, xem ngay tot xau, dong ho sinh hoc, phan mem nhip sinh hoc, xem tu vi, cach tinh nhip sinh hoc, sinh hoc, boi nhip sinh hoc, nhip sinh hoc theo thang, bieu do nhip sinh hoc, bói nhịp sinh học, biểu đồ nhịp sinh học, bieu do sinh hoc, xem ngay sinh, xem ngay, xem ngày sinh, xem ngày, tu vi, tử vi<?php echo (isset($_GET['fullname']) && $_GET['fullname'] != '') ? ', '.$_GET['fullname']: ''; ?>, bmi, tính chỉ số bmi, tinh chi so bmi">
 <meta name="author" content="Tung Pham">
 <meta name="revisit-after" content="1 days">
 <meta property="og:type" content="website">
 <meta property="og:url" content="<?php echo str_replace('&', '&amp;', current_url()); ?>">
 <meta property="og:title" content="<?php echo $head_title; ?>">
 <meta property="og:description" content="<?php echo $head_description; ?>">
-<meta property="og:image" content="<?php echo 'https://'.$_SERVER['SERVER_NAME'].'/img/img_desc_'.((has_dob() && is_birthday()) ? 'birthday': 'logo').'.png'; ?>">
+<meta property="og:image" content="<?php echo $cdn_url.'/img/img_desc_'.((has_dob() && is_birthday()) ? 'birthday': 'logo').'.png'; ?>">
+<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="200" />
+<meta property="fb:app_id" content="1244495622232184"/>
+<meta property="fb:admins" content="100010723810556"/>
 <meta name="p:domain_verify" content="b30465bfdebc3906bbca8efaeda20ddf"/>
 <meta name="renderer" content="webkit">
 <meta name="clickadu" content="58ac30eed8dc4b673f0d4081f122c302" />
@@ -30,7 +34,7 @@
 <link rel="chrome-webstore-item" href="<?php echo chrome_webstore_item(); ?>" />
 <!--
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/min/b=css&amp;f=fonts.css,normalize.css,install-button.css,jquery.listnav.css,jquery.contextMenu.css,keys.css,jssocials.css,m-styles.css,default.css,jquery-ui.css&amp;2" />
-<link rel="stylesheet" href="/css/fonts.css" />
+<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/fonts.css" />
 -->
 <?php
 include template('fonts');
@@ -46,10 +50,13 @@ include template('fonts');
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
 -->
-<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=58" />
+<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=25" />
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
-render_photo_of_the_day();
+//render_unsplash_photo_of_the_day();
+//render_yahoo_photo_of_the_day();
+//render_bing_photo_of_the_day();
+//render_nasa_photo_of_the_day();
 //include template('style');
 //include template('script');
 ?>

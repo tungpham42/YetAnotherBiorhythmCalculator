@@ -4,6 +4,6 @@
 		<img src="//images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=a15d4f58-808d-4fe4-bdbd-354e0b0f073e" alt="DMCA.com Protection Status" />
 	</a>
 	<a title="Valid HTML 5" target="_blank" href="https://validator.w3.org/check?uri=referer">
-		<img src="/img/html5.png" alt="Valid HTML 5" height="32" width="32" />
+		<img src="<?php echo $cdn_url; ?>/img/html5.png" alt="Valid HTML 5" height="32" width="32" />
 	</a>
 </div>

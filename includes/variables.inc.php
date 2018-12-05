@@ -3,9 +3,16 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 ini_set('max_execution_time', 0);
 set_time_limit(0);
+//require realpath($_SERVER['DOCUMENT_ROOT']).'/vendor/autoload.php';
+//use GeoIp2\Database\Reader;
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/geoipcity.inc.php';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/timezone.php';
 $geoip = geoip_open(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoIPCity.dat',GEOIP_STANDARD);
+//$geoip_reader = new Reader(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoLite2-City.mmdb');
+//$geoip_reader = new Reader(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoIP2-City.mmdb');
+//$geoip_reader = new Reader(realpath($_SERVER['DOCUMENT_ROOT']).'/includes/ip/GeoLite2-Country.mmdb');
+//$geoip_record = $geoip_reader->city($_SERVER['REMOTE_ADDR']);
+//$geoip_record = $geoip_reader->country($_SERVER['REMOTE_ADDR']);
 $geoip_record = geoip_record_by_addr($geoip,$_SERVER['REMOTE_ADDR']);
 $lang_codes = array('vi','en','ru','es','zh','ja');
 $lang_fb_apis = array(
@@ -37,7 +44,12 @@ $adsense_navs = array('member/login','member/register','intro','bmi','lunar','do
 $first_domain = 'nhipsinhhoc.vn';
 $second_domain = 'biorhythm.xyz';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/prep.inc.php';
-$brand = 'Nhip Sinh Hoc . VN';
+$brand = "";
+if ($_SERVER['SERVER_NAME'] == $first_domain) {
+	$brand = 'Nhip Sinh Hoc . VN';
+} else if ($_SERVER['SERVER_NAME'] == $second_domain) {
+	$brand = 'Biorhythm . XYZ';
+}
 $p = isset($_GET['p']) ? prevent_xss($_GET['p']): 'home';
 $q = isset($_GET['q']) ? prevent_xss($_GET['q']): "";
 $dob = isset($_GET['dob']) ? prevent_xss($_GET['dob']): (isset($_COOKIE['NSH:remembered_dob']) ? $_COOKIE['NSH:remembered_dob']: "");
@@ -52,12 +64,15 @@ $show_addthis = false;
 $show_sumome = false;
 $hotjar = false;
 $clicktale = false;
-$smartlook = true;
+$smartlook = false;
 $credential_id = 3; //change this to 4 in DEMO
 //$cdn_url = 'https://nhipsinhhoc.cdn.vccloud.vn';
 //$cdn_url = "https://cdn_local.nhipsinhhoc.vn";
-$cdn_url = "https://cdn.nhipsinhhoc.vn";
+//$cdn_url = "https://cdn.biorhythm.xyz";
+//$cdn_url = "https://static-bio.vncdn.vn";
 //$cdn_url = "";
+$cdn_url = "https://filecuatui.com";
+//$cdn_url = 'https://biorhythm.cdn.vccloud.vn';
 $number = calculate_life_path($dob);
 if (isset($_GET['dob']) && isset($_GET['diff']) && isset($_GET['is_secondary']) && isset($_GET['dt_change']) && isset($_GET['partner_dob']) && isset($_GET['lang_code'])) {
 	$chart = new Chart($_GET['dob'],$_GET['diff'],$_GET['is_secondary'],$_GET['dt_change'],$_GET['partner_dob'],$_GET['lang_code']);
@@ -81,6 +96,26 @@ $email_credentials = array(
 );
 $faroo_key = 'kc5BZXhbMCj0@lx0TEVOiHNvSok_';
 $clickbank = '<a href="https://tungpham42.15manifest.hop.clickbank.net"><img src="https://maxcdn.15minutemanifestation.com/affiliates/images/300x250.jpg"></a>';
+$adsense_codes = array(
+	$first_domain => array(
+		'article' => '3153586380',
+		'feed' => '1773712646',
+		'feed_layout_key' => '-8u+1v-dw+ee+gs',
+		'matched_content' => '8888182083',
+		'160x600' => '9519248888',
+		'res' => '9710222034',
+		'label' => 'NSH'
+	),
+	$second_domain => array(
+		'article' => '7129101742',
+		'feed' => '7325786136',
+		'feed_layout_key' => '-6t+ed+2i-1n-4w',
+		'matched_content' => '5246417705',
+		'160x600' => '2635732081',
+		'res' => '3511497384',
+		'label' => 'BIO'
+	)
+);
 $input_interfaces = array(
 	'search' => array(
 		'vi' => 'Tìm kiếm',
@@ -567,16 +602,16 @@ $span_interfaces = array(
 		'ja' => '睡眠リズム'
 	),
 	'hour' => array(
-		'vi' => 'Giờ',
-		'en' => 'Hour',
+		'vi' => 'Chọn giờ',
+		'en' => 'Select hour',
 		'ru' => 'Час',
 		'es' => 'Hora',
 		'zh' => '钟头',
 		'ja' => 'アワー'
 	),
 	'minute' => array(
-		'vi' => 'Phút',
-		'en' => 'Minute',
+		'vi' => 'Chọn phút',
+		'en' => 'Select minute',
 		'ru' => 'Минут',
 		'es' => 'Minuto',
 		'zh' => '分钟',
@@ -1153,12 +1188,12 @@ $email_interfaces = array(
 		'ja' => 'あなたの主なバイオリズム値'
 	),
 	'go_to_your_profile' => array(
-		'vi' => 'Đi đến hồ sơ của bạn',
-		'en' => 'Go to your profile',
-		'ru' => 'Перейти в профиль',
-		'es' => 'Ir a su perfil',
-		'zh' => '转到您的个人资料',
-		'ja' => 'あなたのプロフィールに移動します'
+		'vi' => '✭✭✭ Đi đến hồ sơ của bạn ✭✭✭',
+		'en' => '✭✭✭ Go to your profile ✭✭✭',
+		'ru' => '✭✭✭ Перейти в профиль ✭✭✭',
+		'es' => '✭✭✭ Ir a su perfil ✭✭✭',
+		'zh' => '✭✭✭ 转到您的个人资料 ✭✭✭',
+		'ja' => '✭✭✭ あなたのプロフィールに移動します ✭✭✭'
 	),
 	'colon' => array(
 		'vi' => ':',
@@ -1233,12 +1268,12 @@ $email_interfaces = array(
 		'ja' => 'SJw7lMuKipc'
 	),
 	'keyboard_shortcuts' => array(
-		'vi' => '<h6>Phím tắt:</h6><ul><li>S / G / K -> Hôm nay</li><li>A / F / J -> Trước<li>D / H / L -> Sau</li><li>W / T / I -> Sinh nhật</li><li>E / Y / O -> Nhịp sinh học phụ</li><li>R / U / P -> Thành ngữ</li><li>1 -> Tiếng Việt</li><li>2 -> Tiếng Anh</li><li>3 -> Tiếng Nga</li><li>4 -> Tiếng Tây Ban Nha</li><li>5 -> Tiếng Trung</li><li>6 -> Tiếng Nhật</li></ul>',
-		'en' => '<h6>Keyboard shortcuts:</h6><ul><li>S / G / K -> Today</li><li>A / F / J -> Back</li><li>D / H / L -> Forward</li><li>W / T / I -> Birthday</li><li>E / Y / O -> Secondary rhythm</li><li>R / U / P -> Proverb</li><li>1 -> Vietnamese</li><li>2 -> English</li><li>3 -> Russian</li><li>4 -> Spanish</li><li>5 -> Chinese</li><li>6 -> Japanese</li></ul>',
-		'ru' => '<h6>Горячие клавиши:</h6><ul><li>S / G / K -> Сегодня</li><li>A / F / J -> Назад</li><li>D / H / L -> Вперед</li><li>W / T / I -> День рождения</li><li>E / Y / O -> Вторичный ритм</li><li>R / U / P -> Пословица</li><li>1 -> Вьетнамский язык</li><li>2 -> Английский язык</li><li>3 -> Русский язык</li><li>4 -> Испанский язык</li><li>5 -> Китайский язык</li><li>6 -> Японский язык</li></ul>',
-		'es' => '<h6>Atajos de teclado:</h6><ul><li>S / G / K -> Hoy</li><li>A / F / J -> Atrás</li><li>D / H / L -> Enviar</li><li>W / T / I -> Cumpleaños</li><li>E / Y / O -> Ritmo secundaria</li><li>R / U / P -> Proverbio</li><li>1 -> Idioma vietnamita</li><li>2 -> Idioma Inglés</li><li>3 -> Idioma Ruso</li><li>4 -> Idioma Espanol</li><li>5 -> Idioma Chino</li><li>6 -> Idioma Japones</li></ul>',
-		'zh' => '<h6>快捷键：</h6><ul><li>S，G，K -> 今天</li><li>A，F，J -> 回去</li><li>D，H，L -> 前进</li><li>W，T，I -> 生辰</li><li>E，Y，O -> 次要节奏</li><li>R，U，P -> 谚语</li><li>1 -> 越南语</li><li>2 -> 英语</li><li>3 -> 俄语语言</li><li>4 -> 西班牙语</li><li>5 -> 中文</li><li>6 -> 日文</li></ul>',
-		'ja' => '<h6>キーボードショートカット：</h6><ul><li>S、G、K -> 今日</li><li>A、F、J -> 戻る</li><li>D、H、L -> 前進する</li><li>W、T、I -> バースデー</li><li>E、Y、O -> セカンダリリズム</li><li>R、U、P -> ことわざ</li><li>1 -> ベトナム語</li><li>2 -> 英語</li><li>3 -> ロシア語</li><li>4 -> スペイン語</li><li>5 -> チャン語</li><li>6 -> 日本語</li></ul>'
+		'vi' => '<h3>Phím tắt:</h3><ul><li>S / G / K -> Hôm nay</li><li>A / F / J -> Trước<li>D / H / L -> Sau</li><li>W / T / I -> Sinh nhật</li><li>E / Y / O -> Nhịp sinh học phụ</li><li>R / U / P -> Thành ngữ</li><li>1 -> Tiếng Việt</li><li>2 -> Tiếng Anh</li><li>3 -> Tiếng Nga</li><li>4 -> Tiếng Tây Ban Nha</li><li>5 -> Tiếng Trung</li><li>6 -> Tiếng Nhật</li></ul>',
+		'en' => '<h3>Keyboard shortcuts:</h3><ul><li>S / G / K -> Today</li><li>A / F / J -> Back</li><li>D / H / L -> Forward</li><li>W / T / I -> Birthday</li><li>E / Y / O -> Secondary rhythm</li><li>R / U / P -> Proverb</li><li>1 -> Vietnamese</li><li>2 -> English</li><li>3 -> Russian</li><li>4 -> Spanish</li><li>5 -> Chinese</li><li>6 -> Japanese</li></ul>',
+		'ru' => '<h3>Горячие клавиши:</h3><ul><li>S / G / K -> Сегодня</li><li>A / F / J -> Назад</li><li>D / H / L -> Вперед</li><li>W / T / I -> День рождения</li><li>E / Y / O -> Вторичный ритм</li><li>R / U / P -> Пословица</li><li>1 -> Вьетнамский язык</li><li>2 -> Английский язык</li><li>3 -> Русский язык</li><li>4 -> Испанский язык</li><li>5 -> Китайский язык</li><li>6 -> Японский язык</li></ul>',
+		'es' => '<h3>Atajos de teclado:</h3><ul><li>S / G / K -> Hoy</li><li>A / F / J -> Atrás</li><li>D / H / L -> Enviar</li><li>W / T / I -> Cumpleaños</li><li>E / Y / O -> Ritmo secundaria</li><li>R / U / P -> Proverbio</li><li>1 -> Idioma vietnamita</li><li>2 -> Idioma Inglés</li><li>3 -> Idioma Ruso</li><li>4 -> Idioma Espanol</li><li>5 -> Idioma Chino</li><li>6 -> Idioma Japones</li></ul>',
+		'zh' => '<h3>快捷键：</h3><ul><li>S，G，K -> 今天</li><li>A，F，J -> 回去</li><li>D，H，L -> 前进</li><li>W，T，I -> 生辰</li><li>E，Y，O -> 次要节奏</li><li>R，U，P -> 谚语</li><li>1 -> 越南语</li><li>2 -> 英语</li><li>3 -> 俄语语言</li><li>4 -> 西班牙语</li><li>5 -> 中文</li><li>6 -> 日文</li></ul>',
+		'ja' => '<h3>キーボードショートカット：</h3><ul><li>S、G、K -> 今日</li><li>A、F、J -> 戻る</li><li>D、H、L -> 前進する</li><li>W、T、I -> バースデー</li><li>E、Y、O -> セカンダリリズム</li><li>R、U、P -> ことわざ</li><li>1 -> ベトナム語</li><li>2 -> 英語</li><li>3 -> ロシア語</li><li>4 -> スペイン語</li><li>5 -> チャン語</li><li>6 -> 日本語</li></ul>'
 	),
 	'unsubscribe' => array(
 		'vi' => 'Hủy đăng ký',
@@ -1615,11 +1650,11 @@ $information_interfaces = array(
 			'bad' => 'Sức khỏe hiện tại của bạn khá kém, hãy nghỉ ngơi nhiều hơn, bạn đã hoạt động nhiều rồi, thời gian này nên dành để ngủ đông nhé. Sức đề kháng của bạn lúc này khá kém nên đây có thể là thời gian ủ bệnh.'
 		),
 		'en' => array(
-			'excellent' => 'Your current health is excellent, you should work out more.',
-			'good' => 'Your current health is quite good, you should work out with care.',
-			'critical' => 'Your current health is in critical period, you should be extremely careful.',
-			'gray' => 'Your current health is not good, take a little rest.',
-			'bad' => 'Your current health is bad, take more rest.'
+			'excellent' => 'Your current health is excellent, you should work out more, take part in sport events so as to make use of this full energy time. Your immune system at this time will be high so your illness will be discovered. But no worry, your body will have overcome it easily.',
+			'good' => 'Your current health is quite good, you should work out with care because your health has slightly decreased.',
+			'critical' => 'Your current health is in critical period, you should be extremely careful. It is because you are in an unstable state.',
+			'gray' => 'Your current health is not good, take a little rest because your physical state is quite low. You should save you energy for use in hyper states.',
+			'bad' => 'Your current health is bad, take more rest, you have worked out a lot, this time is for hibernation.'
 		),
 		'ru' => array(
 			'excellent' => 'Ваше текущее здоровье отличное, вы должны работать больше.',
@@ -1659,11 +1694,11 @@ $information_interfaces = array(
 			'bad' => 'Tâm trạng hiện tại của bạn khá tệ, bạn nên tránh các cuộc xung đột, cãi vã, vì lúc này điều đó rất dễ xảy ra. Bạn nên dành thời gian ở một mình, khoảng thời gian này sẽ qua mau thôi.'
 		),
 		'en' => array(
-			'excellent' => 'Your current mood is excellent, you meet more friends.',
-			'good' => 'Your current mood is quite good, you should meet some friends.',
-			'critical' => 'Your current mood is in critical period, you should pay more attention to your feelings.',
-			'gray' => 'Your current mood is not good, you are easily annoyed.',
-			'bad' => 'Your current mood is bad, avoid conflicts.'
+			'excellent' => 'Your current mood is excellent, you should meet more friends, spend time dating, go out with your beloved ones.',
+			'good' => 'Your current mood is quite good, you should meet some friends and avoid some arguments so as to have happy moments together.',
+			'critical' => 'Your current mood is in critical period, you should pay more attention to your feelings because this is the unstable state in your mood.',
+			'gray' => 'Your current mood is not good, you are easily annoyed. You should spend more time alone to calm your mood',
+			'bad' => 'Your current mood is bad, avoid conflicts as they will occur more. Spend time alone and hope that this time will not last long.'
 		),
 		'ru' => array(
 			'excellent' => 'Ваше текущее настроение отличное, вы встретите больше друзей.',
@@ -1703,7 +1738,7 @@ $information_interfaces = array(
 			'bad' => 'Trí tuệ hiện tại của bạn khá thiếu sáng suốt, bạn không nên đưa ra quyết định lớn. Nếu phải ra quyết định, bạn nhất định nên hỏi ý kiến người khác.'
 		),
 		'en' => array(
-			'excellent' => 'Your current intellect is excellent, you can make great decisions.',
+			'excellent' => 'Your current intellect is excellent, you can make great decisions, think logically and precisely.',
 			'good' => 'Your current intellect is quite good, you can make decisions with a little care.',
 			'critical' => 'Your current intellect is in critical period, you should pay extra attention to your thoughts, as it may lead to wrong decisions.',
 			'gray' => 'Your current intellect is not good, you should think twice before making decisions.',

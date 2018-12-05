@@ -23,4 +23,4 @@ include template('banner_matched_content');
 include template('comments');
 echo list_user_same_birthday_links('same-birthday-links');
 echo list_user_birthday_links('birthday-links');
-echo list_user_links('user-birthdates');
+//echo list_user_links('user-birthdates');

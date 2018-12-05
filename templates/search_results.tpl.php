@@ -1,6 +1,14 @@
+<?php
+$cx = "";
+if ($_SERVER['SERVER_NAME'] == $first_domain) {
+  $cx = 'partner-pub-3585118770961536:2840253393';
+} else if ($_SERVER['SERVER_NAME'] == $second_domain) {
+  $cx = 'partner-pub-3585118770961536:1884186953';
+}
+?>
 <script>
 (function() {
-	var cx = '015152688869813485872:xo4b7ahupae';
+	var cx = '<?php echo $cx; ?>';
 	var gcse = document.createElement('script');
 	gcse.type = 'text/javascript';
 	gcse.async = true;

@@ -32,7 +32,7 @@ function get_wiki_url(string $title): string {
 	return '/wiki/'.str_replace(' ', '_', $title);
 }
 function get_wiki_url_nsh(string $title): string {
-	return 'http://nhipsinhhoc.vn/wiki/'.str_replace(' ', '_', $title);
+	return 'http://'.$_SERVER['SERVER_NAME'].'/wiki/'.str_replace(' ', '_', $title);
 }
 function error($msg): void { //Show popup meesage
     echo '
@@ -69,7 +69,11 @@ function has_birthday(string $dob,string $time): bool {
 }
 function is_birthday(): bool {
 	global $dob;
-	return has_birthday($dob, time());
+	if (isset($_GET['date'])) {
+		return has_birthday($dob, strtotime($_GET['date']));
+	} else if (!isset($_GET['date'])) {
+		return has_birthday($dob, time());
+	}
 }
 function can_wish(): bool {
 	if (has_dob() && is_birthday()) {
@@ -837,8 +841,8 @@ function search_title(): string {
 function head_description(): string {
 	global $lang_code;
 	switch ($lang_code) {
-		case 'vi': return 'Biểu đồ nhịp sinh học hiển thị dự đoán Sức khỏe, Tình cảm, Trí tuệ của bạn'; break;
-		case 'en': return 'Biorhythm chart tells your physical, emotional, intellectual values'; break;
+		case 'vi': return 'Biểu đồ nhịp sinh học hiển thị dự đoán Sức khỏe, Tình cảm, Trí tuệ, Trực giác, Thẩm mỹ, Nhận thức và Tinh thần của bạn'; break;
+		case 'en': return 'Biorhythm chart tells your physical, emotional, intellectual, intuitive, aesthetic, awareness and spiritual values'; break;
 		case 'ru': return 'Биоритм диаграммы рассказывает ваш физические, эмоциональные, интеллектуальные ценности'; break;
 		case 'es': return 'Biorritmo carta le dice tu valores físicos, intelectuales y emocionales'; break;
 		case 'zh': return '生理节律图表告诉你的身体，情绪，智力值'; break;
@@ -1071,7 +1075,7 @@ function render_proverb_json(string $lang): void {
 }
 function list_proverbs(int $page=1,string $lang): string { //Return users list, for admin use
 	$output = "";
-	$count = 30;
+	$count = 10;
 	$proverbs_csv = new parseCSV();
 	$proverbs_csv->delimiter = '|';
 	$proverbs_csv->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/proverbs/'.$lang.'.csv');
@@ -1119,6 +1123,7 @@ function render_country_json(): void {
 	global $time_zone;
 	init_timezone();
 	$json_array = array(
+//		'country' => $geoip_record->country->isoCode,
 		'country' => $geoip_record->country_code,
 		'utc_offset' => $time_zone,
 		'timezone' => date_default_timezone_get()
@@ -1615,19 +1620,44 @@ function load_news_feed(string $keyword=""): void {
 	}
 	echo $result;
 }
-function curl_get_contents($url): string {
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-  $data = curl_exec($ch);
-  curl_close($ch);
-  return $data;
+function curl_get_contents(string $url,string $api = ""): string {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  if ($api != "") {
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: ' . $api
+  ));
+  }
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
 }
-function render_photo_of_the_day(): void {
-  $nasa_api = 'SqccgSap9C0luAWhNxIYYQOourgnZiR60MD721ho';
+function render_pexels_photo_of_the_day(): void {
+  $api = '563492ad6f917000010000010a63acd1b2194f1e8676a5cb4fff63b6';
+  $url = 'https://api.pexels.com/v1/search?query=nature&per_page=1&page=1';
+  //$nasa_json = file_get_contents($nasa_url);
+  $json = curl_get_contents($url,$api);
+  $array = json_decode($json, true);
+  //echo '<pre>';
+  //print_r($bing_array);
+  //echo '</pre>';
+  $photo_url = $array['photos'][0]['src']['landscape'];
+  echo '
+<style>
+body:not(.birthday) {
+  background: url("'.$photo_url.'") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>
+  ';
+}
+function render_nasa_photo_of_the_day(): void {
+	$nasa_api = 'SqccgSap9C0luAWhNxIYYQOourgnZiR60MD721ho';
 	$nasa_url = 'https://api.nasa.gov/planetary/apod?api_key='.$nasa_api;
   //$nasa_json = file_get_contents($nasa_url);
 	$nasa_json = curl_get_contents($nasa_url);
@@ -1640,6 +1670,112 @@ function render_photo_of_the_day(): void {
 <style>
 body:not(.birthday) {
 	background: url("'.$nasa_photo_url.'") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
+	';
+}
+function render_yahoo_photo_of_the_day(): void {
+  $f = new phpFlickr("d6278a068212210f61f04eb279896b0e");
+  $recent = $f->photos_getRecent();
+  //echo '<pre>';
+  //print_r($recent);
+  //echo '</pre>';
+  $photo = $recent['photos']['photo'][0];
+  $photo_url = "https://www.flickr.com/photos/" . $photo['owner'] . "/" . $photo['id'] . "/";
+  echo '
+<style>
+body:not(.birthday) {
+  background: url("'.$photo_url.'") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>
+  ';
+}
+function render_bing_photo_of_the_day(): void {
+  $bing = new grubersjoe\BingPhoto([
+    'locale' => 'vi-VN',
+    'quality' => grubersjoe\BingPhoto::QUALITY_LOW,
+  ]);
+	//$bing_url = 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US';
+	//$bing_json = curl_get_contents($bing_url);
+	//$bing_array = json_decode($bing_json, true);
+	//echo '<pre>';
+	//print_r($bing_array);
+	//echo '</pre>';
+	$bing_photo_url = $bing->getImage()['url'];
+	echo '
+<style>
+body:not(.birthday) {
+	background: url("'.$bing_photo_url.'") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
+	';
+}
+function render_unsplash_photo_of_the_day(): void {
+	$access_key = '50dd24725488cc55e1a1fce60fde17b5f3e282b1aae827cc3cda4586efec8f81';
+	$url = 'https://api.unsplash.com/photos/random?featured=true&client_id='.$access_key.'&orientation=landscape';
+	$json = curl_get_contents($url);
+	$array = json_decode($json, true);
+	//echo '<pre>';
+	//print_r($array);
+	//echo '</pre>';
+	$photo_url = $array['urls']['small'];
+	$photo_credit = $array['user']['name'];
+	$photo_credit_url = $array['user']['links']['html'];
+	echo '
+<style>
+body:not(.birthday) {
+	background: url("'.$photo_url.'") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#photo_credit {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: rgba(24, 24, 24, 0.84);
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: pre;
+  z-index: 0;
+  pointer-events: all;
+  background-color: rgba(240,240,240,0.84);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+</style>
+<a id="photo_credit" href="'.$photo_credit_url.'?utm_source=Nhip Sinh Hoc . VN&utm_medium=referral" target="_blank">Credit: '.$photo_credit.' - Unsplash Profile: '.$photo_credit_url.'</a>';
+}
+function render_natgeo_photo_of_the_day(): void {
+	$url = 'http://www.nationalgeographic.com/photography/photo-of-the-day/_jcr_content/.gallery.json';
+  //$nasa_json = file_get_contents($nasa_url);
+	$result = curl_get_contents($url);
+	$obj = json_decode($result);
+
+	$item = $obj->items[0];
+	$parts = (array) $item->sizes;
+	ksort($parts, SORT_NUMERIC);
+	$part = end(array_values($parts));
+
+	$photo_url = $item->url.$part;
+	echo '
+<style>
+body:not(.birthday) {
+	background: url("'.$photo_url.'") no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -1896,10 +2032,10 @@ function bulk_sql_members(string $db_sql): void {
 	}
 }
 function generate_message_id(): string {
-	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),"nhipsinhhoc.vn");
+	return sprintf("<%s.%s@%s>",base_convert(microtime(), 10, 36),base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36),$_SERVER['SERVER_NAME']);
 }
 function send_mail(string $to,string $subject,array $message): void {
-	global $lang_code, $span_interfaces, $email_credentials;
+	global $lang_code, $span_interfaces, $email_credentials, $brand;
 //	$unsubscriber_emails = array();
 //	$unsubscribers = new parseCSV();
 //	$unsubscribers->parse(realpath($_SERVER['DOCUMENT_ROOT']).'/member/unsubscribers_list.csv');
@@ -1912,17 +2048,17 @@ function send_mail(string $to,string $subject,array $message): void {
 		$fullname = taken_email($to) ? load_member_from_email($to)['fullname']: "";
 		$boundary = uniqid('np');
 		$headers = "";
-		$headers .= "Organization: \"Nhip Sinh Hoc . VN\"".PHP_EOL;
+		$headers .= "Organization: \"".$brand."\"".PHP_EOL;
 		$headers  = "MIME-Version: 1.0".PHP_EOL;
 		$headers .= "X-Priority: 1 (Highest)".PHP_EOL;
 		$headers .= "Importance: High".PHP_EOL;
 		$headers .= "X-Mailer: PHP/". phpversion().PHP_EOL;
 		$headers .= "Content-Transfer-Encoding: 8bit".PHP_EOL;
-		$headers .= "From: \"Nhip Sinh Hoc . VN\" <noreply@nhipsinhhoc.vn>".PHP_EOL;
-		$headers .= "Sender: <noreply@nhipsinhhoc.vn>".PHP_EOL;
-		$headers .= "Reply-To: \"Nhip Sinh Hoc . VN\" <admin@nhipsinhhoc.vn>".PHP_EOL;
-		$headers .= "Return-Path: \"Nhip Sinh Hoc . VN\" <admin@nhipsinhhoc.vn>".PHP_EOL;
-		$headers .= "List-Unsubscribe: <mailto:admin@nhipsinhhoc.vn?subject=Unsubscribe me out of Nhip Sinh Hoc . VN mailing list&body=Please unsubscribe my email&cc=tung.42@gmail.com>".PHP_EOL;
+		$headers .= "From: \"".$brand."\" <noreply@".$_SERVER['SERVER_NAME'].">".PHP_EOL;
+		$headers .= "Sender: <noreply@".$_SERVER['SERVER_NAME'].">".PHP_EOL;
+		$headers .= "Reply-To: \"".$brand."\" <admin@nhipsinhhoc.vn>".PHP_EOL;
+		$headers .= "Return-Path: \"".$brand."\" <admin@nhipsinhhoc.vn>".PHP_EOL;
+		$headers .= "List-Unsubscribe: <mailto:admin@nhipsinhhoc.vn?subject=Unsubscribe me out of ".$brand." mailing list&body=Please unsubscribe my email&cc=tung.42@gmail.com>".PHP_EOL;
 		$headers .= "Content-Type: multipart/alternative;boundary=".$boundary.PHP_EOL;
 		//here is the content body
 		$body = "This is a MIME encoded message.".PHP_EOL;
@@ -1939,7 +2075,7 @@ function send_mail(string $to,string $subject,array $message): void {
 //	}
 }
 function email_message(string $heading,string $content): array {
-	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="width=device-width"/></head><body style="padding: 0px; margin: 0px; width: 100%; min-width: 100%"> <table class="body" style="color: #222222;background-image: url(\'http://nhipsinhhoc.vn/css/images/coin.png\'); min-height: 420px;border: none; border-spacing: 0px; position: relative; height: 100%;width: 100%; top: 0px; left: 0px; margin: 0px;"> <tr style="padding: 0px; margin: 0px;text-align: center; width: 100%;"> <td style="padding: 0px; margin: 0px;text-align: center; width: 100%;" align="center" valign="top"> <center> <table style="height: 100px;padding: 0px;width: 100%;position: relative;background: #007799;" class="row header"> <tr> <td style="text-align: center;" align="center"> <center> <table style="margin: 0 auto;text-align: inherit;width: 95% !important;" class="container"> <tr> <td style="padding: 10px 20px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 95%;" class="twelve columns"> <tr> <td style="padding: 8px;" class="six sub-columns"> <a target="_blank" href="http://nhipsinhhoc.vn/"><img alt="logo" src="http://nhipsinhhoc.vn/app-icons/icon-60.png"> </a> </td><td class="six sub-columns last" style="text-align:left; vertical-align:middle;padding-right: 0px; color: white; width: 90%"> <span class="template-label"><a style="font-size: 24px;color: white; text-decoration: none;" target="_blank" href="http://nhipsinhhoc.vn/">'.$heading.'</a></span> </td><td class="expander"></td></tr></table> </td></tr></table> </center> </td></tr></table> <table class="container"> <tr> <td> <table class="row"> <tr> <td style="padding: 10px 10px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 80%;font-size:16px;margin: auto;" class="twelve columns"> <tr> <td> '.$content.' </td><td class="expander"></td></tr></table> </td></tr></table> </td></tr></table> </center> </td></tr></table></body></html>';
+	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="width=device-width"/></head><body style="padding: 0px; margin: 0px; width: 100%; min-width: 100%"> <table class="body" style="color: #222222;background-image: url(\'https://'.$_SERVER['SERVER_NAME'].'/css/images/coin.png\'); min-height: 420px;border: none; border-spacing: 0px; position: relative; height: 100%;width: 100%; top: 0px; left: 0px; margin: 0px;"> <tr style="padding: 0px; margin: 0px;text-align: center; width: 100%;"> <td style="padding: 0px; margin: 0px;text-align: center; width: 100%;" align="center" valign="top"> <center> <table style="height: 100px;padding: 0px;width: 100%;position: relative;background: #007799;" class="row header"> <tr> <td style="text-align: center;" align="center"> <center> <table style="margin: 0 auto;text-align: inherit;width: 95% !important;" class="container"> <tr> <td style="padding: 10px 20px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 95%;" class="twelve columns"> <tr> <td style="padding: 8px;" class="six sub-columns"> <a target="_blank" href="https://'.$_SERVER['SERVER_NAME'].'/"><img alt="logo" src="https://'.$_SERVER['SERVER_NAME'].'/app-icons/icon-60.png"> </a> </td><td class="six sub-columns last" style="text-align:left; vertical-align:middle;padding-right: 0px; color: white; width: 90%"> <span class="template-label"><a style="font-size: 24px;color: white; text-decoration: none;" target="_blank" href="https://'.$_SERVER['SERVER_NAME'].'/">'.$heading.'</a></span> </td><td class="expander"></td></tr></table> </td></tr></table> </center> </td></tr></table> <table class="container"> <tr> <td> <table class="row"> <tr> <td style="padding: 10px 10px 0px 0px;position: relative;display: block !important;padding-right: 0 !important;" class="wrapper last"> <table style="width: 80%;font-size:16px;margin: auto;" class="twelve columns"> <tr> <td> '.$content.' </td><td class="expander"></td></tr></table> </td></tr></table> </td></tr></table> </center> </td></tr></table></body></html>';
 	return array(
 		'html' => $message,
 		'plain' => strip_tags($content)
@@ -1953,7 +2089,7 @@ function email_create_member(string $email,string $fullname,string $password,str
 	$proverb = generate_proverb($lang_code);
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
 	$member = load_member_from_email($email);
-//	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
+//	$feed_email = rss_feed_email('https://'.$_SERVER['SERVER_NAME'].'/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 //	$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
@@ -1965,7 +2101,7 @@ function email_create_member(string $email,string $fullname,string $password,str
 	$content .= '<li>'.$input_interfaces['dob'][$lang_code].': '.$dob.'</li>';
 	$content .= '<li>'.$input_interfaces['password'][$lang_code].': '.$hidden_password.'</li>';
 	$content .= '</ul>';
-	$content .= '<p><a href="http://nhipsinhhoc.vn/member/'.$email.'/">'.$email_interfaces['go_to_your_profile'][$lang_code].'</a></p>';
+	$content .= '<p><a href="https://'.$_SERVER['SERVER_NAME'].'/member/'.$email.'/">'.$email_interfaces['go_to_your_profile'][$lang_code].'</a></p>';
 	$content .= '<p><a href="https://www.youtube.com/watch?v='.$email_interfaces['instruction_video_youtube_id'][$lang_code].'">'.$email_interfaces['instruction_video_text'][$lang_code].'</a></p>';
 	$content .= '<p>'.$email_interfaces['regards'][$lang_code].'</p>';
 	$content .= '<p>'.$span_interfaces['pham_tung'][$lang_code].'</p>';
@@ -1973,7 +2109,7 @@ function email_create_member(string $email,string $fullname,string $password,str
 //		$content .= $feed_email;
 		$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 	}
-	$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
+	$content .= '<h4><a href="https://'.$_SERVER['SERVER_NAME'].'/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
 	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="'.get_wiki_url_nsh($proverb['author']).'">'.$proverb['author'].'</a></em>';
 	$content .= '<p><em>'.$email_interfaces['definition'][$lang_code].'</em></p>';
 	$content .= '<p>'.$span_interfaces['for_reference_only'][$lang_code].'</p>';
@@ -1981,7 +2117,7 @@ function email_create_member(string $email,string $fullname,string $password,str
 	$content .= '<p>'.$email_interfaces['not_mark_as_spam'][$lang_code].'</p>';
 //	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';
 //	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
-	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
+	$content .= '<a href="https://'.$_SERVER['SERVER_NAME'].'/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['create_user_thank'][$lang_code],$message);
@@ -1994,7 +2130,7 @@ function email_edit_member($email,$fullname,$password,$dob): void {
 	$proverb = generate_proverb($lang_code);
 	$path = realpath($_SERVER['DOCUMENT_ROOT']).'/member/';
 	$member = load_member_from_email($email);
-//	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
+//	$feed_email = rss_feed_email('https://'.$_SERVER['SERVER_NAME'].'/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	$content = "";
 	$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 //	$content .= '<a href="https://bitminer.io/2537977" target="_blank"><img src="https://bitminer.io/s/bitminer_4.gif" alt="BitMiner - free and simple next generation Bitcoin mining software" /></a>';
@@ -2006,7 +2142,7 @@ function email_edit_member($email,$fullname,$password,$dob): void {
 	$content .= '<li>'.$input_interfaces['dob'][$lang_code].': '.$dob.'</li>';
 	$content .= '<li>'.$input_interfaces['password'][$lang_code].': '.($password == $email_interfaces['not_changed'][$lang_code] ? $email_interfaces['not_changed'][$lang_code] : $hidden_password).'</li>';
 	$content .= '</ul>';
-	$content .= '<p><a href="http://nhipsinhhoc.vn/member/'.$email.'/">'.$email_interfaces['go_to_your_profile'][$lang_code].'</a></p>';
+	$content .= '<p><a href="https://'.$_SERVER['SERVER_NAME'].'/member/'.$email.'/">'.$email_interfaces['go_to_your_profile'][$lang_code].'</a></p>';
 	$content .= '<p><a href="https://www.youtube.com/watch?v='.$email_interfaces['instruction_video_youtube_id'][$lang_code].'">'.$email_interfaces['instruction_video_text'][$lang_code].'</a></p>';
 	$content .= '<p>'.$email_interfaces['regards'][$lang_code].'</p>';
 	$content .= '<p>'.$span_interfaces['pham_tung'][$lang_code].'</p>';
@@ -2014,7 +2150,7 @@ function email_edit_member($email,$fullname,$password,$dob): void {
 //		$content .= $feed_email;
 		$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 	}
-	$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
+	$content .= '<h4><a href="https://'.$_SERVER['SERVER_NAME'].'/donate/?lang='.$lang_code.'">'.$span_interfaces['donate'][$lang_code].'</a> '.$span_interfaces['donate_reason'][$lang_code].'</h4>';
 	$content .= '<p><em>"'.$proverb['content'].'"</em></p><em><a href="'.get_wiki_url_nsh($proverb['author']).'">'.$proverb['author'].'</a></em>';
 	$content .= '<p><em>'.$email_interfaces['definition'][$lang_code].'</em></p>';
 	$content .= '<p>'.$span_interfaces['for_reference_only'][$lang_code].'</p>';
@@ -2026,7 +2162,7 @@ function email_edit_member($email,$fullname,$password,$dob): void {
 //	}
 //	$content .= '<p><a href="mailto:admin@nhipsinhhoc.vn?subject='.$email_interfaces['unsubscribe'][$lang_code].'&body='.$email_interfaces['unsubscribe'][$lang_code].' '.$email.'&cc=tung.42@gmail.com">'.$email_interfaces['unsubscribe'][$lang_code].'</a></p>';	
 //	$content .= '<form method="POST" action="https://nhipsinhhoc.vn/unsubscribe/"><input type="hidden" name="email" value="'.$email.'" /><input type="submit" name="unsubscribe_submit" value="'.$email_interfaces['unsubscribe'][$lang_code].'" /></form>';
-	$content .= '<a href="https://nhipsinhhoc.vn/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
+	$content .= '<a href="https://'.$_SERVER['SERVER_NAME'].'/unsubscribe/?email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['unsubscribe'][$lang_code].'</a>';
 	$message = email_message($heading, $content);
 	send_mail($email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
 	send_mail($my_email,$email_interfaces['hi'][$lang_code].' '.$fullname.', '.$email_interfaces['edit_user_notify'][$lang_code],$message);
@@ -2097,8 +2233,8 @@ function email_forgot_password($email): void {
 		$content = "";
 		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].' '.$fullname.' (<a style="text-decoration: none; font-size: 25px; color: green;" href="'.get_wiki_url_nsh($fullname).'">WIKI</a>)</h1>';
 		$content .= '<p>'.$email_interfaces['reset_password_notify'][$lang_code].'</p>';
-//		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
-		$content .= '<a href="https://nhipsinhhoc.vn/reset_password/?forgot_password_email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['reset_password'][$lang_code].'</a>';
+//		$content .= '<form method="POST" action="https://'.$_SERVER['SERVER_NAME'].'/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
+		$content .= '<a href="https://'.$_SERVER['SERVER_NAME'].'/reset_password/?forgot_password_email='.$email.'&token='.hash_token($email).'">'.$email_interfaces['reset_password'][$lang_code].'</a>';
 		$message = email_message($heading, $content);
 		send_mail($email,$email_interfaces['reset_password'][$lang_code],$message);
 		send_mail($my_email,$email_interfaces['reset_password'][$lang_code],$message);
@@ -2112,8 +2248,8 @@ function email_forgot_password_alert($email): void {
 		$content = "";
 		$content .= '<h1>'.$email_interfaces['hi'][$lang_code].'</h1>';
 		$content .= '<p>'.$email_interfaces['forgot_password_alert'][$lang_code].'</p>';
-//		$content .= '<form method="POST" action="https://nhipsinhhoc.vn/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
-		$content .= '<a href="https://nhipsinhhoc.vn/member/register/">'.$email_interfaces['register'][$lang_code].'</a>';
+//		$content .= '<form method="POST" action="https://'.$_SERVER['SERVER_NAME'].'/reset_password/"><input type="hidden" name="forgot_password_email" value="'.$email.'" /><input type="submit" name="forgot_password_submit" value="'.$email_interfaces['reset_password'][$lang_code].'" /></form>';
+		$content .= '<a href="https://'.$_SERVER['SERVER_NAME'].'/member/register/">'.$email_interfaces['register'][$lang_code].'</a>';
 		$message = email_message($heading, $content);
 		send_mail($email,$email_interfaces['forgot_password_alert_title'][$lang_code],$message);
 		send_mail($my_email,$email_interfaces['forgot_password_alert_title'][$lang_code],$message);
@@ -2156,7 +2292,7 @@ function email_daily_suggestion(): void {
 		$members[$m] = load_member_from_email($emails[$m]);
 	}
 	usort($members,'sort_date_member_ascend');
-//	$feed_email = rss_feed_email('http://nhipsinhhoc.vn/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
+//	$feed_email = rss_feed_email('https://'.$_SERVER['SERVER_NAME'].'/blog/feed/?cat=3%2C81',$span_interfaces['latest_posts']['vi'],'feed_blog');
 	for ($i = 0; $i < $count; ++$i) {
 		$member_chart = new Chart($members[$i]['dob'],0,0,date('Y-m-d'),$members[$i]['dob'],$members[$i]['lang']);
 		$heading = "";
@@ -2170,14 +2306,14 @@ function email_daily_suggestion(): void {
 		}
 		$proverb = generate_proverb($members[$i]['lang']);
 		$content = "";
-		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("http://nhipsinhhoc.vn/css/images/gifts_mobile.png") !important;}</style>' : "";
+		$content .= (has_birthday($members[$i]['dob'], time())) ? '<style>body {background-image: url("https://'.$_SERVER['SERVER_NAME'].'/css/images/gifts_mobile.png") !important;}</style>' : "";
 		$content .= '<h1>'.((has_birthday($members[$i]['dob'], time())) ? $email_interfaces['happy_birthday'][$members[$i]['lang']] : $email_interfaces['hi'][$members[$i]['lang']]).' '.$members[$i]['fullname'].'</h1>';
 		$content .= '<p class="lead">'.$email_interfaces['daily_suggestion'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor().'</p>';
 		$content .= '<p>'.$member_chart->get_birthday_countdown().'</p>';
 		$content .= '<p class="lead">'.$email_interfaces['daily_values'][$members[$i]['lang']].$email_interfaces['colon'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$member_chart->get_infor_values().'</p>';
-		$content .= '<p><a href="http://nhipsinhhoc.vn/member/'.$members[$i]['email'].'/">'.$email_interfaces['go_to_your_profile'][$members[$i]['lang']].'</a></p>';
+		$content .= '<p><a href="https://'.$_SERVER['SERVER_NAME'].'/member/'.$members[$i]['email'].'/">'.$email_interfaces['go_to_your_profile'][$members[$i]['lang']].'</a></p>';
 		$content .= '<p><a href="https://www.youtube.com/watch?v='.$email_interfaces['instruction_video_youtube_id'][$members[$i]['lang']].'">'.$email_interfaces['instruction_video_text'][$members[$i]['lang']].'</a></p>';
 		$content .= '<p>'.$email_interfaces['regards'][$members[$i]['lang']].'</p>';
 		$content .= '<p>'.$span_interfaces['pham_tung'][$members[$i]['lang']].'</p>';
@@ -2185,7 +2321,7 @@ function email_daily_suggestion(): void {
 //			$content .= $feed_email;
 			$content .= '<a target="_blank" href="https://docs.google.com/forms/d/1iMLcQNKnDoHyqMaS-uQo9ocvZawhc2JUPUtjcz1WR4E/viewform">Link Góp ý</a>';
 		}
-		$content .= '<h4><a href="http://nhipsinhhoc.vn/donate/?lang='.$members[$i]['lang'].'">'.$span_interfaces['donate'][$members[$i]['lang']].'</a> '.$span_interfaces['donate_reason'][$members[$i]['lang']].'</h4>';
+		$content .= '<h4><a href="https://'.$_SERVER['SERVER_NAME'].'/donate/?lang='.$members[$i]['lang'].'">'.$span_interfaces['donate'][$members[$i]['lang']].'</a> '.$span_interfaces['donate_reason'][$members[$i]['lang']].'</h4>';
 		$content .= '<p><em>"'.$proverb['content'].'"</em></p><em>'.$proverb['author'].'</em>';
 		$content .= '<p><em>'.$email_interfaces['definition'][$members[$i]['lang']].'</em></p>';
 		$content .= '<p>'.$span_interfaces['for_reference_only'][$members[$i]['lang']].'</p>';

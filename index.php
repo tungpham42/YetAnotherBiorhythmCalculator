@@ -3,10 +3,11 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 $basepath = realpath($_SERVER['DOCUMENT_ROOT']);
 $template_path = $basepath.'/templates/';
+require $basepath.'/includes/template.inc.php';
+include template('cdn_alert');
 //require $basepath.'/includes/redirect.inc.php';
 //require $basepath.'/includes/header.inc.php';
 require $basepath.'/includes/init.inc.php';
-require $basepath.'/includes/template.inc.php';
 //include $basepath.'/includes/compressor.inc.php';
 ?>
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ else:
 	include template('google_analytics');
 endif;
 include template('adsense_top');
-include template('fb_pixel');
+//include template('fb_pixel');
 if ($hotjar):
 	include template('hotjar');
 endif;
@@ -31,6 +32,7 @@ endif;
 </head>
 <body lang="<?php echo $lang_code; ?>" class="<?php echo $body_class.(has_one_lang() ? ' one_lang': ''); ?>">
 <?php
+include template('hack_seo');
 if (!isset($_GET['p']) || $_GET['p'] == 'home'):
 	include template('sitelinks_searchbox');
 endif;
@@ -42,6 +44,7 @@ endif;
 if (isset($_SESSION['loggedin'])):
 	include template('toolbar');
 endif;
+//include template('highlight');
 //if (!is_birthday() && $show_ad):
 //	include template('adsense_top');
 //endif;
@@ -60,7 +63,6 @@ include template('header');
 		<div id="content">
 <?php
 include template('router');
-include template('highlight');
 ?>
 		</div>
 	</main>
@@ -98,7 +100,7 @@ if ($clicktale):
 endif;
 include template('adsense_bottom');
 include template('scripts_bottom');
-include template('track');
+//include template('track');
 include template('interstitial_geniee');
 //if (is_birthday()):
 //	include template('presents');
