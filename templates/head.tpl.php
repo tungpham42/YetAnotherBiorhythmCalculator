@@ -11,8 +11,8 @@
 <meta property="og:title" content="<?php echo $head_title; ?>">
 <meta property="og:description" content="<?php echo $head_description; ?>">
 <meta property="og:image" content="<?php echo $cdn_url.'/img/img_desc_'.((has_dob() && is_birthday()) ? 'birthday': 'logo').'.png'; ?>">
-<meta property="og:image:width" content="200" />
-<meta property="og:image:height" content="200" />
+<meta property="og:image:width" content="160" />
+<meta property="og:image:height" content="160" />
 <meta property="fb:app_id" content="1244495622232184"/>
 <meta property="fb:admins" content="100010723810556"/>
 <meta name="p:domain_verify" content="b30465bfdebc3906bbca8efaeda20ddf"/>
@@ -50,7 +50,7 @@ include template('fonts');
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/jquery.datepicker.lunar.css" />
 -->
-<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=25" />
+<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/default.css?v=38" />
 <!--<link rel="stylesheet" href="<?php echo $cdn_url; ?>/css/tautocomplete.css" />-->
 <?php
 //render_unsplash_photo_of_the_day();

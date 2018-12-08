@@ -245,7 +245,7 @@ $button_interfaces = array(
 		'ru' => 'Удалить',
 		'es' => 'Quitar',
 		'zh' => '拆除',
-		'ja' => '削除します'
+		'ja' => '除く'
 	),
 	'today' => array(
 		'vi' => ' Hôm nay',

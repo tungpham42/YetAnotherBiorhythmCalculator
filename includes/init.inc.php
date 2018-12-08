@@ -7,7 +7,11 @@ require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/database.inc.php';
 require realpath($_SERVER['DOCUMENT_ROOT']).'/includes/functions.inc.php';
 init_timezone();
 /* Auth */
-session_name('NSH');
+if ($_SERVER['SERVER_NAME'] == 'nhipsinhhoc.vn') {
+	session_name('NSH');
+} else if ($_SERVER['SERVER_NAME'] == 'biorhythm.xyz') {
+	session_name('BIO');
+}
 if (!session_id()) session_start();
 if (!isset($_SESSION['loggedin'])) {
 	$_SESSION['loggedin'] = null;

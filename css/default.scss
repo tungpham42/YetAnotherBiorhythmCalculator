@@ -8949,6 +8949,10 @@ body {
       box-sizing: content-box;
     }
   }
+  .jssocials-share {
+    width: 16% !important;
+    margin: 0 !important;
+  }
   ::-webkit-scrollbar {
     display: none !important;
   }
@@ -8965,14 +8969,21 @@ body {
   #stats textarea#embed_box {
     width: calc(100vw - 32px);
   }
-  #dt_change_label, #partner_dob_label, #dt_change, #partner_dob {
+  #dt_change_label, #partner_dob_label, #dt_change, #partner_dob, body.member #profile_form span.add-on, body.member.register span.add-on, body.member.login span.add-on, #register_form .add-on {
     width: calc(50vw - 24px);
   }
-  #dob_form, #clock, #help, #news, #info, #stats, #link_ads, #sleep_time, #adsense_feed, #compatibility, #controls, #lunar, #wiki, .rss_feed {
+  #dob_form, #clock, #help, #news, #info, #stats, #link_ads, #sleep_time, #adsense_feed, #compatibility, #controls, #lunar, #wiki, .rss_feed, #avatar, #profile_form {
     width: calc(100vw - 18px) !important;
   }
-  .clock_local {
-    margin: 0 calc(50vw - 132px) !important;
+  #main_chart, #explanation_chart {
+    width: calc(100vw - 8px) !important;
+  }
+  #clock {
+    height: calc(100vw - 18px) !important;
+    .clock_local {
+      height: calc(100vw - 24px) !important;
+      width: calc(100vw - 24px) !important;
+    }
   }
   #name_toggle {
     width: 41vw;
@@ -8993,16 +9004,30 @@ body {
       padding-right: 1.4vw;
     }
   }
-  body {
+  body.member {
+    #fullname, #dob {
+      width: 43vw !important;
+    }
+    #profile_form input.m-wrap, &.register input.m-wrap, &.login input.m-wrap {
+      width: calc(50vw - 8px);
+    }
+    #profile_form input[type='submit'], #profile_form #member_logout, &.register input[type='submit'], &.login input[type='submit'], form#profile_form, &.register form#register_form, &.login form#login_form, #member_login, #member_register {
+      width: calc(100vw - 8px);
+    }
+  }
+  body, body.member, body.member.person {
     &:lang(vi) {
       #home_page {
         width: 34vw;
       }
-      #dob_erase {
+      #dob_erase, #dob_remove {
         width: 23vw;
       }
-      #dob_submit {
+      #dob_submit, #dob_create, #dob_edit {
         width: 21vw;
+      }
+      #dob_list {
+        width: 33vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 2.7vw;
@@ -9013,11 +9038,14 @@ body {
       #home_page {
         width: 23vw;
       }
-      #dob_erase {
+      #dob_erase, #dob_remove {
         width: 22vw;
       }
-      #dob_submit {
+      #dob_submit, #dob_create, #dob_edit {
         width: 18vw;
+      }
+      #dob_list {
+        width: 21vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 5.2vw;
@@ -9028,11 +9056,14 @@ body {
       #home_page {
         width: 20vw;
       }
-      #dob_erase {
+      #dob_erase, #dob_remove {
         width: 25vw;
       }
-      #dob_submit {
+      #dob_submit, #dob_create, #dob_edit {
         width: 22vw;
+      }
+      #dob_list {
+        width: 19vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 4.6vw;
@@ -9043,11 +9074,14 @@ body {
       #home_page {
         width: 20vw;
       }
-      #dob_erase {
+      #dob_erase, #dob_remove {
         width: 22vw;
       }
-      #dob_submit {
+      #dob_submit, #dob_create, #dob_edit {
         width: 22vw;
+      }
+      #dob_list {
+       width: 18vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 5.1vw;
@@ -9058,11 +9092,14 @@ body {
       #home_page {
         width: 19vw;
       }
-      #dob_erase {
-        width: 19vw;
+      #dob_erase, #dob_remove {
+        width: 18vw;
       }
-      #dob_submit {
+      #dob_submit, #dob_create, #dob_edit {
         width: 15vw;
+      }
+      #dob_list {
+        width: 18vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 7vw;
@@ -9073,11 +9110,14 @@ body {
       #home_page {
         width: 24vw;
       }
-      #dob_erase {
+      #dob_erase, #dob_remove {
+        width: 18vw;
+      }
+      #dob_submit, #dob_create, #dob_edit {
         width: 19vw;
       }
-      #dob_submit {
-        width: 19vw;
+      #dob_list {
+        width: 23vw;
       }
       #dob_control_bar > .m-btn {
         padding-left: 5.5vw;
@@ -9092,11 +9132,11 @@ body {
         width: 21vw;
       }
       #next {
-        width: 18vw;
+        width: 16vw;
       }
       .m-btn {
-        padding-left: 4.6vw;
-        padding-right: 4.6vw;
+        padding-left: 4.8vw;
+        padding-right: 4.7vw;
       }
     }
     &:lang(en) #controls > .m-btn-group > {
@@ -9107,7 +9147,7 @@ body {
         width: 22vw;
       }
       #next {
-        width: 28vw;
+        width: 27vw;
       }
       .m-btn {
         padding-left: 4.4vw;
@@ -9122,11 +9162,11 @@ body {
         width: 24vw;
       }
       #next {
-        width: 28vw;
+        width: 24vw;
       }
       .m-btn {
         padding-left: 3.3vw;
-        padding-right: 3.3vw;
+        padding-right: 3.2vw;
       }
     }
     &:lang(es) #controls > .m-btn-group > {
@@ -9137,7 +9177,7 @@ body {
         width: 21vw;
       }
       #next {
-        width: 22vw;
+        width: 21vw;
       }
       .m-btn {
         padding-left: 5.7vw;
@@ -9152,10 +9192,10 @@ body {
         width: 18vw;
       }
       #next {
-        width: 18vw;
+        width: 17vw;
       }
       .m-btn {
-        padding-left: 7vw;
+        padding-left: 7.1vw;
         padding-right: 7.1vw;
       }
     }
@@ -9167,11 +9207,11 @@ body {
         width: 18vw;
       }
       #next {
-        width: 27vw;
+        width: 25vw;
       }
       .m-btn {
-        padding-left: 5.4vw;
-        padding-right: 5.5vw;
+        padding-left: 5.6vw;
+        padding-right: 5.6vw;
       }
     }
   }
